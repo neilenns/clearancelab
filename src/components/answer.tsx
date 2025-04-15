@@ -12,7 +12,7 @@ import {
 import "@/styles/answer.css"; // Import the CSS file
 import FlightPlanProblems from "./flightPlanProblems";
 import Craft from "./craft";
-import Conversation from "./conversation/conversation";
+import Conversation from "./conversation";
 
 interface AnswerProps {
   plan: FlightPlan;
