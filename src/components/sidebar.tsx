@@ -1,26 +1,32 @@
 import React from "react";
-import "@/styles/layout.css";
+import "@/styles/sidebar.css";
 import FlightPlanItem from "@/components/flightPlanItem";
-import flightPlansData from "@/data/flightPlans.json" assert { type: "json" };
 import { normalizeFlightPlan } from "@/lib/flightPlanUtils";
 import { FlightPlan } from "@/interfaces/flightPlan";
 
 interface SidebarProps {
+  plans: FlightPlan[];
+  selectedFlightPlan: FlightPlan | null;
   onSelect: (plan: FlightPlan) => void;
 }
 
-export default function Sidebar({ onSelect }: SidebarProps) {
+export default function Sidebar({
+  plans,
+  selectedFlightPlan,
+  onSelect,
+}: SidebarProps) {
   return (
     <aside className="sidebar">
       <h2>Flight Plans</h2>
       <ul>
-        {flightPlansData.map((plan, index) => (
+        {plans.map((plan) => (
           <FlightPlanItem
             plan={normalizeFlightPlan(plan)}
-            key={index}
+            key={plan.id}
             onClick={() => {
               onSelect(plan);
             }}
+            selected={selectedFlightPlan?.id === plan.id}
           />
         ))}
       </ul>

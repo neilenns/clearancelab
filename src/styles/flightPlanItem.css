@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.fp-list-item {
+  @apply cursor-pointer px-2 py-1 rounded hover:underline;
+}
+
+.fp-list-item:hover {
+  @apply bg-gray-200;
+}
+
+.fp-list-item-selected {
+  @apply bg-blue-200 font-semibold;
+}

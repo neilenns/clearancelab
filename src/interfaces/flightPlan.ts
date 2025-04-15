@@ -1,7 +1,7 @@
 import { Craft } from "@/interfaces/craft";
 
 export interface FlightPlan {
-  id?: number;
+  id: number;
   pilotName?: string;
   aid: string;
   cid?: number;
