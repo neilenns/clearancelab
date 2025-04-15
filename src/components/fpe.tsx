@@ -11,7 +11,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
     <div className="fpe-container" id="fpe-container" ref={ref}>
       {plan && (
         <div className="fpe-title">
-          {plan.aid} - {plan.pilotName} ({plan.cid})
+          {plan.aid} - {plan.pilotName} ({plan.vatsimId})
         </div>
       )}
       <div className="fpe-close">&times;</div>

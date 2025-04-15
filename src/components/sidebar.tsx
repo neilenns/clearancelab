@@ -13,7 +13,7 @@ interface SidebarProps {
 
 export default function Sidebar({ plans }: SidebarProps) {
   const params = useParams();
-  const selectedId = parseInt(params.id as string, 10);
+  const selectedId = params.id as string;
 
   return (
     <aside className="sidebar">

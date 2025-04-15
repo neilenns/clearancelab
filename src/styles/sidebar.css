@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 .sidebar {
-  @apply bg-gray-100 border-r border-gray-300 p-4;
+  @apply bg-gray-100 border-r border-gray-300 p-4 h-screen overflow-y-auto;
 }
 
 .sidebar h2 {

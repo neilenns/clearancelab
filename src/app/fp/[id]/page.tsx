@@ -11,7 +11,7 @@ export default function Home() {
   const fpeRef = useRef<HTMLDivElement>(null);
 
   const params = useParams();
-  const selectedId = parseInt(params.id as string, 10);
+  const selectedId = params.id as string;
   const selectedPlan = getFlightPlanById(selectedId);
 
   const handleScreenshot = async () => {
@@ -38,7 +38,7 @@ export default function Home() {
           Flight Plan Not Found
         </h1>
         <p className="mb-4 max-w-md">
-          Sorry, we couldn’t find a flight plan with ID{" "}
+          Sorry, we couldn&apos;t find a flight plan with ID{" "}
           <strong>{params.id}</strong>.
         </p>
         <p className="text-sm text-gray-400">

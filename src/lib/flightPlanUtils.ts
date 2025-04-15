@@ -6,7 +6,7 @@ export function getAllFlightPlans(): FlightPlan[] {
   return flightPlans;
 }
 
-export function getFlightPlanById(id: number): FlightPlan | undefined {
+export function getFlightPlanById(id: string): FlightPlan | undefined {
   return flightPlans.find((plan) => plan.id === id);
 }
 
@@ -41,7 +41,8 @@ export function normalizeFlightPlan(plan?: FlightPlan): FlightPlan | null {
   plan.spd ??=
     Math.round(Math.floor(Math.random() * (450 - 80 + 1) + 80) / 5) * 5; // Speed is always in increments of 5 kts.
   plan.bcn ??= getRandomBCN();
-  plan.cid ??= Math.floor(Math.random() * (1950000 - 800000 + 1)) + 800000;
+  plan.vatsimId ??= Math.floor(Math.random() * (1950000 - 800000 + 1)) + 800000;
+  plan.cid ??= Math.floor(Math.random() * (999 - 100 + 1)) + 100;
 
   return plan;
 }
