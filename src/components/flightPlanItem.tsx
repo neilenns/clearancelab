@@ -24,7 +24,7 @@ export default function FlightPlanItem({ plan, selected }: FlightPlanProps) {
         className={clsx("fp-list-item", { "fp-list-item-selected": selected })}
         href={`/fp/${plan.id.toString()}`}
       >
-        {plan.dep} - {plan.dest}
+        {plan.dep} - {plan.dest} ({plan.aid})
       </Link>
     </li>
   );
