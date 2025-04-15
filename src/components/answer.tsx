@@ -9,6 +9,8 @@ import {
   CheckCircleIcon,
   XCircleIcon,
 } from "@heroicons/react/20/solid";
+import "@/styles/answer.css"; // Import the CSS file
+import FlightPlanProblems from "./flightPlanProblems";
 
 interface AnswerProps {
   plan: FlightPlan;
@@ -16,31 +18,30 @@ interface AnswerProps {
 
 export default function Answer({ plan }: AnswerProps) {
   return (
-    <div className="w-[800px]">
+    <div className="answer-container">
       <Disclosure>
         {({ open }) => (
           <div>
-            <DisclosureButton className="w-full flex items-center justify-between px-4 py-3 bg-neutral-700 text-white font-medium hover:bg-neutral-500 transition-colors">
+            <DisclosureButton className="disclosure-button">
               <span>{open ? "Hide answer" : "Show answer"}</span>
               <ChevronDownIcon
-                className={`size-5 transform transition-transform duration-200 ${
-                  open ? "rotate-180" : ""
-                }`}
+                className={`chevron-icon ${open ? "open" : ""}`}
               />
             </DisclosureButton>
 
-            <DisclosurePanel className="w-full bg-gray-200 px-4 py-3 text-gray-800">
+            <DisclosurePanel className="disclosure-panel">
               {plan.isValid ? (
-                <span className="flex items-center gap-2">
-                  <CheckCircleIcon className="w-5 h-5 text-green-600" />
+                <span className="valid-plan">
+                  <CheckCircleIcon className="valid-icon" />
                   <span>The flight plan is valid.</span>
                 </span>
               ) : (
-                <span className="flex items-center gap-2">
-                  <XCircleIcon className="w-5 h-5 text-red-600" />
+                <span className="valid-plan">
+                  <XCircleIcon className="invalid-icon" />
                   <span>The flight plan has problems.</span>
                 </span>
               )}
+              <FlightPlanProblems plan={plan} />
             </DisclosurePanel>
           </div>
         )}
