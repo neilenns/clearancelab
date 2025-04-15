@@ -6,6 +6,7 @@ import Sidebar from "@/components/sidebar";
 import { FlightPlan } from "@/interfaces/flightPlan";
 import flightPlansData from "@/data/flightPlans.json" assert { type: "json" };
 import html2canvas from "html2canvas-pro";
+import { toast } from "sonner";
 
 export default function Home() {
   const [selectedFlightPlan, setSelectedFlightPlan] =
@@ -21,9 +22,10 @@ export default function Home() {
         navigator.clipboard
           .write([new ClipboardItem({ "image/png": blob })])
           .catch((err: unknown) => {
+            toast.error("Failed to copy screenshot");
             console.error("Failed to copy screenshot: ", err);
           });
-        alert("Screenshot copied to clipboard!");
+        toast.success("Screenshot copied to clipboard!");
       }
     });
   };
@@ -40,8 +42,8 @@ export default function Home() {
         <div className="mb-4">
           <button
             onClick={() => {
-              handleScreenshot().catch((err: unknown) => {
-                console.error(err);
+              handleScreenshot().catch(() => {
+                toast.error("Failed to copy screenshot");
               });
             }}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
