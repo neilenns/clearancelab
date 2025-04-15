@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "@/styles/fpe.css";
 import type { FlightPlan } from "@/interfaces/flightPlan";
 
@@ -6,9 +6,9 @@ interface FPEProps {
   plan?: FlightPlan | null;
 }
 
-export default function FPE({ plan }: FPEProps) {
+const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
   return (
-    <div className="fpe-container" id="fpe-container">
+    <div className="fpe-container" id="fpe-container" ref={ref}>
       <div className="fpe-title">
         {plan?.aid} - {plan?.pilotName} ({plan?.cid})
       </div>
@@ -55,4 +55,7 @@ export default function FPE({ plan }: FPEProps) {
       <div className="fpe-rmk-box">{plan?.rmk}</div>
     </div>
   );
-}
+});
+
+FPE.displayName = "FPE";
+export default FPE;
