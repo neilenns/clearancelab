@@ -1,4 +1,5 @@
 import { FlightPlan } from "@/interfaces/flightPlan";
+import clsx from "clsx";
 
 interface FlightPlanProps {
   plan: FlightPlan;
@@ -13,9 +14,7 @@ export default function FlightPlanItem({
 }: FlightPlanProps) {
   return (
     <li
-      className={`hover:underline cursor-pointer ${
-        selected ? "bg-blue-200 font-semibold" : ""
-      }`}
+      className={clsx("fpe-plan-item", { "fpe-plan-item-selected": selected })}
       onClick={onClick}
     >
       {plan.dep} - {plan.dest}

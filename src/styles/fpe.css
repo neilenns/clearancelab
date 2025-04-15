@@ -1,3 +1,13 @@
+@import "tailwindcss";
+
+.fpe-list-item {
+  @apply cursor-pointer px-2 py-1 rounded hover:underline;
+}
+
+.fpe-list-item-selected {
+  @apply bg-blue-200 font-semibold;
+}
+
 #input-area {
   margin: 1em auto;
   text-align: center;
@@ -31,7 +41,7 @@ button {
   color: white;
   font-family: "highgate", sans-serif;
   font-weight: 400;
-  font-style:normal;
+  font-style: normal;
 }
 
 .fpe-container > div {
@@ -81,7 +91,7 @@ button {
   margin-top: 6px;
   margin-bottom: 4px;
   border: 2px solid #425595;
-  padding: 6px 12px; 
+  padding: 6px 12px;
   justify-content: center;
 }
 
@@ -132,30 +142,78 @@ button {
 }
 
 /* Individual grid-area assignments */
-.fpe-aid-label    { grid-area: fpe-aid-label; }
-.fpe-cruiseid-label    { grid-area: fpe-cruiseid-label; }
-.fpe-bcn-label    { grid-area: fpe-bcn-label; }
-.fpe-refresh-label { grid-area: fpe-refresh-label; }
-.fpe-typ-label    { grid-area: fpe-typ-label; }
-.fpe-eq-label     { grid-area: fpe-eq-label; }
-.fpe-dep-label    { grid-area: fpe-dep-label; }
-.fpe-dest-label   { grid-area: fpe-dest-label; }
-.fpe-spd-label    { grid-area: fpe-spd-label; }
-.fpe-alt-label    { grid-area: fpe-alt-label; }
-.fpe-amend       { grid-area: fpe-amend; }
+.fpe-aid-label {
+  grid-area: fpe-aid-label;
+}
+.fpe-cruiseid-label {
+  grid-area: fpe-cruiseid-label;
+}
+.fpe-bcn-label {
+  grid-area: fpe-bcn-label;
+}
+.fpe-refresh-label {
+  grid-area: fpe-refresh-label;
+}
+.fpe-typ-label {
+  grid-area: fpe-typ-label;
+}
+.fpe-eq-label {
+  grid-area: fpe-eq-label;
+}
+.fpe-dep-label {
+  grid-area: fpe-dep-label;
+}
+.fpe-dest-label {
+  grid-area: fpe-dest-label;
+}
+.fpe-spd-label {
+  grid-area: fpe-spd-label;
+}
+.fpe-alt-label {
+  grid-area: fpe-alt-label;
+}
+.fpe-amend {
+  grid-area: fpe-amend;
+}
 
 /* Text box areas */
-.fpe-aid-box      { grid-area: fpe-aid-box; }
-.fpe-cruiseid-box      { grid-area: fpe-cruiseid-box; }
-.fpe-bcn-box      { grid-area: fpe-bcn-box; }
-.fpe-typ-box      { grid-area: fpe-typ-box; }
-.fpe-eq-box       { grid-area: fpe-eq-box; }
-.fpe-dep-box      { grid-area: fpe-dep-box; }
-.fpe-dest-box     { grid-area: fpe-dest-box; }
-.fpe-spd-box      { grid-area: fpe-spd-box; }
-.fpe-alt-box      { grid-area: fpe-alt-box; }
+.fpe-aid-box {
+  grid-area: fpe-aid-box;
+}
+.fpe-cruiseid-box {
+  grid-area: fpe-cruiseid-box;
+}
+.fpe-bcn-box {
+  grid-area: fpe-bcn-box;
+}
+.fpe-typ-box {
+  grid-area: fpe-typ-box;
+}
+.fpe-eq-box {
+  grid-area: fpe-eq-box;
+}
+.fpe-dep-box {
+  grid-area: fpe-dep-box;
+}
+.fpe-dest-box {
+  grid-area: fpe-dest-box;
+}
+.fpe-spd-box {
+  grid-area: fpe-spd-box;
+}
+.fpe-alt-box {
+  grid-area: fpe-alt-box;
+}
 
-.fpe-rte-label     { grid-area: fpe-rte-label; }
-.fpe-rte-box     { grid-area: fpe-rte-box; }
-.fpe-rmk-label     { grid-area: fpe-rmk-label; } 
-.fpe-rmk-box     { grid-area: fpe-rmk-box; }
+.fpe-rte-label {
+  grid-area: fpe-rte-label;
+}
+.fpe-rte-box {
+  grid-area: fpe-rte-box;
+}
+.fpe-rmk-label {
+  grid-area: fpe-rmk-label;
+}
+.fpe-rmk-box {
+  grid-area: fpe-rmk-box;
+}
