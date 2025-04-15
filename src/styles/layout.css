@@ -1,0 +1,18 @@
+/* styles/layout.css */
+@import "tailwindcss";
+
+.sidebar {
+  @apply bg-gray-100 border-r border-gray-300 p-4;
+}
+
+.sidebar h2 {
+  @apply text-lg font-semibold mb-4;
+}
+
+.sidebar ul {
+  @apply space-y-2;
+}
+
+.sidebar li {
+  @apply hover:underline cursor-pointer;
+}
