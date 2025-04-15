@@ -3,7 +3,6 @@
 import { useState } from "react";
 import FPE from "@/components/fpe";
 import Sidebar from "@/components/sidebar";
-import "@/styles/layout.css";
 import { FlightPlan } from "@/interfaces/flightPlan";
 import flightPlansData from "@/data/flightPlans.json" assert { type: "json" };
 

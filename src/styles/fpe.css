@@ -1,13 +1,5 @@
 @import "tailwindcss";
 
-.fpe-list-item {
-  @apply cursor-pointer px-2 py-1 rounded hover:underline;
-}
-
-.fpe-list-item-selected {
-  @apply bg-blue-200 font-semibold;
-}
-
 #input-area {
   margin: 1em auto;
   text-align: center;

@@ -1,5 +1,5 @@
 import React from "react";
-import "@/styles/layout.css";
+import "@/styles/sidebar.css";
 import FlightPlanItem from "@/components/flightPlanItem";
 import { normalizeFlightPlan } from "@/lib/flightPlanUtils";
 import { FlightPlan } from "@/interfaces/flightPlan";

@@ -12,7 +12,3 @@
 .sidebar ul {
   @apply space-y-2;
 }
-
-.sidebar li {
-  @apply hover:underline cursor-pointer;
-}
