@@ -3,7 +3,7 @@ import "@/styles/fpe.css";
 import type { FlightPlan } from "@/interfaces/flightPlan";
 
 interface FPEProps {
-  plan?: FlightPlan;
+  plan?: FlightPlan | null;
 }
 
 export default function FPE({ plan }: FPEProps) {
