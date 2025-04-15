@@ -31,6 +31,23 @@ export default function Home() {
     });
   };
 
+  if (!plan) {
+    return (
+      <main className="p-6 flex flex-col items-center justify-center text-center text-gray-600">
+        <h1 className="text-2xl font-semibold mb-2 text-red-600">
+          Flight Plan Not Found
+        </h1>
+        <p className="mb-4 max-w-md">
+          Sorry, we couldn’t find a flight plan with ID{" "}
+          <strong>{params.id}</strong>.
+        </p>
+        <p className="text-sm text-gray-400">
+          Please select a valid plan from the sidebar.
+        </p>
+      </main>
+    );
+  }
+
   return (
     <main className="p-6 overflow-y-auto">
       <div className="mb-4">
@@ -46,7 +63,7 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <FPE plan={plan ?? null} ref={fpeRef} />
+        <FPE plan={plan} ref={fpeRef} />
       </div>
     </main>
   );
