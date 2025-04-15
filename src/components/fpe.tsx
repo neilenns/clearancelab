@@ -9,9 +9,11 @@ interface FPEProps {
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
   return (
     <div className="fpe-container" id="fpe-container" ref={ref}>
-      <div className="fpe-title">
-        {plan?.aid} - {plan?.pilotName} ({plan?.cid})
-      </div>
+      {plan && (
+        <div className="fpe-title">
+          {plan.aid} - {plan.pilotName} ({plan.cid})
+        </div>
+      )}
       <div className="fpe-close">&times;</div>
       <div className="fpe-aid-label">AID</div>
       <div className="fpe-cruiseid-label">CID</div>
