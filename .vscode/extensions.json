@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "houkanshan.vscode-markdown-footnote",
+    "yzhang.markdown-all-in-one",
+    "esbenp.prettier-vscode",
+    "jock.svg",
+    "antfu.file-nesting"
+  ]
+}

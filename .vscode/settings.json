@@ -1,0 +1,23 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "cSpell.words": [
+    "checkmark",
+    "cruiseid",
+    "fontawesome",
+    "Fonticons",
+    "highgate",
+    "KDEN",
+    "KDFW",
+    "KPDX",
+    "KSFO",
+    "MDANO",
+    "Skyler",
+    "TRUKN",
+    "VKTRY",
+    "WHAMY"
+  ],
+  "fileNestingUpdater.promptOnAutoUpdate": false
+}
