@@ -1,6 +1,10 @@
 import { FlightPlan } from "@/interfaces/flightPlan";
 import { names } from "./names";
 
+/**
+ * Generates a random beacon code that's in one of the valid ranges for ZSE aircraft.
+ * @returns A random beacon code.
+ */
 function getRandomBCN(): number {
   const ranges = [
     [650, 677],
@@ -14,6 +18,11 @@ function getRandomBCN(): number {
   return value;
 }
 
+/**
+ * Normalizes the flight plan by assigning default values if they are not provided.
+ * @param plan The flight plan to normalize.
+ * @returns The normalized flight plan.
+ */
 export function normalizeFlightPlan(plan: FlightPlan): FlightPlan {
   plan.pilotName ??= names[Math.floor(Math.random() * names.length)];
   plan.spd ??=

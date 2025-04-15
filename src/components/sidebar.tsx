@@ -1,5 +1,5 @@
 import React from "react";
-import "@/styles/layout.css"; // if styles live there
+import "@/styles/layout.css";
 import FlightPlanItem from "@/components/flightPlanItem";
 import flightPlansData from "@/data/flightPlans.json" assert { type: "json" };
 import { normalizeFlightPlan } from "@/lib/flightPlanUtils";

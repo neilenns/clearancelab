@@ -1,4 +1,4 @@
-import { craft } from "@/interfaces/craft";
+import { Craft } from "@/interfaces/craft";
 
 export interface FlightPlan {
   id?: number;
@@ -16,5 +16,5 @@ export interface FlightPlan {
   rmk?: string;
   raw?: string;
   isValid?: boolean;
-  craft?: craft;
+  craft?: Craft;
 }

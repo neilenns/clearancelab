@@ -1,4 +1,4 @@
-export interface craft {
+export interface Craft {
   clearanceLimit?: string;
   route?: string;
   altitude?: string;

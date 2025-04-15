@@ -9,7 +9,7 @@ interface FPEProps {
 export default function FPE({ plan }: FPEProps) {
   return (
     <div className="fpe-container" id="fpe-container">
-      <div className="fpe-title">Test</div>
+      <div className="fpe-title"></div>
       <div className="fpe-close">&times;</div>
       <div className="fpe-aid-label">AID</div>
       <div className="fpe-cruiseid-label">CID</div>
