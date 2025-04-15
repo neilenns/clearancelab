@@ -8,8 +8,8 @@ interface FPEProps {
 
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
   return (
-    <div className="space-y-2">
-      <div className="fpe-container" id="fpe-container" ref={ref}>
+    <div className="fpe-container" ref={ref}>
+      <div className="fpe-dialog">
         {plan && (
           <div className="fpe-title">
             {plan.aid} - {plan.pilotName} ({plan.vatsimId})

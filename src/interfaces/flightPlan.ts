@@ -19,4 +19,5 @@ export interface FlightPlan {
   isValid?: boolean;
   craft?: Craft;
   airportConditions?: string;
+  problems?: string[];
 }

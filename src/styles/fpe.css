@@ -17,6 +17,10 @@ button {
   padding: 0.3em 1em;
 }
 
+.fpe-container {
+  @apply w-[800px];
+}
+
 .fpe-conditions-box {
   @apply w-[800px] bg-neutral-900 text-neutral-300 text-sm px-4 py-2 border-l-4 border-blue-400;
 }
@@ -25,9 +29,8 @@ button {
   @apply font-semibold text-neutral-100;
 }
 
-.fpe-container {
+.fpe-dialog {
   display: grid;
-  width: 800px;
   grid-template-columns: 1fr 1fr 1fr 1fr max-content 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto auto auto auto auto;
   grid-template-areas:
@@ -39,6 +42,7 @@ button {
   column-gap: 8px;
   background-color: black;
   margin-top: 8px;
+  margin-bottom: 8px;
   padding: 4px;
   color: white;
   font-family: "highgate", sans-serif;

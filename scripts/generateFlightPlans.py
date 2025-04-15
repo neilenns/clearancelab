@@ -8,8 +8,8 @@ names = [
 ]
 
 # Standardized filenames
-input_file_path = "scripts/rawFlightPlans.txt"
-output_file_path = "scripts/flightPlans.json"
+input_file_path = "rawFlightPlans.txt"
+output_file_path = "../src/data/flightPlans.json"
 
 
 def get_random_bcn():
@@ -64,7 +64,8 @@ def parse_flight_plan_line(line):
         "spd": round(random.randint(80, 450) / 5) * 5,
         "alt": alt,
         "rte": rte,
-        "raw": line.strip()
+        "raw": line.strip(),
+        "isValid": True,
     }
 
 
