@@ -6,8 +6,10 @@
     "**/next-env.d.ts": true
   },
   "cSpell.words": [
+    "callsign",
     "checkmark",
     "cruiseid",
+    "Enroute",
     "fontawesome",
     "Fonticons",
     "highgate",

@@ -1,10 +1,11 @@
 import { Craft } from "@/interfaces/craft";
 
 export interface FlightPlan {
-  id: number;
+  id: string;
   pilotName?: string;
-  aid: string;
-  cid?: number;
+  aid: string; // Callsign
+  vatsimId?: number; // VATSIM ID
+  cid?: number; // Enroute ID
   typ: string;
   eq: string;
   bcn?: number;
