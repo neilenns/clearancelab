@@ -1,6 +1,6 @@
 import React from "react";
 import "@/styles/fpe.css";
-import { FlightPlan } from "@/interfaces/flightPlan";
+import type { FlightPlan } from "@/interfaces/flightPlan";
 import { names } from "@/lib/names";
 import { getRandomBCN } from "@/lib/flightPlanUtils";
 

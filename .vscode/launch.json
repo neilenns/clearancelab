@@ -9,7 +9,7 @@
       "env": {
         "NODE_OPTIONS": "--inspect"
       },
-      "args": ["-H", "0.0.0.0", "--turbopack"],
+      "args": ["-H", "0.0.0.0"],
       "skipFiles": ["<node_internals>/**"],
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",

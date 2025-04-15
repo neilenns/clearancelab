@@ -1,16 +1,11 @@
 import FPE from "@/components/fpe";
+import Sidebar from "@/components/sidebar";
 import "@/styles/layout.css";
 
 export default function Home() {
   return (
     <div className="grid grid-cols-[250px_1fr] h-screen">
-      <aside className="sidebar">
-        <h2>Flight Plans</h2>
-        <ul>
-          <li>Flight 1</li>
-          <li>Flight 2</li>
-        </ul>
-      </aside>
+      <Sidebar />
 
       <main className="p-6 overflow-y-auto">
         <FPE
@@ -22,8 +17,8 @@ export default function Home() {
             cid: 0,
             typ: "",
             eq: "",
-            dep: "",
-            dest: "",
+            dep: "KPDX",
+            dest: "KSEA",
             alt: 0,
             rte: "",
             rmk: "",
