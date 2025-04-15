@@ -52,6 +52,7 @@ export default function Home() {
     <main className="p-6 overflow-y-auto">
       <div className="mb-4">
         <button
+          aria-label="Copy flight plan as screenshot to clipboard"
           onClick={() => {
             handleScreenshot().catch(() => {
               toast.error("Failed to copy screenshot");

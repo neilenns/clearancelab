@@ -30,7 +30,7 @@ function getRandomBCN(): number {
 /**
  * Normalizes the flight plan by assigning default values if they are not provided.
  * @param plan The flight plan to normalize.
- * @returns The normalized flight plan.
+ * @returns The normalized flight plan, or null if no flight plan was provided.
  */
 export function normalizeFlightPlan(plan?: FlightPlan): FlightPlan | null {
   if (!plan) {
