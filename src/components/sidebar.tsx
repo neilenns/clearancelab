@@ -1,20 +1,20 @@
+"use client";
+
 import React from "react";
 import "@/styles/sidebar.css";
 import FlightPlanItem from "@/components/flightPlanItem";
 import { normalizeFlightPlan } from "@/lib/flightPlanUtils";
 import { FlightPlan } from "@/interfaces/flightPlan";
+import { useParams } from "next/navigation";
 
 interface SidebarProps {
   plans: FlightPlan[];
-  selectedFlightPlan: FlightPlan | null;
-  onSelect: (plan: FlightPlan) => void;
 }
 
-export default function Sidebar({
-  plans,
-  selectedFlightPlan,
-  onSelect,
-}: SidebarProps) {
+export default function Sidebar({ plans }: SidebarProps) {
+  const params = useParams();
+  const selectedId = parseInt(params.id as string, 10);
+
   return (
     <aside className="sidebar">
       <h2>Flight Plans</h2>
@@ -23,10 +23,7 @@ export default function Sidebar({
           <FlightPlanItem
             plan={normalizeFlightPlan(plan)}
             key={plan.id}
-            onClick={() => {
-              onSelect(plan);
-            }}
-            selected={selectedFlightPlan?.id === plan.id}
+            selected={selectedId === plan.id}
           />
         ))}
       </ul>
