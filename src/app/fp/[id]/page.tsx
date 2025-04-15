@@ -4,15 +4,15 @@ import { useRef } from "react";
 import FPE from "@/components/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
-import flightPlans from "@/data/flightPlans.json" assert { type: "json" };
 import { useParams } from "next/navigation";
+import { getFlightPlanById, normalizeFlightPlan } from "@/lib/flightPlanUtils";
 
 export default function Home() {
   const fpeRef = useRef<HTMLDivElement>(null);
 
   const params = useParams();
   const selectedId = parseInt(params.id as string, 10);
-  const plan = flightPlans.find((p) => p.id === selectedId);
+  const selectedPlan = getFlightPlanById(selectedId);
 
   const handleScreenshot = async () => {
     if (!fpeRef.current) return;
@@ -31,7 +31,7 @@ export default function Home() {
     });
   };
 
-  if (!plan) {
+  if (!selectedPlan) {
     return (
       <main className="p-6 flex flex-col items-center justify-center text-center text-gray-600">
         <h1 className="text-2xl font-semibold mb-2 text-red-600">
@@ -63,7 +63,7 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <FPE plan={plan} ref={fpeRef} />
+        <FPE plan={normalizeFlightPlan(selectedPlan)} ref={fpeRef} />
       </div>
     </main>
   );
