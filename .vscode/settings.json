@@ -3,7 +3,9 @@
   "files.exclude": {
     "**/node_modules": true,
     "**/.next": true,
-    "**/next-env.d.ts": true
+    "**/next-env.d.ts": true,
+    "**/.open-next": true,
+    "**/.wrangler": true
   },
   "cSpell.words": [
     "callsign",
