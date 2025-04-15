@@ -12,6 +12,7 @@ import {
 import "@/styles/answer.css"; // Import the CSS file
 import FlightPlanProblems from "./flightPlanProblems";
 import Craft from "./craft";
+import Conversation from "./conversation/conversation";
 
 interface AnswerProps {
   plan: FlightPlan;
@@ -37,7 +38,19 @@ export default function Answer({ plan }: AnswerProps) {
                     <CheckCircleIcon className="valid-icon" />
                     <span>The flight plan is valid.</span>
                   </span>
-                  <Craft plan={plan} />
+                  <Conversation
+                    pilotCallsign={plan.aid}
+                    controllerName="Portland Ground"
+                    messages={[
+                      {
+                        from: "pilot",
+                        content: `Portland Ground, ${
+                          plan.craft?.telephony ?? plan.aid
+                        }, IFR to ${plan.dest}.`,
+                      },
+                      { from: "controller", content: <Craft plan={plan} /> },
+                    ]}
+                  />
                 </div>
               ) : (
                 <span className="valid-plan">

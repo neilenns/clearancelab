@@ -77,7 +77,7 @@ export default function Craft({ plan }: CraftProps) {
   }
 
   return (
-    <p className="text-sm text-gray-800 leading-relaxed">
+    <p className="leading-relaxed">
       {parts.map((part, idx) => (
         <span key={idx}>{part}</span>
       ))}
