@@ -3,7 +3,6 @@
 import React from "react";
 import "@/styles/sidebar.css";
 import FlightPlanItem from "@/components/flightPlanItem";
-import { normalizeFlightPlan } from "@/lib/flightPlanUtils";
 import { FlightPlan } from "@/interfaces/flightPlan";
 import { useParams } from "next/navigation";
 
@@ -17,14 +16,10 @@ export default function Sidebar({ plans }: SidebarProps) {
 
   return (
     <aside className="sidebar">
-      <h2>Flight Plans</h2>
+      <h2 className="header">Flight Plans</h2>
       <ul>
         {plans.map((plan) => {
-          const normalizedPlan = normalizeFlightPlan(plan);
-
-          if (!normalizedPlan) {
-            return null;
-          }
+          const normalizedPlan = plan;
 
           return (
             <FlightPlanItem

@@ -5,7 +5,7 @@ import FPE from "@/components/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
-import { getFlightPlanById, normalizeFlightPlan } from "@/lib/flightPlanUtils";
+import { getFlightPlanById } from "@/lib/flightPlanUtils";
 
 export default function Home() {
   const fpeRef = useRef<HTMLDivElement>(null);
@@ -63,7 +63,7 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <FPE plan={normalizeFlightPlan(selectedPlan)} ref={fpeRef} />
+        <FPE plan={selectedPlan} ref={fpeRef} />
       </div>
     </main>
   );

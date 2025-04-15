@@ -5,8 +5,8 @@
   @apply bg-gray-100 border-r border-gray-300 p-4 h-screen overflow-y-auto;
 }
 
-.sidebar h2 {
-  @apply text-lg font-semibold mb-4;
+.sidebar .header {
+  @apply bg-gray-100 pt-3 pb-3 font-semibold text-lg;
 }
 
 .sidebar ul {
