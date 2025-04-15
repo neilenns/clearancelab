@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/20/solid";
 import "@/styles/answer.css"; // Import the CSS file
 import FlightPlanProblems from "./flightPlanProblems";
+import Craft from "./craft";
 
 interface AnswerProps {
   plan: FlightPlan;
@@ -31,10 +32,13 @@ export default function Answer({ plan }: AnswerProps) {
 
             <DisclosurePanel className="disclosure-panel">
               {plan.isValid ? (
-                <span className="valid-plan">
-                  <CheckCircleIcon className="valid-icon" />
-                  <span>The flight plan is valid.</span>
-                </span>
+                <div>
+                  <span className="valid-plan">
+                    <CheckCircleIcon className="valid-icon" />
+                    <span>The flight plan is valid.</span>
+                  </span>
+                  <Craft plan={plan} />
+                </div>
               ) : (
                 <span className="valid-plan">
                   <XCircleIcon className="invalid-icon" />

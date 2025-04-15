@@ -1,4 +1,5 @@
 export interface Craft {
+  telephony?: string;
   clearanceLimit?: string;
   route?: string;
   altitude?: string;
