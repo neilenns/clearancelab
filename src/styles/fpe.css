@@ -1,0 +1,161 @@
+#input-area {
+  margin: 1em auto;
+  text-align: center;
+}
+textarea {
+  width: 90%;
+  height: 4em;
+  font-size: 1em;
+}
+button {
+  margin-top: 0.5em;
+  font-size: 1em;
+  padding: 0.3em 1em;
+}
+
+.fpe-container {
+  display: grid;
+  width: 800px;
+  grid-template-columns: 1fr 1fr 1fr 1fr max-content 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto;
+  grid-template-areas:
+    "fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-close"
+    ".                fpe-aid-label    fpe-cruiseid-label fpe-bcn-label  fpe-refresh-label fpe-typ-label   fpe-eq-label    fpe-dep-label    fpe-dest-label   fpe-spd-label    fpe-alt-label    fpe-amend"
+    ".                fpe-aid-box      fpe-cruiseid-box fpe-bcn-box      .                fpe-typ-box      fpe-eq-box      fpe-dep-box      fpe-dest-box     fpe-spd-box      fpe-alt-box      fpe-amend"
+    "fpe-rte-label    fpe-rte-box      fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box     fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box"
+    "fpe-rmk-label    fpe-rmk-box      fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box     fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box";
+  column-gap: 8px;
+  background-color: black;
+  margin-top: 8px;
+  padding: 4px;
+  color: white;
+  font-family: "highgate", sans-serif;
+  font-weight: 400;
+  font-style:normal;
+}
+
+.fpe-container > div {
+  font-size: 14px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+/* Title */
+.fpe-title {
+  grid-area: fpe-title;
+  margin-left: 2px;
+  margin-bottom: 2px;
+  font-size: 12px;
+  color: white;
+}
+
+/* Close box */
+.fpe-close {
+  grid-area: fpe-close;
+  margin-right: 4px;
+  text-align: right;
+}
+
+/* Field Labels */
+.fpe-aid-label,
+.fpe-cruiseid-label,
+.fpe-bcn-label,
+.fpe-typ-label,
+.fpe-eq-label,
+.fpe-dep-label,
+.fpe-dest-label,
+.fpe-spd-label,
+.fpe-alt-label,
+.fpe-amend {
+  color: white;
+  text-align: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.fpe-amend {
+  color: grey;
+  text-align: center;
+  text-align: center;
+  justify-content: center;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  border: 2px solid #425595;
+  padding: 6px 12px; 
+  justify-content: center;
+}
+
+/* Text Fields */
+.fpe-aid-box,
+.fpe-cruiseid-box,
+.fpe-bcn-box,
+.fpe-typ-box,
+.fpe-eq-box,
+.fpe-dep-box,
+.fpe-dest-box,
+.fpe-spd-box,
+.fpe-alt-box,
+.fpe-rte-box,
+.fpe-rmk-box {
+  color: #469be8;
+  background: #111;
+  border: 1px solid #333;
+  padding: 1px 6px 0px 6px;
+  border-radius: 4px;
+  min-height: 24px;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+/* Override the borders on three boxes that shouldn't have them. */
+.fpe-aid-box,
+.fpe-cruiseid-box,
+.fpe-bcn-box {
+  border: none;
+}
+
+/* Override the centering on rte and rmk boxes */
+.fpe-rte-box,
+.fpe-rmk-box {
+  text-align: left;
+  align-items: start;
+  min-height: 40px;
+}
+
+/* Align the rte and rmk labels to the right */
+.fpe-rte-label,
+.fpe-rmk-label {
+  color: white;
+  text-align: right;
+  align-items: start;
+}
+
+/* Individual grid-area assignments */
+.fpe-aid-label    { grid-area: fpe-aid-label; }
+.fpe-cruiseid-label    { grid-area: fpe-cruiseid-label; }
+.fpe-bcn-label    { grid-area: fpe-bcn-label; }
+.fpe-refresh-label { grid-area: fpe-refresh-label; }
+.fpe-typ-label    { grid-area: fpe-typ-label; }
+.fpe-eq-label     { grid-area: fpe-eq-label; }
+.fpe-dep-label    { grid-area: fpe-dep-label; }
+.fpe-dest-label   { grid-area: fpe-dest-label; }
+.fpe-spd-label    { grid-area: fpe-spd-label; }
+.fpe-alt-label    { grid-area: fpe-alt-label; }
+.fpe-amend       { grid-area: fpe-amend; }
+
+/* Text box areas */
+.fpe-aid-box      { grid-area: fpe-aid-box; }
+.fpe-cruiseid-box      { grid-area: fpe-cruiseid-box; }
+.fpe-bcn-box      { grid-area: fpe-bcn-box; }
+.fpe-typ-box      { grid-area: fpe-typ-box; }
+.fpe-eq-box       { grid-area: fpe-eq-box; }
+.fpe-dep-box      { grid-area: fpe-dep-box; }
+.fpe-dest-box     { grid-area: fpe-dest-box; }
+.fpe-spd-box      { grid-area: fpe-spd-box; }
+.fpe-alt-box      { grid-area: fpe-alt-box; }
+
+.fpe-rte-label     { grid-area: fpe-rte-label; }
+.fpe-rte-box     { grid-area: fpe-rte-box; }
+.fpe-rmk-label     { grid-area: fpe-rmk-label; } 
+.fpe-rmk-box     { grid-area: fpe-rmk-box; }
