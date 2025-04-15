@@ -1,20 +1,12 @@
 import React from "react";
 import "@/styles/fpe.css";
 import type { FlightPlan } from "@/interfaces/flightPlan";
-import { names } from "@/lib/names";
-import { getRandomBCN } from "@/lib/flightPlanUtils";
 
 interface FPEProps {
-  plan: FlightPlan;
+  plan?: FlightPlan;
 }
 
 export default function FPE({ plan }: FPEProps) {
-  plan.pilotName ??= names[Math.floor(Math.random() * names.length)];
-  plan.spd ??=
-    Math.round(Math.floor(Math.random() * (450 - 80 + 1) + 80) / 5) * 5; // Speed is always in increments of 5 kts.
-  plan.bcn ??= getRandomBCN();
-  plan.cid ??= Math.floor(Math.random() * (1950000 - 800000 + 1)) + 800000;
-
   return (
     <div className="fpe-container" id="fpe-container">
       <div className="fpe-title">Test</div>
@@ -44,21 +36,21 @@ export default function FPE({ plan }: FPEProps) {
       <div className="fpe-alt-label">ALT</div>
       <div className="fpe-amend">Amend</div>
 
-      <div className="fpe-aid-box">{plan.aid}</div>
-      <div className="fpe-cruiseid-box">{plan.cid}</div>
-      <div className="fpe-bcn-box">{plan.bcn}</div>
-      <div className="fpe-typ-box">{plan.typ}</div>
-      <div className="fpe-eq-box">{plan.eq}</div>
-      <div className="fpe-dep-box">{plan.dep}</div>
-      <div className="fpe-dest-box">{plan.dest}</div>
-      <div className="fpe-spd-box">{plan.spd}</div>
-      <div className="fpe-alt-box">{plan.alt}</div>
+      <div className="fpe-aid-box">{plan?.aid}</div>
+      <div className="fpe-cruiseid-box">{plan?.cid}</div>
+      <div className="fpe-bcn-box">{plan?.bcn}</div>
+      <div className="fpe-typ-box">{plan?.typ}</div>
+      <div className="fpe-eq-box">{plan?.eq}</div>
+      <div className="fpe-dep-box">{plan?.dep}</div>
+      <div className="fpe-dest-box">{plan?.dest}</div>
+      <div className="fpe-spd-box">{plan?.spd}</div>
+      <div className="fpe-alt-box">{plan?.alt}</div>
 
       <div className="fpe-rte-label">RTE</div>
-      <div className="fpe-rte-box">{plan.rte}</div>
+      <div className="fpe-rte-box">{plan?.rte}</div>
 
       <div className="fpe-rmk-label">RMK</div>
-      <div className="fpe-rmk-box">{plan.rmk}</div>
+      <div className="fpe-rmk-box">{plan?.rmk}</div>
     </div>
   );
 }
