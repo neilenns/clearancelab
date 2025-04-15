@@ -4,11 +4,13 @@
   margin: 1em auto;
   text-align: center;
 }
+
 textarea {
   width: 90%;
   height: 4em;
   font-size: 1em;
 }
+
 button {
   margin-top: 0.5em;
   font-size: 1em;
@@ -69,22 +71,12 @@ button {
 .fpe-spd-label,
 .fpe-alt-label,
 .fpe-amend {
-  color: white;
-  text-align: center;
-  text-align: center;
-  justify-content: center;
+  @apply text-white text-center justify-center;
 }
 
 .fpe-amend {
-  color: grey;
-  text-align: center;
-  text-align: center;
-  justify-content: center;
-  margin-top: 6px;
-  margin-bottom: 4px;
-  border: 2px solid #425595;
-  padding: 6px 12px;
-  justify-content: center;
+  @apply text-gray-500 text-center justify-center mt-[6px] mb-1 border-2 border-[#425595] px-3 py-[6px];
+  grid-area: fpe-amend;
 }
 
 /* Text Fields */
@@ -99,38 +91,26 @@ button {
 .fpe-alt-box,
 .fpe-rte-box,
 .fpe-rmk-box {
-  color: #469be8;
-  background: #111;
-  border: 1px solid #333;
-  padding: 1px 6px 0px 6px;
-  border-radius: 4px;
-  min-height: 24px;
-  text-align: center;
-  justify-content: center;
-  margin-bottom: 4px;
+  @apply text-[#469be8] bg-[#111] border border-[#333] px-[6px] pt-[1px] pb-0 rounded min-h-[24px] text-center justify-center mb-1;
 }
 
 /* Override the borders on three boxes that shouldn't have them. */
 .fpe-aid-box,
 .fpe-cruiseid-box,
 .fpe-bcn-box {
-  border: none;
+  @apply border-none;
 }
 
 /* Override the centering on rte and rmk boxes */
 .fpe-rte-box,
 .fpe-rmk-box {
-  text-align: left;
-  align-items: start;
-  min-height: 40px;
+  @apply text-left items-start min-h-[40px];
 }
 
 /* Align the rte and rmk labels to the right */
 .fpe-rte-label,
 .fpe-rmk-label {
-  color: white;
-  text-align: right;
-  align-items: start;
+  @apply text-white text-right items-start;
 }
 
 /* Individual grid-area assignments */
