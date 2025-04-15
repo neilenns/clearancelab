@@ -19,13 +19,21 @@ export default function Sidebar({ plans }: SidebarProps) {
     <aside className="sidebar">
       <h2>Flight Plans</h2>
       <ul>
-        {plans.map((plan) => (
-          <FlightPlanItem
-            plan={normalizeFlightPlan(plan)}
-            key={plan.id}
-            selected={selectedId === plan.id}
-          />
-        ))}
+        {plans.map((plan) => {
+          const normalizedPlan = normalizeFlightPlan(plan);
+
+          if (!normalizedPlan) {
+            return null;
+          }
+
+          return (
+            <FlightPlanItem
+              plan={normalizedPlan}
+              key={plan.id}
+              selected={selectedId === plan.id}
+            />
+          );
+        })}
       </ul>
     </aside>
   );
