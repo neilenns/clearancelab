@@ -76,11 +76,5 @@ export default function Craft({ plan }: CraftProps) {
     );
   }
 
-  return (
-    <p className="leading-relaxed">
-      {parts.map((part, idx) => (
-        <span key={idx}>{part}</span>
-      ))}
-    </p>
-  );
+  return <p className="leading-relaxed">{parts}</p>;
 }

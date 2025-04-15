@@ -24,7 +24,10 @@ export default function Answer({ plan }: AnswerProps) {
       <Disclosure>
         {({ open }) => (
           <div>
-            <DisclosureButton className="disclosure-button">
+            <DisclosureButton
+              className="disclosure-button"
+              aria-label={open ? "Hide answer" : "Show answer"}
+            >
               <span>{open ? "Hide answer" : "Show answer"}</span>
               <ChevronDownIcon
                 className={`chevron-icon ${open ? "open" : ""}`}
@@ -40,7 +43,9 @@ export default function Answer({ plan }: AnswerProps) {
                   </span>
                   <Conversation
                     pilotCallsign={plan.aid}
-                    controllerName="Portland Ground"
+                    controllerName={
+                      plan.craft?.controllerName ?? "Portland Ground"
+                    }
                     messages={[
                       {
                         from: "pilot",
@@ -53,10 +58,12 @@ export default function Answer({ plan }: AnswerProps) {
                   />
                 </div>
               ) : (
-                <span className="valid-plan">
-                  <XCircleIcon className="invalid-icon" />
-                  <span>The flight plan has problems.</span>
-                </span>
+                <div>
+                  <span className="valid-plan">
+                    <XCircleIcon className="invalid-icon" />
+                    <span>The flight plan has problems.</span>
+                  </span>
+                </div>
               )}
               <FlightPlanProblems plan={plan} />
             </DisclosurePanel>

@@ -5,4 +5,5 @@ export interface Craft {
   altitude?: string;
   frequency?: string;
   transponder?: string;
+  controllerName?: string;
 }
