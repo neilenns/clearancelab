@@ -6,6 +6,7 @@
   "image": "mcr.microsoft.com/devcontainers/base:jammy",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers-extra/features/typescript:2": {},
     "ghcr.io/neilenns/devcontainer-features/oh-my-zsh": {
       "theme": "agnoster",
       "stripWorkspacesFromPrompt": true,
@@ -32,7 +33,7 @@
   "forwardPorts": [3000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install"
+  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install && npm install"
 
   // Configure tool-specific properties.
   // "customizations": {},
