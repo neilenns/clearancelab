@@ -24,7 +24,9 @@
         "yzhang.markdown-all-in-one",
         "streetsidesoftware.code-spell-checker",
         "jock.svg",
-        "antfu.file-nesting"
+        "antfu.file-nesting",
+        "bradlc.vscode-tailwindcss",
+        "csstools.postcss"
       ]
     }
   },
