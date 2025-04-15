@@ -17,6 +17,14 @@ button {
   padding: 0.3em 1em;
 }
 
+.fpe-conditions-box {
+  @apply w-[800px] bg-neutral-900 text-neutral-300 text-sm px-4 py-2 border-l-4 border-blue-400;
+}
+
+.fpe-conditions-label {
+  @apply font-semibold text-neutral-100;
+}
+
 .fpe-container {
   display: grid;
   width: 800px;
