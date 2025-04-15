@@ -6,6 +6,7 @@ import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
 import { getFlightPlanById } from "@/lib/flightPlanUtils";
+import Answer from "@/components/answer";
 
 export default function Home() {
   const fpeRef = useRef<HTMLDivElement>(null);
@@ -66,6 +67,7 @@ export default function Home() {
       <div>
         <FPE plan={selectedPlan} ref={fpeRef} />
       </div>
+      <Answer plan={selectedPlan} />
     </main>
   );
 }
