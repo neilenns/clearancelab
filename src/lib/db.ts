@@ -17,10 +17,6 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
   }
 
   try {
-    console.log(
-      `Connecting to database with \"${process.env.MONGODB_URI ?? ""}\"`
-    );
-
     connectionPromise = mongoose.connect(process.env.MONGODB_URI ?? "");
     const connection = await connectionPromise;
 
