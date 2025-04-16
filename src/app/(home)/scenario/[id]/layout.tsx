@@ -4,7 +4,7 @@
 // https://medium.com/@kishorjena/solving-server-to-client-data-flow-in-next-js-handling-index-and-non-index-pages-62d9194537cc
 import { ScenarioModel } from "@/models/scenario";
 import { Metadata } from "next";
-import ClientSection from "./ReExportClientSection";
+import ClientSection from "./ClientSection";
 import { notFound } from "next/navigation";
 import NotFound from "./notFound";
 
