@@ -1,10 +1,19 @@
 // This layout exists to ensure server-side rendering of the metadata that's created on the fly.
 // Solution comes from: https://stackoverflow.com/a/79182354/9206264
 import { getScenarioById } from "@/lib/scenarioUtils";
+import { Metadata } from "next";
 
-export function generateMetadata({ params }: { params: { id: string } }) {
-  const selectedId = params.id;
-  const scenario = getScenarioById(selectedId);
+interface Props {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata | undefined> {
+  const { id } = await params;
+  const scenario = getScenarioById(id);
 
   if (!scenario) {
     return;
