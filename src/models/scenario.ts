@@ -2,14 +2,13 @@ import { getModelForClass, prop, ReturnModelType } from "@typegoose/typegoose";
 import { nanoid } from "nanoid";
 import { Craft } from "./craft";
 import { FlightPlan } from "./flightPlan";
-import { connectToDatabase } from "@/lib/db";
-import mongoose from "mongoose";
+import { connectToDatabase, deleteModelIfDev } from "@/lib/db";
 
 export class Scenario {
   @prop({ default: () => nanoid(9) })
   _id!: string;
 
-  @prop() plan!: FlightPlan;
+  @prop({ required: true }) plan!: FlightPlan;
 
   @prop() craft?: Craft;
 
@@ -21,23 +20,28 @@ export class Scenario {
   static async findScenarioById(
     this: ReturnModelType<typeof Scenario>,
     _id: string
-  ) {
-    await connectToDatabase();
-    return await this.findOne({ _id }).lean();
+  ): Promise<Scenario | null> {
+    try {
+      await connectToDatabase();
+      return await this.findOne({ _id }).lean();
+    } catch (error: unknown) {
+      console.error(`Error fetching scenario ${_id}:`, error);
+      throw error;
+    }
   }
 
-  static async findAll(this: ReturnModelType<typeof Scenario>) {
-    await connectToDatabase();
-    return await this.find({}).lean();
+  static async findAll(
+    this: ReturnModelType<typeof Scenario>
+  ): Promise<Scenario[] | null> {
+    try {
+      await connectToDatabase();
+      return await this.find({}).lean();
+    } catch (error: unknown) {
+      console.error(`Error fetching scenarios:`, error);
+      throw error;
+    }
   }
 }
 
-if (process.env.NODE_ENV === "development") {
-  try {
-    mongoose.deleteModel("Scenario");
-  } catch {
-    // Do nothing
-  }
-}
-
+deleteModelIfDev("Scenario");
 export const ScenarioModel = getModelForClass(Scenario);

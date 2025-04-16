@@ -37,7 +37,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run ci
+        run: npm run ci # This does compile-only using the "--experimental-build-mode compile" option.
 
       - name: Lint
         run: npm run lint

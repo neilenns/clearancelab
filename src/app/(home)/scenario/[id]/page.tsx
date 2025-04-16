@@ -8,7 +8,7 @@ type Params = Promise<{ id: string }>;
 
 export async function generateStaticParams() {
   const scenarios = await ScenarioModel.findAll();
-  return scenarios.map((scenario) => ({ id: scenario._id }));
+  return scenarios?.map((scenario) => ({ id: scenario._id }));
 }
 
 export default async function Page({ params }: { params: Params }) {

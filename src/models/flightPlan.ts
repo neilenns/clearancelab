@@ -1,4 +1,5 @@
-import { getModelForClass, mongoose, prop } from "@typegoose/typegoose";
+import { deleteModelIfDev } from "@/lib/db";
+import { getModelForClass, prop } from "@typegoose/typegoose";
 
 export class FlightPlan {
   @prop() pilotName?: string;
@@ -18,12 +19,5 @@ export class FlightPlan {
   @prop() airportConditions?: string;
 }
 
-if (process.env.NODE_ENV === "development") {
-  try {
-    mongoose.deleteModel("FlightPlan");
-  } catch {
-    // Do nothing
-  }
-}
-
+deleteModelIfDev("FlightPlan");
 export const FlightPlanModel = getModelForClass(FlightPlan);

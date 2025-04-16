@@ -1,22 +1,16 @@
+import { deleteModelIfDev } from "@/lib/db";
 import { getModelForClass, prop } from "@typegoose/typegoose";
-import mongoose from "mongoose";
 
 export class Craft {
-  @prop() telephony?: string;
-  @prop() clearanceLimit?: string;
-  @prop() route?: string;
-  @prop() altitude?: string;
-  @prop() frequency?: string;
-  @prop() transponder?: string;
-  @prop() controllerName?: string;
+  @prop({ trim: true }) telephony?: string;
+  @prop({ trim: true }) clearanceLimit?: string;
+  @prop({ trim: true }) route?: string;
+  @prop({ trim: true }) altitude?: string;
+  @prop({ trim: true }) frequency?: string;
+  @prop({ trim: true }) transponder?: string;
+  @prop({ trim: true }) controllerName?: string;
 }
 
-if (process.env.NODE_ENV === "development") {
-  try {
-    mongoose.deleteModel("Craft");
-  } catch {
-    // Do nothing
-  }
-}
+deleteModelIfDev("Craft");
 
 export const CraftModel = getModelForClass(Craft);
