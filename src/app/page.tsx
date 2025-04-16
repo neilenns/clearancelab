@@ -5,7 +5,7 @@ export default function HomePage() {
         Welcome to flight plan practice!
       </h1>
       <p className="mb-4 max-w-md">
-        Select a scenario from the list on the left to view or interact with it.
+        Select a scenario from the list on the left.
       </p>
       <p className="text-sm text-gray-400">
         You can also copy a screenshot or share a direct link to a specific

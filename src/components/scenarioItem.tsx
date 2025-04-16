@@ -1,5 +1,5 @@
 import Scenario from "@/interfaces/scenario";
-import "@/styles/flightPlanItem.css";
+import "@/styles/scenarioItem.css";
 import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
