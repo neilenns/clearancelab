@@ -1,5 +1,6 @@
 import scenarios from "@/data/scenarios.json" assert { type: "json" };
 import Scenario from "@/interfaces/scenario";
+import { cache } from "react";
 
 export function getAllScenarios(): Scenario[] {
   return scenarios.slice().sort((a, b) => {
@@ -16,6 +17,6 @@ export function getAllScenarios(): Scenario[] {
   });
 }
 
-export function getScenarioById(id: string): Scenario | undefined {
+export const getScenarioById = cache((id: string): Scenario | undefined => {
   return scenarios.find((scenario) => scenario.id === id);
-}
+});
