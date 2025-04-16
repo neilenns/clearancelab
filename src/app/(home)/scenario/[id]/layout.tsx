@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import ClientSection from "./ClientSection";
 import { notFound } from "next/navigation";
 import NotFound from "./notFound";
+import { connectToDatabase } from "@/lib/db";
 
 type Params = Promise<{ id: string }>;
 
@@ -28,6 +29,12 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams() {
+  connectToDatabase();
+  const scenarios = await ScenarioModel.find({});
+  return scenarios.map((scenario) => ({ id: scenario.id }));
+}
+
 export default async function Layout({
   children,
   params,
@@ -36,6 +43,8 @@ export default async function Layout({
   params: Params;
 }) {
   const { id } = await params;
+
+  connectToDatabase();
   const scenario = await ScenarioModel.findScenarioById(id);
 
   if (!scenario) {
