@@ -16,8 +16,12 @@ export class Craft {
   @prop() controllerName?: string;
 }
 
-try {
-  mongoose.deleteModel("Craft");
-} catch {}
+if (process.env.NODE_ENV === "development") {
+  try {
+    mongoose.deleteModel("Craft");
+  } catch {
+    // Do nothing
+  }
+}
 
 export const CraftModel = getModelForClass(Craft);

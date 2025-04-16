@@ -24,8 +24,12 @@ export class FlightPlan {
   @prop() airportConditions?: string;
 }
 
-try {
-  mongoose.deleteModel("FlightPlan");
-} catch {}
+if (process.env.NODE_ENV === "development") {
+  try {
+    mongoose.deleteModel("FlightPlan");
+  } catch {
+    // Do nothing
+  }
+}
 
 export const FlightPlanModel = getModelForClass(FlightPlan);

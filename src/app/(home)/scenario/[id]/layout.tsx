@@ -4,9 +4,6 @@
 // https://medium.com/@kishorjena/solving-server-to-client-data-flow-in-next-js-handling-index-and-non-index-pages-62d9194537cc
 import { ScenarioModel } from "@/models/scenario";
 import { Metadata } from "next";
-import ClientSection from "./ClientSection";
-import NotFound from "./notFound";
-import { connectToDatabase } from "@/lib/db";
 
 type Params = Promise<{ id: string }>;
 

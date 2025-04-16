@@ -1,8 +1,6 @@
 import {
   deleteModelWithClass,
-  type DocumentType,
   getModelForClass,
-  mongoose,
   prop,
   ReturnModelType,
 } from "@typegoose/typegoose";
@@ -11,6 +9,7 @@ import { Craft } from "./craft";
 import { FlightPlan } from "./flightPlan";
 import Env from "@/lib/env";
 import { connectToDatabase } from "@/lib/db";
+import mongoose from "mongoose";
 
 export class Scenario {
   @prop({ default: () => nanoid(9) })
@@ -39,8 +38,12 @@ export class Scenario {
   }
 }
 
-try {
-  mongoose.deleteModel("Scenario");
-} catch {}
+if (process.env.NODE_ENV === "development") {
+  try {
+    mongoose.deleteModel("Scenario");
+  } catch {
+    // Do nothing
+  }
+}
 
 export const ScenarioModel = getModelForClass(Scenario);
