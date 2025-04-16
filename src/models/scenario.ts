@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 import { Craft } from "./craft";
 import { FlightPlan } from "./flightPlan";
 import Env from "@/lib/env";
+import { connectToDatabase } from "@/lib/db";
 
 export class Scenario {
   @prop({ default: () => nanoid(9) })
@@ -23,12 +24,18 @@ export class Scenario {
 
   @prop() isValid?: boolean;
 
-  // Static method
+  // Static methods
   static async findScenarioById(
     this: ReturnModelType<typeof Scenario>,
     _id: string
   ) {
+    await connectToDatabase();
     return await this.findOne({ _id }).lean();
+  }
+
+  static async findAll(this: ReturnModelType<typeof Scenario>) {
+    await connectToDatabase();
+    return await this.find({}).lean();
   }
 }
 

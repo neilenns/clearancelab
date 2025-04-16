@@ -1,5 +1,4 @@
 import Sidebar from "@/components/sidebar";
-import { connectToDatabase } from "@/lib/db";
 import { ScenarioModel } from "@/models/scenario";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
@@ -15,8 +14,7 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  await connectToDatabase();
-  const scenarios = await ScenarioModel.find().lean();
+  const scenarios = await ScenarioModel.findAll();
 
   return (
     <div>

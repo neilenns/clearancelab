@@ -30,9 +30,8 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  connectToDatabase();
-  const scenarios = await ScenarioModel.find({});
-  return scenarios.map((scenario) => ({ id: scenario.id }));
+  const scenarios = await ScenarioModel.findAll();
+  return scenarios.map((scenario) => ({ id: scenario._id }));
 }
 
 export default async function Layout({
@@ -43,8 +42,6 @@ export default async function Layout({
   params: Params;
 }) {
   const { id } = await params;
-
-  connectToDatabase();
   const scenario = await ScenarioModel.findScenarioById(id);
 
   if (!scenario) {
