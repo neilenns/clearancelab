@@ -1,9 +1,12 @@
 // This layout exists to ensure server-side rendering of the metadata that's created on the fly.
 // Solution comes from: https://stackoverflow.com/a/79182354/9206264
+// The fetching of data to pass to the page is based off this:
+// https://medium.com/@kishorjena/solving-server-to-client-data-flow-in-next-js-handling-index-and-non-index-pages-62d9194537cc
 import { ScenarioModel } from "@/models/scenario";
 import { Metadata } from "next";
 import ClientSection from "./ReExportClientSection";
 import { notFound } from "next/navigation";
+import NotFound from "./notFound";
 
 type Params = Promise<{ id: string }>;
 
@@ -36,7 +39,7 @@ export default async function Layout({
   const scenario = await ScenarioModel.findScenarioById(id);
 
   if (!scenario) {
-    notFound();
+    return <NotFound id={id} />;
   }
 
   return (
