@@ -1,4 +1,4 @@
-import Scenario from "@/interfaces/scenario";
+"use client";
 import {
   Disclosure,
   DisclosureButton,
@@ -13,6 +13,7 @@ import "@/styles/answer.css"; // Import the CSS file
 import Craft from "./craft";
 import Conversation from "./conversation";
 import Problems from "./problems";
+import { Scenario } from "@/models/scenario";
 
 interface AnswerProps {
   scenario: Scenario;

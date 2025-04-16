@@ -1,4 +1,4 @@
-import Scenario from "@/interfaces/scenario";
+import { Scenario } from "@/models/scenario";
 import "@/styles/scenarioItem.css";
 import clsx from "clsx";
 import Link from "next/link";
@@ -27,7 +27,7 @@ export default function ScenarioItem({
     <li ref={ref}>
       <Link
         className={clsx("fp-list-item", { "fp-list-item-selected": selected })}
-        href={`/scenario/${scenario.id.toString()}`}
+        href={`/scenario/${scenario._id}`}
       >
         {plan.dep} - {plan.dest} ({plan.aid})
       </Link>

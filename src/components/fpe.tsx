@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import "@/styles/fpe.css";
-import type { FlightPlan } from "@/interfaces/flightPlan";
+import { FlightPlan } from "@/models/flightPlan";
 
 interface FPEProps {
   plan?: FlightPlan | null;

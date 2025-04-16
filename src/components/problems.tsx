@@ -1,4 +1,4 @@
-import Scenario from "@/interfaces/scenario";
+import { Scenario } from "@/models/scenario";
 
 interface ProblemsProps {
   scenario?: Scenario;

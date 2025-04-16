@@ -6,6 +6,7 @@
     "jock.svg",
     "antfu.file-nesting",
     "bradlc.vscode-tailwindcss",
-    "csstools.postcss"
+    "csstools.postcss",
+    "mongodb.mongodb-vscode"
   ]
 }

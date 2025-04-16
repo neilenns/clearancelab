@@ -1,19 +1,19 @@
 // This layout exists to ensure server-side rendering of the metadata that's created on the fly.
 // Solution comes from: https://stackoverflow.com/a/79182354/9206264
-import { getScenarioById } from "@/lib/scenarioUtils";
+// The fetching of data to pass to the page is based off this:
+// https://medium.com/@kishorjena/solving-server-to-client-data-flow-in-next-js-handling-index-and-non-index-pages-62d9194537cc
+import { ScenarioModel } from "@/models/scenario";
 import { Metadata } from "next";
 
-interface Props {
-  params: Promise<{
-    id: string;
-  }>;
-}
+type Params = Promise<{ id: string }>;
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata | undefined> {
+}: {
+  params: Params;
+}): Promise<Metadata | undefined> {
   const { id } = await params;
-  const scenario = getScenarioById(id);
+  const scenario = await ScenarioModel.findScenarioById(id);
 
   if (!scenario) {
     return;
