@@ -2,7 +2,9 @@ import {
   deleteModelWithClass,
   type DocumentType,
   getModelForClass,
+  mongoose,
   prop,
+  ReturnModelType,
 } from "@typegoose/typegoose";
 import { nanoid } from "nanoid";
 import { Craft } from "./craft";
@@ -22,15 +24,16 @@ export class Scenario {
   @prop() isValid?: boolean;
 
   // Static method
-  static async findScenarioById(this: typeof ScenarioModel, _id: string) {
-    return await this.findOne({ _id });
+  static async findScenarioById(
+    this: ReturnModelType<typeof Scenario>,
+    _id: string
+  ) {
+    return await this.findOne({ _id }).lean();
   }
 }
 
-// Delete the existing model, if it exists, in development to support hot reloading.
-if (Env.NODE_ENV === "development") {
-  deleteModelWithClass(Scenario);
-}
+try {
+  mongoose.deleteModel("Scenario");
+} catch {}
 
 export const ScenarioModel = getModelForClass(Scenario);
-export type ScenarioDocument = DocumentType<Scenario>;

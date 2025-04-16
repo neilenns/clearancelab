@@ -2,6 +2,7 @@ import Env from "@/lib/env";
 import {
   deleteModelWithClass,
   getModelForClass,
+  mongoose,
   prop,
 } from "@typegoose/typegoose";
 
@@ -23,9 +24,8 @@ export class FlightPlan {
   @prop() airportConditions?: string;
 }
 
-// Delete the existing model, if it exists, in development to support hot reloading.
-if (Env.NODE_ENV === "development") {
-  deleteModelWithClass(FlightPlan);
-}
+try {
+  mongoose.deleteModel("FlightPlan");
+} catch {}
 
 export const FlightPlanModel = getModelForClass(FlightPlan);

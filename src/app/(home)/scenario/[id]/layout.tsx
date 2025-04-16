@@ -1,19 +1,19 @@
 // This layout exists to ensure server-side rendering of the metadata that's created on the fly.
 // Solution comes from: https://stackoverflow.com/a/79182354/9206264
-import { getScenarioById } from "@/lib/scenarioUtils";
+import { ScenarioModel } from "@/models/scenario";
 import { Metadata } from "next";
+import ClientSection from "./ReExportClientSection";
+import { notFound } from "next/navigation";
 
-interface Props {
-  params: Promise<{
-    id: string;
-  }>;
-}
+type Params = Promise<{ id: string }>;
 
 export async function generateMetadata({
   params,
-}: Props): Promise<Metadata | undefined> {
+}: {
+  params: Params;
+}): Promise<Metadata | undefined> {
   const { id } = await params;
-  const scenario = getScenarioById(id);
+  const scenario = await ScenarioModel.findScenarioById(id);
 
   if (!scenario) {
     return;
@@ -25,6 +25,23 @@ export async function generateMetadata({
   };
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export default async function Layout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Params;
+}) {
+  const { id } = await params;
+  const scenario = await ScenarioModel.findScenarioById(id);
+
+  if (!scenario) {
+    notFound();
+  }
+
+  return (
+    <>
+      <ClientSection scenario={scenario} />
+    </>
+  );
 }

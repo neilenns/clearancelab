@@ -4,6 +4,7 @@ import {
   getModelForClass,
   prop,
 } from "@typegoose/typegoose";
+import mongoose from "mongoose";
 
 export class Craft {
   @prop() telephony?: string;
@@ -15,9 +16,8 @@ export class Craft {
   @prop() controllerName?: string;
 }
 
-// Delete the existing model, if it exists, in development to support hot reloading.
-if (Env.NODE_ENV === "development") {
-  deleteModelWithClass(Craft);
-}
+try {
+  mongoose.deleteModel("Craft");
+} catch {}
 
 export const CraftModel = getModelForClass(Craft);
