@@ -1,11 +1,11 @@
-import { FlightPlan } from "@/interfaces/flightPlan";
+import Scenario from "@/interfaces/scenario";
 
-interface FlightPlanProblemsProps {
-  plan?: FlightPlan;
+interface ProblemsProps {
+  scenario?: Scenario;
 }
 
-export default function FlightPlanProblems({ plan }: FlightPlanProblemsProps) {
-  if (!plan?.problems || plan.problems.length === 0) {
+export default function Problems({ scenario }: ProblemsProps) {
+  if (!scenario?.problems || scenario.problems.length === 0) {
     return null;
   }
 
@@ -15,7 +15,7 @@ export default function FlightPlanProblems({ plan }: FlightPlanProblemsProps) {
         Here are the things that need attention:
       </p>
       <ul className="list-disc list-inside space-y-1 text-gray-700 text-sm">
-        {plan.problems.map((problem, idx) => (
+        {scenario.problems.map((problem, idx) => (
           <li key={idx}>{problem}</li>
         ))}
       </ul>

@@ -1,4 +1,4 @@
-import { FlightPlan } from "@/interfaces/flightPlan";
+import Scenario from "@/interfaces/scenario";
 import {
   Disclosure,
   DisclosureButton,
@@ -10,15 +10,17 @@ import {
   XCircleIcon,
 } from "@heroicons/react/20/solid";
 import "@/styles/answer.css"; // Import the CSS file
-import FlightPlanProblems from "./flightPlanProblems";
 import Craft from "./craft";
 import Conversation from "./conversation";
+import Problems from "./problems";
 
 interface AnswerProps {
-  plan: FlightPlan;
+  scenario: Scenario;
 }
 
-export default function Answer({ plan }: AnswerProps) {
+export default function Answer({ scenario }: AnswerProps) {
+  const { plan, isValid, craft } = scenario;
+
   return (
     <div className="answer-container">
       <Disclosure>
@@ -35,25 +37,26 @@ export default function Answer({ plan }: AnswerProps) {
             </DisclosureButton>
 
             <DisclosurePanel className="disclosure-panel">
-              {plan.isValid ? (
+              {isValid ? (
                 <div>
                   <span className="valid-plan">
                     <CheckCircleIcon className="valid-icon" />
-                    <span>The flight plan is valid.</span>
+                    <span>The flight plan is good to go!</span>
                   </span>
                   <Conversation
                     pilotCallsign={plan.aid}
-                    controllerName={
-                      plan.craft?.controllerName ?? "Portland Ground"
-                    }
+                    controllerName={craft?.controllerName ?? "Portland Ground"}
                     messages={[
                       {
                         from: "pilot",
                         content: `Portland Ground, ${
-                          plan.craft?.telephony ?? plan.aid
+                          craft?.telephony ?? plan.aid
                         }, IFR to ${plan.dest}.`,
                       },
-                      { from: "controller", content: <Craft plan={plan} /> },
+                      {
+                        from: "controller",
+                        content: <Craft scenario={scenario} />,
+                      },
                     ]}
                   />
                 </div>
@@ -61,11 +64,11 @@ export default function Answer({ plan }: AnswerProps) {
                 <div>
                   <span className="valid-plan">
                     <XCircleIcon className="invalid-icon" />
-                    <span>The flight plan has problems.</span>
+                    <span>The flight plan needs some cleanup.</span>
                   </span>
                 </div>
               )}
-              <FlightPlanProblems plan={plan} />
+              <Problems scenario={scenario} />
             </DisclosurePanel>
           </div>
         )}

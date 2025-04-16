@@ -1,4 +1,4 @@
-import { FlightPlan } from "@/interfaces/flightPlan";
+import Scenario from "@/interfaces/scenario";
 import Hoverable from "./hoverable";
 
 const craftLabels = {
@@ -10,66 +10,67 @@ const craftLabels = {
 };
 
 interface CraftProps {
-  plan: FlightPlan;
+  scenario: Scenario;
 }
 
-export default function Craft({ plan }: CraftProps) {
+export default function Craft({ scenario }: CraftProps) {
+  const { craft } = scenario;
+
   const parts: React.ReactNode[] = [];
 
-  if (plan.craft?.telephony) {
-    parts.push(<span key="telephony">{plan.craft.telephony}, </span>);
+  if (craft?.telephony) {
+    parts.push(<span key="telephony">{craft.telephony}, </span>);
   }
 
-  if (plan.craft?.clearanceLimit) {
+  if (craft?.clearanceLimit) {
     parts.push(
       <span key="clearanceLimit">
         <Hoverable
           label={craftLabels.clearanceLimit}
-          text={`cleared to ${plan.craft.clearanceLimit}`}
+          text={`cleared to ${craft.clearanceLimit}`}
         />
       </span>
     );
   }
 
-  if (plan.craft?.route) {
+  if (craft?.route) {
     parts.push(
       <span key="route">
         {" "}
-        via{" "}
-        <Hoverable
+        via <Hoverable
           label={craftLabels.route}
-          text={` ${plan.craft.route}`}
+          text={` ${craft.route}`}
         />.{" "}
       </span>
     );
   }
 
-  if (plan.craft?.altitude) {
+  if (craft?.altitude) {
     parts.push(
       <span key="altitude">
-        <Hoverable label={craftLabels.altitude} text={plan.craft.altitude} />.{" "}
+        <Hoverable label={craftLabels.altitude} text={craft.altitude} />.{" "}
       </span>
     );
   }
 
-  if (plan.craft?.frequency) {
+  if (craft?.frequency) {
     parts.push(
       <span key="frequency">
         <Hoverable
           label={craftLabels.frequency}
-          text={`Departure is ${plan.craft.frequency}`}
+          text={`Departure is ${craft.frequency}`}
         />
         .{" "}
       </span>
     );
   }
 
-  if (plan.craft?.transponder) {
+  if (craft?.transponder) {
     parts.push(
       <span key="transponder">
         <Hoverable
           label={craftLabels.transponder}
-          text={`Squawk ${plan.craft.transponder}`}
+          text={`Squawk ${craft.transponder}`}
         />
         .
       </span>
