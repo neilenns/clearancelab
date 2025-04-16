@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "sonner";
-import Sidebar from "@/components/sidebar";
-import { getAllScenarios } from "@/lib/scenarioUtils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,12 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="grid grid-cols-[250px_1fr] h-screen">
-          <Sidebar scenarios={getAllScenarios()} />
-
-          {children}
-        </div>
-        <Toaster richColors />
+        {children}
       </body>
     </html>
   );
