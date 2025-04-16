@@ -1,10 +1,4 @@
-import Env from "@/lib/env";
-import {
-  deleteModelWithClass,
-  getModelForClass,
-  mongoose,
-  prop,
-} from "@typegoose/typegoose";
+import { getModelForClass, mongoose, prop } from "@typegoose/typegoose";
 
 export class FlightPlan {
   @prop() pilotName?: string;

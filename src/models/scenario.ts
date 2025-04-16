@@ -1,13 +1,7 @@
-import {
-  deleteModelWithClass,
-  getModelForClass,
-  prop,
-  ReturnModelType,
-} from "@typegoose/typegoose";
+import { getModelForClass, prop, ReturnModelType } from "@typegoose/typegoose";
 import { nanoid } from "nanoid";
 import { Craft } from "./craft";
 import { FlightPlan } from "./flightPlan";
-import Env from "@/lib/env";
 import { connectToDatabase } from "@/lib/db";
 import mongoose from "mongoose";
 

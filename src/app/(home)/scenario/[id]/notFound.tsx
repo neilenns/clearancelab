@@ -8,7 +8,7 @@ export default function NotFound({ id }: NotFoundProps) {
       <h1 className="text-2xl font-semibold mb-2 text-red-600">
         Scenario not found
       </h1>
-      <p className="mb-4 max-w-md">Scenario {id} doesn't exist.</p>
+      <p className="mb-4 max-w-md">Scenario {id} doesn&apos;t exist.</p>
       <p className="text-sm text-gray-400">
         Please select a valid scenario from the sidebar.
       </p>

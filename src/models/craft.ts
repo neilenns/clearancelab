@@ -1,9 +1,4 @@
-import Env from "@/lib/env";
-import {
-  deleteModelWithClass,
-  getModelForClass,
-  prop,
-} from "@typegoose/typegoose";
+import { getModelForClass, prop } from "@typegoose/typegoose";
 import mongoose from "mongoose";
 
 export class Craft {

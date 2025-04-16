@@ -4,7 +4,6 @@ import { useRef } from "react";
 import FPE from "@/components/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
-import { useParams } from "next/navigation";
 import Answer from "@/components/answer";
 import { Scenario } from "@/models/scenario";
 
@@ -14,8 +13,6 @@ interface ClientSectionProps {
 
 export default function ClientSection({ scenario }: ClientSectionProps) {
   const fpeRef = useRef<HTMLDivElement>(null);
-
-  const params = useParams();
 
   const handleScreenshot = async () => {
     if (!fpeRef.current) return;
