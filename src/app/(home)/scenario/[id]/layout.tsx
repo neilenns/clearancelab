@@ -28,29 +28,10 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  connectToDatabase();
-  const scenarios = await ScenarioModel.find({});
-  return scenarios.map((scenario) => ({ id: scenario.id }));
-}
-
 export default async function Layout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Params;
 }) {
-  const { id } = await params;
-  const scenario = await ScenarioModel.findScenarioById(id);
-
-  if (!scenario) {
-    return <NotFound id={id} />;
-  }
-
-  return (
-    <>
-      <ClientSection scenario={scenario} />
-    </>
-  );
+  return <>{children}</>;
 }
