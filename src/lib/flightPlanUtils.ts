@@ -1,5 +1,6 @@
 import { FlightPlan } from "@/interfaces/flightPlan";
 import flightPlans from "@/data/flightPlans.json" assert { type: "json" };
+import { cache } from "react";
 
 export function getAllFlightPlans(): FlightPlan[] {
   return flightPlans.slice().sort((a, b) => {
@@ -16,6 +17,6 @@ export function getAllFlightPlans(): FlightPlan[] {
   });
 }
 
-export function getFlightPlanById(id: string): FlightPlan | undefined {
+export const getFlightPlanById = cache((id: string): FlightPlan | undefined => {
   return flightPlans.find((plan) => plan.id === id);
-}
+});
