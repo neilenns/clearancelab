@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Env from "./env";
 
 let cachedConnection: typeof mongoose | null = null;
 
@@ -8,6 +7,7 @@ let connectionPromise: Promise<typeof mongoose> | null = null;
 
 export async function connectToDatabase(): Promise<typeof mongoose> {
   if (cachedConnection) {
+    console.log(`Returning cached connection.`);
     return cachedConnection;
   }
 
@@ -17,13 +17,18 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
   }
 
   try {
-    connectionPromise = mongoose.connect(Env.MONGODB_URI);
+    console.log(
+      `Connecting to database with \"${process.env.MONGODB_URI ?? ""}\"`
+    );
+
+    connectionPromise = mongoose.connect(process.env.MONGODB_URI ?? "");
     const connection = await connectionPromise;
 
     cachedConnection = connection;
     console.log("✅ Connected to MongoDB");
     connectionPromise = null;
-    return connection;
+
+    return cachedConnection;
   } catch (err) {
     console.error("❌ MongoDB connection error:", err);
     connectionPromise = null;

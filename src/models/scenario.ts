@@ -1,9 +1,21 @@
-import { getModelForClass, prop, ReturnModelType } from "@typegoose/typegoose";
+import {
+  getModelForClass,
+  modelOptions,
+  mongoose,
+  prop,
+  ReturnModelType,
+} from "@typegoose/typegoose";
 import { nanoid } from "nanoid";
 import { Craft } from "./craft";
 import { FlightPlan } from "./flightPlan";
 import { connectToDatabase, deleteModelIfDev } from "@/lib/db";
 
+@modelOptions({
+  schemaOptions: {
+    collection: "scenarios",
+    timestamps: true,
+  },
+})
 export class Scenario {
   @prop({ default: () => nanoid(9) })
   _id!: string;
@@ -23,7 +35,9 @@ export class Scenario {
   ): Promise<Scenario | null> {
     try {
       await connectToDatabase();
-      return await this.findOne({ _id }).lean();
+      const result = await this.findOne({ _id }).lean();
+      console.log(`Found scenarios: ${JSON.stringify(result)}`);
+      return result;
     } catch (error: unknown) {
       console.error(`Error fetching scenario ${_id}:`, error);
       throw error;
@@ -35,7 +49,13 @@ export class Scenario {
   ): Promise<Scenario[] | null> {
     try {
       await connectToDatabase();
-      return await this.find({}).lean();
+      console.log("DB:", mongoose.connection.name);
+      console.log("Collection:", ScenarioModel.collection.name);
+      console.log("All data:", await ScenarioModel.find({}).lean());
+
+      const result = await this.find({}).lean();
+      console.log(`Found scenarios: ${JSON.stringify(result)}`);
+      return result;
     } catch (error: unknown) {
       console.error(`Error fetching scenarios:`, error);
       throw error;

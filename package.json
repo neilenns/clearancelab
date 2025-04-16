@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "ci": "next build --experimental-build-mode compile",
-    "start": "next start",
+    "start": "next start --hostname 0.0.0.0",
     "lint": "next lint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",

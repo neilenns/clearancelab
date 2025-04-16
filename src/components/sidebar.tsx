@@ -6,7 +6,7 @@ import "@/styles/sidebar.css";
 import { useParams } from "next/navigation";
 
 interface SidebarProps {
-  scenarios?: Scenario[];
+  scenarios?: Scenario[] | null;
 }
 
 export default function Sidebar({ scenarios }: SidebarProps) {
