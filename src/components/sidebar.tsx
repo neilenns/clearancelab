@@ -6,7 +6,7 @@ import "@/styles/sidebar.css";
 import { useParams } from "next/navigation";
 
 interface SidebarProps {
-  scenarios: Scenario[];
+  scenarios?: Scenario[];
 }
 
 export default function Sidebar({ scenarios }: SidebarProps) {
@@ -17,7 +17,7 @@ export default function Sidebar({ scenarios }: SidebarProps) {
     <aside className="sidebar">
       <h2 className="header">Scenarios</h2>
       <ul>
-        {scenarios.map((scenario) => {
+        {scenarios?.map((scenario) => {
           return (
             <ScenarioItem
               scenario={scenario}
