@@ -5,9 +5,7 @@
 import { ScenarioModel } from "@/models/scenario";
 import { Metadata } from "next";
 import ClientSection from "./ClientSection";
-import { notFound } from "next/navigation";
 import NotFound from "./notFound";
-import { connectToDatabase } from "@/lib/db";
 
 type Params = Promise<{ id: string }>;
 
