@@ -27,7 +27,7 @@ export default function ScenarioItem({
     <li ref={ref}>
       <Link
         className={clsx("fp-list-item", { "fp-list-item-selected": selected })}
-        href={`/fp/${scenario.id.toString()}`}
+        href={`/scenario/${scenario.id.toString()}`}
       >
         {plan.dep} - {plan.dest} ({plan.aid})
       </Link>

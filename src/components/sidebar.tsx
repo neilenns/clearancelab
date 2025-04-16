@@ -16,7 +16,7 @@ export default function Sidebar({ scenarios }: SidebarProps) {
 
   return (
     <aside className="sidebar">
-      <h2 className="header">Flight Plans</h2>
+      <h2 className="header">Scenarios</h2>
       <ul>
         {scenarios.map((scenario) => {
           return (

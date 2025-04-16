@@ -41,7 +41,7 @@ export default function Answer({ scenario }: AnswerProps) {
                 <div>
                   <span className="valid-plan">
                     <CheckCircleIcon className="valid-icon" />
-                    <span>The flight plan is valid.</span>
+                    <span>The flight plan is good to go!</span>
                   </span>
                   <Conversation
                     pilotCallsign={plan.aid}
@@ -64,7 +64,7 @@ export default function Answer({ scenario }: AnswerProps) {
                 <div>
                   <span className="valid-plan">
                     <XCircleIcon className="invalid-icon" />
-                    <span>The flight plan has problems.</span>
+                    <span>The flight plan needs some cleanup.</span>
                   </span>
                 </div>
               )}
