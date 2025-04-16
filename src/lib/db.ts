@@ -17,7 +17,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
   }
 
   try {
-    const connectionPromise = mongoose.connect(Env.MONGODB_URI);
+    connectionPromise = mongoose.connect(Env.MONGODB_URI);
     const connection = await connectionPromise;
 
     cachedConnection = connection;
