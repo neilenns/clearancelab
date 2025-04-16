@@ -1,5 +1,6 @@
 import Sidebar from "@/components/sidebar";
-import { getAllScenarios } from "@/lib/scenarioUtils";
+import { connectToDatabase } from "@/lib/db";
+import { ScenarioModel } from "@/models/scenario";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
@@ -9,15 +10,18 @@ export const metadata: Metadata = {
     "Get practice reviewing flight plans and issuing clearances with flight plans ripped straight from real VATSIM pilots.",
 };
 
-export default function Layout({
+export default async function Layout({
   children: mainSection,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await connectToDatabase();
+  const scenarios = await ScenarioModel.find().lean();
+
   return (
     <div>
       <div className="grid grid-cols-[250px_1fr] h-screen">
-        <Sidebar scenarios={getAllScenarios()} />
+        <Sidebar scenarios={scenarios} />
 
         {mainSection}
       </div>

@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
-import "@/styles/sidebar.css";
 import ScenarioItem from "@/components/scenarioItem";
+import { Scenario } from "@/models/scenario";
+import "@/styles/sidebar.css";
 import { useParams } from "next/navigation";
-import Scenario from "@/interfaces/scenario";
 
 interface SidebarProps {
   scenarios: Scenario[];
@@ -22,8 +21,8 @@ export default function Sidebar({ scenarios }: SidebarProps) {
           return (
             <ScenarioItem
               scenario={scenario}
-              key={scenario.id}
-              selected={selectedId === scenario.id}
+              key={scenario._id}
+              selected={selectedId === scenario._id}
             />
           );
         })}
