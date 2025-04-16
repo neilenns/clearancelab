@@ -1,7 +1,4 @@
-import { Craft } from "@/interfaces/craft";
-
 export interface FlightPlan {
-  id: string;
   pilotName?: string;
   aid: string; // Callsign
   vatsimId?: number; // VATSIM ID
@@ -16,8 +13,5 @@ export interface FlightPlan {
   rte: string;
   rmk?: string;
   raw?: string;
-  isValid?: boolean;
-  craft?: Craft;
   airportConditions?: string;
-  problems?: string[];
 }

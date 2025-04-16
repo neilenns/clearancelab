@@ -1,0 +1,30 @@
+[
+  {
+    "id": "fe0affc8-38c5-4c5e-a4ad-32aa03b0ec16",
+    "plan": {
+      "pilotName": "Dakota",
+      "vatsimId": 1400467,
+      "cid": 585,
+      "aid": "ASA223",
+      "typ": "A320",
+      "eq": "L",
+      "bcn": 2000,
+      "dep": "KPDX",
+      "dest": "CYEG",
+      "spd": 200,
+      "alt": 350,
+      "rte": "LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+      "raw": "ASA223  A320/L  0000  2000 KPDX - CYEG  350 LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2"
+    },
+    "isValid": true,
+    "craft": {
+      "telephony": "Alaska 223",
+      "controllerName": "Portland Ground",
+      "clearanceLimit": "Edmonton International Airport",
+      "route": "the LAVAA6 departure, Yakima transition, then as filed",
+      "altitude": "Climb via SID except maintain 7000",
+      "frequency": "124.35",
+      "transponder": "2000"
+    }
+  }
+]

@@ -1,15 +1,20 @@
-import { FlightPlan } from "@/interfaces/flightPlan";
+import Scenario from "@/interfaces/scenario";
 import "@/styles/flightPlanItem.css";
 import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-interface FlightPlanProps {
-  plan: FlightPlan;
+interface ScenarioItemProps {
+  scenario: Scenario;
   selected: boolean;
 }
 
-export default function FlightPlanItem({ plan, selected }: FlightPlanProps) {
+export default function ScenarioItem({
+  scenario,
+  selected,
+}: ScenarioItemProps) {
+  const { plan } = scenario;
+
   const ref = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -22,7 +27,7 @@ export default function FlightPlanItem({ plan, selected }: FlightPlanProps) {
     <li ref={ref}>
       <Link
         className={clsx("fp-list-item", { "fp-list-item-selected": selected })}
-        href={`/fp/${plan.id.toString()}`}
+        href={`/fp/${scenario.id.toString()}`}
       >
         {plan.dep} - {plan.dest} ({plan.aid})
       </Link>

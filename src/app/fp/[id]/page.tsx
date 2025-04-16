@@ -5,7 +5,7 @@ import FPE from "@/components/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
-import { getFlightPlanById } from "@/lib/flightPlanUtils";
+import { getScenarioById } from "@/lib/scenarioUtils";
 import Answer from "@/components/answer";
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
 
   const params = useParams();
   const selectedId = params.id as string;
-  const selectedPlan = getFlightPlanById(selectedId);
+  const selectedScenario = getScenarioById(selectedId);
 
   const handleScreenshot = async () => {
     if (!fpeRef.current) return;
@@ -32,7 +32,7 @@ export default function Home() {
     });
   };
 
-  if (!selectedPlan) {
+  if (!selectedScenario) {
     return (
       <main className="p-6 flex flex-col items-center justify-center text-center text-gray-600">
         <h1 className="text-2xl font-semibold mb-2 text-red-600">
@@ -65,9 +65,9 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <FPE plan={selectedPlan} ref={fpeRef} />
+        <FPE plan={selectedScenario.plan} ref={fpeRef} />
       </div>
-      <Answer plan={selectedPlan} />
+      <Answer scenario={selectedScenario} />
     </main>
   );
 }

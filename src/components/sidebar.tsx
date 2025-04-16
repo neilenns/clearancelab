@@ -2,15 +2,15 @@
 
 import React from "react";
 import "@/styles/sidebar.css";
-import FlightPlanItem from "@/components/flightPlanItem";
-import { FlightPlan } from "@/interfaces/flightPlan";
+import ScenarioItem from "@/components/scenarioItem";
 import { useParams } from "next/navigation";
+import Scenario from "@/interfaces/scenario";
 
 interface SidebarProps {
-  plans: FlightPlan[];
+  scenarios: Scenario[];
 }
 
-export default function Sidebar({ plans }: SidebarProps) {
+export default function Sidebar({ scenarios }: SidebarProps) {
   const params = useParams();
   const selectedId = params.id as string;
 
@@ -18,14 +18,12 @@ export default function Sidebar({ plans }: SidebarProps) {
     <aside className="sidebar">
       <h2 className="header">Flight Plans</h2>
       <ul>
-        {plans.map((plan) => {
-          const normalizedPlan = plan;
-
+        {scenarios.map((scenario) => {
           return (
-            <FlightPlanItem
-              plan={normalizedPlan}
-              key={plan.id}
-              selected={selectedId === plan.id}
+            <ScenarioItem
+              scenario={scenario}
+              key={scenario.id}
+              selected={selectedId === scenario.id}
             />
           );
         })}
