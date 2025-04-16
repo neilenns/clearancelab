@@ -1,12 +1,13 @@
 import {
+  deleteModelWithClass,
   type DocumentType,
   getModelForClass,
   prop,
 } from "@typegoose/typegoose";
-import mongoose from "mongoose";
 import { nanoid } from "nanoid";
 import { Craft } from "./craft";
 import { FlightPlan } from "./flightPlan";
+import Env from "@/lib/env";
 
 export class Scenario {
   @prop({ default: () => nanoid(9) })
@@ -21,15 +22,14 @@ export class Scenario {
   @prop() isValid?: boolean;
 
   // Static method
-  static async findScenarioById(this: typeof ScenarioModel, id: string) {
-    return await this.findOne({ id });
+  static async findScenarioById(this: typeof ScenarioModel, _id: string) {
+    return await this.findOne({ _id });
   }
 }
 
-try {
-  mongoose.deleteModel("Scenario");
-} catch {
-  // do nothing, this is fine.
+// Delete the existing model, if it exists, in development to support hot reloading.
+if (Env.NODE_ENV === "development") {
+  deleteModelWithClass(Scenario);
 }
 
 export const ScenarioModel = getModelForClass(Scenario);
