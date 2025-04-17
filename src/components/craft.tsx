@@ -1,4 +1,4 @@
-import { Scenario } from "@/models/scenario";
+import { ScenarioData } from "@/models/scenario";
 import Hoverable from "./hoverable";
 
 const craftLabels = {
@@ -10,7 +10,7 @@ const craftLabels = {
 };
 
 interface CraftProps {
-  scenario: Scenario;
+  scenario: ScenarioData;
 }
 
 export default function Craft({ scenario }: CraftProps) {

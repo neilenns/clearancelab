@@ -1,11 +1,11 @@
-import { Scenario } from "@/models/scenario";
+import { ScenarioData } from "@/models/scenario";
 import "@/styles/scenarioItem.css";
 import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 interface ScenarioItemProps {
-  scenario: Scenario;
+  scenario: ScenarioData;
   selected: boolean;
 }
 

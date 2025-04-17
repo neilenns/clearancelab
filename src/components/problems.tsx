@@ -1,7 +1,7 @@
-import { Scenario } from "@/models/scenario";
+import { ScenarioData } from "@/models/scenario";
 
 interface ProblemsProps {
-  scenario?: Scenario;
+  scenario?: ScenarioData;
 }
 
 export default function Problems({ scenario }: ProblemsProps) {

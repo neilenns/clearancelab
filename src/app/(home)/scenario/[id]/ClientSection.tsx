@@ -5,10 +5,10 @@ import FPE from "@/components/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
 import Answer from "@/components/answer";
-import { Scenario } from "@/models/scenario";
+import { ScenarioData } from "@/models/scenario";
 
 interface ClientSectionProps {
-  scenario: Scenario;
+  scenario: ScenarioData;
 }
 
 export default function ClientSection({ scenario }: ClientSectionProps) {
