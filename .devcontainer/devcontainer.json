@@ -28,7 +28,8 @@
         "antfu.file-nesting",
         "bradlc.vscode-tailwindcss",
         "csstools.postcss",
-        "mongodb.mongodb-vscode"
+        "mongodb.mongodb-vscode",
+        "vk-l.nanoid-generator"
       ]
     }
   },

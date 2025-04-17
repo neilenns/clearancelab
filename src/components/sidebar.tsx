@@ -1,12 +1,12 @@
 "use client";
 
 import ScenarioItem from "@/components/scenarioItem";
-import { Scenario } from "@/models/scenario";
+import { ScenarioData } from "@/models/scenario";
 import "@/styles/sidebar.css";
 import { useParams } from "next/navigation";
 
 interface SidebarProps {
-  scenarios?: Scenario[] | null;
+  scenarios: ScenarioData[];
 }
 
 export default function Sidebar({ scenarios }: SidebarProps) {
@@ -17,7 +17,7 @@ export default function Sidebar({ scenarios }: SidebarProps) {
     <aside className="sidebar">
       <h2 className="header">Scenarios</h2>
       <ul>
-        {scenarios?.map((scenario) => {
+        {scenarios.map((scenario) => {
           return (
             <ScenarioItem
               scenario={scenario}

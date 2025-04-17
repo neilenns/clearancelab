@@ -33,5 +33,6 @@
     "VKTRY",
     "WHAMY"
   ],
-  "fileNestingUpdater.promptOnAutoUpdate": false
+  "fileNestingUpdater.promptOnAutoUpdate": false,
+  "nanoid-generator.length": 21
 }
