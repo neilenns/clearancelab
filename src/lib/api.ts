@@ -1,5 +1,5 @@
 // lib/api.ts
-export async function apiFetch<T>(path: string): Promise<T> {
+export async function apiFetch<T>(path: string): Promise<T | null> {
   const baseUrl = process.env.API_BASE_URL ?? "";
   const apiKey = process.env.API_KEY ?? "";
 
@@ -10,7 +10,7 @@ export async function apiFetch<T>(path: string): Promise<T> {
   });
 
   if (!response.ok) {
-    throw new Error(`API request failed: ${response.status.toString()}`);
+    return null;
   }
 
   return (await response.json()) as T;

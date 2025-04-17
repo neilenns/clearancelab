@@ -1,5 +1,6 @@
 import Sidebar from "@/components/sidebar";
-import { ScenarioModel } from "@/models/scenario";
+import { apiFetch } from "@/lib/api";
+import { ScenarioData } from "@/models/scenario";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
@@ -14,7 +15,7 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const scenarios = await ScenarioModel.findAll();
+  const scenarios = await apiFetch<ScenarioData[]>("/scenarios/");
 
   return (
     <div>
