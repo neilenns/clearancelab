@@ -15,7 +15,8 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const scenarios = (await apiFetch<ScenarioData[]>("/scenarios/")) ?? [];
+  const scenarios =
+    (await apiFetch<ScenarioData[]>("/scenarios/?summary=true")) ?? [];
 
   return (
     <SidebarProvider>
