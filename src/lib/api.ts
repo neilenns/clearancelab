@@ -12,6 +12,10 @@ export async function apiFetch<T>(path: string): Promise<T | null> {
   });
 
   if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+
     // Propagate status & body so the caller can decide.
     const message = await response.text();
     throw new Error(`API error ${response.status.toString()}: ${message}`);
