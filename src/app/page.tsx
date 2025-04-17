@@ -18,9 +18,9 @@ export default function HomePage() {
         <p className="text-muted-foreground text-lg">
           Where aspiring controllers sharpen their flight plan review skills.
         </p>
-        <Link href="/lab">
-          <Button size="lg">Launch the lab</Button>
-        </Link>
+        <Button size="lg" asChild>
+          <Link href="/lab">Launch the lab</Link>
+        </Button>
       </div>
     </main>
   );
