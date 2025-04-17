@@ -4,12 +4,13 @@ const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
-  MONGODB_URI: z
+  API_BASE_URL: z
     .string()
     .url({
-      message:
-        "A valid MongoDB connection string is required. Check your .env file.",
-    }),
+      message: "API_BASE_URL is required.",
+    })
+    .transform((val) => val.replace(/\/+$/, "")),
+  API_KEY: z.string().min(1, { message: "API_KEY is required" }),
 });
 
 const Env = envSchema.parse(process.env);

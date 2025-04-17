@@ -1,5 +1,6 @@
 import { ScenarioData } from "@/models/scenario";
 import Hoverable from "./hoverable";
+import { formatAirportName } from "@/lib/format";
 
 const craftLabels = {
   clearanceLimit: "C: Clearance Limit",
@@ -14,7 +15,7 @@ interface CraftProps {
 }
 
 export default function Craft({ scenario }: CraftProps) {
-  const { craft } = scenario;
+  const { destAirportInfo, craft } = scenario;
 
   const parts: React.ReactNode[] = [];
 
@@ -27,7 +28,9 @@ export default function Craft({ scenario }: CraftProps) {
       <span key="clearanceLimit">
         <Hoverable
           label={craftLabels.clearanceLimit}
-          text={`cleared to ${craft.clearanceLimit}`}
+          text={`cleared to ${formatAirportName(
+            destAirportInfo?.name ?? craft.clearanceLimit
+          )}`}
         />
       </span>
     );

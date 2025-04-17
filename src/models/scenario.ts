@@ -1,3 +1,5 @@
+import { AirportInfo } from "./airportInfo";
+
 export interface ScenarioData {
   _id: string;
   plan: {
@@ -26,6 +28,8 @@ export interface ScenarioData {
     telephony?: string;
     transponder?: string;
   };
+  depAirportInfo?: AirportInfo;
+  destAirportInfo?: AirportInfo;
   problems?: string[];
   isValid?: boolean;
 }
