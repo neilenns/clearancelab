@@ -13,10 +13,10 @@ import "@/styles/answer.css"; // Import the CSS file
 import Craft from "./craft";
 import Conversation from "./conversation";
 import Problems from "./problems";
-import { Scenario } from "@/models/scenario";
+import { ScenarioData } from "@/models/scenario";
 
 interface AnswerProps {
-  scenario: Scenario;
+  scenario: ScenarioData;
 }
 
 export default function Answer({ scenario }: AnswerProps) {

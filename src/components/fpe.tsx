@@ -1,9 +1,9 @@
 import React, { forwardRef } from "react";
 import "@/styles/fpe.css";
-import { FlightPlan } from "@/models/flightPlan";
+import { ScenarioData } from "@/models/scenario";
 
 interface FPEProps {
-  plan?: FlightPlan | null;
+  plan?: ScenarioData["plan"] | null;
 }
 
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
