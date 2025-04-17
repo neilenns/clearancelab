@@ -9,7 +9,7 @@ export default function HomePage() {
         <div className="flex justify-center">
           <Image
             src="/logo-text.svg"
-            alt="Clearance Lab logo"
+            alt="Clearance Lab"
             width={320}
             height={320}
             priority
