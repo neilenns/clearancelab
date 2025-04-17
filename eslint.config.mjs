@@ -12,6 +12,10 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  {
+    // Ignore files that come from shadcn.
+    ignores: ["src/components/ui/**", "src/hooks/**"],
+  },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   prettierConfig,
   ...tseslint.configs.strictTypeChecked,

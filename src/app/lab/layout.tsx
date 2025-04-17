@@ -1,8 +1,8 @@
-import Sidebar from "@/components/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { apiFetch } from "@/lib/api";
 import { ScenarioData } from "@/models/scenario";
 import type { Metadata } from "next";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Practice flight plans",
@@ -11,20 +11,16 @@ export const metadata: Metadata = {
 };
 
 export default async function Layout({
-  children: mainSection,
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const scenarios = (await apiFetch<ScenarioData[]>("/scenarios/")) ?? [];
 
   return (
-    <div>
-      <div className="grid grid-cols-[250px_1fr] h-screen">
-        <Sidebar scenarios={scenarios} />
-
-        {mainSection}
-      </div>
-      <Toaster richColors />
-    </div>
+    <SidebarProvider>
+      <AppSidebar scenarios={scenarios} />
+      <SidebarInset>{children}</SidebarInset>
+    </SidebarProvider>
   );
 }

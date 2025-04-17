@@ -4,12 +4,12 @@ interface NotFoundProps {
 
 export default function NotFound({ id }: NotFoundProps) {
   return (
-    <main className="p-6 flex flex-col items-center justify-center text-center text-gray-600">
+    <main className="flex h-full flex-col items-center justify-center text-center text-muted-foreground px-4 py-16">
       <h1 className="text-2xl font-semibold mb-2 text-red-600">
         Scenario not found
       </h1>
       <p className="mb-4 max-w-md">Scenario {id} doesn&apos;t exist.</p>
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-muted-foreground/60">
         Please select a valid scenario from the sidebar.
       </p>
     </main>
