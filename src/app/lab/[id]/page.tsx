@@ -20,9 +20,5 @@ export default async function Page({ params }: { params: Params }) {
     return <NotFound id={id} />;
   }
 
-  return (
-    <>
-      <ClientSection scenario={scenario} />
-    </>
-  );
+  return <ClientSection scenario={scenario} />;
 }
