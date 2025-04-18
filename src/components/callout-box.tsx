@@ -8,7 +8,7 @@ interface CalloutBoxProps {
   children: ReactNode;
 }
 
-const levelIcons = {
+const levelIcons: Record<ProblemLevel, React.ElementType> = {
   info: Info,
   ok: CheckCircle,
   warning: AlertTriangle,
@@ -18,7 +18,10 @@ const levelIcons = {
 export function CalloutBox({ level, children }: CalloutBoxProps) {
   return (
     <Alert variant={level}>
-      {React.createElement(levelIcons[level], { className: "h-4 w-4" })}
+      {(() => {
+        const Icon = levelIcons[level];
+        return <Icon className="h-4 w-4" />;
+      })()}
       <AlertDescription>{children}</AlertDescription>
     </Alert>
   );

@@ -37,6 +37,8 @@ export interface ScenarioData {
 }
 
 export interface ProblemData {
+  // This is kinda a hack, using ProblemLevel as both the different display types for
+  // the callout box and the values from the database. The database doesn't return "ok".
   level: Exclude<ProblemLevel, "ok">;
   issue: string;
   solution: string;

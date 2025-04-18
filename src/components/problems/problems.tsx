@@ -16,14 +16,13 @@ export function Problems({ scenario }: ProblemsProps) {
 
   return (
     <div>
-      {scenario.problems.length === 0 ||
-        (scenario.isValid && (
-          <CalloutBox level="ok">You can issue the clearance!</CalloutBox>
-        ))}
+      {(scenario.problems.length === 0 || scenario.isValid) && (
+        <CalloutBox level="ok">You can issue the clearance!</CalloutBox>
+      )}
 
       <div className="mt-2">
         {scenario.problems.map((problem, idx) => (
-          <ProblemItem key={idx} problem={problem} />
+          <ProblemItem key={`problem-${idx.toString()}`} problem={problem} />
         ))}
       </div>
     </div>
