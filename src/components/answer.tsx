@@ -6,8 +6,7 @@ import {
 } from "@/components/ui/collapsible";
 import { ScenarioData } from "@/models/scenario";
 import "@/styles/answer.css"; // Import the CSS file
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/20/solid";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, CircleCheckBig, CircleX } from "lucide-react";
 import { useState } from "react";
 import Conversation from "./conversation";
 import Craft from "./craft";
@@ -35,7 +34,7 @@ export default function Answer({ scenario }: AnswerProps) {
           {isValid ? (
             <div>
               <span className="valid-plan">
-                <CheckCircleIcon className="valid-icon" />
+                <CircleCheckBig className="valid-icon" />
                 <span>The flight plan is good to go!</span>
               </span>
               <Conversation
@@ -58,7 +57,7 @@ export default function Answer({ scenario }: AnswerProps) {
           ) : (
             <div>
               <span className="valid-plan">
-                <XCircleIcon className="invalid-icon" />
+                <CircleX className="invalid-icon" />
                 <span>The flight plan needs some cleanup.</span>
               </span>
             </div>
