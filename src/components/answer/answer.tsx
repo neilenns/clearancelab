@@ -17,7 +17,7 @@ interface AnswerProps {
   scenario: ScenarioData;
 }
 
-export default function Answer({ scenario }: AnswerProps) {
+export function Answer({ scenario }: AnswerProps) {
   const { plan, isValid, craft } = scenario;
   const [isOpen, setIsOpen] = useState(false);
 
