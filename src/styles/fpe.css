@@ -1,25 +1,7 @@
 @import "tailwindcss";
 
-#input-area {
-  margin: 1em auto;
-  text-align: center;
-}
-
-textarea {
-  width: 90%;
-  height: 4em;
-  font-size: 1em;
-}
-
-button {
-  margin-top: 0.5em;
-  font-size: 1em;
-  padding: 0.3em 1em;
-}
-
 .fpe-container {
-  @apply w-[800px];
-  font-family: var(--font-highgate);
+  @apply w-[800px] mt-2 mb-2 border font-[var(--font-highgate)] border-[var(--color-border)];
 }
 
 .fpe-conditions-box {
@@ -41,13 +23,7 @@ button {
     "fpe-rte-label    fpe-rte-box      fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box     fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box"
     "fpe-rmk-label    fpe-rmk-box      fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box     fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box";
   column-gap: 8px;
-  background-color: black;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 4px;
-  color: white;
-  font-weight: 400;
-  font-style: normal;
+  @apply bg-black text-white px-1 mx-1 font-normal not-italic;
 }
 
 .fpe-container > div {
@@ -62,9 +38,8 @@ button {
 
 /* Close box */
 .fpe-close {
+  @apply mr-1 text-right;
   grid-area: fpe-close;
-  margin-right: 4px;
-  text-align: right;
 }
 
 /* Field Labels */
@@ -98,7 +73,7 @@ button {
 .fpe-alt-box,
 .fpe-rte-box,
 .fpe-rmk-box {
-  @apply text-[#469be8] bg-[#111] border border-[#333] px-[6px] pt-[1px] pb-0 rounded min-h-[24px] text-center justify-center mb-1;
+  @apply text-[#469be8] bg-[#111] border border-[#333] px-[6px] pt-[1px] pb-0 min-h-[24px] text-center justify-center mb-1;
 }
 
 /* Override the borders on three boxes that shouldn't have them. */
