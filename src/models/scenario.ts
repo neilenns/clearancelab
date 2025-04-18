@@ -1,3 +1,4 @@
+import { ProblemLevel } from "@/interfaces/level";
 import { AirportInfo } from "./airportInfo";
 
 export interface ScenarioData {
@@ -30,6 +31,13 @@ export interface ScenarioData {
   };
   depAirportInfo?: AirportInfo;
   destAirportInfo?: AirportInfo;
-  problems?: string[];
-  isValid?: boolean;
+  problems: ProblemData[];
+  isValid: boolean;
+  canClear: boolean;
+}
+
+export interface ProblemData {
+  level: Exclude<ProblemLevel, "ok">;
+  issue: string;
+  solution: string;
 }

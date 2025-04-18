@@ -16,6 +16,10 @@
   --color-fpe-conditions: var(--color-fpe);
   --color-fpe-conditions-border: var(--color-fpe-border);
   --color-hoverable-underline: var(--color-muted-foreground);
+  --color-alert-warning: var(--color-yellow-500);
+  --color-alert-error: var(--color-red-900);
+  --color-alert-ok: var(--color-green-900);
+  --color-alert-info: var(--color-blue-900);
 }
 
 .dark {
