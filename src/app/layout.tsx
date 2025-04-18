@@ -3,10 +3,31 @@ import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import "./globals.css";
 
+const description =
+  "Where aspiring controllers sharpen their flight plan review skills.";
+const title = "Clearance Lab";
+const url = "https://clearancelab.badcasserole.com";
+
 export const metadata: Metadata = {
-  title: "Practice flight plans",
-  description:
-    "Get practice reviewing flight plans and issuing clearances with flight plans ripped straight from real VATSIM pilots.",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url,
+    type: "website",
+  },
+  twitter: {
+    title,
+    description,
+    card: "summary",
+    images: [
+      {
+        url: `https://clearancelab.badcasserole.com/logo.svg`,
+        alt: "Clearance Lab logo, a beaker half filled with blue liquid.",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

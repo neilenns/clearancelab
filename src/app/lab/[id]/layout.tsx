@@ -20,9 +20,30 @@ export async function generateMetadata({
     return;
   }
 
+  const title = `${scenario.plan.aid} | Clearance Lab`;
+  const description = `Practice flight plan for ${scenario.plan.aid}.`;
+  const url = `https://clearancelab.badcasserole.com/lab/${id}`;
+
   return {
-    title: scenario.plan.aid,
-    description: `Scenario for ${scenario.plan.aid}, flying from ${scenario.plan.dep} to ${scenario.plan.dest}`,
+    title,
+    description,
+    openGraph: {
+      title: scenario.plan.aid,
+      description,
+      url,
+      type: "website",
+    },
+    twitter: {
+      title: scenario.plan.aid,
+      description,
+      card: "summary",
+      images: [
+        {
+          url: `https://clearancelab.badcasserole.com/logo.svg`,
+          alt: "Clearance Lab logo, a beaker half filled with blue liquid.",
+        },
+      ],
+    },
   };
 }
 

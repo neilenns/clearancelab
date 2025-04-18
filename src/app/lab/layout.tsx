@@ -4,10 +4,29 @@ import { apiFetch } from "@/lib/api";
 import { ScenarioData } from "@/models/scenario";
 import type { Metadata } from "next";
 
+const description = "Scenarios to practice your flight plan review skills.";
+const title = "Scenarios | Clearance Lab";
+const url = "https://clearancelab.badcasserole.com/lab";
+
 export const metadata: Metadata = {
-  title: "Practice flight plans",
-  description:
-    "Get practice reviewing flight plans and issuing clearances with flight plans ripped straight from real VATSIM pilots.",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url,
+    type: "website",
+  },
+  twitter: {
+    description,
+    card: "summary",
+    images: [
+      {
+        url: `https://clearancelab.badcasserole.com/logo.svg`,
+        alt: "Clearance Lab logo, a beaker half filled with blue liquid.",
+      },
+    ],
+  },
 };
 
 export default async function Layout({
