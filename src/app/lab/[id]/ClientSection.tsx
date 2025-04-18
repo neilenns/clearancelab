@@ -46,9 +46,7 @@ export default function ClientSection({ scenario }: ClientSectionProps) {
           Copy screenshot
         </Button>
       </div>
-      <div>
-        <FPE plan={scenario.plan} ref={fpeRef} />
-      </div>
+      <FPE plan={scenario.plan} ref={fpeRef} />
       <Answer scenario={scenario} />
     </main>
   );
