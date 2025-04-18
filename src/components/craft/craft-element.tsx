@@ -6,7 +6,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { ReactNode } from "react";
-import "./craft.css";
+import "./craft-element.css";
 import { craftLabels } from "@/interfaces/craftLabels";
 
 interface CraftElementProps {
