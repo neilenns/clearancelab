@@ -6,7 +6,6 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { ReactNode } from "react";
-import "./craft-element.css";
 import { craftLabels } from "@/interfaces/craftLabels";
 
 interface CraftElementProps {
@@ -19,7 +18,7 @@ export function CraftElement({ element, children }: CraftElementProps) {
     <span>
       <Tooltip>
         <TooltipTrigger
-          className="tooltip-trigger"
+          className="border-b border-dotted border-[var(--muted-foreground)] pb-0"
           aria-label={craftLabels.clearanceLimit}
         >
           {children}
