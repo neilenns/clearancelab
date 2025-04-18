@@ -11,7 +11,7 @@ export function Conversation({
   messages: Message[];
 }) {
   return (
-    <div>
+    <div role="log" aria-label="Conversation">
       {messages.map((msg, idx) => {
         const isPilot = msg.from === "pilot";
 
@@ -24,6 +24,10 @@ export function Conversation({
             })}
           >
             <div
+              role="article"
+              arial-label={`Message from ${
+                isPilot ? pilotCallsign : controllerName
+              }`}
               className={clsx(
                 "max-w-[70%] px-4 py-3 rounded-[1em] leading-[1.4] break-words whitespace-pre-line",
                 {
