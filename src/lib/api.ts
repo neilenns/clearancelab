@@ -1,14 +1,12 @@
+import Env from "./env";
+
 // lib/api.ts
 export async function apiFetch<T>(path: string): Promise<T | null> {
-  const baseUrl = process.env.API_BASE_URL;
-  const apiKey = process.env.API_KEY;
-
-  if (!baseUrl) {
-    throw new Error("API_BASE_URL env var is missing");
-  }
+  const baseUrl = Env.API_BASE_URL;
+  const apiKey = Env.API_KEY;
 
   const response = await fetch(`${baseUrl}${path}`, {
-    headers: { "x-api-key": apiKey ?? "" },
+    headers: { "x-api-key": apiKey },
   });
 
   if (!response.ok) {

@@ -7,6 +7,9 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "vars": {
+    "API_BASE_URL": "https://clearancelab-backend-dev.badcasserole.com"
+  },
   "dev": {
     "ip": "0.0.0.0"
   },
