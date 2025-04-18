@@ -17,3 +17,10 @@
   --color-fpe-conditions-border: var(--color-fpe-border);
   --color-hoverable-underline: var(--color-muted-foreground);
 }
+
+.dark {
+  --color-chat-pilot: oklch(0.4 0.12 196.69); /* example darker shade */
+  --color-chat-pilot-foreground: oklch(0.9 0.025 206.94); /* lighter text */
+  --color-chat-controller: oklch(0.36 0.07 142.98);
+  --color-chat-controller-foreground: oklch(0.93 0.02 148.34);
+}
