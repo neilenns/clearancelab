@@ -1,39 +1,6 @@
 .answer-container {
   width: 800px;
-}
-
-.disclosure-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background-color: #3f3f46; /* bg-neutral-700 */
-  color: white;
-  font-weight: 500; /* font-medium */
-  transition: background-color 0.2s;
-}
-
-.disclosure-button:hover {
-  background-color: #71717a; /* hover:bg-neutral-500 */
-}
-
-.chevron-icon {
-  width: 20px; /* size-5 */
-  height: 20px;
-  transform: rotate(0deg);
-  transition: transform 0.2s;
-}
-
-.chevron-icon.open {
-  transform: rotate(180deg);
-}
-
-.disclosure-panel {
-  width: 100%;
-  background-color: #e5e7eb; /* bg-gray-200 */
-  padding: 12px 16px;
-  color: #374151; /* text-gray-800 */
+  background: var(--muted);
 }
 
 .valid-plan {
