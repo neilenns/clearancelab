@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -6,12 +8,11 @@ import {
   SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { ScenarioData } from "@/models/scenario";
-import Link from "next/link";
+import { useParams } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
+import ScenarioItem from "./scenarioItem";
 
 // Extend the props from the base Sidebar and add scenarios
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
@@ -19,6 +20,9 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function AppSidebar({ scenarios, ...props }: AppSidebarProps) {
+  const params = useParams();
+  const selectedId = params.id as string;
+
   return (
     <aside>
       <Sidebar {...props}>
@@ -30,14 +34,11 @@ export function AppSidebar({ scenarios, ...props }: AppSidebarProps) {
             <SidebarGroupContent>
               <SidebarMenu>
                 {scenarios.map((scenario) => (
-                  <SidebarMenuItem key={scenario._id}>
-                    <SidebarMenuButton asChild>
-                      <Link href={`/lab/${scenario._id}`}>
-                        {scenario.plan.dep} - {scenario.plan.dest} (
-                        {scenario.plan.aid})
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  <ScenarioItem
+                    scenario={scenario}
+                    key={scenario._id}
+                    selected={selectedId === scenario._id}
+                  />
                 ))}
               </SidebarMenu>
             </SidebarGroupContent>

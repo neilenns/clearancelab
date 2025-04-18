@@ -1,8 +1,7 @@
 import { ScenarioData } from "@/models/scenario";
-import "@/styles/scenarioItem.css";
-import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { SidebarMenuButton, SidebarMenuItem } from "./ui/sidebar";
 
 interface ScenarioItemProps {
   scenario: ScenarioData;
@@ -24,13 +23,12 @@ export default function ScenarioItem({
   }, [selected]);
 
   return (
-    <li ref={ref}>
-      <Link
-        className={clsx("fp-list-item", { "fp-list-item-selected": selected })}
-        href={`/scenario/${scenario._id}`}
-      >
-        {plan.dep} - {plan.dest} ({plan.aid})
-      </Link>
-    </li>
+    <SidebarMenuItem>
+      <SidebarMenuButton asChild isActive={selected}>
+        <Link href={`/lab/${scenario._id}`}>
+          {plan.dep} - {plan.dest} ({plan.aid})
+        </Link>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
   );
 }
