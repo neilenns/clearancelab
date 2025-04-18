@@ -1,6 +1,8 @@
 import React, { forwardRef } from "react";
 import "./fpe.css";
 import { ScenarioData } from "@/models/scenario";
+import { FPELabel } from "./fpe-label";
+import { FPEBox } from "./fpe-box";
 
 interface FPEProps {
   plan?: ScenarioData["plan"] | null;
@@ -8,17 +10,17 @@ interface FPEProps {
 
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
   return (
-    <div className="fpe-container" ref={ref}>
-      <div className="fpe-dialog">
+    <div className="w-[800px] mt-2 mb-2 font-[var(--font-highgate)]" ref={ref}>
+      <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
         {plan && (
-          <div className="fpe-title">
+          <div className="fpe-title text-xs ml-[2px] mb-[2px]">
             {plan.aid} - {plan.pilotName} ({plan.vatsimId})
           </div>
         )}
-        <div className="fpe-close">&times;</div>
-        <div className="fpe-aid-label">AID</div>
-        <div className="fpe-cruiseid-label">CID</div>
-        <div className="fpe-bcn-label">BCN</div>
+        <div className="fpe-close text-right">&times;</div>
+        <FPELabel className="fpe-aid-label">AID</FPELabel>
+        <FPELabel className="fpe-cruiseid-label">CID</FPELabel>
+        <FPELabel className="fpe-bcn-label">BCN</FPELabel>
         <div className="fpe-refresh-label">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,35 +35,45 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
             />
           </svg>
         </div>
-        <div className="fpe-typ-label">TYP</div>
-        <div className="fpe-eq-label">EQ</div>
-        <div className="fpe-dep-label">DEP</div>
-        <div className="fpe-dest-label">DEST</div>
-        <div className="fpe-spd-label">SPD</div>
-        <div className="fpe-alt-label">ALT</div>
-        <div className="fpe-amend">Amend</div>
+        <FPELabel className="fpe-typ-label">TYP</FPELabel>
+        <FPELabel className="fpe-eq-label">EQ</FPELabel>
+        <FPELabel className="fpe-dep-label">DEP</FPELabel>
+        <FPELabel className="fpe-dest-label">DEST</FPELabel>
+        <FPELabel className="fpe-spd-label">SPD</FPELabel>
+        <FPELabel className="fpe-alt-label">ALT</FPELabel>
+        <FPELabel className="fpe-rmk-label text-right">RMK</FPELabel>
+        <FPELabel className="fpe-rte-label text-right">RTE</FPELabel>
 
-        <div className="fpe-aid-box">{plan?.aid}</div>
-        <div className="fpe-cruiseid-box">{plan?.cid}</div>
-        <div className="fpe-bcn-box">{plan?.bcn}</div>
-        <div className="fpe-typ-box">{plan?.typ}</div>
-        <div className="fpe-eq-box">{plan?.eq}</div>
-        <div className="fpe-dep-box">{plan?.dep}</div>
-        <div className="fpe-dest-box">{plan?.dest}</div>
-        <div className="fpe-spd-box">{plan?.spd}</div>
-        <div className="fpe-alt-box">{plan?.alt}</div>
+        <div className="fpe-amend text-[var(--color-fpe-amend-foreground)] text-center justify-self-center mt-[6px] mb-1 border-2 border-[var(--color-fpe-amend-border)] px-3 py-[6px]">
+          Amend
+        </div>
 
-        <div className="fpe-rte-label">RTE</div>
-        <div className="fpe-rte-box">{plan?.rte}</div>
-
-        <div className="fpe-rmk-label">RMK</div>
-        <div className="fpe-rmk-box">{plan?.rmk}</div>
+        <FPEBox className="fpe-aid-box border-none">{plan?.aid}</FPEBox>
+        <FPEBox className="fpe-cruiseid-box border-none">{plan?.cid}</FPEBox>
+        <FPEBox className="fpe-bcn-box border-none">{plan?.bcn}</FPEBox>
+        <FPEBox className="fpe-typ-box">{plan?.typ}</FPEBox>
+        <FPEBox className="fpe-eq-box">{plan?.eq}</FPEBox>
+        <FPEBox className="fpe-dep-box">{plan?.dep}</FPEBox>
+        <FPEBox className="fpe-dest-box">{plan?.dest}</FPEBox>
+        <FPEBox className="fpe-spd-box">{plan?.spd}</FPEBox>
+        <FPEBox className="fpe-alt-box">{plan?.alt}</FPEBox>
+        <FPEBox className="fpe-rte-box text-left min-h-[50px]">
+          {plan?.rte}
+        </FPEBox>
+        <FPEBox className="fpe-rmk-box justify-self min-h-[50px]">
+          {plan?.rmk}
+        </FPEBox>
       </div>
 
       {plan?.airportConditions && (
-        <div className="fpe-conditions-box">
-          <div className="fpe-conditions-left-bar"></div>
-          <span className="fpe-conditions-label">Conditions:</span>{" "}
+        <div
+          className="relative px-4 py-2 mt-2 w-[800px] text-sm bg-[var(--color-fpe)] text-[var(--color-fpe-conditions-foreground)] 
+         border border-[var(--color-fpe-conditions-border)]"
+        >
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-fpe-conditions-left-bar)]"></div>
+          <span className="font-semibold text-[var(--color-fpe-conditions-label-foreground)]">
+            Conditions:
+          </span>{" "}
           {plan.airportConditions}
         </div>
       )}
