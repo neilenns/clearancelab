@@ -7,7 +7,7 @@ const envSchema = z.object({
   API_BASE_URL: z
     .string()
     .url({
-      message: "API_BASE_URL is required.",
+      message: "API_BASE_URL must be a valid URL.",
     })
     .transform((val) => val.replace(/\/+$/, "")),
   API_KEY: z.string().min(1, { message: "API_KEY is required" }),
