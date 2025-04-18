@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.tooltip-trigger {
+  @apply border-b border-dotted border-[var(--muted-foreground)] pb-0;
+}

@@ -15,4 +15,5 @@
   --color-fpe-conditions-foreground: var(--color-neutral-300);
   --color-fpe-conditions: var(--color-fpe);
   --color-fpe-conditions-border: var(--color-fpe-border);
+  --color-hoverable-underline: var(--color-muted-foreground);
 }

@@ -1,6 +1,12 @@
 import { ScenarioData } from "@/models/scenario";
-import Hoverable from "@/components/hoverable/hoverable";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { formatAirportName } from "@/lib/format";
+import "./craft.css";
 
 const craftLabels = {
   clearanceLimit: "C: Clearance Limit",
@@ -26,12 +32,12 @@ export function Craft({ scenario }: CraftProps) {
   if (craft?.clearanceLimit) {
     parts.push(
       <span key="clearanceLimit">
-        <Hoverable
-          label={craftLabels.clearanceLimit}
-          text={`cleared to ${formatAirportName(
+        <Tooltip>
+          <TooltipTrigger className="tooltip-trigger">{`cleared to ${formatAirportName(
             destAirportInfo?.name ?? craft.clearanceLimit
-          )}`}
-        />
+          )}`}</TooltipTrigger>
+          <TooltipContent>{craftLabels.clearanceLimit}</TooltipContent>
+        </Tooltip>
       </span>
     );
   }
@@ -40,10 +46,14 @@ export function Craft({ scenario }: CraftProps) {
     parts.push(
       <span key="route">
         {" "}
-        via <Hoverable
-          label={craftLabels.route}
-          text={` ${craft.route}`}
-        />.{" "}
+        via
+        <Tooltip>
+          <TooltipTrigger className="tooltip-trigger">
+            {craft.route}
+          </TooltipTrigger>
+          <TooltipContent>{craftLabels.route}</TooltipContent>
+        </Tooltip>
+        .{" "}
       </span>
     );
   }
@@ -51,7 +61,13 @@ export function Craft({ scenario }: CraftProps) {
   if (craft?.altitude) {
     parts.push(
       <span key="altitude">
-        <Hoverable label={craftLabels.altitude} text={craft.altitude} />.{" "}
+        <Tooltip>
+          <TooltipTrigger className="tooltip-trigger">
+            {craft.altitude}
+          </TooltipTrigger>
+          <TooltipContent>{craftLabels.altitude}</TooltipContent>
+        </Tooltip>
+        .{" "}
       </span>
     );
   }
@@ -59,10 +75,12 @@ export function Craft({ scenario }: CraftProps) {
   if (craft?.frequency) {
     parts.push(
       <span key="frequency">
-        <Hoverable
-          label={craftLabels.frequency}
-          text={`Departure is ${craft.frequency}`}
-        />
+        <Tooltip>
+          <TooltipTrigger className="tooltip-trigger">
+            Departure is {craft.frequency}
+          </TooltipTrigger>
+          <TooltipContent>{craftLabels.frequency}</TooltipContent>
+        </Tooltip>
         .{" "}
       </span>
     );
@@ -71,14 +89,19 @@ export function Craft({ scenario }: CraftProps) {
   if (craft?.transponder) {
     parts.push(
       <span key="transponder">
-        <Hoverable
-          label={craftLabels.transponder}
-          text={`Squawk ${craft.transponder}`}
-        />
-        .
+        <Tooltip>
+          <TooltipTrigger className="tooltip-trigger">
+            Squawk {craft.transponder}.
+          </TooltipTrigger>
+          <TooltipContent>{craftLabels.transponder}</TooltipContent>
+        </Tooltip>
       </span>
     );
   }
 
-  return <p className="leading-relaxed">{parts}</p>;
+  return (
+    <TooltipProvider>
+      <p className="leading-relaxed">{parts}</p>
+    </TooltipProvider>
+  );
 }
