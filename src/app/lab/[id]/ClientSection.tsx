@@ -4,7 +4,7 @@ import { useRef } from "react";
 import FPE from "@/components/fpe/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
-import { Answer } from "@/components/answer/answer";
+import { Answer } from "@/components/answer";
 import { ScenarioData } from "@/models/scenario";
 import { Button } from "@/components/ui/button";
 
