@@ -23,9 +23,9 @@ export default function Answer({ scenario }: AnswerProps) {
 
   return (
     <div className="answer-container">
-      <Collapsible open={isOpen} onOpenChange={setIsOpen} className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" size="sm">
+      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+        <CollapsibleTrigger className="mb-1 mt-1" asChild>
+          <Button variant="ghost">
             {isOpen ? "Hide answer" : "Show answer"}
             <ChevronsUpDown className="h-4 w-4" />
           </Button>

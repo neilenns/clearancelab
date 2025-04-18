@@ -28,13 +28,13 @@ export async function generateMetadata({
     title,
     description,
     openGraph: {
-      title: scenario.plan.aid,
+      title,
       description,
       url,
       type: "website",
     },
     twitter: {
-      title: scenario.plan.aid,
+      title,
       description,
       card: "summary",
       images: [
