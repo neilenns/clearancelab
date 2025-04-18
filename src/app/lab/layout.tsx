@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: {
+    title,
     description,
     card: "summary",
     images: [
