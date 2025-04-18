@@ -9,7 +9,7 @@ import { ChevronsUpDown, CircleCheckBig, CircleX } from "lucide-react";
 import { useState } from "react";
 import { Conversation } from "@/components/conversation/conversation";
 import { Craft } from "@/components/craft/craft";
-import { Problems } from "@/components/problems/problems";
+import { Problems } from "@/components/problems";
 import { Button } from "@/components/ui/button";
 
 interface AnswerProps {
