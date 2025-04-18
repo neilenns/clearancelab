@@ -1,7 +1,6 @@
 import { ScenarioData } from "@/models/scenario";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { formatAirportName } from "@/lib/format";
-import "./craft.css";
 import { CraftElement } from "./craft-element";
 
 interface CraftProps {
