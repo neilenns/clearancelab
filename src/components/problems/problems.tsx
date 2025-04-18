@@ -4,7 +4,7 @@ interface ProblemsProps {
   scenario?: ScenarioData;
 }
 
-export default function Problems({ scenario }: ProblemsProps) {
+export function Problems({ scenario }: ProblemsProps) {
   if (!scenario?.problems || scenario.problems.length === 0) {
     return null;
   }

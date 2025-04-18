@@ -1,7 +1,7 @@
 import { Message } from "@/interfaces/message";
-import "@/styles/conversation.css";
+import "./conversation.css";
 
-export default function Conversation({
+export function Conversation({
   pilotCallsign,
   controllerName,
   messages,

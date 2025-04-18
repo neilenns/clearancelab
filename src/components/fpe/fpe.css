@@ -1,18 +1,25 @@
 @import "tailwindcss";
 
 .fpe-container {
-  @apply w-[800px] mt-2 mb-2 border font-[var(--font-highgate)] border-[var(--color-border)];
+  @apply w-[800px] mt-2 mb-2 font-[var(--font-highgate)];
 }
 
 .fpe-conditions-box {
-  @apply w-[800px] bg-neutral-900 text-neutral-300 text-sm px-4 py-2 border-l-4 border-blue-400;
+  @apply relative px-4 py-2 mt-2 w-[800px] text-sm bg-[var(--color-fpe)] text-[var(--color-fpe-conditions-foreground)] 
+         border-1 border-[var(--color-fpe-conditions-border)];
+}
+
+.fpe-conditions-left-bar {
+  @apply absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-fpe-conditions-left-bar)];
+  content: "";
 }
 
 .fpe-conditions-label {
-  @apply font-semibold text-neutral-100;
+  @apply font-semibold text-[var(--color-fpe-conditions-label-foreground)];
 }
 
 .fpe-dialog {
+  @apply px-2 py-2 bg-[var(--color-fpe)] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)];
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr max-content 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto auto auto auto auto;
@@ -23,7 +30,6 @@
     "fpe-rte-label    fpe-rte-box      fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box     fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box"
     "fpe-rmk-label    fpe-rmk-box      fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box     fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box";
   column-gap: 8px;
-  @apply bg-black text-white px-1 mx-1 font-normal not-italic;
 }
 
 .fpe-container > div {
@@ -32,7 +38,7 @@
 
 /* Title */
 .fpe-title {
-  @apply text-xs text-white ml-[2px] mb-[2px];
+  @apply text-xs ml-[2px] mb-[2px];
   grid-area: fpe-title;
 }
 
@@ -53,11 +59,11 @@
 .fpe-spd-label,
 .fpe-alt-label,
 .fpe-amend {
-  @apply text-white text-center justify-center;
+  @apply text-center justify-center;
 }
 
 .fpe-amend {
-  @apply text-gray-500 text-center justify-center mt-[6px] mb-1 border-2 border-[#425595] px-3 py-[6px];
+  @apply text-[var(--color-fpe-amend-foreground)] text-center justify-center mt-[6px] mb-1 border-2 border-[var(--color-fpe-amend-border)] px-3 py-[6px];
   grid-area: fpe-amend;
 }
 
@@ -73,7 +79,7 @@
 .fpe-alt-box,
 .fpe-rte-box,
 .fpe-rmk-box {
-  @apply text-[#469be8] bg-[#111] border border-[#333] px-[6px] pt-[1px] pb-0 min-h-[24px] text-center justify-center mb-1;
+  @apply text-[var(--color-fpe-input-foreground)] border border-[var(--color-fpe-input-border)] px-[6px] pt-[1px] pb-0 min-h-[24px] text-center justify-center mb-1;
 }
 
 /* Override the borders on three boxes that shouldn't have them. */
@@ -92,7 +98,7 @@
 /* Align the rte and rmk labels to the right */
 .fpe-rte-label,
 .fpe-rmk-label {
-  @apply text-white text-right items-start;
+  @apply text-right items-start;
 }
 
 /* Individual grid-area assignments */

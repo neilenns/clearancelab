@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import FPE from "@/components/fpe";
+import FPE from "@/components/fpe/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
-import Answer from "@/components/answer";
+import Answer from "@/components/answer/answer";
 import { ScenarioData } from "@/models/scenario";
 
 interface ClientSectionProps {

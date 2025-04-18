@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import "@/styles/fpe.css";
+import "./fpe.css";
 import { ScenarioData } from "@/models/scenario";
 
 interface FPEProps {
@@ -60,6 +60,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
 
       {plan?.airportConditions && (
         <div className="fpe-conditions-box">
+          <div className="fpe-conditions-left-bar"></div>
           <span className="fpe-conditions-label">Conditions:</span>{" "}
           {plan.airportConditions}
         </div>

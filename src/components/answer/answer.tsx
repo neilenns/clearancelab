@@ -5,13 +5,13 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ScenarioData } from "@/models/scenario";
-import "@/styles/answer.css"; // Import the CSS file
+import "./answer.css";
 import { ChevronsUpDown, CircleCheckBig, CircleX } from "lucide-react";
 import { useState } from "react";
-import Conversation from "./conversation";
-import Craft from "./craft";
-import Problems from "./problems";
-import { Button } from "./ui/button";
+import { Conversation } from "@/components/conversation/conversation";
+import { Craft } from "@/components/craft/craft";
+import { Problems } from "../problems/problems";
+import { Button } from "../ui/button";
 
 interface AnswerProps {
   scenario: ScenarioData;

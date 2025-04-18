@@ -1,5 +1,5 @@
 import { ScenarioData } from "@/models/scenario";
-import Hoverable from "./hoverable";
+import Hoverable from "@/components/hoverable/hoverable";
 import { formatAirportName } from "@/lib/format";
 
 const craftLabels = {
@@ -14,7 +14,7 @@ interface CraftProps {
   scenario: ScenarioData;
 }
 
-export default function Craft({ scenario }: CraftProps) {
+export function Craft({ scenario }: CraftProps) {
   const { destAirportInfo, craft } = scenario;
 
   const parts: React.ReactNode[] = [];

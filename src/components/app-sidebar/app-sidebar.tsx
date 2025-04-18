@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/sidebar";
 import { ScenarioData } from "@/models/scenario";
 import { useParams } from "next/navigation";
+import { ScenarioItem } from "./scenarioItem";
 import { ModeToggle } from "./mode-toggle";
-import ScenarioItem from "./scenarioItem";
 
 // Extend the props from the base Sidebar and add scenarios
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {

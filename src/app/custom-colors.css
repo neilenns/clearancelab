@@ -1,0 +1,18 @@
+:root {
+  --color-chat-pilot: oklch(0.965 0.025 196.69);
+  --color-chat-pilot-foreground: oklch(0.384 0.1 206.94);
+  --color-chat-controller: oklch(0.9763 0.032 142.98);
+  --color-chat-controller-foreground: oklch(0.4173 0.143 148.34);
+  --color-fpe: oklch(0.2 0 0 / 1);
+  --color-fpe-border: var(--color-border);
+  --color-fpe-foreground: var(--color-white);
+  --color-fpe-input-border: oklch(0.32 0 0 / 1);
+  --color-fpe-input-foreground: oklch(0.67 0.14 248.77 / 1);
+  --color-fpe-amend-border: oklch(0.47 0.11 269.48 / 1);
+  --color-fpe-amend-foreground: var(--color-gray-500);
+  --color-fpe-conditions-left-bar: var(--color-fpe-input-foreground);
+  --color-fpe-conditions-label-foreground: var(--color-neutral-100);
+  --color-fpe-conditions-foreground: var(--color-neutral-300);
+  --color-fpe-conditions: var(--color-fpe);
+  --color-fpe-conditions-border: var(--color-fpe-border);
+}
