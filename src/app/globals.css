@@ -1,6 +1,7 @@
 @import "https://use.typekit.net/kbp3ien.css";
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./custom-colors.css";
 
 @custom-variant dark (&:is(.dark *));
 

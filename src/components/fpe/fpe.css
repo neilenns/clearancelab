@@ -1,17 +1,3 @@
-@import "tailwindcss";
-
-.fpe-container {
-  @apply w-[800px] mt-2 mb-2 border font-[var(--font-highgate)] border-[var(--color-border)];
-}
-
-.fpe-conditions-box {
-  @apply w-[800px] bg-neutral-900 text-neutral-300 text-sm px-4 py-2 border-l-4 border-blue-400;
-}
-
-.fpe-conditions-label {
-  @apply font-semibold text-neutral-100;
-}
-
 .fpe-dialog {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr max-content 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -23,76 +9,19 @@
     "fpe-rte-label    fpe-rte-box      fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box     fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box"
     "fpe-rmk-label    fpe-rmk-box      fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box     fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box";
   column-gap: 8px;
-  @apply bg-black text-white px-1 mx-1 font-normal not-italic;
 }
 
-.fpe-container > div {
-  @apply text-sm box-border items-center;
-}
-
-/* Title */
 .fpe-title {
-  @apply text-xs text-white ml-[2px] mb-[2px];
   grid-area: fpe-title;
 }
 
 /* Close box */
 .fpe-close {
-  @apply mr-1 text-right;
   grid-area: fpe-close;
 }
 
-/* Field Labels */
-.fpe-aid-label,
-.fpe-cruiseid-label,
-.fpe-bcn-label,
-.fpe-typ-label,
-.fpe-eq-label,
-.fpe-dep-label,
-.fpe-dest-label,
-.fpe-spd-label,
-.fpe-alt-label,
 .fpe-amend {
-  @apply text-white text-center justify-center;
-}
-
-.fpe-amend {
-  @apply text-gray-500 text-center justify-center mt-[6px] mb-1 border-2 border-[#425595] px-3 py-[6px];
   grid-area: fpe-amend;
-}
-
-/* Text Fields */
-.fpe-aid-box,
-.fpe-cruiseid-box,
-.fpe-bcn-box,
-.fpe-typ-box,
-.fpe-eq-box,
-.fpe-dep-box,
-.fpe-dest-box,
-.fpe-spd-box,
-.fpe-alt-box,
-.fpe-rte-box,
-.fpe-rmk-box {
-  @apply text-[#469be8] bg-[#111] border border-[#333] px-[6px] pt-[1px] pb-0 min-h-[24px] text-center justify-center mb-1;
-}
-
-/* Override the borders on three boxes that shouldn't have them. */
-.fpe-aid-box,
-.fpe-cruiseid-box,
-.fpe-bcn-box {
-  @apply border-none;
-}
-
-/* Override the centering on rte and rmk boxes */
-.fpe-rte-box,
-.fpe-rmk-box {
-  @apply text-left items-start min-h-[40px];
-}
-
-/* Align the rte and rmk labels to the right */
-.fpe-rte-label,
-.fpe-rmk-label {
-  @apply text-white text-right items-start;
 }
 
 /* Individual grid-area assignments */

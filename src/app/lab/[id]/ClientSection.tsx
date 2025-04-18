@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import FPE from "@/components/fpe";
+import FPE from "@/components/fpe/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
-import Answer from "@/components/answer";
+import { Answer } from "@/components/answer";
 import { ScenarioData } from "@/models/scenario";
+import { Button } from "@/components/ui/button";
 
 interface ClientSectionProps {
   scenario: ScenarioData;
@@ -34,21 +35,18 @@ export default function ClientSection({ scenario }: ClientSectionProps) {
   return (
     <main className="p-6 overflow-y-auto">
       <div className="mb-4">
-        <button
-          aria-label="Copy flight plan as screenshot to clipboard"
+        <Button
+          aria-label="Copy screenshot"
           onClick={() => {
             handleScreenshot().catch(() => {
               toast.error("Failed to copy screenshot");
             });
           }}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
-          Copy Screenshot
-        </button>
+          Copy screenshot
+        </Button>
       </div>
-      <div>
-        <FPE plan={scenario.plan} ref={fpeRef} />
-      </div>
+      <FPE plan={scenario.plan} ref={fpeRef} />
       <Answer scenario={scenario} />
     </main>
   );

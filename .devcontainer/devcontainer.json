@@ -29,7 +29,8 @@
         "bradlc.vscode-tailwindcss",
         "csstools.postcss",
         "mongodb.mongodb-vscode",
-        "vk-l.nanoid-generator"
+        "nize.oklch-preview",
+        "starbist.oklchanger"
       ]
     }
   },
