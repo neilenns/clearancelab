@@ -1,7 +1,7 @@
 .fpe-dialog {
   font-family: var(--font-highgate);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr max-content 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 63px) 10px repeat(6, 63px) 72px;
   grid-template-rows: auto auto auto auto auto;
   grid-template-areas:
     "fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-title        fpe-close"
@@ -9,7 +9,7 @@
     ".                fpe-aid-box      fpe-cruiseid-box fpe-bcn-box      .                fpe-typ-box      fpe-eq-box      fpe-dep-box      fpe-dest-box     fpe-spd-box      fpe-alt-box      fpe-amend"
     "fpe-rte-label    fpe-rte-box      fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box     fpe-rte-box     fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box      fpe-rte-box"
     "fpe-rmk-label    fpe-rmk-box      fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box     fpe-rmk-box     fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box      fpe-rmk-box";
-  column-gap: 8px;
+  column-gap: 6px;
 }
 
 .fpe-title {

@@ -11,7 +11,7 @@ interface FPEProps {
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
   return (
     <div className="w-[800px] mt-2 mb-2" ref={ref}>
-      <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
+      <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[0.9375rem] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
         {plan && (
           <div className="fpe-title text-xs ml-[2px] mb-[2px]">
             {plan.aid} - {plan.pilotName} ({plan.vatsimId})
@@ -21,7 +21,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
         <FPELabel className="fpe-aid-label">AID</FPELabel>
         <FPELabel className="fpe-cruiseid-label">CID</FPELabel>
         <FPELabel className="fpe-bcn-label">BCN</FPELabel>
-        <div className="fpe-refresh-label">
+        <div className="fpe-refresh-label self-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
@@ -41,10 +41,10 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
         <FPELabel className="fpe-dest-label">DEST</FPELabel>
         <FPELabel className="fpe-spd-label">SPD</FPELabel>
         <FPELabel className="fpe-alt-label">ALT</FPELabel>
-        <FPELabel className="fpe-rmk-label text-right">RMK</FPELabel>
-        <FPELabel className="fpe-rte-label text-right">RTE</FPELabel>
+        <FPELabel className="fpe-rte-label text-right py-1">RTE</FPELabel>
+        <FPELabel className="fpe-rmk-label text-right py-1">RMK</FPELabel>
 
-        <div className="fpe-amend text-[var(--color-fpe-amend-foreground)] text-center justify-self-center mt-[6px] mb-1 border-2 border-[var(--color-fpe-amend-border)] px-3 py-[6px]">
+        <div className="fpe-amend text-[var(--color-fpe-amend-foreground)] text-center justify-self-center mt-[6px] mb-1 border-2 border-[var(--color-fpe-amend-border)] px-2 py-[6px]">
           Amend
         </div>
 
