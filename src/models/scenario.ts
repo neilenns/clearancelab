@@ -27,7 +27,6 @@ export interface ScenarioData {
     frequency?: string;
     route?: string;
     telephony?: string;
-    transponder?: string;
   };
   depAirportInfo?: AirportInfo;
   destAirportInfo?: AirportInfo;

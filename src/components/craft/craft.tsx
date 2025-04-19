@@ -32,9 +32,9 @@ export function Craft({ scenario }: CraftProps) {
         <CraftElement element="altitude">{craft.altitude}.</CraftElement>
       )}{" "}
       <CraftElement element="frequency">Departure is {departure}.</CraftElement>{" "}
-      {craft?.transponder && (
+      {scenario.plan.bcn && (
         <CraftElement element="transponder">
-          Squawk {craft.transponder}.
+          Squawk {scenario.plan.bcn}.
         </CraftElement>
       )}
     </TooltipProvider>
