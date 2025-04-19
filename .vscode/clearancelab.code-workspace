@@ -27,6 +27,6 @@
       "**/.open-next": true,
       "**/.wrangler": true,
     },
-    "cSpell.words": ["apikey", "sonner", "virtuals"],
+    "cSpell.words": ["apikey", "Buildx", "sonner", "virtuals"],
   },
 }
