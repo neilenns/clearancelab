@@ -10,6 +10,7 @@
   "cSpell.words": [
     "callsign",
     "checkmark",
+    "clearancelab",
     "couldn",
     "cruiseid",
     "doesn",
@@ -24,6 +25,7 @@
     "KPDX",
     "KSFO",
     "MDANO",
+    "nextjs",
     "nums",
     "nvmrc",
     "oklch",
@@ -38,5 +40,8 @@
     "WHAMY"
   ],
   "fileNestingUpdater.promptOnAutoUpdate": false,
-  "nanoid-generator.length": 21
+  "nanoid-generator.length": 21,
+  "cSpell.enabledSchemes": {
+    "json": false
+  }
 }
