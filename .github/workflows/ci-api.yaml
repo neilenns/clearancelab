@@ -11,10 +11,6 @@ jobs:
     name: Build, lint, and Docker
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: apps/api
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,9 +26,11 @@ jobs:
         run: npm ci
 
       - name: TypeScript build check
+        working-directory: apps/api
         run: npm run build
 
       - name: Lint
+        working-directory: apps/api
         run: npm run lint
 
       - name: Build Docker image
