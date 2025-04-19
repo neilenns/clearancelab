@@ -6,6 +6,7 @@
   "image": "mcr.microsoft.com/devcontainers/base:jammy",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers-extra/features/typescript:2": {},
     "ghcr.io/devcontainers/features/python:1": {},
     "ghcr.io/neilenns/devcontainer-features/oh-my-zsh": {
@@ -30,13 +31,11 @@
         "csstools.postcss",
         "mongodb.mongodb-vscode",
         "nize.oklch-preview",
-        "starbist.oklchanger"
+        "starbist.oklchanger",
+        "vk-l.nanoid-generator"
       ]
     }
   },
-
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install && npm install"

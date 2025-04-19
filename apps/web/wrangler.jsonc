@@ -8,8 +8,7 @@
     "binding": "ASSETS"
   },
   "vars": {
-    "API_BASE_URL": "https://clearancelab-backend-dev.badcasserole.com",
-    "API_KEY": ""
+    "API_BASE_URL": "https://clearancelab-backend-dev.badcasserole.com"
   },
   "dev": {
     "ip": "0.0.0.0"

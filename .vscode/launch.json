@@ -1,8 +1,15 @@
 {
   "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Debug Full App (Web + API)",
+      "configurations": ["Debug api", "Debug web"],
+      "stopAll": true
+    }
+  ],
   "configurations": [
     {
-      "name": "Next.js: debug full stack",
+      "name": "Debug web",
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}/apps/web",
@@ -12,6 +19,7 @@
       },
       "args": ["-H", "0.0.0.0"],
       "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
@@ -19,6 +27,17 @@
         "killOnServerStop": true,
         "webRoot": "${workspaceFolder}/apps/web/src"
       }
+    },
+    {
+      "name": "Debug api",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/apps/api",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["tsx", "watch", "src/index.ts"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"],
+      "envFile": "${workspaceFolder}/apps/api/.env.local"
     }
   ]
 }
