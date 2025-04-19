@@ -1,4 +1,4 @@
-name: CI - Web
+name: CI - Full repo
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: CI - Web
+    name: CI - Full repo
     runs-on: ubuntu-latest
 
     strategy:
@@ -37,8 +37,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        working-directory: apps/web
-        run: npm run ci # This does compile-only using the "--experimental-build-mode compile" option.
+        run: turbo run ci
 
       - name: Lint
         working-directory: apps/web

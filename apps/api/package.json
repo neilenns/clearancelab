@@ -5,9 +5,10 @@
   "packageManager": "npm@10.9.2",
   "scripts": {
     "dev": "tsx --inspect=9229 --watch --env-file .env.local src/index.ts",
+    "ci": "npm run build",
     "start": "node --env-file .env.local dist/index.js",
     "build": "tsc",
-    "build:docker": "docker build -t flightplan-backend .",
+    "build:docker": "docker build -f ./Dockerfile ../..",
     "type-check": "tsc --noEmit",
     "lint": "npm run lint:eslint",
     "lint:eslint": "eslint .",
@@ -16,7 +17,7 @@
     "format:check": "prettier --check .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "description": "API for the clearancelab website.",
+  "description": "API for the Clearance Lab website.",
   "dependencies": {
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
@@ -38,6 +39,7 @@
     "eslint-plugin-perfectionist": "^4.11.0",
     "prettier": "^3.5.3",
     "tsx": "^4.19.3",
+    "turbo": "^2.5.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.30.1"
   }

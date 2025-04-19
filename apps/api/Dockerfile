@@ -1,34 +1,45 @@
 # Base build image
-FROM node:23-alpine AS builder
+FROM node:23-alpine AS base
+
+FROM base AS builder
+
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update
+RUN apk add --no-cache libc6-compat
+
+# Set working directory
 
 WORKDIR /app
 
-# Copy root and workspace package manifests first (better for Docker caching)
-COPY package*.json ./
-COPY apps/api/package*.json ./apps/api/
-
-# Install full monorepo dependencies using npm workspaces
-RUN npm ci
-
-# Copy the rest of the monorepo
+RUN npm install --global turbo 
 COPY . .
+RUN turbo prune api --docker
 
-# Build only the API workspace
-RUN npm run --workspace=apps/api build
+# Add lockfile and package.json's of isolated subworkspace
+FROM base AS installer
+RUN apk update
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
 
-# Production image
-FROM node:23-alpine AS runner
+# First install dependencies (as they change less often)
+COPY --from=builder /app/out/json/ .
+RUN npm install
+
+# Build the project and its dependencies
+COPY --from=builder /app/out/full/ .
+
+RUN npx turbo build
+
+FROM base AS runner
 
 WORKDIR /app
 
-# Copy built output
-COPY --from=builder /app/apps/api/dist ./apps/api/dist
+# Don't run production as root
+RUN addgroup --system --gid 1001 expressjs
+RUN adduser --system --uid 1001 expressjs
 
-# Copy only the necessary package.json files to install prod deps
-COPY package*.json ./
-COPY apps/api/package*.json ./apps/api/
+USER expressjs
 
-# Install only production deps for api workspace
-RUN npm ci --omit=dev --workspace=apps/api
+COPY --from=installer /app .
 
 CMD ["node", "apps/api/dist/index.js"]
