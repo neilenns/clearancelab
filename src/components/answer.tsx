@@ -5,11 +5,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ScenarioData } from "@/models/scenario";
-import { ChevronsUpDown, CircleCheckBig, CircleX } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { Conversation } from "@/conversation";
 import { Craft } from "@/components/craft/craft";
-import { Problems } from "@/components/problems";
+import { Problems } from "@/components/problems/problems";
 import { Button } from "@/components/ui/button";
 
 interface AnswerProps {
@@ -17,7 +17,7 @@ interface AnswerProps {
 }
 
 export function Answer({ scenario }: AnswerProps) {
-  const { plan, isValid, craft } = scenario;
+  const { plan, canClear, craft } = scenario;
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -30,12 +30,9 @@ export function Answer({ scenario }: AnswerProps) {
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="p-3">
-          {isValid ? (
-            <div>
-              <span className="flex items-center gap-2">
-                <CircleCheckBig className="w-5 h-5 text-[var(--color-green-600)]" />
-                <span>The flight plan is good to go!</span>
-              </span>
+          <div>
+            <Problems scenario={scenario} />
+            {canClear && (
               <Conversation
                 pilotCallsign={plan.aid}
                 controllerName={craft?.controllerName ?? "Portland Ground"}
@@ -52,16 +49,8 @@ export function Answer({ scenario }: AnswerProps) {
                   },
                 ]}
               />
-            </div>
-          ) : (
-            <div>
-              <span className="flex items-center gap-2">
-                <CircleX className="w-5 h-5 text-[var(--color-red-600)]" />
-                <span>The flight plan needs some cleanup.</span>
-              </span>
-            </div>
-          )}
-          <Problems scenario={scenario} />
+            )}
+          </div>
         </CollapsibleContent>
       </Collapsible>
     </div>
