@@ -1,12 +1,4 @@
 {
-  "explorer.fileNesting.enabled": true,
-  "files.exclude": {
-    "**/node_modules": true,
-    "**/.next": true,
-    "**/next-env.d.ts": true,
-    "**/.open-next": true,
-    "**/.wrangler": true
-  },
   "cSpell.words": [
     "callsign",
     "checkmark",
@@ -38,10 +30,5 @@
     "virtuals",
     "VKTRY",
     "WHAMY"
-  ],
-  "fileNestingUpdater.promptOnAutoUpdate": false,
-  "nanoid-generator.length": 21,
-  "cSpell.enabledSchemes": {
-    "json": false
-  }
+  ]
 }

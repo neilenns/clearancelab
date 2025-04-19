@@ -30,7 +30,8 @@
         "csstools.postcss",
         "mongodb.mongodb-vscode",
         "nize.oklch-preview",
-        "starbist.oklchanger"
+        "starbist.oklchanger",
+        "vk-l.nanoid-generator"
       ]
     }
   },
