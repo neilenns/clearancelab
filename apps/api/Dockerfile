@@ -1,6 +1,6 @@
 # This method comes from https://turbo.build/docs/guides/tools/docker
 # Base build image
-FROM node:23-alpine AS base
+FROM node:22-alpine AS base
 
 FROM base AS builder
 
@@ -9,7 +9,6 @@ RUN apk update
 RUN apk add --no-cache libc6-compat
 
 # Set working directory
-
 WORKDIR /app
 
 RUN npm install --global turbo@^2.5.0
@@ -22,9 +21,11 @@ RUN apk update
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+ENV NODE_ENV=production
+
 # First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
-RUN npm install
+RUN npm ci
 
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .

@@ -17,6 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          filter: blob:none
           fetch-depth: 0 # Required for turborepo --affected
 
       - name: Use Node.js 22.x
