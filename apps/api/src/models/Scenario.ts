@@ -181,7 +181,9 @@ ScenarioSchema.statics.findAll = async function (
         .lean({ virtuals: ["isValid", "canClear"] })
         .exec();
 
-      // Strip out the problems field from the results after it was used to calculate isValid and canClear.
+      // We need to strip out the problems field from the results after it was used
+      // to calculate isValid and canClear, as we don't want to expose the full problems
+      // array in summary mode to reduce payload size.
       return results.map(({ problems: _problems, ...rest }) => rest);
     }
 
