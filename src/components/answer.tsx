@@ -29,7 +29,7 @@ export function Answer({ scenario }: AnswerProps) {
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="p-3">
+        <CollapsibleContent className="px-3 pb-3">
           <div>
             <Problems scenario={scenario} />
             {canClear && (

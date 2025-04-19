@@ -17,7 +17,7 @@ const levelIcons: Record<ProblemLevel, React.ElementType> = {
 
 export function CalloutBox({ level, children }: CalloutBoxProps) {
   return (
-    <Alert variant={level}>
+    <Alert className="mb-2" variant={level}>
       {(() => {
         const Icon = levelIcons[level];
         return <Icon className="h-4 w-4" />;
