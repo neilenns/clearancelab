@@ -1,9 +1,9 @@
-import Env from "./env";
+import { ENV } from "./env";
 
 // lib/api.ts
 export async function apiFetch<T>(path: string): Promise<T | null> {
-  const baseUrl = Env.API_BASE_URL;
-  const apiKey = Env.API_KEY;
+  const baseUrl = ENV.API_BASE_URL;
+  const apiKey = ENV.API_KEY;
 
   const response = await fetch(`${baseUrl}${path}`, {
     headers: { "x-api-key": apiKey },

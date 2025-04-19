@@ -47,7 +47,7 @@ export interface ScenarioData {
 // Static method interface
 export interface ScenarioModelType extends Model<ScenarioData> {
   findScenarioById(id: string): Promise<ScenarioData | null>;
-  findAll(summary: boolean): Promise<ScenarioData[]>;
+  findAll(summary: boolean): Promise<Partial<ScenarioData[]>>;
 }
 
 // Define schema
@@ -161,32 +161,41 @@ ScenarioSchema.statics.findScenarioById = function (
       .lean({ virtuals: true })
       .exec();
   } catch (error) {
-    logger.error(`Error finding scenario with ID ${id}:`, error);
-    return Promise.resolve(null);
+    const err = error instanceof Error ? error : new Error(String(error));
+
+    logger.error(`Error finding scenario with ID ${id}:`, err);
+    return Promise.reject(err);
   }
 };
 
 ScenarioSchema.statics.findAll = async function (
   summary: boolean
 ): Promise<Partial<ScenarioData>[]> {
-  if (summary) {
-    // Results has to include "problems" so isValid and canClear can be calculated.
-    const results = await this.find({})
-      .select(
-        "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt problems"
-      )
-      .lean({ virtuals: ["isValid", "canClear"] })
+  try {
+    if (summary) {
+      // Results has to include "problems" so isValid and canClear can be calculated.
+      const results = await this.find({})
+        .select(
+          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt problems"
+        )
+        .lean({ virtuals: ["isValid", "canClear"] })
+        .exec();
+
+      // Strip out the problems field from the results after it was used to calculate isValid and canClear.
+      return results.map(({ problems: _problems, ...rest }) => rest);
+    }
+
+    return await this.find({})
+      .populate("depAirportInfo") // Populate the departure airport info
+      .populate("destAirportInfo") // Populate the destination airport info
+      .lean({ virtuals: true })
       .exec();
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
 
-    // Strip out the problems field from the results after it was used to calculate isValid and canClear.
-    return results.map(({ problems: _problems, ...rest }) => rest);
+    logger.error(`Error finding all scenarios:`, err);
+    return Promise.reject(err);
   }
-
-  return this.find({})
-    .populate("depAirportInfo") // Populate the departure airport info
-    .populate("destAirportInfo") // Populate the destination airport info
-    .lean({ virtuals: true })
-    .exec();
 };
 
 // Export model

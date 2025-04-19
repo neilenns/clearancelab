@@ -21,3 +21,14 @@ export async function connectToDatabase(): Promise<void> {
 
   logger.info("✅ Connected to MongoDB");
 }
+
+export async function disconnectFromDatabase(): Promise<void> {
+  try {
+    await mongoose.connection.close(false);
+    logger.info("MongoDB connection closed");
+  } catch (err: unknown) {
+    logger.error(
+      `Error closing MongoDB connection: ${err instanceof Error ? err.message : "Unknown error"}`
+    );
+  }
+}

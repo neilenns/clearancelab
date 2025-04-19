@@ -13,5 +13,10 @@ const envSchema = z.object({
   API_KEY: z.string().min(1, { message: "API_KEY is required" }),
 });
 
-const Env = envSchema.parse(process.env);
-export default Env;
+const result = envSchema.safeParse(process.env);
+if (!result.success) {
+  console.error("Environment validation failed:", result.error.format());
+  process.exit(1);
+}
+
+export const ENV = result.data;

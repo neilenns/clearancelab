@@ -29,7 +29,9 @@ export const verifyApiKeyRaw = async function (
     });
 
     if (apiKeyDoc == null) {
-      console.error(`Invalid API key: ${apiKey}`);
+      console.error(
+        `Invalid API key attempt: ${apiKey.slice(0, 3)}...${apiKey.slice(-3)}`
+      );
       res.status(401).json({ error: "Unauthorized - Invalid API key" });
       return;
     }

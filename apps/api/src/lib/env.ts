@@ -17,11 +17,10 @@ const envSchema = z.object({
   WHITELISTED_DOMAINS: z.string().default("http://localhost:*"),
 });
 
-export const ENV = envSchema.parse(process.env);
+const result = envSchema.safeParse(process.env);
+if (!result.success) {
+  console.error("Environment validation failed:", result.error.format());
+  process.exit(1);
+}
 
-export const getEnvIssues = (): z.ZodIssue[] | undefined => {
-  const result = envSchema.safeParse(process.env);
-  if (!result.success) return result.error.issues;
-
-  return undefined;
-};
+export const ENV = result.data;
