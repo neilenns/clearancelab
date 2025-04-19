@@ -16,7 +16,7 @@ export function Problems({ scenario }: ProblemsProps) {
 
   return (
     <div>
-      {(scenario.problems.length === 0 || scenario.isValid) && (
+      {(scenario.problems.length === 0 || scenario.canClear) && (
         <CalloutBox level="ok">You can issue the clearance!</CalloutBox>
       )}
 
