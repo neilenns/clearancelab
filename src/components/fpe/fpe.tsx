@@ -60,7 +60,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
         <FPEBox className="fpe-rte-box text-left min-h-[50px]">
           {plan?.rte}
         </FPEBox>
-        <FPEBox className="fpe-rmk-box justify-self min-h-[50px]">
+        <FPEBox className="fpe-rmk-box text-left min-h-[50px]">
           {plan?.rmk}
         </FPEBox>
       </div>
