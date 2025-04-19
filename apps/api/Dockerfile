@@ -9,6 +9,7 @@ RUN apk update
 RUN apk add --no-cache libc6-compat
 
 # Set working directory
+
 WORKDIR /app
 
 RUN npm install --global turbo@^2.5.0
@@ -17,15 +18,16 @@ RUN turbo prune api --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
+
+ENV NODE_ENV=production
+
 RUN apk update
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-ENV NODE_ENV=production
-
 # First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
-RUN npm ci
+RUN npm install
 
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
