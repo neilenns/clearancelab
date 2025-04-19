@@ -38,7 +38,7 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install && npm install && npm install turbo --global"
+  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install && npm install && npm install --global turbo@^2.5.0"
 
   // Configure tool-specific properties.
   // "customizations": {},

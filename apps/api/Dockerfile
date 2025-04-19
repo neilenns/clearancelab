@@ -12,7 +12,7 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-RUN npm install --global turbo 
+RUN npm install --global turbo@^2.5.0
 COPY . .
 RUN turbo prune api --docker
 

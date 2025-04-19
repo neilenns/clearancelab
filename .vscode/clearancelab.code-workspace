@@ -26,6 +26,7 @@
       "**/next-env.d.ts": true,
       "**/.open-next": true,
       "**/.wrangler": true,
+      "**/.turbo": true,
     },
     "cSpell.words": [
       "apikey",

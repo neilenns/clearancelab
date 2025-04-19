@@ -34,13 +34,13 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}-
 
       - name: Install dependencies
-        run: npm install --global turbo && npm ci
+        run: npm install --global turbo@^2.5.0 && npm ci
 
       - name: Build
-        run: turbo run ci
+        run: turbo run ci --affected
 
       - name: Lint
-        run: turbo lint
+        run: turbo lint --affected
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
