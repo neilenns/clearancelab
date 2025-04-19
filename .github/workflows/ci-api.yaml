@@ -1,8 +1,6 @@
 name: CI - API
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -40,7 +38,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: apps/api/Dockerfile
           push: false
           cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
           cache-to: type=inline
