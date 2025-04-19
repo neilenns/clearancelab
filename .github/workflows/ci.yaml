@@ -34,11 +34,21 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}-
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --global turbo && npm ci
 
       - name: Build
         run: turbo run ci
 
       - name: Lint
-        working-directory: apps/web
-        run: npm run lint
+        run: turbo lint
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/api/Dockerfile
+          push: false
+          cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
+          cache-to: type=inline
+          build-args: |
+            VERSION=${{ github.event.release.tag_name }}

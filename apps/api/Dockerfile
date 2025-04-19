@@ -1,3 +1,4 @@
+# This method comes from https://turbo.build/docs/guides/tools/docker
 # Base build image
 FROM node:23-alpine AS base
 
