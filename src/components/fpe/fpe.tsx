@@ -11,7 +11,7 @@ interface FPEProps {
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
   return (
     <div className="w-[800px] mt-2 mb-2" ref={ref}>
-      <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[0.9375rem]  text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
+      <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[0.9375rem] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
         {plan && (
           <div className="fpe-title text-xs ml-[2px] mb-[2px]">
             {plan.aid} - {plan.pilotName} ({plan.vatsimId})
