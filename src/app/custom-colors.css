@@ -30,4 +30,5 @@
   --color-alert-error: var(--color-red-700);
   --color-alert-ok: var(--color-green-700);
   --color-alert-info: var(--color-blue-700);
+  --primary-foreground: oklch(0.97 0.014 254.604);
 }
