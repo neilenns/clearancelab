@@ -10,16 +10,10 @@
   "configurations": [
     {
       "name": "Debug web",
-      "type": "node",
+      "type": "node-terminal",
       "request": "launch",
+      "command": "npm run dev",
       "cwd": "${workspaceFolder}/apps/web",
-      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
-      "env": {
-        "NODE_OPTIONS": "--inspect"
-      },
-      "args": ["-H", "0.0.0.0"],
-      "skipFiles": ["<node_internals>/**"],
-      "console": "integratedTerminal",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
@@ -30,14 +24,10 @@
     },
     {
       "name": "Debug api",
-      "type": "node",
+      "type": "node-terminal",
       "request": "launch",
-      "cwd": "${workspaceFolder}/apps/api",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["tsx", "watch", "src/index.ts"],
-      "console": "integratedTerminal",
-      "skipFiles": ["<node_internals>/**"],
-      "envFile": "${workspaceFolder}/apps/api/.env.local"
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}/apps/api"
     }
   ]
 }
