@@ -27,12 +27,12 @@ export function Craft({ scenario }: CraftProps) {
         <CraftElement element="altitude">{craft.altitude}.</CraftElement>
       )}{" "}
       {craft?.frequency && (
-        <CraftElement key="frequency" element="frequency">
+        <CraftElement element="frequency">
           Departure is {craft.frequency}.
         </CraftElement>
       )}{" "}
       {craft?.transponder && (
-        <CraftElement key="transponder" element="transponder">
+        <CraftElement element="transponder">
           Squawk {craft.transponder}.
         </CraftElement>
       )}
