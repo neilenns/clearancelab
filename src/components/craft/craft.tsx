@@ -10,7 +10,6 @@ interface CraftProps {
 export function Craft({ scenario }: CraftProps) {
   const { destAirportInfo, craft } = scenario;
   const clearanceLimit = destAirportInfo?.name ?? craft?.clearanceLimit;
-  const departure = craft?.frequency ?? "offline";
 
   return (
     <TooltipProvider>
