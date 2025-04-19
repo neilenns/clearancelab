@@ -15,16 +15,14 @@ interface CraftElementProps {
 
 export function CraftElement({ element, children }: CraftElementProps) {
   return (
-    <span>
-      <Tooltip>
-        <TooltipTrigger
-          className="border-b border-dotted border-[var(--muted-foreground)] pb-0"
-          aria-label={craftLabels[element]}
-        >
-          {children}
-        </TooltipTrigger>
-        <TooltipContent>{craftLabels[element]}</TooltipContent>
-      </Tooltip>
-    </span>
+    <Tooltip>
+      <TooltipTrigger
+        className="border-b border-dotted border-[var(--muted-foreground)] pb-0"
+        aria-label={craftLabels.clearanceLimit}
+      >
+        {children}
+      </TooltipTrigger>
+      <TooltipContent>{craftLabels[element]}</TooltipContent>
+    </Tooltip>
   );
 }
