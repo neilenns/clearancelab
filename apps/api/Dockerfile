@@ -1,49 +1,29 @@
-# Use a Node.js base image with a specific version
-FROM node:23-alpine AS build
+# Base build image
+FROM node:23-alpine AS builder
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files to the working directory
-COPY ./package.json ./
-COPY ./package-lock.json ./
+# Copy the entire monorepo
+COPY . .
 
-# Install app dependencies
-RUN npm ci
+# Install all dependencies using workspace-aware install
+RUN npm install --workspaces --legacy-peer-deps
 
-# Copy the source code to the working directory
-COPY ./tsconfig*.json ./
-COPY ./src ./src
+# Build only the API workspace
+RUN npm run --workspace=apps/api build
 
-# Build the TypeScript app
-RUN npm run build
+# Production image
+FROM node:23-alpine AS runner
 
-# Use a lightweight base image
-FROM node:23-alpine
+WORKDIR /app
 
-# Install curl for the healthcheck
-RUN apk --no-cache add curl
+# Copy the built app
+COPY --from=builder /app/apps/api/dist ./dist
+COPY --from=builder /app/apps/api/package.json ./
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Copy only the production dependencies
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package-lock.json ./package-lock.json
 
-# Copy the built distribution files from the previous build stage
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/package*.json ./
-
-# Install only production dependencies
-RUN npm ci --only=production
-
-# Expose the port on which your Express.js app listens
 EXPOSE 3001
-
-# Pull the version from the github build environment
-ARG VERSION
-ENV VERSION=${VERSION:-dev}
-RUN echo $VERSION
-
-# Create the default cache folder
-RUN mkdir /cache
-
-# Set the entrypoint file
 CMD ["node", "dist/index.js"]
