@@ -3,5 +3,5 @@ reviews:
   collapse_walkthrough: true
   sequence_diagrams: false
   path_filters:
-    - "!src/components/ui/**"
-    - "!src/hooks/**"
+    - "!apps/web/src/components/ui/**"
+    - "!apps/web/src/hooks/**"
