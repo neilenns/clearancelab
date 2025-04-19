@@ -1,4 +1,5 @@
 .fpe-dialog {
+  font-family: var(--font-highgate);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr max-content 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto auto auto auto auto;
