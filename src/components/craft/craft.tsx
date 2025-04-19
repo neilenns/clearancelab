@@ -9,28 +9,31 @@ interface CraftProps {
 
 export function Craft({ scenario }: CraftProps) {
   const { destAirportInfo, craft } = scenario;
+  const clearanceLimit = destAirportInfo?.name ?? craft?.clearanceLimit;
+  const departure = craft?.frequency ?? "offline";
 
   return (
     <TooltipProvider>
       {craft?.telephony && <span key="telephony">{craft.telephony},</span>}{" "}
-      {craft?.clearanceLimit && (
-        <CraftElement element="clearanceLimit">
-          {`cleared to ${formatAirportName(
-            destAirportInfo?.name ?? craft.clearanceLimit
-          )}`}
-        </CraftElement>
+      {clearanceLimit && (
+        <span>
+          cleared to{" "}
+          <CraftElement element="clearanceLimit">
+            {formatAirportName(clearanceLimit)}
+          </CraftElement>{" "}
+        </span>
       )}
       {craft?.route && (
-        <CraftElement element="route">via {craft.route}.</CraftElement>
+        <span>
+          via <CraftElement element="route">{craft.route}.</CraftElement>
+        </span>
       )}{" "}
       {craft?.altitude && (
         <CraftElement element="altitude">{craft.altitude}.</CraftElement>
       )}{" "}
-      {craft?.frequency && (
-        <CraftElement key="frequency" element="frequency">
-          Departure is {craft.frequency}.
-        </CraftElement>
-      )}{" "}
+      <CraftElement key="frequency" element="frequency">
+        Departure is {departure}.
+      </CraftElement>{" "}
       {craft?.transponder && (
         <CraftElement key="transponder" element="transponder">
           Squawk {craft.transponder}.
