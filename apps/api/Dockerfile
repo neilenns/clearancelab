@@ -12,7 +12,7 @@ ARG TURBO_TEAM
 ENV TURBO_TEAM=$TURBO_TEAM
 
 # The token comes from the GitHub secrets, not args
-RUN --mount=type=secret,id=TURBO_TOKEN,env=TURBO_TOKEN
+RUN --mount=type=secret,id=TURBO_TOKEN
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
