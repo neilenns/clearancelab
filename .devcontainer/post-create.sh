@@ -7,9 +7,12 @@ set -euo pipefail
 export PNPM_HOME="${HOME}/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
-echo 'export PNPM_HOME="$HOME/.local/share/pnpm"' >> ~/.zshrc
-echo 'export PATH="$PNPM_HOME:$PATH"' >> ~/.zshrc
+grep -qxF 'export PNPM_HOME="$HOME/.local/share/pnpm"' ~/.zshrc || \
+  echo 'export PNPM_HOME="$HOME/.local/share/pnpm"' >> ~/.zshrc
+grep -qxF 'export PATH="$PNPM_HOME:$PATH"' ~/.zshrc || \
+  echo 'export PATH="$PNPM_HOME:$PATH"' >> ~/.zshrc
 
 pnpm config set store-dir /workspaces/clearancelab/.pnpm-store
 
-COREPACK_ENABLE_DOWNLOAD_PROMPT=0  pnpm add -g turbo && pnpm install
+COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm add -g turbo
+pnpm install
