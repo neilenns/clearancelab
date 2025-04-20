@@ -33,6 +33,7 @@ ENV TURBO_TEAM=$TURBO_TEAM
 
 RUN echo "TURBO_API is: $TURBO_API"
 RUN echo "TURBO_TEAM is: $TURBO_TEAM"
+RUN echo "TURBO_TOKEN is: $TURBO_TOKEN"
 
 # First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
