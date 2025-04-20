@@ -36,6 +36,7 @@
       "opennextjs",
       "sonner",
       "virtuals"
-    ]
+    ],
+    "npm.packageManager": "pnpm"
   }
 }

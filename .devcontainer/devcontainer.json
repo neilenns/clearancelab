@@ -19,9 +19,6 @@
     },
     "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
   },
-  "mounts": [
-    "source=global-pnpm-store,target=${containerWorkspaceFolder}/.pnpm-store,type=volume"
-  ],
   "customizations": {
     "vscode": {
       "extensions": [
