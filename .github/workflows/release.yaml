@@ -62,6 +62,9 @@ jobs:
             ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.TAG }}
             ghcr.io/${{ env.IMAGE_NAME }}:latest
 
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Deploy to Cloudflare
         working-directory: apps/web
         env:
