@@ -31,9 +31,6 @@ ENV TURBO_API=$TURBO_API
 ARG TURBO_TEAM
 ENV TURBO_TEAM=$TURBO_TEAM
 
-RUN echo "TURBO_API is: $TURBO_API"
-RUN echo "TURBO_TEAM is: $TURBO_TEAM"
-
 # First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
 RUN pnpm install
@@ -41,7 +38,7 @@ RUN pnpm install
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
 RUN --mount=type=secret,id=TURBO_TOKEN \
-	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && echo "TURBO_TOKEN is: $TURBO_TOKEN" && pnpm dlx turbo build
+	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpm dlx turbo build
 
 # Create the release image
 FROM base AS runner

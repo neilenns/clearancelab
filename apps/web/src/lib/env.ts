@@ -10,7 +10,15 @@ const envSchema = z.object({
       message: "API_BASE_URL must be a valid URL.",
     })
     .transform((val) => val.replace(/\/+$/, "")),
-  API_KEY: z.string().min(1, { message: "API_KEY is required" }),
+  API_KEY: z
+    .string()
+    .optional()
+    .transform((val) => {
+      if (!val) {
+        console.warn("Warning: API_KEY is not set.");
+      }
+      return val;
+    }),
 });
 
 const result = envSchema.safeParse(process.env);

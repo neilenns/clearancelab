@@ -1,6 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
 import rateLimit from "express-rate-limit";
 import { ApiKeyModel } from "../models/ApiKey.js";
+import { ENV } from "../lib/env.js";
 
 const apiKeyLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -15,6 +16,12 @@ export const verifyApiKeyRaw = async function (
   next: NextFunction
 ): Promise<void> {
   try {
+    // Don't validate API keys in development
+    if (ENV.NODE_ENV === "development") {
+      next();
+      return;
+    }
+
     // Get the API key from the request headers
     const apiKey = req.headers["x-api-key"] ?? req.query["x-api-key"];
 
