@@ -62,4 +62,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           API_KEY: ${{ secrets.API_KEY }}
           API_BASE_URL: ${{ vars.API_BASE_URL }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_API: ${{ vars.TURBO_API }}
+          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
         run: turbo run cf-deploy
