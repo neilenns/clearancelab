@@ -6,7 +6,7 @@ export async function apiFetch<T>(path: string): Promise<T | null> {
   const apiKey = ENV.API_KEY;
 
   const response = await fetch(`${baseUrl}${path}`, {
-    headers: { "x-api-key": apiKey },
+    ...(apiKey ? { headers: { "x-api-key": apiKey } } : null),
   });
 
   if (!response.ok) {

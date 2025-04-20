@@ -5,7 +5,9 @@
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/base:jammy",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "pnpmVersion": "10.8.1"
+    },
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers-extra/features/typescript:2": {},
     "ghcr.io/devcontainers/features/python:1": {},
@@ -17,7 +19,9 @@
     },
     "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
   },
-
+  "mounts": [
+    "source=global-pnpm-store,target=${containerWorkspaceFolder}/.pnpm-store,type=volume"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -37,8 +41,7 @@
     }
   },
 
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install && npm install"
+  "postCreateCommand": [".devcontainer/post-create.sh"]
 
   // Configure tool-specific properties.
   // "customizations": {},

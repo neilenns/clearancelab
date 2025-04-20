@@ -23,6 +23,7 @@ function setupGracefulShutdown(server: http.Server) {
       disconnectFromDatabase().catch((err: unknown) =>
         logger.error("Error during DB disconnect", err)
       );
+      process.exit(1);
     });
 
     // Force close after timeout

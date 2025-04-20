@@ -1,34 +1,52 @@
+# This method comes from https://turbo.build/docs/guides/tools/docker
 # Base build image
-FROM node:23-alpine AS builder
+FROM node:22.14.0-alpine AS base
 
+FROM base AS builder
 WORKDIR /app
 
-# Copy root and workspace package manifests first (better for Docker caching)
-COPY package*.json ./
-COPY apps/api/package*.json ./apps/api/
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
-# Install full monorepo dependencies using npm workspaces
-RUN npm ci
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
 
-# Copy the rest of the monorepo
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk update && apk add --no-cache libc6-compat
+
 COPY . .
+RUN pnpm dlx turbo prune api --docker
 
-# Build only the API workspace
-RUN npm run --workspace=apps/api build
-
-# Production image
-FROM node:23-alpine AS runner
-
+# Add lockfile and package.json's of isolated subworkspace
+FROM base AS installer
 WORKDIR /app
 
-# Copy built output
-COPY --from=builder /app/apps/api/dist ./apps/api/dist
+RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
+RUN apk update && apk add --no-cache libc6-compat
 
-# Copy only the necessary package.json files to install prod deps
-COPY package*.json ./
-COPY apps/api/package*.json ./apps/api/
+# Bring in Turborepo remote cache configuration.
+ARG TURBO_API
+ENV TURBO_API=$TURBO_API
 
-# Install only production deps for api workspace
-RUN npm ci --omit=dev --workspace=apps/api
+ARG TURBO_TEAM
+ENV TURBO_TEAM=$TURBO_TEAM
 
+# First install dependencies (as they change less often)
+COPY --from=builder /app/out/json/ .
+RUN pnpm install
+
+# Build the project and its dependencies
+COPY --from=builder /app/out/full/ .
+RUN --mount=type=secret,id=TURBO_TOKEN \
+	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpm dlx turbo build
+
+# Create the release image
+FROM base AS runner
+WORKDIR /app
+
+# Don't run as root
+RUN addgroup --system --gid 1001 expressjs && adduser --system --uid 1001 expressjs
+USER expressjs
+
+COPY --from=installer /app .
 CMD ["node", "apps/api/dist/index.js"]
