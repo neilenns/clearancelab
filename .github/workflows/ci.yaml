@@ -40,10 +40,10 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: turbo run ci --affected
+        run: npx turbo run ci --affected
 
       - name: Lint
-        run: turbo lint --affected
+        run: npx turbo lint --affected
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
