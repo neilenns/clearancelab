@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}-
 
       - name: Install dependencies
-        run: npm install --global turbo@^2.5.0 && npm ci
+        run: npm ci
 
       - name: Build
         run: turbo run ci --affected
@@ -54,4 +54,4 @@ jobs:
           cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
           cache-to: type=inline
           build-args: |
-            VERSION=${{ github.event.release.tag_name }}
+            VERSION=dev
