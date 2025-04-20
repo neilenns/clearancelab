@@ -4,6 +4,9 @@ FROM node:22-alpine AS base
 
 FROM base AS builder
 
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
+
 # Bring in Turborepo remote cache configuration
 ARG TURBO_API
 ENV TURBO_API=$TURBO_API
@@ -20,23 +23,23 @@ RUN apk update && apk add --no-cache libc6-compat
 # Set working directory
 WORKDIR /app
 
-RUN npm install --global turbo@^2.5.0
 COPY . .
-RUN turbo prune api --docker
+RUN pnpm dlx turbo prune api --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
+RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 RUN apk update && apk add --no-cache libc6-compat
 WORKDIR /app
 
 # First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
-RUN npm ci
+RUN pnpm install
 
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
 
-RUN npx turbo build
+RUN pnpm dlx turbo build
 
 FROM base AS runner
 

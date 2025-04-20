@@ -37,6 +37,13 @@ jobs:
         id: vars
         run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -45,13 +52,12 @@ jobs:
           push: true
           cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
           cache-to: type=inline
-          secrets: |
-            TURBO_TOKEN={{$ secrets.TURBO_TOKEN }}
+          secrets:
+            TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           build-args: |
-            VERSION=${{ github.event.release.tag_name }}
-            TURBO_API: ${{ vars.TURBO_API }}
-            TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-
+            VERSION=${{ github.event.release.tag_name }}  
+            TURBO_API=${{ vars.TURBO_API }}  
+            TURBO_TEAM=${{ vars.TURBO_TEAM }}
           tags: |
             ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.TAG }}
             ghcr.io/${{ env.IMAGE_NAME }}:latest
