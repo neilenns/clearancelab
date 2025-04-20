@@ -27,7 +27,7 @@
       "**/.open-next": true,
       "**/.wrangler": true,
       "**/.turbo": true,
-      "**/pnpm-store": true
+      "**/.pnpm-store": true
     },
     "cSpell.words": [
       "apikey",
