@@ -7,6 +7,16 @@
       "inputs": ["$TURBO_DEFAULT$", ".env.local"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
+    "deploy": {
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": [".open-next/**"],
+      "env": [
+        "CLOUDFLARE_API_TOKEN",
+        "CLOUDFLARE_ACCOUNT_ID",
+        "API_KEY",
+        "API_BASE_URL"
+      ]
+    },
     "lint": {},
     "ci": {
       "dependsOn": ["^ci"],
