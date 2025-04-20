@@ -1,19 +1,11 @@
 {
   "version": "0.2.0",
-  "compounds": [
-    {
-      "name": "Debug Full App (Web + API)",
-      "configurations": ["Debug api", "Debug web"],
-      "stopAll": true
-    }
-  ],
   "configurations": [
     {
-      "name": "Debug web",
+      "name": "Turbo everything",
       "type": "node-terminal",
       "request": "launch",
-      "command": "npm run dev",
-      "cwd": "${workspaceFolder}/apps/web",
+      "command": "turbo dev",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
@@ -23,11 +15,23 @@
       }
     },
     {
-      "name": "Debug api",
+      "name": "Turbo web",
       "type": "node-terminal",
       "request": "launch",
-      "command": "npm run dev",
-      "cwd": "${workspaceFolder}/apps/api"
+      "command": "turbo run web#dev",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithEdge",
+        "killOnServerStop": true,
+        "webRoot": "${workspaceFolder}/apps/web/src"
+      }
+    },
+    {
+      "name": "Turbo api",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "turbo run api#dev"
     }
   ]
 }
