@@ -1,6 +1,6 @@
 # This method comes from https://turbo.build/docs/guides/tools/docker
 # Base build image
-FROM node:22-alpine AS base
+FROM node:22.14.0-alpine AS base
 
 FROM base AS builder
 
@@ -13,9 +13,6 @@ ENV TURBO_API=$TURBO_API
 
 ARG TURBO_TEAM
 ENV TURBO_TEAM=$TURBO_TEAM
-
-# The token comes from the GitHub secrets, not args
-RUN --mount=type=secret,id=TURBO_TOKEN
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat
@@ -32,6 +29,10 @@ RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 RUN apk update && apk add --no-cache libc6-compat
 WORKDIR /app
 
+# Access secret securely (not exposed in layers)
+RUN --mount=type=secret,id=TURBO_TOKEN \
+	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN)
+
 # First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
 RUN pnpm install
@@ -39,7 +40,7 @@ RUN pnpm install
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
 
-RUN pnpm dlx turbo build
+RUN turbo prune api --docker pnpm dlx turbo build
 
 FROM base AS runner
 

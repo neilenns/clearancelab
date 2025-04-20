@@ -13,6 +13,8 @@ jobs:
       TURBO_API: ${{ vars.TURBO_API }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      IMAGE_NAME: ghcr.io/${{ github.repository }}-api
+      VERSION=${{ github.sha }}
 
     strategy:
       fail-fast: true
@@ -45,7 +47,7 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}-
 
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install
 
       - name: Build
         run: pnpx turbo run ci --affected
