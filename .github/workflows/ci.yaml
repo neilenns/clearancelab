@@ -9,6 +9,10 @@ jobs:
   build:
     name: CI - Full repo
     runs-on: ubuntu-latest
+    env:
+      TURBO_API: ${{ vars.TURBO_API }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
 
     strategy:
       fail-fast: true
@@ -57,3 +61,5 @@ jobs:
             TURBO_TOKEN={{$ secrets.TURBO_TOKEN }}
           build-args: |
             VERSION=dev
+            TURBO_API: ${{ vars.TURBO_API }}
+            TURBO_TEAM: ${{ vars.TURBO_TEAM }}
