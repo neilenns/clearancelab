@@ -63,16 +63,16 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: apps/api/Dockerfile
           push: false
           cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
-          cache-to: type=inline
+          cache-to: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
           secrets: |
             TURBO_TOKEN={{$ secrets.TURBO_TOKEN }}
           build-args: |
             VERSION=dev
-            TURBO_API: ${{ vars.TURBO_API }}
-            TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+            TURBO_API=${{ vars.TURBO_API }}
+            TURBO_TEAM=${{ vars.TURBO_TEAM }}
