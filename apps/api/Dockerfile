@@ -31,10 +31,6 @@ ENV TURBO_API=$TURBO_API
 ARG TURBO_TEAM
 ENV TURBO_TEAM=$TURBO_TEAM
 
-# Access secret securely (not exposed in layers)
-RUN --mount=type=secret,id=TURBO_TOKEN \
-	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN)
-
 # First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
 RUN pnpm install
