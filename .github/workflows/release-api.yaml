@@ -46,7 +46,7 @@ jobs:
           cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
           cache-to: type=inline
           secrets: |
-            TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+            TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
           build-args: |
             VERSION=${{ github.event.release.tag_name }}
             TURBO_API=${{ vars.TURBO_API }}
