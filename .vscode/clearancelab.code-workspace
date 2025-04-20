@@ -26,7 +26,8 @@
       "**/next-env.d.ts": true,
       "**/.open-next": true,
       "**/.wrangler": true,
-      "**/.turbo": true
+      "**/.turbo": true,
+      "**/pnpm-store": true
     },
     "cSpell.words": [
       "apikey",
@@ -35,6 +36,7 @@
       "opennextjs",
       "sonner",
       "virtuals"
-    ]
+    ],
+    "npm.packageManager": "pnpm"
   }
 }

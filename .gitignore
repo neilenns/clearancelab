@@ -9,6 +9,7 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+.pnpm-store/
 
 # next.js
 **/.next/
@@ -44,4 +45,3 @@ next-env.d.ts
 # OpenNext
 **/.open-next
 **/.wrangler
-node_modules
