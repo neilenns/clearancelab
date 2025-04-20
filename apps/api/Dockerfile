@@ -40,7 +40,7 @@ RUN pnpm install
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
 
-RUN turbo prune api --docker pnpm dlx turbo build
+RUN pnpm dlx turbo build
 
 FROM base AS runner
 
