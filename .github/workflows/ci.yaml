@@ -69,7 +69,6 @@ jobs:
           file: apps/api/Dockerfile
           push: false
           cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:latest
-          cache-to: inline
           secrets: |
             TURBO_TOKEN={{$ secrets.TURBO_TOKEN }}
           build-args: |
