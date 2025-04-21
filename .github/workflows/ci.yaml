@@ -24,8 +24,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          filter: "blob:none"
-          fetch-depth: 2
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
         with:
@@ -53,9 +52,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          filter: "blob:none"
-          fetch-depth: 2
 
       - name: Check for changed Dockerfile
         id: changed-files
@@ -82,7 +78,7 @@ jobs:
           push: false
           cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
           secrets: |
-            TURBO_TOKEN={{$ secrets.TURBO_TOKEN }}
+            TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
           build-args: |
             VERSION=dev
             TURBO_API=${{ vars.TURBO_API }}
