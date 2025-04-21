@@ -23,6 +23,7 @@ jobs:
           files_yaml: |
             devcontainer:
               - .devcontainer/apps/**
+              - .github/workflows/devcontainer.yaml
 
       - name: List changed devcontainer files
         if: steps.changed-files.outputs.devcontainer_any_changed == 'true'
