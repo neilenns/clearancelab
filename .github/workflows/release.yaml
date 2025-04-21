@@ -84,6 +84,7 @@ jobs:
         run: pnpm install
 
       - name: Deploy secrets to Cloudflare
+        working-directory: ./out/apps/web
         run: pnpx wrangler secret put ${{ secrets.API_KEY }}
 
       - name: Deploy to site to Cloudflare
