@@ -27,7 +27,7 @@ jobs:
           filter: "blob:none"
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 10.8.1
 
@@ -36,7 +36,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "pnpm"
-          cache-dependency-path: "**/pnpm-lock.yaml"
 
       - name: Install dependencies
         run: pnpm install
