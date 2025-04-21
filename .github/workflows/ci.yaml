@@ -55,6 +55,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Only check for changes since last commit
 
       - name: Check for changed Dockerfile
         id: changed-files
