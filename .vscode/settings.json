@@ -39,6 +39,7 @@
     "**/dist": true,
     "**/out": true
   },
+  "debug.internalConsoleOptions": "neverOpen",
   "fileNestingUpdater.promptOnAutoUpdate": false,
   "nanoid-generator.length": 21,
   "cSpell.enabledSchemes": {
