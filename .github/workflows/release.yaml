@@ -57,6 +57,9 @@ jobs:
   cloudflare:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -74,14 +77,14 @@ jobs:
 
       # Prune to just the necessary files for the web build. Result is in ./out.
       - name: Prep for build
-        run: pnpm dlx turbo prune --scope=web
+        run: pnpx turbo prune --scope=web
 
       - name: Install dependencies
         working-directory: ./out
         run: pnpm install
 
       - name: Deploy secrets to Cloudflare
-        run: pnpm wrangler secret put ${{ secrets.API_KEY }}
+        run: pnpx wrangler secret put ${{ secrets.API_KEY }}
 
       - name: Deploy to site to Cloudflare
         working-directory: ./out
@@ -93,4 +96,4 @@ jobs:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_API: ${{ vars.TURBO_API }}
           TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-        run: pnpm dlx turbo run cf-deploy
+        run: pnpx turbo run cf-deploy
