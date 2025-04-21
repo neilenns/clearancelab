@@ -53,6 +53,7 @@ jobs:
           tags: |
             ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.TAG }}
             ghcr.io/${{ env.IMAGE_NAME }}:latest
+            ghcr.io/${{ env.IMAGE_NAME }}:cache
 
   cloudflare:
     runs-on: ubuntu-latest
@@ -89,7 +90,8 @@ jobs:
 
       - name: Deploy secrets to Cloudflare
         working-directory: ./out/apps/web
-        run: pnpx wrangler secret put ${{ secrets.API_KEY }}
+        # Wrangler secret put takes the value as a piped input.
+        run: echo "${{ secrets.API_KEY }}" | pnpx wrangler secret put API_KEY
 
       - name: Deploy to site to Cloudflare
         working-directory: ./out
