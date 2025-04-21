@@ -69,7 +69,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 10.8.1
 
@@ -78,7 +78,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "pnpm"
-          cache-dependency-path: "**/pnpm-lock.yaml"
 
       # Prune to just the necessary files for the web build. Result is in ./out.
       - name: Prep for build
