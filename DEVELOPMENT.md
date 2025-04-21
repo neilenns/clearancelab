@@ -57,7 +57,7 @@ Default values for local development are set in the `devcontainer.json` file:
 | `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
 | `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
 
-To speed builds the following environment variables can be set to enable TurboRepo remote caching:
+To speed builds, the following environment variables can be set to enable TurboRepo remote caching:
 
 | Variable      | Description                                |
 | ------------- | ------------------------------------------ |
@@ -69,18 +69,18 @@ To speed builds the following environment variables can be set to enable TurboRe
 
 The API server supports the following variables:
 
-| Variable                     | Description                                                                                                                                                                 | Required |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `MONGO_DB_CONNECTION_STRING` | URI to the MongoDB instance.                                                                                                                                                | ✅       |
-| `MONGO_DB_NAME`              | Name of the database with the development data.                                                                                                                             | ✅       |
-| `TRUST_PROXY`                | Configures the [ExpressJS `trust proxy` setting](https://expressjs.com/en/guide/behind-proxies.html). If the server is deployed behind a Cloudflare tunnel set this to `1`. |          |
+| Variable                     | Description                                                                                                                                                                  | Required |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `MONGO_DB_CONNECTION_STRING` | URI to the MongoDB instance.                                                                                                                                                 | ✅        |
+| `MONGO_DB_NAME`              | Name of the database with the development data.                                                                                                                              | ✅        |
+| `TRUST_PROXY`                | Configures the [Express.js `trust proxy` setting](https://expressjs.com/en/guide/behind-proxies.html). If the server is deployed behind a Cloudflare tunnel set this to `1`. |          |
 
 The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#deployment). The following variables and secrets are supported:
 
 | Variable       | Description                                                                                                                             | Required |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `API_BASE_URL` | URI to the API server. Configured in [`wrangler.jsonc`](apps/web/wrangler.jsonc).                                                       | ✅       |
-| `API_KEY`      | API key for access to the API server. Configured in GitHub as a repository secret and pushed to Cloudflare during the release workflow. | ✅       |
+| `API_BASE_URL` | URI to the API server. Configured in [`wrangler.jsonc`](apps/web/wrangler.jsonc).                                                       | ✅        |
+| `API_KEY`      | API key for access to the API server. Configured in GitHub as a repository secret and pushed to Cloudflare during the release workflow. | ✅        |
 
 ## Build Process
 
@@ -110,7 +110,7 @@ To add or update data:
 1. Add or edit the JSON files under the [`seed/`](.devcontainer/seed/) folder
 2. Rebuild the devcontainer, or run [`./seed/init.sh`](.devcontainer/seed/init.sh) inside the container to manually re-seed
 
-The MongoDB VS Code extension is installed automatically and includes a connection named `Clearance Lab local dev` for access to the local database. To access the database from tools like MongoDBCompass use the value of the `MONGO_DB_CONNECTION_STRING` environment variable from [`devcontainer.json`](.devcontainer/devcontainer.json).
+The MongoDB VS Code extension is installed automatically and includes a connection named `Clearance Lab local dev` for access to the local database. To access the database from tools like MongoDB Compass use the value of the `MONGO_DB_CONNECTION_STRING` environment variable from [`devcontainer.json`](.devcontainer/devcontainer.json).
 
 ## CI builds and deployment
 
