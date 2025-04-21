@@ -1,5 +1,9 @@
 FROM mcr.microsoft.com/devcontainers/typescript-node:22
 
+# Label the image so it uploads to the project repo from the command line
+LABEL org.opencontainers.image.source=https://github.com/neilenns/clearancelab
+LABEL org.opencontainers.image.description="Devcontainer image for clearancelab project"
+
 # Install MongoDB command line tools - though mongo-database-tools not available on arm64
 ARG MONGO_TOOLS_VERSION=6.0
 RUN . /etc/os-release \
