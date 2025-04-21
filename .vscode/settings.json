@@ -45,5 +45,11 @@
     "json": false
   },
   "explorer.fileNesting.enabled": true,
-  "npm.packageManager": "pnpm"
+  "npm.packageManager": "pnpm",
+  "mdb.presetConnections": [
+    {
+      "name": "Local development",
+      "connectionString": "mongodb://localhost:27017"
+    }
+  ]
 }
