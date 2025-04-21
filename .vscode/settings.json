@@ -1,5 +1,7 @@
 {
   "cSpell.words": [
+    "apikey",
+    "Buildx",
     "callsign",
     "checkmark",
     "clearancelab",
@@ -12,11 +14,7 @@
     "headlessui",
     "highgate",
     "Hoverable",
-    "KDEN",
-    "KDFW",
-    "KPDX",
-    "KSFO",
-    "MDANO",
+    "logform",
     "nextjs",
     "nums",
     "nvmrc",
@@ -25,12 +23,9 @@
     "pnpx",
     "Skyler",
     "sonner",
-    "TRUKN",
     "Turbopack",
     "vatsim",
-    "virtuals",
-    "VKTRY",
-    "WHAMY"
+    "virtuals"
   ],
   "files.exclude": {
     "**/node_modules": true,
@@ -40,5 +35,12 @@
     "**/.wrangler": true,
     "**/.turbo": true,
     "**/.pnpm-store": true
-  }
+  },
+  "fileNestingUpdater.promptOnAutoUpdate": false,
+  "nanoid-generator.length": 21,
+  "cSpell.enabledSchemes": {
+    "json": false
+  },
+  "explorer.fileNesting.enabled": true,
+  "npm.packageManager": "pnpm"
 }
