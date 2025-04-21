@@ -22,13 +22,4 @@ COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm add -g turbo
 pnpm install
 
 ### Database setup
-
-# Initialize the database
-export DB_URI="mongodb://db:27017/plan-verifier"
-
-echo "👤 Dropping database, creating user and disabling telemetry..."
-mongosh ${DB_URI} ./seed/init.js # Basic user setup and disable telemetry
-
-echo "📦 Importing data..."
-mongoimport --uri=${DB_URI} --collection=scenarios --file=./seed/plan-verifier.scenarios.json --jsonArray
-mongoimport --uri=${DB_URI} --collection=scenarios --file=./seed/plan-verifier.airportinfo.json --jsonArray
+./seed/init.sh
