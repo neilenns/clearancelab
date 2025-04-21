@@ -43,8 +43,8 @@ jobs:
         if: steps.changed-files.outputs.devcontainer_any_changed == 'true'
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/neilenns/${{ github.repository }}-devcontainer
-          cacheFrom: "type=registry,ref=ghcr.io/neilenns/${{ github.repository }}-devcontainer:latest"
+          imageName: ghcr.io/${{ github.repository }}-devcontainer
+          cacheFrom: "type=registry,ref=ghcr.io/${{ github.repository }}-devcontainer:latest"
           configFile: .devcontainer/apps/devcontainer.json
           refFilterForPush: refs/heads/main
           push: filter
