@@ -105,8 +105,6 @@ async function startServer() {
         );
       });
     }
-
-    setupGracefulShutdown(server, healthServer);
   } catch (error) {
     logger.error("Error starting server:", error);
     process.exit(1);
@@ -117,4 +115,5 @@ void startServer().then(() => {
   // Don't start the health server until the main server is up and running to
   // avoid incorrect successful health result if the main server fails to start.
   startHealthServer();
+  setupGracefulShutdown(server, healthServer);
 });
