@@ -65,17 +65,17 @@ jobs:
               - apps/api/Dockerfile
 
       - name: Run step if Dockerfiles change
-        if: steps.changed-files-yaml.outputs.dockerfile_any_changed == 'true'
+        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
         env:
-          DOCKER_ALL_CHANGED_FILES: ${{ steps.changed-files-yaml.outputs.dockerfile_all_changed_files }}
+          DOCKER_ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.dockerfile_all_changed_files }}
         run: |
           echo "Dockerfiles changed:"
           echo "$DOCKER_ALL_CHANGED_FILES"
 
       - name: Run step if no Dockerfiles change
-        if: steps.changed-files-yaml.outputs.dockerfile_any_changed == 'false'
+        if: steps.changed-files.outputs.dockerfile_any_changed == 'false'
         env:
-          DOCKER_ALL_CHANGED_FILES: ${{ steps.changed-files-yaml.outputs.dockerfile_all_changed_files }}
+          DOCKER_ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.dockerfile_all_changed_files }}
         run: |
           echo "No Dockerfiles"
 
