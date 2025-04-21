@@ -39,11 +39,18 @@
     "**/dist": true,
     "**/out": true
   },
+  "debug.internalConsoleOptions": "neverOpen",
   "fileNestingUpdater.promptOnAutoUpdate": false,
   "nanoid-generator.length": 21,
   "cSpell.enabledSchemes": {
     "json": false
   },
   "explorer.fileNesting.enabled": true,
-  "npm.packageManager": "pnpm"
+  "npm.packageManager": "pnpm",
+  "mdb.presetConnections": [
+    {
+      "name": "Local development",
+      "connectionString": "mongodb://localhost:27017"
+    }
+  ]
 }
