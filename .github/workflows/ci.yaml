@@ -48,6 +48,9 @@ jobs:
   docker:
     name: CI - Docker
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
 
     steps:
       - name: Checkout code
@@ -63,9 +66,12 @@ jobs:
 
       - name: Skip remaining steps
         if: steps.changed-files.outputs.dockerfile_any_changed == 'false'
+        env:
+          GH_TOKEN: ${{ secrets. GITHUB_TOKEN }}
         run: |
           echo "No change to Dockerfile, skipping build."
-          exit 0
+          gh run cancel ${{ github.run_id }}
+          gh run watch ${{ github.run_id }}
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
