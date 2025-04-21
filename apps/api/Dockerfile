@@ -31,8 +31,8 @@ ENV TURBO_API=$TURBO_API
 ARG TURBO_TEAM
 ENV TURBO_TEAM=$TURBO_TEAM
 
-ARG PORT
-ENV PORT=$PORT
+ARG PORT=4503
+ENV PORT=${PORT}
 
 # First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
@@ -48,8 +48,8 @@ FROM base AS runner
 WORKDIR /app
 
 # Set up the health check
-ARG PORT
-ENV PORT=$PORT
+ARG PORT=4503
+ENV PORT=${PORT}
 RUN apk --no-cache add curl
 HEALTHCHECK --interval=30s --timeout=5s CMD [ "sh", "-c", "curl -f http://localhost:$PORT/ || exit 1" ]
 
