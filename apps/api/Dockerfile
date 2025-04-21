@@ -55,7 +55,7 @@ ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
 RUN apk --no-cache add curl
-HEALTHCHECK --interval=30s --timeout=5s CMD [ "sh", "-c", "curl -f http://localhost/health:$HEALTH_PORT/ || exit 1" ]
+HEALTHCHECK --interval=30s --timeout=5s CMD [ "sh", "-c", "curl -f http://localhost:$HEALTH_PORT/health || exit 1" ]
 
 # Don't run as root
 RUN addgroup --system --gid 1001 expressjs && adduser --system --uid 1001 expressjs

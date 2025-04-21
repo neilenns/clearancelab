@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --inspect=9229 --watch --env-file .env.local src/index.ts",
-    "dev:docker": "docker run -it --rm --env-file .env.local -p 4503:4503 clearancelab-api",
+    "dev:docker": "docker run -it --rm --env-file .env.local -p 4503:4503 -p 4504:4504 clearancelab-api",
     "ci": "pnpm run build",
     "start": "node --env-file .env.local dist/index.js",
     "build": "tsc",
