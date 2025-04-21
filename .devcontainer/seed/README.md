@@ -8,7 +8,6 @@ The scripts in this folder initialize the mongodb database in the db container f
 `init.sh` does the following:
 
 - Runs `init.js` script, which deletes the `clearancelab` database, creates a `clearancelab:clearancelab` user.
-- Runs `mongodbimport` to import json files with sample data.
-
+- Runs `mongoimport` to import JSON files with sample data.
 To add additional sample data, add a json file to the folder, then add a `mongodbimport` line to the `init.sh` script.
 
