@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --inspect=9229 --watch --env-file .env.local src/index.ts",
-    "dev:docker": "docker run -it --rm --env-file .env.local -p 3001:3001 my-api",
+    "dev:docker": "docker run -it --rm --env-file .env.local -p 4503:4503 clearancelab-api",
     "ci": "pnpm run build",
     "start": "node --env-file .env.local dist/index.js",
     "build": "tsc",
-    "build:docker": "docker build -f ./Dockerfile ../..",
+    "build:docker": "docker build -t clearancelab-api  -f ./Dockerfile ../..",
     "type-check": "tsc --noEmit",
     "lint": "pnpm run lint:eslint",
     "lint:eslint": "eslint .",
