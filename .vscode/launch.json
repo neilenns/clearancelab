@@ -5,7 +5,7 @@
       "name": "Turbo everything",
       "type": "node-terminal",
       "request": "launch",
-      "command": "pnpm dlx turbo dev",
+      "command": "pnpx turbo dev",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
@@ -18,7 +18,7 @@
       "name": "Turbo web",
       "type": "node-terminal",
       "request": "launch",
-      "command": "pnpm dlx turbo run web#dev",
+      "command": "pnpx turbo run web#dev",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
@@ -31,7 +31,7 @@
       "name": "Turbo api",
       "type": "node-terminal",
       "request": "launch",
-      "command": "pnpm dlx turbo run api#dev"
+      "command": "pnpx turbo run api#dev"
     }
   ]
 }

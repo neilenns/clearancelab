@@ -15,7 +15,7 @@ ENV NODE_ENV=$NODE_ENV
 RUN apk update && apk add --no-cache libc6-compat
 
 COPY . .
-RUN pnpm dlx turbo prune api --docker
+RUN pnpx turbo prune api --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
@@ -38,7 +38,7 @@ RUN pnpm install
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
 RUN --mount=type=secret,id=TURBO_TOKEN \
-	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpm dlx turbo build
+	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build
 
 # Create the release image
 FROM base AS runner
