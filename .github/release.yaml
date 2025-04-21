@@ -22,6 +22,7 @@ changelog:
       labels:
         - development
         - dependencies
+        - DevOps
     - title: Other changes ⚡
       labels:
         - "*"
