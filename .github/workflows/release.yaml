@@ -53,6 +53,7 @@ jobs:
           tags: |
             ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.TAG }}
             ghcr.io/${{ env.IMAGE_NAME }}:latest
+            ghcr.io/${{ env.IMAGE_NAME }}:cache
 
   cloudflare:
     runs-on: ubuntu-latest
