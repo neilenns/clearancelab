@@ -1,4 +1,4 @@
-name: CI - Full repo
+name: CI
 
 on:
   pull_request:
@@ -15,7 +15,7 @@ env:
 
 jobs:
   monorepo:
-    name: CI - monorepo
+    name: Build monorepo
     runs-on: ubuntu-latest
 
     strategy:
@@ -47,7 +47,7 @@ jobs:
         run: pnpx turbo lint --affected
 
   docker:
-    name: CI - Docker
+    name: Build Docker image
     runs-on: ubuntu-latest
     permissions:
       contents: read

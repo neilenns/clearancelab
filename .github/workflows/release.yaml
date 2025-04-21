@@ -12,6 +12,7 @@ env:
 
 jobs:
   docker:
+    name: Build Docker image
     runs-on: ubuntu-latest
 
     permissions:
@@ -56,6 +57,7 @@ jobs:
             ghcr.io/${{ env.IMAGE_NAME }}:cache
 
   cloudflare:
+    name: Deploy to Cloudflare
     runs-on: ubuntu-latest
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
