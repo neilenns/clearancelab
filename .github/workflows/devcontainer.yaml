@@ -42,7 +42,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets. GITHUB_TOKEN }}
         run: |
-          echo "No change to devcontainer files, skipping build."
+          echo "No change to devcontainer files, skipping build!"
 
       - name: Login to GitHub Container Registry
         if: steps.changed-files.outputs.devcontainer_any_changed == 'true'
