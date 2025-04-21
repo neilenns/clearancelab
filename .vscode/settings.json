@@ -12,6 +12,7 @@
     "fontawesome",
     "Fonticons",
     "headlessui",
+    "healthcheck",
     "highgate",
     "Hoverable",
     "logform",
@@ -34,7 +35,9 @@
     "**/.open-next": true,
     "**/.wrangler": true,
     "**/.turbo": true,
-    "**/.pnpm-store": true
+    "**/.pnpm-store": true,
+    "**/dist": true,
+    "**/out": true
   },
   "fileNestingUpdater.promptOnAutoUpdate": false,
   "nanoid-generator.length": 21,

@@ -5,24 +5,33 @@ import https from "https";
 import path from "path";
 import { connectToDatabase, disconnectFromDatabase } from "./db/connect.js";
 import { ENV } from "./lib/env.js";
-import applyMiddleware from "./middleware/index.js";
-import addRoutes from "./routes/index.js";
 import { logger } from "./lib/logger.js";
+import applyMiddleware from "./middleware/index.js";
+import healthRoutes from "./routes/health.js";
+import addRoutes from "./routes/index.js";
 
 const app = express();
+const healthApp = express();
 const port = ENV.PORT;
+const healthPort = ENV.HEALTH_PORT;
 let server: http.Server | https.Server;
+let healthServer: http.Server;
 
 // Graceful shutdown handling
-function setupGracefulShutdown(server: http.Server) {
+function setupGracefulShutdown() {
   const shutdown = () => {
     logger.info("Shutting down server...");
 
+    healthServer.close(() => {
+      logger.info("Health server closed");
+    });
+
     server.close(() => {
-      logger.info("HTTP server closed");
+      logger.info("Server closed");
       disconnectFromDatabase().catch((err: unknown) =>
         logger.error("Error during DB disconnect", err)
       );
+
       process.exit(1);
     });
 
@@ -39,6 +48,25 @@ function setupGracefulShutdown(server: http.Server) {
 }
 
 logger.info(`Starting backend ${ENV.VERSION}`);
+
+function startHealthServer() {
+  try {
+    // Configuration
+    healthApp.set("trust proxy", ENV.TRUST_PROXY);
+    healthApp.use("/health", healthRoutes);
+
+    healthServer = http
+      .createServer(healthApp as RequestListener)
+      .listen(healthPort, () => {
+        logger.info(
+          `🌐 HTTP healthcheck listening on http://localhost:${healthPort.toString()}`
+        );
+      });
+  } catch (error) {
+    logger.error("Error starting server:", error);
+    process.exit(1);
+  }
+}
 
 async function startServer() {
   try {
@@ -74,7 +102,7 @@ async function startServer() {
       });
     }
 
-    setupGracefulShutdown(server);
+    setupGracefulShutdown();
   } catch (error) {
     logger.error("Error starting server:", error);
     process.exit(1);
@@ -82,3 +110,4 @@ async function startServer() {
 }
 
 void startServer();
+startHealthServer();
