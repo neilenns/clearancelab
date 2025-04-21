@@ -11,8 +11,34 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # To ensure since_last_remote_commit works on initial PR open
+
+      - name: Check for changed devcontainer files
+        id: changed-files
+        uses: tj-actions/changed-files@v46
+        with:
+          since_last_remote_commit: true
+          files_yaml: |
+            devcontainer:
+              - .devcontainer/apps/**
+
+      - name: List changed devcontainer files
+        if: steps.changed-files.outputs.devcontainer_any_changed == 'true'
+        env:
+          DEVCONTAINER_ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.devcontainer_all_changed_files }}
+        run: |
+          echo "devcontainer files changed: $DEVCONTAINER_ALL_CHANGED_FILES"
+
+      - name: Stop workflow if no changed devcontainer files
+        if: steps.changed-files.outputs.devcontainer_any_changed != 'true'
+        env:
+          GH_TOKEN: ${{ secrets. GITHUB_TOKEN }}
+        run: |
+          echo "No change to devcontainer files, skipping build."
 
       - name: Build dev container
+        if: steps.changed-files.outputs.devcontainer_any_changed == 'true'
         uses: devcontainers/ci@v0.3
         with:
           imageName: ghcr.io/${{ github.repository }}-devcontainer
