@@ -51,7 +51,7 @@
   "npm.packageManager": "pnpm",
   "mdb.presetConnections": [
     {
-      "name": "Local development",
+      "name": "Clearance Lab local dev",
       "connectionString": "mongodb://localhost:27017"
     }
   ]

@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -euo pipefail
+# All paths need to be made absolute since it runs in the context of a devcontainer.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 ### Node.js setup
 
@@ -22,4 +24,4 @@ COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm add -g turbo
 pnpm install
 
 ### Database setup
-./seed/init.sh
+"${SCRIPT_DIR}/seed/init.sh"
