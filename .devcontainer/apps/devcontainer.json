@@ -19,6 +19,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "DavidAnson.vscode-markdownlint",
         "houkanshan.vscode-markdown-footnote",
         "esbenp.prettier-vscode",
         "yzhang.markdown-all-in-one",

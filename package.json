@@ -1,7 +1,12 @@
 {
   "name": "clearancelab",
   "packageManager": "pnpm@10.8.1",
+  "scripts": {
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules"
+  },
   "devDependencies": {
+    "markdownlint": "^0.37.4",
+    "markdownlint-cli": "^0.44.0",
     "turbo": "^2.5.0"
   }
 }

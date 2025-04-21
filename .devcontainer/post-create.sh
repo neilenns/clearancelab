@@ -18,7 +18,7 @@ grep -qxF 'export PNPM_HOME="$HOME/.local/share/pnpm"' ~/.zshrc || \
 grep -qxF 'export PATH="$PNPM_HOME:$PATH"' ~/.zshrc || \
   echo 'export PATH="$PNPM_HOME:$PATH"' >> ~/.zshrc
 
-pnpm config set store-dir /workspaces/clearancelab/.pnpm-store
+pnpm config set store-dir "$PWD/.pnpm-store"
 
 COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm add -g turbo
 pnpm install
