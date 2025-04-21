@@ -44,6 +44,9 @@ RUN --mount=type=secret,id=TURBO_TOKEN \
 FROM base AS runner
 WORKDIR /app
 
+# Install curl for the healthcheck
+RUN apk --no-cache add curl
+
 # Don't run as root
 RUN addgroup --system --gid 1001 expressjs && adduser --system --uid 1001 expressjs
 USER expressjs
