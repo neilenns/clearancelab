@@ -1,0 +1,22 @@
+name: Publish DevContainer
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build dev container
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: ghcr.io/${{ github.repository }}-devcontainer
+          cacheFrom: ghcr.io/${{ github.repository }}-devcontainer
+          configFile: .devcontainer/app/devcontainer.json
+          refFilterForPush: refs/heads/main
+          push: filter
