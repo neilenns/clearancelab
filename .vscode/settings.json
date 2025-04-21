@@ -16,6 +16,8 @@
     "highgate",
     "Hoverable",
     "logform",
+    "mongoimport",
+    "mongosh",
     "nextjs",
     "nums",
     "nvmrc",
