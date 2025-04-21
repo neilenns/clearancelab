@@ -4,7 +4,8 @@
   "name": "Clearancelab development container test",
   "build": {
     "dockerfile": "Dockerfile",
-    "context": "."
+    "context": ".",
+    "cacheFrom": "type=registry,ref=ghcr.io/neilenns/clearancelab-devcontainer:latest"
   },
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
