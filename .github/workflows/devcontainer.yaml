@@ -44,7 +44,8 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           imageName: ghcr.io/${{ github.repository }}-devcontainer
-          cacheFrom: "type=registry,ref=ghcr.io/${{ github.repository }}-devcontainer:latest"
+          cacheTo: "type=registry,ref=ghcr.io/${{ github.repository }}-devcontainer:cache"
+          cacheFrom: "type=registry,ref=ghcr.io/${{ github.repository }}-devcontainer:cache"
           configFile: .devcontainer/apps/devcontainer.json
           refFilterForPush: refs/heads/main
           push: filter
