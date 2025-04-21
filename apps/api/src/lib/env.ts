@@ -10,6 +10,7 @@ const envSchema = z.object({
     .enum(["development", "test", "production"])
     .default("development"),
   PORT: z.coerce.number().default(4503),
+  HEALTH_PORT: z.coerce.number().default(4504),
   SSL_PRIVATE_KEY_PATH: z.string().default(""),
   SSL_FULL_CHAIN_PATH: z.string().default(""),
   TRUST_PROXY: z.coerce.number().default(0),
