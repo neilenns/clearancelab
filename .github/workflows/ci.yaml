@@ -11,6 +11,7 @@ env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   IMAGE_NAME: ghcr.io/${{ github.repository }}-api
   VERSION: ${{ github.sha }}
+  TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
 
 jobs:
   monorepo:
