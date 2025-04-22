@@ -37,10 +37,9 @@ ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
 # Copy source and mount the cached pnpm files
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY . .
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
-COPY . .
 
 # Build it
 RUN --mount=type=secret,id=TURBO_TOKEN \
