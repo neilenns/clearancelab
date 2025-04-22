@@ -45,7 +45,9 @@ ENV HEALTH_PORT=${HEALTH_PORT}
 # Copy pnpm files and install the packages
 COPY --from=prune /app/out/json/ .
 RUN --mount=type=cache,target=${PNPM_HOME} echo "PNPM contents before install: $(ls -la ${PNPM_HOME})"
-RUN --mount=type=cache,target=${PNPM_HOME} pnpm install --offline --frozen-lockfile
+RUN --mount=type=cache,target=${PNPM_HOME} \
+	pnpm config set store-dir ${PNPM_HOME} && \
+	pnpm install --offline --frozen-lockfile
 
 # Build it
 COPY --from=prune /app/out/full/ .
