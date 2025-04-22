@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
+import mongoose from "mongoose";
 import { verifyApiKey } from "../middleware/apikey.js";
 import { ScenarioModel } from "../models/Scenario.js";
 
@@ -35,6 +36,13 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
+      const isValid = mongoose.isValidObjectId(id);
+
+      if (!isValid) {
+        res.status(404).json({ error: `${id} is not a valid scenario ID.` });
+        return;
+      }
+
       const scenario = await ScenarioModel.findScenarioById(id);
 
       if (!scenario) {
