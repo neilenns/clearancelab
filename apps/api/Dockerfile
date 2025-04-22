@@ -43,7 +43,7 @@ RUN pnpm install --frozen-lockfile
 
 # Build it
 RUN --mount=type=secret,id=TURBO_TOKEN \
-	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build
+	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build --filter=api
 
 # Create the release image
 FROM base
