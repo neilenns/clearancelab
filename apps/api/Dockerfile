@@ -19,10 +19,6 @@ RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
 WORKDIR /app
 
-# https://github.com/pnpm/pnpm/issues/7727
-# https://github.com/pnpm/pnpm/issues/6778
-ENV CI=1
-
 # Bring in Turborepo remote cache configuration.
 ARG TURBO_API
 ENV TURBO_API=$TURBO_API
@@ -37,9 +33,10 @@ ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
 # Copy source and mount the cached pnpm files
-COPY . .
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install -r --frozen-lockfile
+COPY . .
 
 # Build it
 RUN --mount=type=secret,id=TURBO_TOKEN \

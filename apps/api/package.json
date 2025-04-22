@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --inspect=9229 --watch src/index.ts",
-    "dev:docker": "docker run -it --rm -p 4503:4503 -p 4504:4504 clearancelab-api",
+    "dev:docker": "docker run -it clearancelab-api sh",
     "ci": "pnpm run build",
     "start": "node dist/index.js",
     "build": "tsc",
