@@ -10,7 +10,7 @@ This guide will walk you through getting started, understanding available launch
 - [Environment variables](#environment-variables)
   - [Local development](#local-development)
   - [Production](#production)
-- [Build process \& deployment](#build-process--deployment)
+- [Build process and deployment](#build-process-and-deployment)
   - [Local builds](#local-builds)
   - [CI builds](#ci-builds)
   - [Deployment](#deployment)
@@ -82,7 +82,7 @@ To speed builds, the following environment variables can be set to enable TurboR
 | `TURBO_TOKEN` | Token to grant access to the remote cache. |
 
 > [!IMPORTANT]
-> If new environment variables are added and are needed builds, they must be added to the dependency list in [`turbo.json`](./turbo.json). Otherwise, they will not be available to the tasks when run.
+> If new environment variables are added to the code, they must be added to the dependency list in [`turbo.json`](./turbo.json). Otherwise, they will not be available to the tasks when run.
 
 ### Production
 
@@ -101,7 +101,7 @@ The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#dep
 | `API_BASE_URL` | URI to the API server. Configured in [`wrangler.jsonc`](apps/web/wrangler.jsonc).                                                       | ✅       |
 | `API_KEY`      | API key for access to the API server. Configured in GitHub as a repository secret and pushed to Cloudflare during the release workflow. | ✅       |
 
-## Build process & deployment
+## Build process and deployment
 
 This is a monorepo powered by **Turborepo** and **pnpm**.
 
