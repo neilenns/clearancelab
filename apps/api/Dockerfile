@@ -15,7 +15,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
 FROM deps AS build
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@10.8.1 --activate && corepack prepare turbo@2.5.0 --activate
+RUN corepack enable && corepack prepare pnpm@10.8.1 --activate && pnpm add -g turbo@2.5.0
 
 WORKDIR /app
 
