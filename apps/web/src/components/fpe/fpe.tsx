@@ -1,14 +1,21 @@
-import React, { forwardRef } from "react";
-import "./fpe.css";
 import { ScenarioData } from "@/models/scenario";
-import { FPELabel } from "./fpe-label";
+import clsx from "clsx";
+import { forwardRef, useState } from "react";
 import { FPEBox } from "./fpe-box";
+import { FPEInput } from "./fpe-input";
+import { FPELabel } from "./fpe-label";
+import "./fpe.css";
 
 interface FPEProps {
   plan?: ScenarioData["plan"] | null;
 }
 
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
+  const [isDirty, setIsDirty] = useState(false);
+
+  const handleAnyChange = () => setIsDirty(true);
+  const handleAmend = () => setIsDirty(false);
+
   return (
     <div className="w-[800px] mt-2 mb-2" ref={ref}>
       <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[0.9375rem] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
@@ -44,25 +51,71 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
         <FPELabel className="fpe-rte-label text-right py-1">RTE</FPELabel>
         <FPELabel className="fpe-rmk-label text-right py-1">RMK</FPELabel>
 
-        <div className="fpe-amend text-[var(--color-fpe-amend-foreground)] text-center justify-self-center mt-[6px] mb-1 border-2 border-[var(--color-fpe-amend-border)] px-2 py-[6px]">
+        <button
+          onClick={handleAmend}
+          disabled={!isDirty}
+          className={clsx(
+            "fpe-amend text-center justify-self-center mt-[6px] mb-1 border-2 px-2 py-[6px]",
+            {
+              "text-[var(--color-fpe-amend-foreground)] border-[var(--color-fpe-amend-border)]":
+                !isDirty,
+              "bg-[var(--color-fpe-amend-border)] text-black animate-pulse":
+                isDirty,
+            }
+          )}
+        >
           Amend
-        </div>
+        </button>
 
         <FPEBox className="fpe-aid-box border-none">{plan?.aid}</FPEBox>
         <FPEBox className="fpe-cruiseid-box border-none">{plan?.cid}</FPEBox>
         <FPEBox className="fpe-bcn-box border-none">{plan?.bcn}</FPEBox>
-        <FPEBox className="fpe-typ-box">{plan?.typ}</FPEBox>
-        <FPEBox className="fpe-eq-box">{plan?.eq}</FPEBox>
-        <FPEBox className="fpe-dep-box">{plan?.dep}</FPEBox>
-        <FPEBox className="fpe-dest-box">{plan?.dest}</FPEBox>
-        <FPEBox className="fpe-spd-box">{plan?.spd}</FPEBox>
-        <FPEBox className="fpe-alt-box">{plan?.alt}</FPEBox>
-        <FPEBox className="fpe-rte-box text-left min-h-[50px]">
-          {plan?.rte}
-        </FPEBox>
-        <FPEBox className="fpe-rmk-box text-left min-h-[50px]">
-          {plan?.rmk}
-        </FPEBox>
+        <FPEInput
+          className="fpe-typ-box"
+          defaultValue={plan?.typ}
+          onChange={handleAnyChange}
+          maxLength={5}
+        />
+        <FPEInput
+          className="fpe-eq-box"
+          defaultValue={plan?.eq}
+          onChange={handleAnyChange}
+          maxLength={1}
+        />
+        <FPEInput
+          className="fpe-dep-box"
+          defaultValue={plan?.dep}
+          onChange={handleAnyChange}
+          maxLength={4}
+        />
+        <FPEInput
+          className="fpe-dest-box"
+          defaultValue={plan?.dest}
+          onChange={handleAnyChange}
+          maxLength={4}
+        />
+        <FPEInput
+          className="fpe-spd-box"
+          defaultValue={plan?.spd}
+          onChange={handleAnyChange}
+          maxLength={3}
+        />
+        <FPEInput
+          className="fpe-alt-box"
+          defaultValue={plan?.alt}
+          onChange={handleAnyChange}
+          maxLength={3}
+        />
+        <FPEInput
+          className="fpe-rte-box text-left min-h-[50px]"
+          defaultValue={plan?.rte}
+          onChange={handleAnyChange}
+        />
+        <FPEInput
+          className="fpe-rmk-box text-left min-h-[50px]"
+          defaultValue={plan?.rmk}
+          onChange={handleAnyChange}
+        />
       </div>
 
       {plan?.airportConditions && (
