@@ -10,9 +10,17 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
 
-FROM deps AS build
+FROM deps AS prune
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
+
+WORKDIR /app
+COPY . .
+RUN pnpx turbo prune api --docker
+
+FROM base AS builder
 
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
@@ -32,13 +40,12 @@ ENV PORT=${PORT}
 ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
-# Copy source and mount the cached pnpm files
-COPY pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install -r --frozen-lockfile
-COPY . .
+# Copy pnpm files and install the packages
+COPY --from=prune /app/out/json/ .
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --offline --frozen-lockfile
 
 # Build it
+COPY --from=prune /app/out/full/ .
 RUN --mount=type=secret,id=TURBO_TOKEN \
 	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build --filter=api
 
@@ -57,7 +64,7 @@ HEALTHCHECK --interval=30s --timeout=5s CMD [ "sh", "-c", "curl -f http://localh
 RUN addgroup --system --gid 1001 expressjs && adduser --system --uid 1001 expressjs
 USER expressjs
 
-COPY --from=build /app .
+COPY --from=builder /app .
 
 ENV NODE_ENV=production
 
