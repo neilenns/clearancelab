@@ -91,6 +91,7 @@ jobs:
           path: pnpm-store
           key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
 
+      # https://github.com/reproducible-containers/buildkit-cache-dance
       - name: Inject cache into Docker
         if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
         uses: reproducible-containers/buildkit-cache-dance@v3.1.0

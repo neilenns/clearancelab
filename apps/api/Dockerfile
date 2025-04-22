@@ -39,7 +39,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
 COPY . .
 
 # Install packages from the store
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --non-interactive --ignore-scripts
 
 # Build it
 RUN --mount=type=secret,id=TURBO_TOKEN \
