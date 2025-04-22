@@ -19,13 +19,6 @@ RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
-
-COPY . .
-RUN pnpx turbo prune api --docker
-
 # Bring in Turborepo remote cache configuration.
 ARG TURBO_API
 ENV TURBO_API=$TURBO_API
@@ -39,6 +32,13 @@ ENV PORT=${PORT}
 ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
+# Copy source and mount the cached pnpm files
+COPY package.json pnpm-lock.yaml ./
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
+COPY . .
+
+# Build it
 RUN --mount=type=secret,id=TURBO_TOKEN \
 	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build
 
