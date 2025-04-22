@@ -15,7 +15,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
 FROM deps AS build
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
+RUN corepack enable && corepack prepare pnpm@10.8.1 --activate && corepack prepare turbo@2.5.0 --activate
 
 WORKDIR /app
 
@@ -33,7 +33,7 @@ ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
 # Copy source and mount the cached pnpm files
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
 COPY . .
@@ -58,5 +58,7 @@ RUN addgroup --system --gid 1001 expressjs && adduser --system --uid 1001 expres
 USER expressjs
 
 COPY --from=build /app .
-ENV NODE_ENV production
+
+ENV NODE_ENV=production
+
 CMD ["node", "apps/api/dist/index.js"]
