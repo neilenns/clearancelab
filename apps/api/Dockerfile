@@ -3,6 +3,9 @@
 FROM node:22.14.0-alpine AS base
 
 # Install pnpm
+ARG PNPM_HOME="/pnpm-store"
+ENV PNPM_HOME=${PNPM_HOME}
+
 RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
 FROM base AS deps
@@ -10,7 +13,11 @@ FROM base AS deps
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
+RUN --mount=type=cache,target=${PNPM_HOME} echo "PNPM contents before fetch: $(ls -la ${PNPM_HOME})"
+RUN  --mount=type=cache,target=${PNPM_HOME} \
+	pnpm config set store-dir ${PNPM_HOME} && \
+	pnpm fetch --frozen-lockfile --prefer-offline
+RUN --mount=type=cache,target=${PNPM_HOME} echo "PNPM contents after fetch: $(ls -la ${PNPM_HOME})"
 
 FROM deps AS prune
 
@@ -37,7 +44,8 @@ ENV HEALTH_PORT=${HEALTH_PORT}
 
 # Copy pnpm files and install the packages
 COPY --from=prune /app/out/json/ .
-RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm install --offline --frozen-lockfile
+RUN --mount=type=cache,target=${PNPM_HOME} echo "PNPM contents before install: $(ls -la ${PNPM_HOME})"
+RUN --mount=type=cache,target=${PNPM_HOME} pnpm install --offline --frozen-lockfile
 
 # Build it
 COPY --from=prune /app/out/full/ .
