@@ -1,28 +1,30 @@
-# This method comes from https://turbo.build/docs/guides/tools/docker
-# Base build image
+# This method comes from https://depot.dev/docs/container-builds/how-to-guides/optimal-dockerfiles/node-pnpm-dockerfile
+# Dependencies image
 FROM node:22.14.0-alpine AS base
 
-FROM base AS builder
+FROM base AS deps
+
+RUN RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
+
 WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
+
+FROM deps AS build
 
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
-ARG NODE_ENV=production
-ENV NODE_ENV=$NODE_ENV
+WORKDIR /app
 
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk update && apk add --no-cache libc6-compat
+COPY package.json pnpm-lock.yaml ./
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile --prod
 
 COPY . .
 RUN pnpx turbo prune api --docker
-
-# Add lockfile and package.json's of isolated subworkspace
-FROM base AS installer
-WORKDIR /app
-
-RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
-RUN apk update && apk add --no-cache libc6-compat
 
 # Bring in Turborepo remote cache configuration.
 ARG TURBO_API
@@ -37,17 +39,13 @@ ENV PORT=${PORT}
 ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
-# First install dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
-RUN pnpm install
-
-# Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
 RUN --mount=type=secret,id=TURBO_TOKEN \
 	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build
 
 # Create the release image
-FROM base AS runner
+FROM base
 WORKDIR /app
 
 # Set up the health check
@@ -61,5 +59,6 @@ HEALTHCHECK --interval=30s --timeout=5s CMD [ "sh", "-c", "curl -f http://localh
 RUN addgroup --system --gid 1001 expressjs && adduser --system --uid 1001 expressjs
 USER expressjs
 
-COPY --from=installer /app .
+COPY --from=build /app .
+ENV NODE_ENV production
 CMD ["node", "apps/api/dist/index.js"]
