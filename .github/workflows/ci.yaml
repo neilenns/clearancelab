@@ -67,6 +67,7 @@ jobs:
           files_yaml: |
             dockerfile:
               - apps/api/Dockerfile
+              - .github/workflows.ci.yaml
 
       - name: List changed Dockerfiles
         if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
@@ -83,6 +84,7 @@ jobs:
           echo "No change to Dockerfile, skipping build."
 
       - name: Cache pnpm
+        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
         uses: actions/cache@v4
         id: pnpm-cache
         with:
@@ -90,6 +92,7 @@ jobs:
           key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Inject cache into Docker
+        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
         uses: reproducible-containers/buildkit-cache-dance@v3.1.0
         with:
           cache-map: |
