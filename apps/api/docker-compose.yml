@@ -10,7 +10,7 @@ services:
       MONGO_DB_CONNECTION_STRING: ${MONGO_DB_CONNECTION_STRING}
       FORCE_COLOR: "1"
     volumes:
-      - pnpm-store:/root/.local/share/pnpm/store
+      - pnpm-store:/pnpm-store
 
 volumes:
   pnpm-store:
