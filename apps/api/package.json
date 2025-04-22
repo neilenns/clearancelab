@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --inspect=9229 --watch src/index.ts",
-    "dev:docker": "docker compose build api",
+    "dev:docker": "BUILDKIT_PROGRESS=plain docker compose run api",
     "ci": "pnpm run build",
     "start": "node dist/index.js",
     "build": "tsc",
-    "build:docker": "docker compose run api",
+    "build:docker": "BUILDKIT_PROGRESS=plain docker compose run api 2>&1 | tee build.log",
     "type-check": "tsc --noEmit",
     "lint": "pnpm run lint:eslint",
     "lint:eslint": "eslint .",
