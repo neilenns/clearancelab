@@ -44,7 +44,7 @@ jobs:
         run: pnpx turbo run ci --affected
 
       - name: Lint
-        run: pnpx turbo lint --affected
+        run: pnpm lint:md && pnpx turbo lint --affected
 
   docker:
     name: Build Docker image

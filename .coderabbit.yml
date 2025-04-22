@@ -5,3 +5,11 @@ reviews:
   path_filters:
     - "!apps/web/src/components/ui/**"
     - "!apps/web/src/hooks/**"
+  path_instructions:
+    - path: "**/*.md"
+      instructions: |
+        Review all markdown files and ensure that:
+          - All headings are in sentence, not title, case.
+          - All list sentences end in a period.
+          - Spelling and grammar is correct.
+          - Table headers are in sentence case.
