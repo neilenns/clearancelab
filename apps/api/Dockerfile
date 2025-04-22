@@ -19,7 +19,7 @@ RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
 WORKDIR /app
 
-ENV isCI=true
+ENV CI=1
 
 # Bring in Turborepo remote cache configuration.
 ARG TURBO_API
