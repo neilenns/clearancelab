@@ -67,7 +67,7 @@ jobs:
           files_yaml: |
             dockerfile:
               - apps/api/Dockerfile
-              - .github/workflows.ci.yaml
+              - .github/workflows/ci.yaml
 
       - name: List changed Dockerfiles
         if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
