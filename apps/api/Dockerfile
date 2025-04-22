@@ -43,6 +43,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
 COPY . .
 
 # Install packages from the store
+RUN pnpm config set store-dir /root/.local/share/pnpm/store
 RUN pnpm install --frozen-lockfile --force
 
 # Build it
