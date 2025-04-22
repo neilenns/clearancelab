@@ -4,6 +4,7 @@ import { forwardRef, useState } from "react";
 import { FPEBox } from "./fpe-box";
 import { FPEInput } from "./fpe-input";
 import { FPELabel } from "./fpe-label";
+import { FPETextArea } from "./fpe-textarea";
 import "./fpe.css";
 
 interface FPEProps {
@@ -56,6 +57,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
         <FPELabel className="fpe-rmk-label text-right py-1">RMK</FPELabel>
 
         <button
+          aria-label="Amend flight plan"
           onClick={handleAmend}
           disabled={!isDirty}
           className={clsx(
@@ -108,14 +110,14 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
           className="fpe-alt-box"
           defaultValue={plan?.alt}
           onChange={handleAnyChange}
-          maxLength={3}
+          maxLength={7}
         />
-        <FPEInput
+        <FPETextArea
           className="fpe-rte-box text-left min-h-[50px]"
           defaultValue={plan?.rte}
           onChange={handleAnyChange}
         />
-        <FPEInput
+        <FPETextArea
           className="fpe-rmk-box text-left min-h-[50px]"
           defaultValue={plan?.rmk}
           onChange={handleAnyChange}
