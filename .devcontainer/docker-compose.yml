@@ -3,6 +3,7 @@ services:
     image: ghcr.io/neilenns/clearancelab-devcontainer:latest
     volumes:
       - ../..:/workspaces:cached
+      - pnpm-store-devcontainer:/pnpm-store
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
@@ -26,4 +27,6 @@ services:
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
 volumes:
+  pnpm-store-devcontainer:
+    name: pnpm-store-devcontainer
   mongodb-data:

@@ -6,22 +6,27 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 ### Node.js setup
 
-. "${NVM_DIR}/nvm.sh" && nvm install
+. "${NVM_DIR}/nvm.sh" && nvm install && corepack install
 
 ### pnpm setup
 
+echo "🔓 Fixing permissions of ${PNPM_STORE}"
+
+chown -R node:node "${PNPM_STORE}"
 export PNPM_HOME="${HOME}/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+pnpm config set store-dir "$PNPM_STORE" # This comes from devcontainer.json, and is mounted as a volume in docker-compose.yaml
 
 grep -qxF 'export PNPM_HOME="$HOME/.local/share/pnpm"' ~/.zshrc || \
   echo 'export PNPM_HOME="$HOME/.local/share/pnpm"' >> ~/.zshrc
 grep -qxF 'export PATH="$PNPM_HOME:$PATH"' ~/.zshrc || \
   echo 'export PATH="$PNPM_HOME:$PATH"' >> ~/.zshrc
 
-pnpm config set store-dir "$PWD/.pnpm-store"
+echo "📦 Installing pnpm packages"
 
-COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm add -g turbo
-pnpm install
+pnpm add -g turbo@2.5.0
+pnpm install --frozen-lockfile
 
 ### Database setup
+echo "📦 Seeding database"
 "${SCRIPT_DIR}/seed/init.sh"
