@@ -1,6 +1,6 @@
 import { ScenarioData } from "@/models/scenario";
 import clsx from "clsx";
-import { forwardRef, useState } from "react";
+import { forwardRef, useCallback, useState } from "react";
 import { FPEBox } from "./fpe-box";
 import { FPEInput } from "./fpe-input";
 import { FPELabel } from "./fpe-label";
@@ -14,12 +14,13 @@ interface FPEProps {
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
   const [isDirty, setIsDirty] = useState(false);
 
-  const handleAnyChange = () => {
+  const handleAnyChange = useCallback(() => {
     setIsDirty(true);
-  };
-  const handleAmend = () => {
+  }, []);
+
+  const handleAmend = useCallback(() => {
     setIsDirty(false);
-  };
+  }, []);
 
   return (
     <div className="w-[800px] mt-2 mb-2" ref={ref}>
@@ -30,11 +31,18 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
           </div>
         )}
         <div className="fpe-close text-right">&times;</div>
-        <FPELabel className="fpe-aid-label">AID</FPELabel>
-        <FPELabel className="fpe-cruiseid-label">CID</FPELabel>
-        <FPELabel className="fpe-bcn-label">BCN</FPELabel>
+        <FPELabel id="fpe-aid-label" className="fpe-aid-label">
+          AID
+        </FPELabel>
+        <FPELabel id="fpe-cruiseid-label" className="fpe-cruiseid-label">
+          CID
+        </FPELabel>
+        <FPELabel id="fpe-bcn-label" className="fpe-bcn-label">
+          BCN
+        </FPELabel>
         <div className="fpe-refresh-label self-center">
           <svg
+            aria-label="Generate new BCN"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
             width="10"
@@ -47,77 +55,113 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
             />
           </svg>
         </div>
-        <FPELabel className="fpe-typ-label">TYP</FPELabel>
-        <FPELabel className="fpe-eq-label">EQ</FPELabel>
-        <FPELabel className="fpe-dep-label">DEP</FPELabel>
-        <FPELabel className="fpe-dest-label">DEST</FPELabel>
-        <FPELabel className="fpe-spd-label">SPD</FPELabel>
-        <FPELabel className="fpe-alt-label">ALT</FPELabel>
-        <FPELabel className="fpe-rte-label text-right py-1">RTE</FPELabel>
-        <FPELabel className="fpe-rmk-label text-right py-1">RMK</FPELabel>
+        <FPELabel id="fpe-typ-label" className="fpe-typ-label">
+          TYP
+        </FPELabel>
+        <FPELabel id="fpe-eq-label" className="fpe-eq-label">
+          EQ
+        </FPELabel>
+        <FPELabel id="fpe-dep-label" className="fpe-dep-label">
+          DEP
+        </FPELabel>
+        <FPELabel id="fpe-dest-label" className="fpe-dest-label">
+          DEST
+        </FPELabel>
+        <FPELabel id="fpe-spd-label" className="fpe-spd-label">
+          SPD
+        </FPELabel>
+        <FPELabel id="fpe-alt-label" className="fpe-alt-label">
+          ALT
+        </FPELabel>
+        <FPELabel id="fpe-rte-label" className="fpe-rte-label text-right py-1">
+          RTE
+        </FPELabel>
+        <FPELabel id="fpe-rmk-label" className="fpe-rmk-label text-right py-1">
+          RMK
+        </FPELabel>
 
         <button
           aria-label="Amend flight plan"
           onClick={handleAmend}
           disabled={!isDirty}
           className={clsx(
-            "fpe-amend text-center justify-self-center mt-[6px] mb-1 border-2 px-2 py-[6px]",
+            "fpe-amend text-center justify-self-center mt-[6px] mb-1 border-2 px-2 py-[6px] text-[var(--color-fpe-amend-foreground)] border-[var(--color-fpe-amend-border)]",
             {
-              "text-[var(--color-fpe-amend-foreground)] border-[var(--color-fpe-amend-border)]":
-                !isDirty,
-              "bg-[var(--color-fpe-amend-border)] text-black animate-pulse":
-                isDirty,
+              "text-white": isDirty,
             }
           )}
         >
           Amend
         </button>
 
-        <FPEBox className="fpe-aid-box border-none">{plan?.aid}</FPEBox>
-        <FPEBox className="fpe-cruiseid-box border-none">{plan?.cid}</FPEBox>
-        <FPEBox className="fpe-bcn-box border-none">{plan?.bcn}</FPEBox>
+        <FPEBox
+          aria-labelledby="fpe-aid-label"
+          className="fpe-aid-box border-none"
+        >
+          {plan?.aid}
+        </FPEBox>
+        <FPEBox
+          aria-labelledby="fpe-aid-label"
+          className="fpe-cruiseid-box border-none"
+        >
+          {plan?.cid}
+        </FPEBox>
+        <FPEBox
+          aria-labelledby="fpe-bcn-label"
+          className="fpe-bcn-box border-none"
+        >
+          {plan?.bcn}
+        </FPEBox>
         <FPEInput
+          aria-labelledby="fpe-typ-label"
           className="fpe-typ-box"
           defaultValue={plan?.typ}
           onChange={handleAnyChange}
           maxLength={5}
         />
         <FPEInput
+          aria-labelledby="fpe-eq-label"
           className="fpe-eq-box"
           defaultValue={plan?.eq}
           onChange={handleAnyChange}
           maxLength={1}
         />
         <FPEInput
+          aria-labelledby="fpe-dep-label"
           className="fpe-dep-box"
           defaultValue={plan?.dep}
           onChange={handleAnyChange}
           maxLength={4}
         />
         <FPEInput
+          aria-labelledby="fpe-dest-label"
           className="fpe-dest-box"
           defaultValue={plan?.dest}
           onChange={handleAnyChange}
           maxLength={4}
         />
         <FPEInput
+          aria-labelledby="fpe-spd-label"
           className="fpe-spd-box"
           defaultValue={plan?.spd}
           onChange={handleAnyChange}
           maxLength={3}
         />
         <FPEInput
+          aria-labelledby="fpe-alt-label"
           className="fpe-alt-box"
           defaultValue={plan?.alt}
           onChange={handleAnyChange}
           maxLength={7}
         />
         <FPETextArea
+          aria-labelledby="fpe-rte-label"
           className="fpe-rte-box text-left min-h-[50px]"
           defaultValue={plan?.rte}
           onChange={handleAnyChange}
         />
         <FPETextArea
+          aria-labelledby="fpe-rmk-label"
           className="fpe-rmk-box text-left min-h-[50px]"
           defaultValue={plan?.rmk}
           onChange={handleAnyChange}
