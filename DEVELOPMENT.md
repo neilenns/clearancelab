@@ -65,6 +65,9 @@ To speed builds, the following environment variables can be set to enable TurboR
 | `TURBO_API`   | URI to the Turbo remote cache instance.    |
 | `TURBO_TOKEN` | Token to grant access to the remote cache. |
 
+> [!IMPORTANT]
+> If new environment variables are added and are needed in local builds, they must be added to the dependency list in [`turbo.json`](./turbo.json). Otherwise, they will not be available to the tasks when run.
+
 ### Production
 
 The API server supports the following variables:
