@@ -12,6 +12,7 @@ env:
   IMAGE_NAME: ghcr.io/${{ github.repository }}-api
   VERSION: ${{ github.sha }}
   TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+  PNPM_HOME: "/pnpm-store"
 
 jobs:
   monorepo:
@@ -67,6 +68,8 @@ jobs:
           files_yaml: |
             dockerfile:
               - apps/api/Dockerfile
+              - apps/api/.dockerignore
+              - .github/workflows/ci.yaml
 
       - name: List changed Dockerfiles
         if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
@@ -81,6 +84,26 @@ jobs:
           GH_TOKEN: ${{ secrets. GITHUB_TOKEN }}
         run: |
           echo "No change to Dockerfile, skipping build."
+
+      # This method of caching pnpm files in Docker builds during CI workflows is from
+      # https://dev.to/henryjw/caching-pnpm-modules-in-docker-builds-in-github-actions-mj7#implementation
+      - name: Cache pnpm
+        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
+        uses: actions/cache@v4
+        id: pnpm-cache
+        with:
+          path: pnpm-store
+          key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Inject cache into Docker
+        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
+        uses: reproducible-containers/buildkit-cache-dance@v3.1.0
+        with:
+          cache-map: |
+            {
+              "pnpm-store": "${{ env.PNPM_HOME }}"
+            }
+          skip-extraction: ${{ steps.pnpm-cache.outputs.cache-hit }}
 
       - name: Log in to GitHub Container Registry
         if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
@@ -102,5 +125,6 @@ jobs:
             TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
           build-args: |
             VERSION=dev
-            TURBO_API=${{ vars.TURBO_API }}
-            TURBO_TEAM=${{ vars.TURBO_TEAM }}
+            TURBO_API=${{ env.TURBO_API }}
+            TURBO_TEAM=${{ env.TURBO_TEAM }}
+            PNPM_HOME=${{ env.PNPM_HOME }}

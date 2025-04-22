@@ -1,28 +1,33 @@
-# This method comes from https://turbo.build/docs/guides/tools/docker
-# Base build image
+# This method comes from https://depot.dev/docs/container-builds/how-to-guides/optimal-dockerfiles/node-pnpm-dockerfile
+# Dependencies image
 FROM node:22.14.0-alpine AS base
 
-FROM base AS builder
-WORKDIR /app
-
 # Install pnpm
+ARG PNPM_HOME="/pnpm-store"
+ENV PNPM_HOME=${PNPM_HOME}
+
 RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
-ARG NODE_ENV=production
-ENV NODE_ENV=$NODE_ENV
+FROM base AS deps
 
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk update && apk add --no-cache libc6-compat
+WORKDIR /app
 
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN --mount=type=cache,target=${PNPM_HOME} echo "pnpm store before fetch: $(ls -la ${PNPM_HOME})"
+RUN  --mount=type=cache,target=${PNPM_HOME} \
+	pnpm config set store-dir ${PNPM_HOME} && \
+	pnpm fetch --frozen-lockfile --prefer-offline
+RUN --mount=type=cache,target=${PNPM_HOME} echo "pnpm store after fetch: $(ls -la ${PNPM_HOME})"
+
+FROM deps AS prune
+
+WORKDIR /app
 COPY . .
 RUN pnpx turbo prune api --docker
 
-# Add lockfile and package.json's of isolated subworkspace
-FROM base AS installer
-WORKDIR /app
+FROM base AS builder
 
-RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
-RUN apk update && apk add --no-cache libc6-compat
+WORKDIR /app
 
 # Bring in Turborepo remote cache configuration.
 ARG TURBO_API
@@ -37,18 +42,23 @@ ENV PORT=${PORT}
 ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
-# First install dependencies (as they change less often)
-COPY --from=builder /app/out/json/ .
-RUN pnpm install
+# Copy pnpm files and install the packages
+COPY --from=prune /app/out/json/ .
+RUN --mount=type=cache,target=${PNPM_HOME} echo "pnpm store before install: $(ls -la ${PNPM_HOME})"
+RUN --mount=type=cache,target=${PNPM_HOME} \
+	pnpm config set store-dir ${PNPM_HOME} && \
+	pnpm install --offline --frozen-lockfile
 
-# Build the project and its dependencies
-COPY --from=builder /app/out/full/ .
+# Build it
+COPY --from=prune /app/out/full/ .
 RUN --mount=type=secret,id=TURBO_TOKEN \
-	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build
+	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build --filter=api
 
 # Create the release image
-FROM base AS runner
+FROM base
 WORKDIR /app
+
+ENV NODE_ENV=production
 
 # Set up the health check
 ARG HEALTH_PORT=4504
@@ -61,5 +71,6 @@ HEALTHCHECK --interval=30s --timeout=5s CMD [ "sh", "-c", "curl -f http://localh
 RUN addgroup --system --gid 1001 expressjs && adduser --system --uid 1001 expressjs
 USER expressjs
 
-COPY --from=installer /app .
+COPY --from=builder /app .
+
 CMD ["node", "apps/api/dist/index.js"]

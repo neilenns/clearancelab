@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx --inspect=9229 --watch src/index.ts",
-    "dev:docker": "docker run -it --rm -p 4503:4503 -p 4504:4504 clearancelab-api",
+    "dev:docker": "BUILDKIT_PROGRESS=plain docker compose run api",
     "ci": "pnpm run build",
     "start": "node dist/index.js",
     "build": "tsc",
-    "build:docker": "docker build -t clearancelab-api  -f ./Dockerfile ../..",
+    "build:docker": "BUILDKIT_PROGRESS=plain docker compose build api 2>&1 | tee build.log",
     "type-check": "tsc --noEmit",
     "lint": "pnpm run lint:eslint",
     "lint:eslint": "eslint .",
