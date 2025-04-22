@@ -13,8 +13,12 @@ interface FPEProps {
 const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
   const [isDirty, setIsDirty] = useState(false);
 
-  const handleAnyChange = () => setIsDirty(true);
-  const handleAmend = () => setIsDirty(false);
+  const handleAnyChange = () => {
+    setIsDirty(true);
+  };
+  const handleAmend = () => {
+    setIsDirty(false);
+  };
 
   return (
     <div className="w-[800px] mt-2 mb-2" ref={ref}>
