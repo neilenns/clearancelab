@@ -4,18 +4,18 @@ Welcome to the Clearance Lab development environment! The entire project is desi
 
 This guide will walk you through getting started, understanding available launch options, configuring environment variables, and how builds and deployment work.
 
-- [Getting Started with VS Code Dev Containers](#getting-started-with-vs-code-dev-containers)
-- [Available Launch Commands](#available-launch-commands)
-- [Environment Variables](#environment-variables)
-  - [Local Development](#local-development)
+- [Getting started with VS Code dev containers](#getting-started-with-vs-code-dev-containers)
+- [Available launch commands](#available-launch-commands)
+- [Environment variables](#environment-variables)
+  - [Local development](#local-development)
   - [Production](#production)
-- [Build Process](#build-process)
-- [Database Setup](#database-setup)
+- [Build process](#build-process)
+- [Database setup](#database-setup)
 - [CI builds and deployment](#ci-builds-and-deployment)
   - [CI builds](#ci-builds)
   - [Deployment](#deployment)
 
-## Getting Started with VS Code Dev Containers
+## Getting started with VS Code dev containers
 
 To spin up the project in a fully configured development environment:
 
@@ -32,9 +32,9 @@ To spin up the project in a fully configured development environment:
    - Choose a folder name
    - VS Code will automatically clone, build the container, and open the repo inside it
 
-## Available Launch Commands
+## Available launch commands
 
-From the **Run and Debug** sidebar (`Ctrl+Shift+D`), you’ll find these launch configs:
+From the **Run and Debug** sidebar (`Ctrl+Shift+D`), you’ll find these [launch configurations](.vscode/launch.json):
 
 - **`Clearance Lab (All)`**  
   Launches both API and Web concurrently using `turbo run dev`. Ideal for full-stack development.
@@ -45,11 +45,11 @@ From the **Run and Debug** sidebar (`Ctrl+Shift+D`), you’ll find these launch 
 - **`Clearance Lab (Web)`**  
   Runs the Next.js frontend (`apps/web`). Great for iterating on the user interface.
 
-## Environment Variables
+## Environment variables
 
-### Local Development
+### Local development
 
-Default values for local development are set in the `devcontainer.json` file:
+Default values for local development are set in the [`devcontainer.json`](.devcontainer/devcontainer.json) file:
 
 | Variable                     | Description                                             | Value                    |
 | ---------------------------- | ------------------------------------------------------- | ------------------------ |
@@ -69,11 +69,11 @@ To speed builds, the following environment variables can be set to enable TurboR
 
 The API server supports the following variables:
 
-| Variable                     | Description                                                                                                                                                                  | Required |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `MONGO_DB_CONNECTION_STRING` | URI to the MongoDB instance.                                                                                                                                                 | ✅        |
-| `MONGO_DB_NAME`              | Name of the database with the development data.                                                                                                                              | ✅        |
-| `TRUST_PROXY`                | Configures the [Express.js `trust proxy` setting](https://expressjs.com/en/guide/behind-proxies.html). If the server is deployed behind a Cloudflare tunnel set this to `1`. |          |
+| Variable                     | Description                                                                                                                                                                   | Required |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `MONGO_DB_CONNECTION_STRING` | URI to the MongoDB instance.                                                                                                                                                  | ✅        |
+| `MONGO_DB_NAME`              | Name of the database with the development data.                                                                                                                               | ✅        |
+| `TRUST_PROXY`                | Configures the [Express.js `trust proxy` setting](https://expressjs.com/en/guide/behind-proxies.html). If the server is deployed behind a Cloudflare, tunnel set this to `1`. |          |
 
 The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#deployment). The following variables and secrets are supported:
 
@@ -82,7 +82,7 @@ The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#dep
 | `API_BASE_URL` | URI to the API server. Configured in [`wrangler.jsonc`](apps/web/wrangler.jsonc).                                                       | ✅        |
 | `API_KEY`      | API key for access to the API server. Configured in GitHub as a repository secret and pushed to Cloudflare during the release workflow. | ✅        |
 
-## Build Process
+## Build process
 
 This is a monorepo powered by **Turborepo** and **pnpm**.
 
@@ -96,7 +96,7 @@ In most situations, local builds should be done with the [VS Code launch command
 | `turbo ci`    | Build everything but skip static page generation.   |
 | `turbo build` | Build everything, including static page generation. |
 
-## Database Setup
+## Database setup
 
 A MongoDB instance is automatically spun up inside the devcontainer and pre-seeded with example data during initialization.
 
@@ -107,10 +107,10 @@ A MongoDB instance is automatically spun up inside the devcontainer and pre-seed
 
 To add or update data:
 
-1. Add or edit the JSON files under the [`seed/`](.devcontainer/seed/) folder
-2. Rebuild the devcontainer, or run [`./seed/init.sh`](.devcontainer/seed/init.sh) inside the container to manually re-seed
+1. Add or edit the JSON files under the [`seed/`](.devcontainer/seed/) folder.
+2. Rebuild the devcontainer, or run [`./seed/init.sh`](.devcontainer/seed/init.sh) inside the container to manually re-seed.
 
-The MongoDB VS Code extension is installed automatically and includes a connection named `Clearance Lab local dev` for access to the local database. To access the database from tools like MongoDB Compass use the value of the `MONGO_DB_CONNECTION_STRING` environment variable from [`devcontainer.json`](.devcontainer/devcontainer.json).
+The MongoDB VS Code extension is installed automatically and includes a connection named `Clearance Lab local dev` for access to the local database. To access the database from tools like MongoDB Compass, use the value of the `MONGO_DB_CONNECTION_STRING` environment variable from [`devcontainer.json`](.devcontainer/devcontainer.json).
 
 ## CI builds and deployment
 
