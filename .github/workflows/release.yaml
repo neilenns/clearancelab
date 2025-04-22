@@ -15,6 +15,9 @@ jobs:
     name: Build Docker image
     runs-on: ubuntu-latest
 
+    env:
+      PNPM_HOME: "/pnpm-store"
+
     permissions:
       contents: read
       packages: write # needed to push to GHCR
@@ -37,6 +40,24 @@ jobs:
         id: vars
         run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
+      # This method of caching pnpm files in Docker builds during CI workflows is from
+      # https://dev.to/henryjw/caching-pnpm-modules-in-docker-builds-in-github-actions-mj7#implementation
+      - name: Cache pnpm
+        uses: actions/cache@v4
+        id: pnpm-cache
+        with:
+          path: pnpm-store
+          key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Inject cache into Docker
+        uses: reproducible-containers/buildkit-cache-dance@v3.1.0
+        with:
+          cache-map: |
+            {
+              "pnpm-store": "${{ env.PNPM_HOME }}"
+            }
+          skip-extraction: ${{ steps.pnpm-cache.outputs.cache-hit }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -49,8 +70,9 @@ jobs:
             TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
           build-args: |
             VERSION=${{ github.event.release.tag_name }}
-            TURBO_API=${{ vars.TURBO_API }}
-            TURBO_TEAM=${{ vars.TURBO_TEAM }}
+            TURBO_API=${{ env.TURBO_API }}
+            TURBO_TEAM=${{ env.TURBO_TEAM }}
+            PNPM_HOME=${{ env.PNPM_HOME }}
           tags: |
             ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.TAG }}
             ghcr.io/${{ env.IMAGE_NAME }}:latest
