@@ -4,7 +4,7 @@ FROM node:22.14.0-alpine AS base
 
 FROM base AS deps
 
-RUN RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
+RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
 WORKDIR /app
 
