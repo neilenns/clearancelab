@@ -9,7 +9,7 @@ RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm fetch --frozen-lockfile
 
 FROM deps AS prune
 
@@ -42,7 +42,7 @@ ENV HEALTH_PORT=${HEALTH_PORT}
 
 # Copy pnpm files and install the packages
 COPY --from=prune /app/out/json/ .
-RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --offline --frozen-lockfile
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm install --offline --frozen-lockfile
 
 # Build it
 COPY --from=prune /app/out/full/ .

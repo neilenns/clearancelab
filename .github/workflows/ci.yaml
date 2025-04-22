@@ -67,6 +67,7 @@ jobs:
           files_yaml: |
             dockerfile:
               - apps/api/Dockerfile
+              - apps/api/.dockerignore
               - .github/workflows/ci.yaml
 
       - name: List changed Dockerfiles
