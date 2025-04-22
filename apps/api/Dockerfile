@@ -39,8 +39,8 @@ ENV PORT=${PORT}
 ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/full/ .
+COPY --from=build /app/out/json/ .
+COPY --from=build /app/out/full/ .
 RUN --mount=type=secret,id=TURBO_TOKEN \
 	export TURBO_TOKEN=$(cat /run/secrets/TURBO_TOKEN) && pnpx turbo build
 
