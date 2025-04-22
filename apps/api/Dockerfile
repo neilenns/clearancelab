@@ -19,6 +19,8 @@ RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
 WORKDIR /app
 
+ENV isCI=true
+
 # Bring in Turborepo remote cache configuration.
 ARG TURBO_API
 ENV TURBO_API=$TURBO_API
@@ -39,7 +41,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
 COPY . .
 
 # Install packages from the store
-RUN pnpm install --frozen-lockfile --non-interactive --ignore-scripts
+RUN pnpm install --frozen-lockfile --offline --force
 
 # Build it
 RUN --mount=type=secret,id=TURBO_TOKEN \
