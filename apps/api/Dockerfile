@@ -19,6 +19,8 @@ RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
 
 WORKDIR /app
 
+# https://github.com/pnpm/pnpm/issues/7727
+# https://github.com/pnpm/pnpm/issues/6778
 ENV CI=1
 
 # Bring in Turborepo remote cache configuration.
@@ -41,7 +43,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install
 COPY . .
 
 # Install packages from the store
-RUN pnpm install --frozen-lockfile --offline --force
+RUN pnpm install --frozen-lockfile --force
 
 # Build it
 RUN --mount=type=secret,id=TURBO_TOKEN \
