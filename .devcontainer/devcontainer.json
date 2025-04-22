@@ -8,6 +8,7 @@
   "containerEnv": {
     "MONGO_DB_CONNECTION_STRING": "mongodb://db:27017/",
     "MONGO_DB_NAME": "clearancelab",
-    "API_BASE_URL": "http://localhost:4503/"
+    "API_BASE_URL": "http://localhost:4503/",
+    "PNPM_STORE": "/pnpm-store"
   }
 }
