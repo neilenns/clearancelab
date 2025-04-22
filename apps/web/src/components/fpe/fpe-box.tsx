@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-interface FPEBoxProps {
+interface FPEBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className: string;
 }

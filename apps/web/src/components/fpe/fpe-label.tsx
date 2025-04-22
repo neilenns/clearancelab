@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-interface FPELabelProps {
+interface FPELabelProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className: string;
 }

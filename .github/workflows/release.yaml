@@ -46,7 +46,7 @@ jobs:
         uses: actions/cache@v4
         id: pnpm-cache
         with:
-          path: pnpm-store
+          path: ${{ env.PNPM_HOME }}
           key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Inject cache into Docker

@@ -6,12 +6,12 @@ This guide will walk you through getting started, understanding available launch
 
 - [Getting started with VS Code dev containers](#getting-started-with-vs-code-dev-containers)
 - [Available launch commands](#available-launch-commands)
+- [Database setup](#database-setup)
 - [Environment variables](#environment-variables)
   - [Local development](#local-development)
   - [Production](#production)
-- [Build process](#build-process)
-- [Database setup](#database-setup)
-- [CI builds and deployment](#ci-builds-and-deployment)
+- [Build process and deployment](#build-process-and-deployment)
+  - [Local builds](#local-builds)
   - [CI builds](#ci-builds)
   - [Deployment](#deployment)
 
@@ -45,6 +45,22 @@ From the **Run and Debug** sidebar (`Ctrl+Shift+D`), you’ll find these [launch
 - **`Clearance Lab (Web)`**  
   Runs the Next.js frontend (`apps/web`). Great for iterating on the user interface.
 
+## Database setup
+
+A MongoDB instance is automatically spun up inside the devcontainer and pre-seeded with example data during initialization.
+
+- Data is loaded via the [`post-create.sh`](.devcontainer/post-create.sh) script using `mongosh` and `mongoimport`
+- The database is named `clearancelab` and contains:
+  - `scenarios`: sample scenario data
+  - `airportinfo`: airport metadata
+
+To add or update data:
+
+1. Add or edit the JSON files under the [`seed/`](.devcontainer/seed/) folder.
+2. Rebuild the devcontainer, or run [`./seed/init.sh`](.devcontainer/seed/init.sh) inside the container to manually re-seed.
+
+The MongoDB VS Code extension is installed automatically and includes a connection named `Clearance Lab local dev` for access to the local database. To access the database from tools like MongoDB Compass, use the value of the `MONGO_DB_CONNECTION_STRING` environment variable from [`devcontainer.json`](.devcontainer/devcontainer.json).
+
 ## Environment variables
 
 ### Local development
@@ -66,7 +82,7 @@ To speed builds, the following environment variables can be set to enable TurboR
 | `TURBO_TOKEN` | Token to grant access to the remote cache. |
 
 > [!IMPORTANT]
-> If new environment variables are added and are needed in local builds, they must be added to the dependency list in [`turbo.json`](./turbo.json). Otherwise, they will not be available to the tasks when run.
+> If new environment variables are added to the code, they must be added to the dependency list in [`turbo.json`](./turbo.json). Otherwise, they will not be available to the tasks when run.
 
 ### Production
 
@@ -74,22 +90,22 @@ The API server supports the following variables:
 
 | Variable                     | Description                                                                                                                                                                   | Required |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `MONGO_DB_CONNECTION_STRING` | URI to the MongoDB instance.                                                                                                                                                  | ✅        |
-| `MONGO_DB_NAME`              | Name of the database with the development data.                                                                                                                               | ✅        |
+| `MONGO_DB_CONNECTION_STRING` | URI to the MongoDB instance.                                                                                                                                                  | ✅       |
+| `MONGO_DB_NAME`              | Name of the database with the development data.                                                                                                                               | ✅       |
 | `TRUST_PROXY`                | Configures the [Express.js `trust proxy` setting](https://expressjs.com/en/guide/behind-proxies.html). If the server is deployed behind a Cloudflare, tunnel set this to `1`. |          |
 
 The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#deployment). The following variables and secrets are supported:
 
 | Variable       | Description                                                                                                                             | Required |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `API_BASE_URL` | URI to the API server. Configured in [`wrangler.jsonc`](apps/web/wrangler.jsonc).                                                       | ✅        |
-| `API_KEY`      | API key for access to the API server. Configured in GitHub as a repository secret and pushed to Cloudflare during the release workflow. | ✅        |
+| `API_BASE_URL` | URI to the API server. Configured in [`wrangler.jsonc`](apps/web/wrangler.jsonc).                                                       | ✅       |
+| `API_KEY`      | API key for access to the API server. Configured in GitHub as a repository secret and pushed to Cloudflare during the release workflow. | ✅       |
 
-## Build process
+## Build process and deployment
 
 This is a monorepo powered by **Turborepo** and **pnpm**.
 
-- **Local builds**:
+### Local builds
 
 In most situations, local builds should be done with the [VS Code launch commands](#available-launch-commands). To build from the command line, use the following commands:
 
@@ -99,29 +115,9 @@ In most situations, local builds should be done with the [VS Code launch command
 | `turbo ci`    | Build everything but skip static page generation.   |
 | `turbo build` | Build everything, including static page generation. |
 
-## Database setup
-
-A MongoDB instance is automatically spun up inside the devcontainer and pre-seeded with example data during initialization.
-
-- Data is loaded via the [`post-create.sh`](.devcontainer/post-create.sh) script using `mongosh` and `mongoimport`
-- The database is named `clearancelab` and contains:
-  - `scenarios`: sample scenario data
-  - `airportinfo`: airport metadata
-
-To add or update data:
-
-1. Add or edit the JSON files under the [`seed/`](.devcontainer/seed/) folder.
-2. Rebuild the devcontainer, or run [`./seed/init.sh`](.devcontainer/seed/init.sh) inside the container to manually re-seed.
-
-The MongoDB VS Code extension is installed automatically and includes a connection named `Clearance Lab local dev` for access to the local database. To access the database from tools like MongoDB Compass, use the value of the `MONGO_DB_CONNECTION_STRING` environment variable from [`devcontainer.json`](.devcontainer/devcontainer.json).
-
-## CI builds and deployment
-
-CI builds and deployment are handled by GitHub workflows.
-
 ### CI builds
 
-All pull requests automatically have the following jobs run:
+CI is handled by GitHub workflows. All pull requests automatically have the following jobs run:
 
 - **CI - Monorepo**: Builds the monorepo and runs lint.
 - **CI - Docker**: Builds the API docker image.
