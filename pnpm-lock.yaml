@@ -239,21 +239,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/tsup-config':
-        specifier: workspace:*
-        version: link:../tsup-config
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-
-  packages/tsup-config:
-    devDependencies:
-      '@tsconfig/node22':
-        specifier: ^22.0.1
-        version: 22.0.1
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.7.1)
 
   packages/typescript-config:
     devDependencies:
@@ -263,12 +251,9 @@ importers:
 
   packages/validators:
     dependencies:
-      mongoose:
-        specifier: ^8.13.2
-        version: 8.13.2
-      zod:
-        specifier: ^3.24.3
-        version: 3.24.3
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.7.1)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -276,12 +261,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.7.1)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
 
 packages:
 
