@@ -1,4 +1,4 @@
-import { isValidCallsign } from "@repo/plantools";
+import { isValidCallsign } from "@workspace/plantools/validators";
 import { z } from "zod";
 
 export const formSchema = z.object({
