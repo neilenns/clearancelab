@@ -30,3 +30,7 @@ pnpm install --frozen-lockfile
 ### Database setup
 echo "📦 Seeding database"
 "${SCRIPT_DIR}/seed/init.sh"
+
+### Aliases
+echo "🪄 Shell magic: creating developer-friendly aliases"
+alias npm='pnpm'

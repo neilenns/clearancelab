@@ -17,9 +17,7 @@
         "API_BASE_URL"
       ]
     },
-    "lint": {
-      "cache": false
-    },
+    "lint": {},
     "ci": {
       "dependsOn": ["^ci"],
       "inputs": ["$TURBO_DEFAULT$"],
