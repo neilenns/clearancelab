@@ -19,12 +19,12 @@ interface AdminSidebarProps extends React.ComponentProps<typeof Sidebar> {}
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/admin",
     icon: Home,
   },
   {
     title: "Manage scenarios",
-    url: "/admin/",
+    url: "/admin/scenarios",
     icon: Edit,
   },
 ];
