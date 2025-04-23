@@ -9,6 +9,10 @@ const title = "Clearance Lab";
 const url = "https://clearancelab.badcasserole.com";
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/icon.png",
+  },
   title,
   description,
   openGraph: {
