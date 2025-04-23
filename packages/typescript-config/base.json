@@ -4,6 +4,7 @@
   "display": "Base configuration",
   "compilerOptions": {
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "strictNullChecks": true
   }
 }

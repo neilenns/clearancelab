@@ -1,3 +1,4 @@
+import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import turboPlugin from "eslint-plugin-turbo";
 import tseslint from "typescript-eslint";
@@ -7,7 +8,7 @@ import tseslint from "typescript-eslint";
  *
  * @type {import("eslint").Linter.Config}
  * */
-export default tseslint.config(
+export const config = tseslint.config(
   {
     ignores: ["dist/**", "eslint.config.js"],
   },
