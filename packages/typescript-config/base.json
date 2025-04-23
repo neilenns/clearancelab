@@ -3,8 +3,11 @@
   "extends": "@tsconfig/node22/tsconfig.json",
   "display": "Base configuration",
   "compilerOptions": {
+    "baseUrl": "${configDir}",
     "declaration": true,
     "declarationMap": true,
     "strictNullChecks": true
-  }
+  },
+  "include": ["."],
+  "exclude": ["node_modules", "dist"]
 }
