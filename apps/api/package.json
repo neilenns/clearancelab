@@ -11,11 +11,7 @@
     "build:docker": "BUILDKIT_PROGRESS=plain docker compose build api 2>&1 | tee build.log",
     "type-check": "tsc --noEmit",
     "lint": "pnpm run lint:eslint",
-    "lint:eslint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint:eslint": "eslint ."
   },
   "description": "API for the Clearance Lab website.",
   "dependencies": {
