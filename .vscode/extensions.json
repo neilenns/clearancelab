@@ -9,6 +9,7 @@
     "csstools.postcss",
     "mongodb.mongodb-vscode",
     "nize.oklch-preview",
-    "starbist.oklchanger"
+    "starbist.oklchanger",
+    "jacano.vscode-pnpm"
   ]
 }

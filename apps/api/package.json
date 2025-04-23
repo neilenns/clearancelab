@@ -27,7 +27,8 @@
     "mongoose": "^8.13.2",
     "mongoose-lean-virtuals": "^1.1.0",
     "winston": "^3.17.0",
-    "zod": "^3.24.3"
+    "zod": "^3.24.3",
+    "@repo/validators": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",

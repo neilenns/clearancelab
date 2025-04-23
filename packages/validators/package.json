@@ -1,0 +1,28 @@
+{
+  "name": "@repo/validators",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && tsc --emitDeclarationOnly",
+    "ci": "pnpm run build",
+    "dev": "tsup --watch"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
+  },
+  "dependencies": {
+    "mongoose": "^8.13.2",
+    "tsup": "^8.4.0",
+    "zod": "^3.24.3"
+  }
+}
