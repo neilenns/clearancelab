@@ -3,8 +3,8 @@
 
 import { formSchema } from "./schema";
 
-export async function onSubmitStudent(
-  prevState: { message: string },
+export function onSubmitStudent(
+  _prevState: { message: string },
   formData: FormData
 ) {
   const parse = formSchema.safeParse({

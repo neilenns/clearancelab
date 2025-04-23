@@ -14,8 +14,6 @@ import {
 import { Edit, Home } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 
-interface AdminSidebarProps extends React.ComponentProps<typeof Sidebar> {}
-
 const items = [
   {
     title: "Home",
@@ -29,7 +27,7 @@ const items = [
   },
 ];
 
-export function AdminSidebar({ ...props }: AdminSidebarProps) {
+export function AdminSidebar({ ...props }) {
   return (
     <aside>
       <Sidebar {...props}>

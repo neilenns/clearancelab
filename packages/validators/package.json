@@ -20,6 +20,8 @@
     "@repo/typescript-config": "workspace:*"
   },
   "dependencies": {
-    "tsup": "^8.4.0"
+    "mongoose": "^8.13.2",
+    "tsup": "^8.4.0",
+    "zod": "^3.24.3"
   }
 }
