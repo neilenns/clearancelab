@@ -60,5 +60,7 @@
       "name": "Clearance Lab local dev",
       "connectionString": "mongodb://localhost:27017"
     }
-  ]
+  ],
+  "eslint.workingDirectories": ["apps/*", "packages/*"],
+  "eslint.useFlatConfig": true
 }
