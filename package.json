@@ -2,12 +2,16 @@
   "name": "clearancelab",
   "packageManager": "pnpm@10.8.1",
   "scripts": {
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules"
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules",
+    "plop:package": "cross-env NODE_OPTIONS='--import tsx' plop --plopfile packages/templates/plopfile.ts"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^9.25.1",
     "markdownlint": "^0.37.4",
     "markdownlint-cli": "^0.44.0",
-    "turbo": "^2.5.0"
+    "tsx": "^4.19.3",
+    "turbo": "^2.5.0",
+    "plop": "^4.0.1"
   }
 }
