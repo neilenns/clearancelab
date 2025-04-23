@@ -5,7 +5,6 @@
     "build": {
       "dependsOn": ["^build"],
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
-      "inputs": ["$TURBO_DEFAULT$"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "cf-deploy": {
@@ -18,11 +17,10 @@
       ]
     },
     "lint": {
-      "cache": false
+      "dependsOn": ["^lint"]
     },
     "ci": {
       "dependsOn": ["^ci"],
-      "inputs": ["$TURBO_DEFAULT$"],
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
