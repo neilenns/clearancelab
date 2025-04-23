@@ -33,4 +33,5 @@ echo "📦 Seeding database"
 
 ### Aliases
 echo "🪄 Shell magic: creating developer-friendly aliases"
-alias npm='pnpm'
+grep -qxF "alias npm='pnpm'" ~/.zshrc || \
+  echo "alias npm='pnpm'" >> ~/.zshrc
