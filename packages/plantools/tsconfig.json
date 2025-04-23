@@ -1,8 +1,3 @@
 {
-  "extends": "@repo/typescript-config/package.tsconfig.json",
-  "display": "A shared library",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "."
-  }
+  "extends": "@repo/typescript-config/package.tsconfig.json"
 }

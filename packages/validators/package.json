@@ -1,5 +1,5 @@
 {
-  "name": "@repo/validators",
+  "name": "@repo/validator",
   "version": "0.1.0",
   "private": true,
   "exports": {
@@ -8,18 +8,18 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
+    "build": "tsup && tsc --emitDeclarationOnly",
+    "dev": "tsup --watch"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.3"
+    "@repo/typescript-config": "workspace:*"
   },
   "dependencies": {
-    "mongoose": "^8.13.2",
-    "zod": "^3.24.3"
+    "tsup": "^8.4.0"
   }
 }
