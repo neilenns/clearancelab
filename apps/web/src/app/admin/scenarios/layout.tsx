@@ -1,5 +1,3 @@
-import { AdminSidebar } from "@/components/admin-sidebar/admin-sidebar";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 
 const description = "Manage scenarios for Clearance Lab";
@@ -33,10 +31,5 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <SidebarProvider>
-      <AdminSidebar />
-      <SidebarInset>{children}</SidebarInset>
-    </SidebarProvider>
-  );
+  return <main>{children}</main>;
 }
