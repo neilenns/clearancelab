@@ -12,6 +12,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Edit, Home } from "lucide-react";
+import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 
 const items = [
@@ -41,10 +42,10 @@ export function AdminSidebar({ ...props }) {
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
+                      <Link href={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
