@@ -10,7 +10,12 @@ export default function generatePackage(plop: NodePlopAPI) {
   plop.setActionType("installDependencies", function (answers, config, plop) {
     const { name } = answers;
     const kebabName = toKebabCase(name);
-    console.log("Installing dependencies for ${kebabName}...");
+
+    if (!/^[a-z0-9-]+$/.test(kebabName)) {
+      throw new Error(`Invalid package name: "${name}"`);
+    }
+
+    console.log(`Installing dependencies for ${kebabName}...`);
 
     const pnpmCommand = `pnpm --filter @workspace/${kebabName} install`;
 
@@ -29,6 +34,17 @@ export default function generatePackage(plop: NodePlopAPI) {
         type: "input",
         name: "name",
         message: "Package name (without scope, don't include @workspace/):",
+        validate: (input) => {
+          if (!input) return "Package name is required";
+
+          console.log(input);
+
+          if (!/^[a-zA-Z0-9][a-zA-Z0-9-]*$/.test(input)) {
+            return "Package name must contain only letters, numbers, and hyphens, and cannot start with a hyphen";
+          }
+
+          return true;
+        },
       },
     ],
     actions: [
@@ -49,7 +65,7 @@ export default function generatePackage(plop: NodePlopAPI) {
       },
       {
         type: "add",
-        path: path.join(installPath, "src", "tsconfig.json"),
+        path: path.join(installPath, "src", "index.ts"),
         templateFile: "generate-package/src/index.hbs",
       },
       {
