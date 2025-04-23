@@ -1,4 +1,6 @@
 :root {
+  --font-sans: var(--font-peridot-pe-variable);
+  --font-mono: var(--font-geist-mono);
   --color-chat-pilot: oklch(0.965 0.025 196.69);
   --color-chat-pilot-foreground: oklch(0.384 0.1 206.94);
   --color-chat-controller: oklch(0.9763 0.032 142.98);

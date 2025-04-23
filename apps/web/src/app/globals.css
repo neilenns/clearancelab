@@ -136,4 +136,4 @@ p {
   @apply leading-7 [&:not(:first-child)]:mt-6;
 }
 
-@import "./custom-colors.css";
+@import "./theme-customization.css";
