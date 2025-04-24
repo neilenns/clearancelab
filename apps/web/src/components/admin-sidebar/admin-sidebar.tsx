@@ -1,5 +1,6 @@
 "use client";
 
+import { ModeToggle } from "@/components/mode-toggle/mode-toggle";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/sidebar";
 import { Edit, Home } from "lucide-react";
 import Link from "next/link";
-import { ModeToggle } from "./mode-toggle";
 
 const items = [
   {
