@@ -38,66 +38,72 @@ export function PlanSection() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-4 items-start">
-          <FormField
-            control={control}
-            name="vatsimId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  VATSIM ID
-                  <button
-                    type="button"
-                    aria-label="Generate random VATSIM ID"
-                    onClick={() => {
-                      const random = getRandomVatsimId();
-                      field.onChange(random);
-                    }}
-                  >
-                    <RefreshCwIcon width={14} height={14} />
-                  </button>
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 gap-2 items-start mb-4">
+          <div className="col-span-2">
+            <FormField
+              control={control}
+              name="vatsimId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    VATSIM ID
+                    <button
+                      type="button"
+                      aria-label="Generate random VATSIM ID"
+                      onClick={() => {
+                        const random = getRandomVatsimId();
+                        field.onChange(random);
+                      }}
+                    >
+                      <RefreshCwIcon width={14} height={14} />
+                    </button>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
-          <FormField
-            control={control}
-            name="pilotName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  <span>Pilot name</span>
-                  <button
-                    type="button"
-                    aria-label="Generate random pilot name"
-                    onClick={() => {
-                      const random = getRandomName();
-                      field.onChange(random);
-                    }}
-                  >
-                    <RefreshCwIcon width={14} height={14} />
-                  </button>
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="col-span-2">
+            <FormField
+              control={control}
+              name="pilotName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <span>Name</span>
+                    <button
+                      type="button"
+                      aria-label="Generate random pilot name"
+                      onClick={() => {
+                        const random = getRandomName();
+                        field.onChange(random);
+                      }}
+                    >
+                      <RefreshCwIcon width={14} height={14} />
+                    </button>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
 
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 gap-2 items-start mb-4">
           <FormField
             control={control}
             name="aid"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Callsign
+                  AID
                   <button
                     type="button"
                     aria-label="Generate random callsign"
@@ -156,7 +162,7 @@ export function PlanSection() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Beacon
+                  BCN
                   <button
                     type="button"
                     aria-label="Generate random beacon"
@@ -187,7 +193,7 @@ export function PlanSection() {
             name="typ"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Type</FormLabel>
+                <FormLabel>TYP</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -201,7 +207,7 @@ export function PlanSection() {
             name="eq"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Equipment</FormLabel>
+                <FormLabel>EQ</FormLabel>
                 <FormControl>
                   <Input placeholder="L" {...field} />
                 </FormControl>
@@ -215,7 +221,7 @@ export function PlanSection() {
             name="dep"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Departure</FormLabel>
+                <FormLabel>DEP</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -229,7 +235,7 @@ export function PlanSection() {
             name="dest"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Destination</FormLabel>
+                <FormLabel>DEST</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -243,7 +249,7 @@ export function PlanSection() {
             name="spd"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Speed</FormLabel>
+                <FormLabel>SPD</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -264,7 +270,7 @@ export function PlanSection() {
             name="alt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Altitude</FormLabel>
+                <FormLabel>ALT</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -272,34 +278,38 @@ export function PlanSection() {
               </FormItem>
             )}
           />
-
-          <FormField
-            control={control}
-            name="rte"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Route</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={control}
-            name="rmk"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Remarks</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        </div>
+        <div className="flex gap-2">
+          <div className="w-1/2">
+            <FormField
+              control={control}
+              name="rte"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>RTE</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-1/2">
+            <FormField
+              control={control}
+              name="rmk"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>RMK</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
       </CardContent>
       <CardFooter>

@@ -48,10 +48,10 @@ export function PasteScenarioDialog() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Import scenario</DialogTitle>
+          <DialogTitle>Import a scenario</DialogTitle>
           <DialogDescription>
-            Paste valid scenario JSON below, then press Import to populate the
-            flight plan with the values.
+            Paste valid scenario JSON below, then press <b>Import</b> to
+            populate the flight plan with the values.
           </DialogDescription>
         </DialogHeader>
         <Textarea
