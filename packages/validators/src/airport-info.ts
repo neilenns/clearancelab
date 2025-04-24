@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const airportInfoSchema = z.object({
+export const AirportInfoSchema = z.object({
   airportCode: z.string(),
   city: z.string().optional(),
   countryCode: z.string().optional(),
@@ -14,4 +14,4 @@ export const airportInfoSchema = z.object({
   timezone: z.string().optional(),
 });
 
-export type AirportInfo = z.infer<typeof airportInfoSchema>;
+export type AirportInfo = z.infer<typeof AirportInfoSchema>;

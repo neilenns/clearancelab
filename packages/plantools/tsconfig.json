@@ -1,9 +1,12 @@
 {
   "extends": "@workspace/typescript-config/base.json",
+  "moduleResolution": "nodenext",
+  "moduleDetection": "force",
+  "module": "NodeNext",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@workspace/{{kebabCase name}}/*": ["./src/*"]
+      "@workspace/plantools/*": ["./src/*"]
     }
   }
 }

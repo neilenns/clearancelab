@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const planSchema = z.object({
+export const PlanSchema = z.object({
   aid: z.string(),
   airportConditions: z.string().optional(),
   alt: z.string().optional(),
@@ -18,4 +18,4 @@ export const planSchema = z.object({
   vatsimId: z.number(),
 });
 
-export type Plan = z.infer<typeof planSchema>;
+export type Plan = z.infer<typeof PlanSchema>;

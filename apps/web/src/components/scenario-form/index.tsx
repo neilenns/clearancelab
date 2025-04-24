@@ -3,14 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plan, planSchema } from "@workspace/validators/plan";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
+import { Plan, PlanSchema } from "@workspace/validators/plan";
+import { getRandomName } from "@workspace/plantools";
 
 export function ScenarioForm() {
   const form = useForm<Plan>({
-    resolver: zodResolver(planSchema),
+    resolver: zodResolver(PlanSchema),
     mode: "onChange",
     defaultValues: {
       aid: "ASA17",
@@ -23,7 +24,7 @@ export function ScenarioForm() {
       spd: 225,
       alt: "350",
       vatsimId: 1531877,
-      pilotName: "Quinn",
+      pilotName: getRandomName(),
     },
   });
 

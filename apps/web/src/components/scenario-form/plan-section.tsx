@@ -1,4 +1,3 @@
-import { Plan } from "@workspace/validators/plan";
 import { RefreshCwIcon } from "lucide-react";
 import { UseFormReturn } from "react-hook-form";
 import {
@@ -16,6 +15,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { Plan } from "@workspace/validators/plan";
+import { getRandomName } from "@workspace/plantools";
 
 interface PlanSectionProps {
   form: UseFormReturn<Plan>;
@@ -60,12 +61,16 @@ export function PlanSection({ form }: PlanSectionProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Pilot name{" "}
-                  <RefreshCwIcon
-                    width="14"
-                    height="14"
-                    className="self-center"
-                  />
+                  <span>Pilot name</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const random = getRandomName();
+                      field.onChange(random);
+                    }}
+                  >
+                    <RefreshCwIcon width={14} height={14} />
+                  </button>
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="Quinn" {...field} />
