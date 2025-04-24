@@ -9,6 +9,8 @@ import { PlanSection } from "./plan-section";
 import { Plan, PlanSchema } from "@workspace/validators/plan";
 import {
   getRandomBcn,
+  getRandomCallsign,
+  getRandomCid,
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
@@ -18,8 +20,8 @@ export function ScenarioForm() {
     resolver: zodResolver(PlanSchema),
     mode: "onChange",
     defaultValues: {
-      aid: "ASA17",
-      cid: 295,
+      aid: getRandomCallsign(),
+      cid: getRandomCid(),
       bcn: getRandomBcn(),
       typ: "B739",
       eq: "L",

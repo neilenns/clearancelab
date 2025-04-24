@@ -18,6 +18,8 @@ import { Input } from "../ui/input";
 import { Plan } from "@workspace/validators/plan";
 import {
   getRandomBcn,
+  getRandomCallsign,
+  getRandomCid,
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
@@ -47,6 +49,7 @@ export function PlanSection({ form }: PlanSectionProps) {
                   VATSIM ID
                   <button
                     type="button"
+                    aria-label="Generate random VATSIM ID"
                     onClick={() => {
                       const random = getRandomVatsimId();
                       field.onChange(random);
@@ -56,7 +59,7 @@ export function PlanSection({ form }: PlanSectionProps) {
                   </button>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="1531877" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -72,6 +75,7 @@ export function PlanSection({ form }: PlanSectionProps) {
                   <span>Pilot name</span>
                   <button
                     type="button"
+                    aria-label="Generate random pilot name"
                     onClick={() => {
                       const random = getRandomName();
                       field.onChange(random);
@@ -93,9 +97,21 @@ export function PlanSection({ form }: PlanSectionProps) {
             name="aid"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Callsign</FormLabel>
+                <FormLabel>
+                  callsign
+                  <button
+                    type="button"
+                    aria-label="Generate random callsign"
+                    onClick={() => {
+                      const random = getRandomCallsign();
+                      field.onChange(random);
+                    }}
+                  >
+                    <RefreshCwIcon width={14} height={14} />
+                  </button>
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="ASA17" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -107,7 +123,19 @@ export function PlanSection({ form }: PlanSectionProps) {
             name="cid"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>CID</FormLabel>
+                <FormLabel>
+                  <span>CID</span>
+                  <button
+                    type="button"
+                    aria-label="Generate random CID"
+                    onClick={() => {
+                      const random = getRandomCid();
+                      field.onChange(random);
+                    }}
+                  >
+                    <RefreshCwIcon width={14} height={14} />
+                  </button>
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -132,6 +160,7 @@ export function PlanSection({ form }: PlanSectionProps) {
                   Beacon
                   <button
                     type="button"
+                    aria-label="Generate random beacon"
                     onClick={() => {
                       const random = getRandomBcn();
                       field.onChange(random.toString().padStart(4, "0"));
