@@ -1,0 +1,21 @@
+{
+	"Form field - input": {
+		"prefix": "ffinput",
+		"body": [
+			"<FormField",
+			"  control={form.control}",
+			"  name=\"${1:property}\"",
+			"  render={({ field }) => (",
+			"    <FormItem>",
+			"      <FormLabel>${2:Label}</FormLabel>",
+			"      <FormControl>",
+			"        <Input placeholder=\"${3:Placeholder}\" {...field} />",
+			"      </FormControl>",
+			"      <FormMessage />",
+			"    </FormItem>",
+			"  )}",
+			"/>"
+		],
+		"description": "Form field - Input"
+	}
+}
