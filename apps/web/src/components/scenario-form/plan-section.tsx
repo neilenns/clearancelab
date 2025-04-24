@@ -96,7 +96,14 @@ export function PlanSection({ form }: PlanSectionProps) {
               <FormItem>
                 <FormLabel>CID</FormLabel>
                 <FormControl>
-                  <Input placeholder="295" {...field} />
+                  <Input
+                    type="number"
+                    {...field}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      field.onChange(val === "" ? "" : parseInt(val));
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -117,7 +124,14 @@ export function PlanSection({ form }: PlanSectionProps) {
                   />
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="6660" {...field} />
+                  <Input
+                    type="number"
+                    {...field}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      field.onChange(val === "" ? "" : parseInt(val));
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

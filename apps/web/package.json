@@ -53,6 +53,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "markdownlint": "^0.37.4",
     "markdownlint-cli": "^0.44.0",
+    "shadcn": "^2.5.0",
     "tailwindcss": "^4",
     "turbo": "^2.5.0",
     "typescript": "^5",
