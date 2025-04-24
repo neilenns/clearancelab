@@ -23,7 +23,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 
-export function PlanSection() {  
+export function PlanSection() {
   const { control } = useFormContext();
 
   return (
@@ -95,7 +95,7 @@ export function PlanSection() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  callsign
+                  Callsign
                   <button
                     type="button"
                     aria-label="Generate random callsign"
@@ -187,7 +187,7 @@ export function PlanSection() {
               <FormItem>
                 <FormLabel>Type</FormLabel>
                 <FormControl>
-                  <Input placeholder="B739" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -215,7 +215,7 @@ export function PlanSection() {
               <FormItem>
                 <FormLabel>Departure</FormLabel>
                 <FormControl>
-                  <Input placeholder="KPDX" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -229,7 +229,7 @@ export function PlanSection() {
               <FormItem>
                 <FormLabel>Destination</FormLabel>
                 <FormControl>
-                  <Input placeholder="KLAS" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -264,7 +264,7 @@ export function PlanSection() {
               <FormItem>
                 <FormLabel>Altitude</FormLabel>
                 <FormControl>
-                  <Input placeholder="350" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -278,7 +278,7 @@ export function PlanSection() {
               <FormItem>
                 <FormLabel>Route</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -292,7 +292,7 @@ export function PlanSection() {
               <FormItem>
                 <FormLabel>Remarks</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
