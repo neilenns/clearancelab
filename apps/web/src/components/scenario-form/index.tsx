@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
 import { Plan, PlanSchema } from "@workspace/validators/plan";
-import { getRandomName } from "@workspace/plantools";
+import { getRandomBcn, getRandomName } from "@workspace/plantools";
 
 export function ScenarioForm() {
   const form = useForm<Plan>({
@@ -16,7 +16,7 @@ export function ScenarioForm() {
     defaultValues: {
       aid: "ASA17",
       cid: 295,
-      bcn: 6660,
+      bcn: getRandomBcn(),
       typ: "B739",
       eq: "L",
       dep: "KPDX",

@@ -16,7 +16,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Plan } from "@workspace/validators/plan";
-import { getRandomName } from "@workspace/plantools";
+import { getRandomBcn, getRandomName } from "@workspace/plantools";
 
 interface PlanSectionProps {
   form: UseFormReturn<Plan>;
@@ -73,7 +73,7 @@ export function PlanSection({ form }: PlanSectionProps) {
                   </button>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Quinn" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -121,16 +121,19 @@ export function PlanSection({ form }: PlanSectionProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Beacon{" "}
-                  <RefreshCwIcon
-                    width="14"
-                    height="14"
-                    className="self-center"
-                  />
+                  Beacon
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const random = getRandomBcn();
+                      field.onChange(random.toString().padStart(4, "0"));
+                    }}
+                  >
+                    <RefreshCwIcon width={14} height={14} />
+                  </button>
                 </FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
                     {...field}
                     onChange={(e) => {
                       const val = e.target.value;
