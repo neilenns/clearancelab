@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { PlanSchema } from "@workspace/validators/plan";
+import { Plan, PlanSchema } from "@workspace/validators/plan";
 import { Textarea } from "../ui/textarea";
 import {
   Dialog,
@@ -22,33 +22,30 @@ export function PasteScenarioDialog() {
 
   function handleImport() {
     let rawData;
+
     try {
-      rawData = JSON.parse(jsonInput);
-    } catch (err: any) {
-      // TODO: display a clear “Invalid JSON” message to the user
-      console.error("JSON parse error:", err);
+      rawData = JSON.parse(jsonInput) as Plan;
+    } catch (err: unknown) {
+      const error = err as Error;
+
+      console.log(`Unable to parse JSON: ${error.message}`);
+      toast.error("The provided JSON isn't valid.");
       return;
     }
 
     const result = PlanSchema.safeParse(rawData);
+
     if (!result.success) {
-      // TODO: display result.error.errors for user-friendly feedback
       console.error("Validation errors:", result.error.errors);
+      toast.error("The provided scenario is invalid.");
       return;
     }
 
-    const parsed = result.data;
     const defaults = form.getValues();
-    form.reset({ ...defaults, ...parsed });
-  }
-      const defaults = form.getValues();
 
-      form.reset({ ...defaults, ...parsed });
-      toast.success("Scenario imported!");
-      setOpen(false);
-    } catch (_err) {
-      toast.error("Invalid JSON or validation failed");
-    }
+    form.reset({ ...defaults, ...result.data });
+    toast.success("Scenario imported!");
+    setOpen(false);
   }
 
   return (
@@ -66,7 +63,7 @@ export function PasteScenarioDialog() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Import a scenario</DialogTitle>
+          <DialogTitle>Import scenario</DialogTitle>
           <DialogDescription>
             Paste valid scenario JSON below, then press <b>Import</b> to
             populate the flight plan with the values.
@@ -74,7 +71,7 @@ export function PasteScenarioDialog() {
         </DialogHeader>
         <Textarea
           placeholder="Paste scenario JSON"
-          className="min-h-[200] max-h-[400]"
+          className="min-h-[200px] max-h-[400px]"
           value={jsonInput}
           onChange={(e) => {
             setJsonInput(e.target.value);
