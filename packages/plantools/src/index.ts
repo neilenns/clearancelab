@@ -93,8 +93,8 @@ export function getRandomBcn(): number {
 }
 
 export function getRandomVatsimId(): number {
-  // Reasonable range starting with early accounts through to almost current IDs.
-  const min = 870_000;
+  // VATSIM general‐member IDs start at 810 000; use up to ~1 930 000 for current accounts.
+  const min = 810_000;
   const max = 1_930_000;
   return getRandomInt(min, max);
 }
