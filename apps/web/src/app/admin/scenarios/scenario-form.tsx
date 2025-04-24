@@ -44,9 +44,6 @@ export function ScenarioForm() {
         onSubmit={(e) => {
           void form.handleSubmit(onSubmit)(e);
         }}
-        onError={(e) => {
-          console.log(`Error: ${e}`);
-        }}
         className="space-y-8"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-4">
