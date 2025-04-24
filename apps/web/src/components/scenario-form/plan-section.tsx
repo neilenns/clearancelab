@@ -16,7 +16,11 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Plan } from "@workspace/validators/plan";
-import { getRandomBcn, getRandomName } from "@workspace/plantools";
+import {
+  getRandomBcn,
+  getRandomName,
+  getRandomVatsimId,
+} from "@workspace/plantools";
 
 interface PlanSectionProps {
   form: UseFormReturn<Plan>;
@@ -41,11 +45,15 @@ export function PlanSection({ form }: PlanSectionProps) {
               <FormItem>
                 <FormLabel>
                   VATSIM ID
-                  <RefreshCwIcon
-                    width="14"
-                    height="14"
-                    className="self-center"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const random = getRandomVatsimId();
+                      field.onChange(random);
+                    }}
+                  >
+                    <RefreshCwIcon width={14} height={14} />
+                  </button>
                 </FormLabel>
                 <FormControl>
                   <Input placeholder="1531877" {...field} />

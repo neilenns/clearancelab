@@ -7,7 +7,11 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
 import { Plan, PlanSchema } from "@workspace/validators/plan";
-import { getRandomBcn, getRandomName } from "@workspace/plantools";
+import {
+  getRandomBcn,
+  getRandomName,
+  getRandomVatsimId,
+} from "@workspace/plantools";
 
 export function ScenarioForm() {
   const form = useForm<Plan>({
@@ -23,7 +27,7 @@ export function ScenarioForm() {
       dest: "KLAS",
       spd: 225,
       alt: "350",
-      vatsimId: 1531877,
+      vatsimId: getRandomVatsimId(),
       pilotName: getRandomName(),
     },
   });
