@@ -61,7 +61,7 @@ export function getRandomBcn(): number {
 }
 
 export function getRandomVatsimId(): number {
-  const min = 856_232;
-  const max = 1_980_000;
+  const min = 870_000;
+  const max = 1_930_000;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
