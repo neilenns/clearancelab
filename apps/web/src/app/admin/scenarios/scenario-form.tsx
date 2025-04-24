@@ -35,7 +35,7 @@ export function ScenarioForm() {
   });
 
   function onSubmit(values: z.infer<typeof planSchema>) {
-    toast.success(`Saved ${values.pilotName}!`);
+    toast.success(`Saved ${values.pilotName ?? ""}!`);
   }
 
   return (
