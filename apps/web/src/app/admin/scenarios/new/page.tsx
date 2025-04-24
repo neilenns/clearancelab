@@ -1,4 +1,4 @@
-import { ScenarioForm } from "../scenario-form";
+import { ScenarioForm } from "@/components/scenario-form/scenario-form";
 
 export default function NewScenarioPage() {
   return (

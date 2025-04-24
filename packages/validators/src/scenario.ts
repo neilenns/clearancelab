@@ -1,10 +1,10 @@
 import { Types } from "mongoose";
 import { z } from "zod";
-import { airportInfoSchema } from "./airport-info.js";
-import { craftSchema } from "./craft.js";
-import { planSchema } from "./plan.js";
+import { AirportInfoSchema } from "./airport-info.js";
+import { CraftSchema } from "./craft.js";
+import { PlanSchema } from "./plan.js";
 
-export const scenarioSchema = z.object({
+export const ScenarioSchema = z.object({
   _id: z.union([
     z.instanceof(Types.ObjectId),
     z.string().refine((value) => Types.ObjectId.isValid(value), {
@@ -12,11 +12,11 @@ export const scenarioSchema = z.object({
     }),
   ]),
   canClear: z.boolean(),
-  craft: craftSchema,
-  depAirportInfo: airportInfoSchema,
-  destAirportInfo: airportInfoSchema,
+  craft: CraftSchema,
+  depAirportInfo: AirportInfoSchema,
+  destAirportInfo: AirportInfoSchema,
   isValid: z.boolean(),
-  plan: planSchema,
+  plan: PlanSchema,
 });
 
-export type Scenario = z.infer<typeof scenarioSchema>;
+export type Scenario = z.infer<typeof ScenarioSchema>;

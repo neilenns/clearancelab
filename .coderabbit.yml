@@ -14,6 +14,11 @@ reviews:
     - "!apps/web/src/components/ui/**"
     - "!apps/web/src/hooks/**"
   path_instructions:
+    - path: "**/*.tsx"
+      instructions: |
+        Review all TypeScript files and ensure that:
+          - Components have appropriate accessibility attributes on them
+
     - path: "**/*.md"
       instructions: |
         Review all markdown files and ensure that:

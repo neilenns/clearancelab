@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const craftSchema = z.object({
+export const CraftSchema = z.object({
   altitude: z.coerce
     .number({ message: "Altitude must be a number." })
     .optional(),
@@ -12,4 +12,4 @@ export const craftSchema = z.object({
   transponder: z.string().optional(),
 });
 
-export type Craft = z.infer<typeof craftSchema>;
+export type Craft = z.infer<typeof CraftSchema>;
