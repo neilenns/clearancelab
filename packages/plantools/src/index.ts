@@ -70,11 +70,19 @@ function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/**
+ * Generates a random pilot name from a predefined list of gender-neutral names.
+ * @returns A random pilot name
+ */
 export function getRandomName(): string {
   const index = Math.floor(Math.random() * names.length);
   return names[index];
 }
 
+/**
+ * Generates a random beacon from the range of valid beacons in ZSE.
+ * @returns A random beacon
+ */
 export function getRandomBcn(): number {
   // These are the ZSE ranges.
   const ranges: [number, number][] = [
@@ -85,28 +93,39 @@ export function getRandomBcn(): number {
   ];
 
   const selectedRange = ranges[Math.floor(Math.random() * ranges.length)];
-  const value =
-    Math.floor(Math.random() * (selectedRange[1] - selectedRange[0] + 1)) +
-    selectedRange[0];
+  const value = getRandomInt(selectedRange[0], selectedRange[1]);
 
   return value;
 }
 
+/**
+ * Generates a random VATSIM ID from the range of reasonable actual IDs.
+ * @returns A random VATSIM ID
+ */
 export function getRandomVatsimId(): number {
   // Reasonable range starting with early accounts through to almost current IDs.
-  const min = 870_000;
+  const min = 810_000;
   const max = 1_930_000;
   return getRandomInt(min, max);
 }
 
+/**
+ * Generates a random CID.
+ * @returns A random CID
+ */
 export function getRandomCid(): number {
   const min = 1;
   const max = 999;
   return getRandomInt(min, max);
 }
 
+/**
+ * Generates a random callsign from a list of airline codes and flight numbers between
+ * 1 and 9999.
+ * @returns A random callsign.
+ */
 export function getRandomCallsign(): string {
   const code = airlineCodes[getRandomInt(0, airlineCodes.length - 1)];
-  const number = getRandomInt(0, 9999).toString().padStart(3, "0");
+  const number = getRandomInt(1, 9999).toString().padStart(3, "0");
   return `${code}${number}`;
 }
