@@ -1,5 +1,5 @@
 import { Message } from "@/interfaces/message";
-import clsx from "clsx";
+import { cn } from "./lib/utils";
 
 export function Conversation({
   pilotCallsign,
@@ -18,7 +18,7 @@ export function Conversation({
         return (
           <div
             key={idx}
-            className={clsx("flex mt-3 mb-3", {
+            className={cn("flex mt-3 mb-3", {
               "justify-start": isPilot,
               "justify-end": !isPilot,
             })}
@@ -28,7 +28,7 @@ export function Conversation({
               arial-label={`Message from ${
                 isPilot ? pilotCallsign : controllerName
               }`}
-              className={clsx(
+              className={cn(
                 "max-w-[70%] px-4 py-3 rounded-[1em] leading-[1.4] break-words whitespace-pre-line",
                 {
                   "bg-[var(--color-chat-pilot)] text-[var(--color-chat-pilot-foreground)] rounded-tl-none":
