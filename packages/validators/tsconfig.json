@@ -1,9 +1,12 @@
 {
   "extends": "@workspace/typescript-config/base.json",
   "compilerOptions": {
+    "moduleResolution": "nodenext",
+    "moduleDetection": "force",
+    "module": "NodeNext",
     "baseUrl": ".",
     "paths": {
-      "@workspace//*": ["./src/*"]
+      "@workspace/validators/*": ["./src/*"]
     }
   }
 }

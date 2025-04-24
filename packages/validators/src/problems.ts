@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const problemLevelEnum = z.enum(["info", "warning", "error"]);
+export const problemLevelEnum = z.enum(["info", "warning", "error"]);
 
 export const problemsSchema = z.array(
   z.object({
