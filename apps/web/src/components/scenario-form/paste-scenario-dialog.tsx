@@ -13,12 +13,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { ImportIcon } from "lucide-react";
+import { AlertTriangleIcon, ImportIcon } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 export function PasteScenarioDialog() {
   const form = useFormContext();
   const [jsonInput, setJsonInput] = useState("");
   const [open, setOpen] = useState(false);
+  const [errorContent, setErrorContent] = useState<React.ReactNode>(null);
 
   function handleImport() {
     let rawData;
@@ -29,15 +31,28 @@ export function PasteScenarioDialog() {
       const error = err as Error;
 
       console.log(`Unable to parse JSON: ${error.message}`);
-      toast.error("The provided JSON isn't valid.");
+      setErrorContent(<div>The provided JSON isn&apos;t valid.</div>);
       return;
     }
 
     const result = PlanSchema.safeParse(rawData);
 
     if (!result.success) {
-      console.error("Validation errors:", result.error.errors);
-      toast.error("The provided scenario is invalid.");
+      console.log("Validation errors:", result.error.errors);
+
+      const formatted = result.error.errors.map((e, idx) => {
+        const path = e.path.join(".") || "root";
+        return (
+          <li key={idx}>
+            <strong>{path}</strong>: {e.message}
+          </li>
+        );
+      });
+
+      setErrorContent(
+        <ul className="list-disc list-inside space-y-1">{formatted}</ul>
+      );
+
       return;
     }
 
@@ -71,12 +86,20 @@ export function PasteScenarioDialog() {
         </DialogHeader>
         <Textarea
           placeholder="Paste scenario JSON"
-          className="min-h-[200px] max-h-[400px]"
+          className="min-h-[200px] max-h-[200px]"
           value={jsonInput}
           onChange={(e) => {
             setJsonInput(e.target.value);
           }}
         />
+        {errorContent && (
+          <Alert variant="error">
+            <AlertTriangleIcon className="h-4 w-4" />
+            <AlertTitle>Unable to import scenario</AlertTitle>
+            <AlertDescription>{errorContent}</AlertDescription>
+          </Alert>
+        )}
+
         <DialogFooter>
           <Button onClick={handleImport}>Import</Button>
         </DialogFooter>
