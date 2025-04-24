@@ -5,11 +5,14 @@ import { toKebabCase } from "../utils/toKebabCase";
 interface PackageAnswers {
   name: string;
 }
+
+const kebabCaseRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]+$/;
+
 const installDependencies: PlopTypes.CustomActionFunction = async (answers) => {
   const { name } = answers as PackageAnswers;
   const kebabName = toKebabCase(name);
 
-  if (!/^[a-z0-9-]+$/.test(kebabName)) {
+  if (!kebabCaseRegex.test(kebabName)) {
     throw new Error(`Invalid package name: "${name}"`);
   }
 
@@ -21,7 +24,9 @@ const installDependencies: PlopTypes.CustomActionFunction = async (answers) => {
     execSync(pnpmCommand, { stdio: "inherit" });
     return "Dependency install completed";
   } catch (err: unknown) {
-    return `❌ Dependency install failed: ${err}`;
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    console.error(`Failed to run command: ${pnpmCommand}`);
+    return `❌ Dependency install failed: ${errorMessage}`;
   }
 };
 
@@ -36,9 +41,7 @@ export default function generatePackage(plop: PlopTypes.NodePlopAPI) {
         validate: (input) => {
           if (!input) return "Package name is required";
 
-          console.log(input);
-
-          if (!/^[a-zA-Z0-9][a-zA-Z0-9-]*$/.test(input)) {
+          if (!kebabCaseRegex.test(input)) {
             return "Package name must contain only letters, numbers, and hyphens, and cannot start with a hyphen";
           }
 
