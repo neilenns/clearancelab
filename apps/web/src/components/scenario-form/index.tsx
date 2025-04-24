@@ -3,10 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { PlanSection } from "./plan-section";
-import { Plan, PlanSchema } from "@workspace/validators/plan";
 import {
   getRandomBcn,
   getRandomCallsign,
@@ -14,6 +10,10 @@ import {
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
+import { Plan, PlanSchema } from "@workspace/validators/plan";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { PlanSection } from "./plan-section";
 
 export function ScenarioForm() {
   const form = useForm<Plan>({
@@ -46,7 +46,7 @@ export function ScenarioForm() {
         }}
         className="space-y-8"
       >
-        <PlanSection form={form} />
+        <PlanSection />
         <Button type="submit">Save</Button>
       </form>
     </Form>

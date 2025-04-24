@@ -1,5 +1,12 @@
+import {
+  getRandomBcn,
+  getRandomCallsign,
+  getRandomCid,
+  getRandomName,
+  getRandomVatsimId,
+} from "@workspace/plantools";
 import { RefreshCwIcon } from "lucide-react";
-import { UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import {
   Card,
   CardContent,
@@ -15,20 +22,10 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Plan } from "@workspace/validators/plan";
-import {
-  getRandomBcn,
-  getRandomCallsign,
-  getRandomCid,
-  getRandomName,
-  getRandomVatsimId,
-} from "@workspace/plantools";
 
-interface PlanSectionProps {
-  form: UseFormReturn<Plan>;
-}
+export function PlanSection() {  
+  const { control } = useFormContext();
 
-export function PlanSection({ form }: PlanSectionProps) {
   return (
     <Card>
       <CardHeader>
@@ -41,7 +38,7 @@ export function PlanSection({ form }: PlanSectionProps) {
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-4 items-start">
           <FormField
-            control={form.control}
+            control={control}
             name="vatsimId"
             render={({ field }) => (
               <FormItem>
@@ -67,7 +64,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="pilotName"
             render={({ field }) => (
               <FormItem>
@@ -93,7 +90,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="aid"
             render={({ field }) => (
               <FormItem>
@@ -119,7 +116,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="cid"
             render={({ field }) => (
               <FormItem>
@@ -152,7 +149,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="bcn"
             render={({ field }) => (
               <FormItem>
@@ -184,7 +181,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="typ"
             render={({ field }) => (
               <FormItem>
@@ -198,7 +195,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="eq"
             render={({ field }) => (
               <FormItem>
@@ -212,7 +209,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="dep"
             render={({ field }) => (
               <FormItem>
@@ -226,7 +223,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="dest"
             render={({ field }) => (
               <FormItem>
@@ -240,7 +237,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="spd"
             render={({ field }) => (
               <FormItem>
@@ -261,7 +258,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="alt"
             render={({ field }) => (
               <FormItem>
@@ -275,7 +272,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="rte"
             render={({ field }) => (
               <FormItem>
@@ -289,7 +286,7 @@ export function PlanSection({ form }: PlanSectionProps) {
           />
 
           <FormField
-            control={form.control}
+            control={control}
             name="rmk"
             render={({ field }) => (
               <FormItem>
