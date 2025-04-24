@@ -6,8 +6,8 @@
   "exports": {
     "./airport-info": "./src/airport-info.ts",
     "./craft": "./src/craft.ts",
-    "./plan.ts": "./src/plan.ts",
-    "./problems.ts": "./src/problems.ts",
+    "./plan": "./src/plan.ts",
+    "./problems": "./src/problems.ts",
     "./scenario": "./src/scenario.ts"
   },
   "scripts": {

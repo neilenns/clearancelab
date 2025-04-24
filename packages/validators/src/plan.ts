@@ -5,7 +5,7 @@ export const planSchema = z.object({
   airportConditions: z.string().optional(),
   alt: z.number(),
   bcn: z.number().optional(),
-  cid: z.number().optional(),
+  cid: z.coerce.number().optional(),
   dep: z.string(),
   dest: z.string(),
   eq: z.string(),
