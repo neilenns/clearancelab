@@ -21,8 +21,26 @@ export function PasteScenarioDialog() {
   const [open, setOpen] = useState(false);
 
   function handleImport() {
+    let rawData;
     try {
-      const parsed = PlanSchema.parse(JSON.parse(jsonInput));
+      rawData = JSON.parse(jsonInput);
+    } catch (err: any) {
+      // TODO: display a clear “Invalid JSON” message to the user
+      console.error("JSON parse error:", err);
+      return;
+    }
+
+    const result = PlanSchema.safeParse(rawData);
+    if (!result.success) {
+      // TODO: display result.error.errors for user-friendly feedback
+      console.error("Validation errors:", result.error.errors);
+      return;
+    }
+
+    const parsed = result.data;
+    const defaults = form.getValues();
+    form.reset({ ...defaults, ...parsed });
+  }
       const defaults = form.getValues();
 
       form.reset({ ...defaults, ...parsed });
