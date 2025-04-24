@@ -6,12 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Plan, planSchema } from "@workspace/validators/plan";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 import { PlanSection } from "./plan-section";
 
 export function ScenarioForm() {
   const form = useForm<Plan>({
     resolver: zodResolver(planSchema),
+    mode: "onChange",
     defaultValues: {
       aid: "ASA17",
       cid: 295,
@@ -27,7 +27,7 @@ export function ScenarioForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof planSchema>) {
+  function onSubmit(values: Plan) {
     toast.success(`Saved ${values.pilotName ?? ""}!`);
   }
 
@@ -39,7 +39,7 @@ export function ScenarioForm() {
         }}
         className="space-y-8"
       >
-        <PlanSection control={form.control} />
+        <PlanSection form={form} />
         <Button type="submit">Save</Button>
       </form>
     </Form>
