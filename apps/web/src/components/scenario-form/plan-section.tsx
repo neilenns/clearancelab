@@ -11,6 +11,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
@@ -22,6 +23,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { PasteScenarioDialog } from "./paste-scenario-dialog";
 
 export function PlanSection() {
   const { control } = useFormContext();
@@ -300,6 +302,9 @@ export function PlanSection() {
           />
         </div>
       </CardContent>
+      <CardFooter>
+        <PasteScenarioDialog />
+      </CardFooter>
     </Card>
   );
 }
