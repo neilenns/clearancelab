@@ -6,8 +6,10 @@ reviews:
     # Disable eslint and markdown lint since they are handled separately
     # by the ci.yaml workflow, and coderabbit doesn't know how to eslint
     # nextjs projects.
-    eslint: false
-    markdownlint: false
+    eslint:
+      enabled: false
+    markdownlint:
+      enabled: false
   path_filters:
     - "!apps/web/src/components/ui/**"
     - "!apps/web/src/hooks/**"
