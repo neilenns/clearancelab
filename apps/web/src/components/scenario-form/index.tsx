@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { planSchema } from "@workspace/validators/plan";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { planSchema } from "@workspace/validators/plan";
 
 export function ScenarioForm() {
   const form = useForm<z.infer<typeof planSchema>>({
