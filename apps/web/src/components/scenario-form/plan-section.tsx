@@ -20,6 +20,7 @@ import { Input } from "../ui/input";
 interface PlanSectionProps {
   form: UseFormReturn<Plan>;
 }
+
 export function PlanSection({ form }: PlanSectionProps) {
   return (
     <Card>
@@ -187,10 +188,11 @@ export function PlanSection({ form }: PlanSectionProps) {
                 <FormLabel>Speed</FormLabel>
                 <FormControl>
                   <Input
+                    type="number"
                     {...field}
                     onChange={(e) => {
                       const val = e.target.value;
-                      field.onChange(val === "" ? undefined : parseInt(val));
+                      field.onChange(val === "" ? "" : parseInt(val));
                     }}
                   />
                 </FormControl>

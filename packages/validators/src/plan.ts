@@ -13,7 +13,7 @@ export const planSchema = z.object({
   raw: z.string().optional(),
   rmk: z.string().optional(),
   rte: z.string().optional(),
-  spd: z.number().optional(),
+  spd: z.coerce.number().optional(),
   typ: z.string().optional(),
   vatsimId: z.number(),
 });
