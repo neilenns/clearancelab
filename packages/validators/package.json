@@ -1,0 +1,24 @@
+{
+  "name": "@workspace/validators",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./airport-info": "./src/airport-info.ts",
+    "./craft": "./src/craft.ts",
+    "./plan": "./src/plan.ts",
+    "./problems": "./src/problems.ts",
+    "./scenario": "./src/scenario.ts"
+  },
+  "scripts": {
+    "lint": "eslint ./src"
+  },
+  "devDependencies": {
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*"
+  },
+  "dependencies": {
+    "mongoose": "^8.13.2",
+    "zod": "^3.24.3"
+  }
+}

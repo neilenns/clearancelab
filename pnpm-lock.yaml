@@ -129,6 +129,9 @@ importers:
       '@workspace/plantools':
         specifier: workspace:*
         version: link:../../packages/plantools
+      '@workspace/validators':
+        specifier: workspace:*
+        version: link:../../packages/validators
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -175,6 +178,9 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
+      '@next/eslint-plugin-next':
+        specifier: ^15.3.1
+        version: 15.3.1
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.4
@@ -196,6 +202,9 @@ importers:
       eslint-config-prettier:
         specifier: ^10.1.2
         version: 10.1.2(eslint@9.25.0(jiti@2.4.2))
+      eslint-plugin-react-hooks:
+        specifier: ^5.2.0
+        version: 5.2.0(eslint@9.25.0(jiti@2.4.2))
       markdownlint:
         specifier: ^0.37.4
         version: 0.37.4
@@ -251,7 +260,20 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
 
-  packages/test-package:
+  packages/typescript-config:
+    devDependencies:
+      '@tsconfig/node22':
+        specifier: ^22.0.1
+        version: 22.0.1
+
+  packages/validators:
+    dependencies:
+      mongoose:
+        specifier: ^8.13.2
+        version: 8.13.2
+      zod:
+        specifier: ^3.24.3
+        version: 3.24.3
     devDependencies:
       '@workspace/eslint-config':
         specifier: workspace:*
@@ -259,8 +281,6 @@ importers:
       '@workspace/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-
-  packages/typescript-config: {}
 
 packages:
 
