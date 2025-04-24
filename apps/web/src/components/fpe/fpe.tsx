@@ -1,5 +1,5 @@
+import { cn } from "@/lib/utils";
 import { ScenarioData } from "@/models/scenario";
-import clsx from "clsx";
 import { forwardRef, useCallback, useState } from "react";
 import { FPEBox } from "./fpe-box";
 import { FPEInput } from "./fpe-input";
@@ -84,7 +84,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
           aria-label="Amend flight plan"
           onClick={handleAmend}
           disabled={!isDirty}
-          className={clsx(
+          className={cn(
             "fpe-amend text-center justify-self-center mt-[6px] mb-1 border-2 px-2 py-[6px] text-[var(--color-fpe-amend-foreground)] border-[var(--color-fpe-amend-border)]",
             {
               "text-white": isDirty,
