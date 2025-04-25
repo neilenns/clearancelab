@@ -14,7 +14,7 @@ export interface ScenarioData {
     dep: string;
     dest: string;
     spd?: number;
-    alt: number;
+    alt: string;
     rte: string;
     rmk?: string;
     raw?: string;

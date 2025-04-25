@@ -2,6 +2,8 @@ import { NextFunction, Request, Response, Router } from "express";
 import mongoose from "mongoose";
 import { verifyApiKey } from "../middleware/apikey.js";
 import { ScenarioModel } from "../models/Scenario.js";
+import { Scenario, ScenarioSchema } from "@workspace/validators/scenario";
+import { logger } from "../lib/logger.js";
 
 const router = Router();
 
@@ -53,6 +55,38 @@ router.get(
       res.json(scenario);
     } catch (err) {
       next(err); // Pass to centralized error handler
+    }
+  }
+);
+
+router.post(
+  "/",
+  async (req: Request<unknown, unknown, Scenario>, res: Response) => {
+    const result = ScenarioSchema.safeParse(req.body);
+
+    if (!result.success) {
+      res.status(400).json({
+        error: "Invalid plan data",
+        details: result.error.format(),
+      });
+
+      return;
+    }
+
+    try {
+      const newScenario = new ScenarioModel(result.data);
+      const saved = await newScenario.save();
+
+      res.status(201).json(saved);
+
+      return;
+    } catch (err: unknown) {
+      const error = err as Error;
+
+      logger.error(`Failed to save new scenario: ${error.message}`);
+      res.status(500).json({ error: "Failed to save new scenario." });
+
+      return;
     }
   }
 );

@@ -32,6 +32,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@workspace/validators':
+        specifier: workspace:*
+        version: link:../../packages/validators
       express:
         specifier: ^5.1.0
         version: 5.1.0

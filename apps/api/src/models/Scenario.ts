@@ -64,11 +64,7 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
       dep: { type: String, required: true },
       dest: { type: String, required: true },
       spd: { type: Number },
-      alt: {
-        type: Number,
-        required: true,
-        min: [0, "Altitude cannot be negative"],
-      },
+      alt: { type: String, required: true },
       rte: { type: String, required: true },
       rmk: { type: String },
       raw: { type: String },

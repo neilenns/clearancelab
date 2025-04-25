@@ -1,9 +1,7 @@
 import { z } from "zod";
 
 export const CraftSchema = z.object({
-  altitude: z.coerce
-    .number({ message: "Altitude must be a number." })
-    .optional(),
+  altitude: z.string().optional(),
   clearanceLimit: z.string().optional(),
   controllerName: z.string().optional(),
   frequency: z.string().optional(),
