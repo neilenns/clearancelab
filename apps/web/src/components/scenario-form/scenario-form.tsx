@@ -11,46 +11,59 @@ import {
   getRandomVatsimId,
 } from "@workspace/plantools";
 import { Plan, PlanSchema } from "@workspace/validators/plan";
+import { Loader2 } from "lucide-react";
+import { useActionState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { onSubmitPlan } from "./actions";
 import { PlanSection } from "./plan-section";
+
+const defaultValues = {
+  aid: getRandomCallsign(),
+  cid: getRandomCid(),
+  bcn: getRandomBcn(),
+  vatsimId: getRandomVatsimId(),
+  pilotName: getRandomName(),
+  airportConditions: "",
+  alt: "",
+  dep: "",
+  dest: "",
+  eq: "",
+  raw: "",
+  rmk: "",
+  rte: "",
+  typ: "",
+} as Plan;
 
 export function ScenarioForm() {
   const form = useForm<Plan>({
     resolver: zodResolver(PlanSchema),
     mode: "onChange",
-    defaultValues: {
-      aid: getRandomCallsign(),
-      cid: getRandomCid(),
-      bcn: getRandomBcn(),
-      vatsimId: getRandomVatsimId(),
-      pilotName: getRandomName(),
-      airportConditions: "",
-      alt: "",
-      dep: "",
-      dest: "",
-      eq: "",
-      raw: "",
-      rmk: "",
-      rte: "",
-      typ: "",
-    },
+    defaultValues,
   });
 
-  function onSubmit(values: Plan) {
-    toast.success(`Saved ${values.pilotName ?? ""}!`);
-  }
+  const [formState, submitPlanAction, isPending] = useActionState(
+    onSubmitPlan,
+    {
+      success: false,
+    }
+  );
+
+  console.log("fields returned: ", { ...(formState.fields ?? {}) });
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={(e) => {
-          void form.handleSubmit(onSubmit)(e);
-        }}
-        className="space-y-8"
-      >
+      <form action={submitPlanAction} className="space-y-8">
         <PlanSection />
-        <Button type="submit">Save</Button>
+        {!isPending ? (
+          <Button className="w-[125px]" type="submit">
+            Save
+          </Button>
+        ) : (
+          <Button className="w-[125px]" disabled>
+            <Loader2 className="animate-spin" />
+            Save
+          </Button>
+        )}
       </form>
     </Form>
   );

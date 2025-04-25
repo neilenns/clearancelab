@@ -1,6 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { apiFetch } from "@/lib/api";
+import { get } from "@/lib/api";
 import { ScenarioData } from "@/models/scenario";
 import type { Metadata } from "next";
 
@@ -36,7 +36,7 @@ export default async function Layout({
   children: React.ReactNode;
 }>) {
   const scenarios =
-    (await apiFetch<ScenarioData[]>("/scenarios/?summary=true")) ?? [];
+    (await get<ScenarioData[]>("/scenarios/?summary=true")) ?? [];
 
   return (
     <SidebarProvider>

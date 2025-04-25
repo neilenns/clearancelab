@@ -59,7 +59,15 @@ export function PlanSection() {
                     </button>
                   </FormLabel>
                   <FormControl>
-                    <Input id="vatsimId" {...field} />
+                    <Input
+                      type="number"
+                      id="vatsimId"
+                      {...field}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        field.onChange(val === "" ? "" : parseInt(val));
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
