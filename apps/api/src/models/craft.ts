@@ -18,7 +18,7 @@ export const CraftSchema = new Schema<Craft>({
     type: String,
     trim: true,
     validate: {
-      validator: (v: string) => /^\d{3}\.\d{2,3}$/.test(v),
+      validator: (v: string) => !v || /^\d{3}\.\d{2,3}$/.test(v),
       message: (props: { value: string }) =>
         `${props.value} is not a valid frequency format.`,
     },
@@ -29,7 +29,7 @@ export const CraftSchema = new Schema<Craft>({
     type: String,
     trim: true,
     validate: {
-      validator: (v: string) => /^\d{4}$/.test(v),
+      validator: (v: string) => !v || /^\d{4}$/.test(v),
       message: (props: { value: string }) =>
         `${props.value} is not a valid transponder code.`,
     },
