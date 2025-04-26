@@ -10,7 +10,7 @@ import {
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
-import { Plan, PlanSchema } from "@workspace/validators/plan";
+import { Plan, PlanSchema } from "@workspace/validators";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
