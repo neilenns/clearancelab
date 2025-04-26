@@ -36,7 +36,7 @@
     "bunchee": "^6.4.0",
     "eslint": "^9.25.0",
     "rimraf": "^6.0.1",
-    "typescript": "5.8.2"
+    "typescript": "^5.8.0"
   },
   "dependencies": {
     "mongoose": "^8.13.2",
