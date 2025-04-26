@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { Plan, PlanSchema } from "@workspace/validators/plan";
+import { Plan, PlanSchema } from "@workspace/validators";
 import { Textarea } from "../ui/textarea";
 import {
   Dialog,

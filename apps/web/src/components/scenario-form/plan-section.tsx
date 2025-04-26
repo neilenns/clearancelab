@@ -24,9 +24,10 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { PasteScenarioDialog } from "./paste-scenario-dialog";
+import { Scenario } from "@workspace/validators/scenario";
 
 export function PlanSection() {
-  const { control } = useFormContext();
+  const { control } = useFormContext<Scenario>();
 
   return (
     <Card>
@@ -42,7 +43,7 @@ export function PlanSection() {
           <div className="col-span-2">
             <FormField
               control={control}
-              name="vatsimId"
+              name="plan.vatsimId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="vatsimId">
@@ -78,7 +79,7 @@ export function PlanSection() {
           <div className="col-span-2">
             <FormField
               control={control}
-              name="pilotName"
+              name="plan.pilotName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="pilotName">
@@ -107,7 +108,7 @@ export function PlanSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 gap-2 items-start mb-4">
           <FormField
             control={control}
-            name="aid"
+            name="plan.aid"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="aid">
@@ -133,7 +134,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="cid"
+            name="plan.cid"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="cid">
@@ -167,7 +168,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="bcn"
+            name="plan.bcn"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="bcn">
@@ -200,7 +201,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="typ"
+            name="plan.typ"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="typ">TYP</FormLabel>
@@ -214,7 +215,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="eq"
+            name="plan.eq"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="eq">EQ</FormLabel>
@@ -228,7 +229,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="dep"
+            name="plan.dep"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="dep">DEP</FormLabel>
@@ -242,7 +243,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="dest"
+            name="plan.dest"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="dest">DEST</FormLabel>
@@ -256,7 +257,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="spd"
+            name="plan.spd"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="spd">SPD</FormLabel>
@@ -278,7 +279,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="alt"
+            name="plan.alt"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="alt">ALT</FormLabel>
@@ -295,7 +296,7 @@ export function PlanSection() {
           <div className="w-1/2">
             <FormField
               control={control}
-              name="rte"
+              name="plan.rte"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="rte">RTE</FormLabel>
@@ -310,7 +311,7 @@ export function PlanSection() {
           <div className="w-1/2">
             <FormField
               control={control}
-              name="rmk"
+              name="plan.rmk"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>RMK</FormLabel>

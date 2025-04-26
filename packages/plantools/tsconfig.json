@@ -1,12 +1,3 @@
 {
-  "extends": "@workspace/typescript-config/base.json",
-  "moduleResolution": "nodenext",
-  "moduleDetection": "force",
-  "module": "NodeNext",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@workspace/plantools/*": ["./src/*"]
-    }
-  }
+  "extends": "@workspace/typescript-config/tsconfig.package.json"
 }

@@ -3,7 +3,7 @@
 // https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja
 
 import { postJson } from "@/lib/api";
-import { Plan, PlanSchema } from "@workspace/validators/plan";
+import { Plan, PlanSchema } from "@workspace/validators";
 
 interface FormState {
   success: boolean;

@@ -2,7 +2,7 @@ import { ProblemLevel } from "@/interfaces/level";
 import { AirportInfo } from "./airportInfo";
 
 export interface ScenarioData {
-  _id: string;
+  _id?: string;
   plan: {
     pilotName?: string;
     aid: string;
@@ -30,7 +30,7 @@ export interface ScenarioData {
   };
   depAirportInfo?: AirportInfo;
   destAirportInfo?: AirportInfo;
-  problems: ProblemData[];
+  problems?: ProblemData[];
   isValid: boolean;
   canClear: boolean;
 }

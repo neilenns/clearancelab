@@ -3,14 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/es/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/es/index.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "import": {
+        "types": "./dist/es/index.d.ts",
+        "default": "./dist/es/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    }
   },
   "scripts": {
-    "lint": "eslint ./src"
+    "build": "bunchee",
+    "ci": "pnpm run build",
+    "dev": "bunchee --watch",
+    "lint": "eslint src/",
+    "check-types": "tsc --noEmit"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*"
+    "@workspace/typescript-config": "workspace:*",
+    "@types/node": "^22.15.2",
+    "bunchee": "^6.5.1"
+  },
+  "dependencies": {
+    "mongoose": "^8.13.2",
+    "zod": "^3.24.3"
   }
 }

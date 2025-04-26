@@ -10,39 +10,42 @@ import {
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
-import { Plan, PlanSchema } from "@workspace/validators/plan";
+import { Scenario, ScenarioSchema } from "@workspace/validators";
 import { Loader2 } from "lucide-react";
 import { useActionState } from "react";
 import { useForm } from "react-hook-form";
-import { onSubmitPlan } from "./actions";
+import { onSubmitPlan as onSubmitScenario } from "./actions";
 import { PlanSection } from "./plan-section";
 
 const defaultValues = {
-  aid: getRandomCallsign(),
-  cid: getRandomCid(),
-  bcn: getRandomBcn(),
-  vatsimId: getRandomVatsimId(),
-  pilotName: getRandomName(),
-  airportConditions: "",
-  alt: "",
-  dep: "",
-  dest: "",
-  eq: "",
-  raw: "",
-  rmk: "",
-  rte: "",
-  typ: "",
-} as Plan;
+  plan: {
+    aid: getRandomCallsign(),
+    cid: getRandomCid(),
+    bcn: getRandomBcn(),
+    vatsimId: getRandomVatsimId(),
+    pilotName: getRandomName(),
+    airportConditions: "",
+    alt: "",
+    dep: "",
+    dest: "",
+    eq: "",
+    raw: "",
+    rmk: "",
+    rte: "",
+    typ: "",
+  },
+  isValid: true,
+} as Scenario;
 
 export function ScenarioForm() {
-  const form = useForm<Plan>({
-    resolver: zodResolver(PlanSchema),
+  const form = useForm<Scenario>({
+    resolver: zodResolver(ScenarioSchema),
     mode: "onChange",
     defaultValues,
   });
 
-  const [formState, submitPlanAction, isPending] = useActionState(
-    onSubmitPlan,
+  const [formState, submitScenarioAction, isPending] = useActionState(
+    onSubmitScenario,
     {
       success: false,
     }
@@ -52,7 +55,7 @@ export function ScenarioForm() {
 
   return (
     <Form {...form}>
-      <form action={submitPlanAction} className="space-y-8">
+      <form action={submitScenarioAction} className="space-y-8">
         <PlanSection />
         {!isPending ? (
           <Button className="w-[125px]" type="submit">

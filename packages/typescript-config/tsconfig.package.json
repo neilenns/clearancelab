@@ -1,0 +1,10 @@
+{
+  "extends": "@workspace/typescript-config/tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2015"],
+    "outDir": "${configDir}/dist",
+    "types": ["node"]
+  },
+  "include": ["${configDir}"],
+  "exclude": ["node_modules", "dist"]
+}

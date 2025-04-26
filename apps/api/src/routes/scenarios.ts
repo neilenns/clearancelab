@@ -1,4 +1,4 @@
-import { Scenario, ScenarioSchema } from "@workspace/validators/scenario";
+import { Scenario, ScenarioSchema } from "@workspace/validators";
 import { NextFunction, Request, Response, Router } from "express";
 import mongoose from "mongoose";
 import { logger } from "../lib/logger.js";
