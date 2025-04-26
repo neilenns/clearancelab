@@ -24,7 +24,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { PasteScenarioDialog } from "./paste-scenario-dialog";
-import { Scenario } from "@workspace/validators/scenario";
+import { Scenario } from "@workspace/validators";
 
 export function PlanSection() {
   const { control } = useFormContext<Scenario>();

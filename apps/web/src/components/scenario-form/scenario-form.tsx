@@ -16,6 +16,7 @@ import { useActionState } from "react";
 import { useForm } from "react-hook-form";
 import { onSubmitScenario } from "./actions";
 import { PlanSection } from "./plan-section";
+import { ScenarioSection } from "./scenario-section";
 
 const defaultValues = {
   plan: {
@@ -61,6 +62,7 @@ export function ScenarioForm() {
         className="space-y-8"
       >
         <PlanSection />
+        <ScenarioSection />
         {!isPending ? (
           <Button className="w-[125px]" type="submit">
             Save

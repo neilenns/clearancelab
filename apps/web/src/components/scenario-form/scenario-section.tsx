@@ -28,28 +28,58 @@ export function ScenarioSection() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <FormField
-          control={control}
-          name="isValid"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-              <div className="space-y-0.5">
-                <FormLabel id="valid-scenario-label">Valid scenario</FormLabel>
-                <FormDescription>
-                  Indicates whether this scenario is valid and can be used for
-                  training.
-                </FormDescription>{" "}
-              </div>
-              <FormControl>
-                <Switch
-                  aria-labelledby="valid-scenario-label"
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
+          <div className="col-span-4">
+            <FormField
+              control={control}
+              name="isValid"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel id="valid-scenario-label">
+                      Valid scenario
+                    </FormLabel>
+                    <FormDescription>
+                      Scenario is fully valid with no errors.
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      aria-labelledby="valid-scenario-label"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="col-span-4">
+            <FormField
+              control={control}
+              name="canClear"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel id="valid-scenario-label">Can clear</FormLabel>
+                    <FormDescription>
+                      Clearance can be issued, even if there are errors in the
+                      flight plan.
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      aria-labelledby="valid-scenario-label"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
