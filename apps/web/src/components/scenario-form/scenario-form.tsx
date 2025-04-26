@@ -35,6 +35,7 @@ const defaultValues = {
     rte: "",
     typ: "",
   },
+  craft: {},
   isValid: true,
   canClear: true,
 } as Scenario;
