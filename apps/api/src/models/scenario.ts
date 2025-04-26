@@ -2,45 +2,21 @@ import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
 import "./airportInfo.js";
 import { AirportInfoData } from "./airportInfo.js";
+import { Plan, PlanSchema } from "./plan.js";
+import { Craft, CraftSchema } from "./craft.js";
+import { Problem, ProblemSchema } from "./problem.js";
 
 // Combined schema data interface
 export interface Scenario {
   _id: Types.ObjectId;
-  plan: {
-    pilotName?: string;
-    aid: string;
-    vatsimId?: number;
-    cid?: number;
-    typ: string;
-    eq: string;
-    bcn?: number;
-    dep: string;
-    dest: string;
-    spd?: number;
-    alt: number;
-    rte: string;
-    rmk?: string;
-    raw?: string;
-  };
-  craft?: {
-    altitude?: string;
-    clearanceLimit?: string;
-    controllerName?: string;
-    frequency?: string;
-    route?: string;
-    telephony?: string;
-    transponder?: string;
-  };
+  airportConditions?: string;
+  canClear: boolean;
+  craft?: Craft;
   depAirportInfo?: AirportInfoData;
   destAirportInfo?: AirportInfoData;
-  problems: {
-    level: "info" | "warning" | "error";
-    issue: string;
-    solution: string;
-  }[];
   isValid: boolean;
-  canClear: boolean;
-  airportConditions?: string;
+  plan: Plan;
+  problems: Problem[];
 }
 
 // Static method interface
@@ -52,68 +28,12 @@ export interface ScenarioModelType extends Model<Scenario> {
 // Define schema
 const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
   {
-    plan: {
-      pilotName: { type: String },
-      aid: { type: String, required: true },
-      vatsimId: { type: Number },
-      cid: { type: Number },
-      typ: { type: String, required: true },
-      eq: { type: String, required: true },
-      bcn: { type: Number },
-      dep: { type: String, required: true },
-      dest: { type: String, required: true },
-      spd: { type: Number },
-      alt: {
-        type: Number,
-        required: true,
-        min: [0, "Altitude cannot be negative"],
-      },
-      rte: { type: String, required: true },
-      rmk: { type: String },
-      raw: { type: String },
-    },
-    craft: {
-      altitude: { type: String, trim: true },
-      clearanceLimit: { type: String, trim: true },
-      controllerName: { type: String, trim: true },
-      frequency: {
-        type: String,
-        trim: true,
-        validate: {
-          validator: (v: string) => /^\d{3}\.\d{2,3}$/.test(v),
-          message: (props: { value: string }) =>
-            `${props.value} is not a valid frequency format.`,
-        },
-      },
-      route: { type: String, trim: true },
-      telephony: { type: String, trim: true },
-      transponder: {
-        type: String,
-        trim: true,
-        validate: {
-          validator: (v: string) => /^\d{4}$/.test(v),
-          message: (props: { value: string }) =>
-            `${props.value} is not a valid transponder code.`,
-        },
-      },
-    },
-    problems: {
-      type: [
-        {
-          level: {
-            type: String,
-            enum: ["info", "warning", "error"],
-            required: true,
-          },
-          issue: { type: String, required: true },
-          solution: { type: String, required: true },
-        },
-      ],
-      default: [],
-    },
-    isValid: { type: Boolean, default: true },
-    canClear: { type: Boolean, default: true },
     airportConditions: { type: String, required: false },
+    canClear: { type: Boolean, default: true },
+    craft: CraftSchema,
+    isValid: { type: Boolean, default: true },
+    plan: PlanSchema,
+    problems: { type: [ProblemSchema], default: [] },
   },
   {
     collection: "scenarios",

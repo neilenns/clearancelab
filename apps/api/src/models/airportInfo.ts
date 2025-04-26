@@ -2,16 +2,16 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export interface AirportInfoData extends Document {
   airportCode: string;
-  icaoCode?: string;
-  iataCode?: string;
-  name?: string;
-  elevation?: number;
   city?: string;
-  state?: string;
-  longitude?: number;
-  latitude?: number;
-  timezone?: string;
   countryCode?: string;
+  elevation?: number;
+  iataCode?: string;
+  icaoCode?: string;
+  latitude?: number;
+  longitude?: number;
+  name?: string;
+  state?: string;
+  timezone?: string;
 }
 
 const AirportInfoSchema: Schema = new Schema(
