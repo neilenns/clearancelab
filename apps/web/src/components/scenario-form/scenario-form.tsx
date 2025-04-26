@@ -9,15 +9,16 @@ import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
 import { ScenarioOverview } from "./scenario-overview";
 import { CraftSection } from "./craft-section";
 import { useActionState } from "react";
-import { addScenario } from "./actions";
+import { onSubmitScenario } from "./actions";
 
 export interface ScenarioFormState {
-  errors: Record<string, { message: string }>;
-  values: ScenarioInput;
+  errors?: Record<string, string[]>;
+  values?: ScenarioInput;
+  success?: boolean;
 }
 
 export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
-  const [state, formAction, isPending] = useActionState(addScenario, {
+  const [state, formAction, isPending] = useActionState(onSubmitScenario, {
     values,
     errors: {},
   });
