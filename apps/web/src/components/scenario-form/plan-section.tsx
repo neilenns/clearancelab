@@ -14,19 +14,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { PasteScenarioDialog } from "./paste-scenario-dialog";
+import { ScenarioInput } from "@workspace/validators";
 
 export function PlanSection() {
-  const { control } = useFormContext();
+  const { control } = useFormContext<ScenarioInput>();
 
   return (
     <Card>
@@ -42,10 +43,10 @@ export function PlanSection() {
           <div className="col-span-2">
             <FormField
               control={control}
-              name="vatsimId"
+              name="plan.vatsimId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="vatsimId">
+                  <FormLabel>
                     VATSIM ID
                     <button
                       type="button"
@@ -70,10 +71,10 @@ export function PlanSection() {
           <div className="col-span-2">
             <FormField
               control={control}
-              name="pilotName"
+              name="plan.pilotName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="pilotName">
+                  <FormLabel>
                     <span>Name</span>
                     <button
                       type="button"
@@ -99,10 +100,10 @@ export function PlanSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 gap-2 items-start mb-4">
           <FormField
             control={control}
-            name="aid"
+            name="plan.aid"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="aid">
+                <FormLabel>
                   AID
                   <button
                     type="button"
@@ -125,10 +126,10 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="cid"
+            name="plan.cid"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="cid">
+                <FormLabel>
                   <span>CID</span>
                   <button
                     type="button"
@@ -159,10 +160,10 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="bcn"
+            name="plan.bcn"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="bcn">
+                <FormLabel>
                   BCN
                   <button
                     type="button"
@@ -192,10 +193,10 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="typ"
+            name="plan.typ"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="typ">TYP</FormLabel>
+                <FormLabel>TYP</FormLabel>
                 <FormControl>
                   <Input id="typ" {...field} />
                 </FormControl>
@@ -206,7 +207,7 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="eq"
+            name="plan.eq"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="eq">EQ</FormLabel>
@@ -220,10 +221,10 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="dep"
+            name="plan.dep"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="dep">DEP</FormLabel>
+                <FormLabel>DEP</FormLabel>
                 <FormControl>
                   <Input id="dep" {...field} />
                 </FormControl>
@@ -234,10 +235,10 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="dest"
+            name="plan.dest"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="dest">DEST</FormLabel>
+                <FormLabel>DEST</FormLabel>
                 <FormControl>
                   <Input id="dest" {...field} />
                 </FormControl>
@@ -248,10 +249,10 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="spd"
+            name="plan.spd"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="spd">SPD</FormLabel>
+                <FormLabel>SPD</FormLabel>
                 <FormControl>
                   <Input
                     id="spd"
@@ -270,10 +271,10 @@ export function PlanSection() {
 
           <FormField
             control={control}
-            name="alt"
+            name="plan.alt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="alt">ALT</FormLabel>
+                <FormLabel>ALT</FormLabel>
                 <FormControl>
                   <Input id="alt" {...field} />
                 </FormControl>
@@ -287,10 +288,10 @@ export function PlanSection() {
           <div className="w-1/2">
             <FormField
               control={control}
-              name="rte"
+              name="plan.rte"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="rte">RTE</FormLabel>
+                  <FormLabel>RTE</FormLabel>
                   <FormControl>
                     <Input id="rte" {...field} />
                   </FormControl>
@@ -302,7 +303,7 @@ export function PlanSection() {
           <div className="w-1/2">
             <FormField
               control={control}
-              name="rmk"
+              name="plan.rmk"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>RMK</FormLabel>

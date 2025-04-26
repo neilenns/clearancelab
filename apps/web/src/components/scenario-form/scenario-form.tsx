@@ -10,33 +10,49 @@ import {
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
-import { Plan, PlanSchema } from "@workspace/validators";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
+import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
+import { ScenarioOverview } from "./scenario-overview";
+import { CraftSection } from "./craft-section";
 
 export function ScenarioForm() {
-  const form = useForm<Plan>({
-    resolver: zodResolver(PlanSchema),
+  const form = useForm<ScenarioInput>({
+    resolver: zodResolver(ScenarioSchema),
     mode: "onChange",
     defaultValues: {
-      aid: getRandomCallsign(),
-      cid: getRandomCid(),
-      bcn: getRandomBcn(),
-      vatsimId: getRandomVatsimId(),
-      pilotName: getRandomName(),
-      dep: "",
-      dest: "",
-      eq: "",
-      raw: "",
-      rmk: "",
-      rte: "",
-      typ: "",
+      plan: {
+        aid: getRandomCallsign(),
+        bcn: getRandomBcn(),
+        cid: getRandomCid(),
+        pilotName: getRandomName(),
+        vatsimId: getRandomVatsimId(),
+        dep: "",
+        dest: "",
+        typ: "",
+        eq: "",
+        rte: "",
+        rmk: "",
+        raw: "",
+        spd: 0,
+        alt: 0,
+      },
+      isValid: true,
+      canClear: true,
+      craft: {
+        clearanceLimit: "",
+        route: "",
+        altitude: "",
+        frequency: "",
+        transponder: "",
+      },
+      airportConditions: "",
     },
   });
 
-  function onSubmit(values: Plan) {
-    toast.success(`Saved ${values.pilotName ?? ""}!`);
+  function onSubmit(_values: ScenarioInput) {
+    toast.success(`Scenario saved`);
   }
 
   return (
@@ -47,7 +63,10 @@ export function ScenarioForm() {
         }}
         className="space-y-8"
       >
+        <ScenarioOverview />
         <PlanSection />
+        <CraftSection />
+
         <Button type="submit">Save</Button>
       </form>
     </Form>

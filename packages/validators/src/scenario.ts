@@ -5,12 +5,14 @@ import { CraftSchema } from "./craft.js";
 import { PlanSchema } from "./plan.js";
 
 export const ScenarioSchema = z.object({
-  _id: z.union([
-    z.instanceof(Types.ObjectId),
-    z.string().refine((value) => Types.ObjectId.isValid(value), {
-      message: "Invalid ObjectId format",
-    }),
-  ]),
+  _id: z
+    .union([
+      z.instanceof(Types.ObjectId),
+      z.string().refine((value) => Types.ObjectId.isValid(value), {
+        message: "Invalid ObjectId format",
+      }),
+    ])
+    .optional(),
   isValid: z.boolean().default(true),
   canClear: z.boolean().default(true),
   airportConditions: z.string().optional(),
@@ -20,4 +22,5 @@ export const ScenarioSchema = z.object({
   plan: PlanSchema,
 });
 
+export type ScenarioInput = z.input<typeof ScenarioSchema>;
 export type Scenario = z.infer<typeof ScenarioSchema>;
