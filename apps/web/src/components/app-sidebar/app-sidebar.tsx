@@ -33,19 +33,21 @@ export function AppSidebar({ scenarios, ...props }: AppSidebarProps) {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
-                {scenarios.map((scenario) => {
-                  if (!scenario._id) {
-                    return null;
-                  }
+                <ul role="list" aria-label="Scenarios list">
+                  {scenarios.map((scenario) => {
+                    if (!scenario._id) {
+                      return null;
+                    }
 
-                  return (
-                    <ScenarioItem
-                      scenario={scenario}
-                      key={scenario._id.toString()}
-                      selected={selectedId === scenario._id}
-                    />
-                  );
-                })}{" "}
+                    return (
+                      <ScenarioItem
+                        scenario={scenario}
+                        key={scenario._id.toString()}
+                        selected={selectedId === scenario._id}
+                      />
+                    );
+                  })}
+                </ul>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

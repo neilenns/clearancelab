@@ -55,7 +55,11 @@ export function ScenarioForm() {
 
   return (
     <Form {...form}>
-      <form action={submitScenarioAction} className="space-y-8">
+      <form
+        aria-label="Scenario details form"
+        action={submitScenarioAction}
+        className="space-y-8"
+      >
         <PlanSection />
         {!isPending ? (
           <Button className="w-[125px]" type="submit">

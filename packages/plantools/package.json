@@ -25,16 +25,18 @@
     "build": "bunchee --sourcemap",
     "ci": "pnpm run build",
     "dev": "bunchee --sourcemap --watch",
+    "clean": "rimraf dist node_modules",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit",
     "test": "jest"
   },
   "devDependencies": {
+    "@types/node": "^22.14.0",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "@types/node": "^22.14.0",
     "bunchee": "^6.4.0",
     "eslint": "^9.25.0",
+    "rimraf": "^6.0.1",
     "typescript": "5.8.2"
   }
 }

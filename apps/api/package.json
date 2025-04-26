@@ -6,6 +6,7 @@
     "dev": "tsx --inspect=9229 --watch src/index.ts",
     "dev:docker": "BUILDKIT_PROGRESS=plain docker compose run api",
     "ci": "pnpm run build",
+    "clean": "rimraf dist node_modules",
     "start": "node dist/index.js",
     "build": "tsc",
     "build:docker": "BUILDKIT_PROGRESS=plain docker compose build api 2>&1 | tee build.log",
@@ -15,6 +16,7 @@
   },
   "description": "API for the Clearance Lab website.",
   "dependencies": {
+    "@workspace/validators": "workspace:*",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
     "express-winston": "^4.2.0",
@@ -23,8 +25,7 @@
     "mongoose": "^8.13.2",
     "mongoose-lean-virtuals": "^1.1.0",
     "winston": "^3.17.0",
-    "zod": "^3.24.3",
-    "@workspace/validators": "workspace:*"
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
@@ -35,6 +36,7 @@
     "eslint": "^9.24.0",
     "eslint-plugin-perfectionist": "^4.11.0",
     "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
     "tsx": "^4.19.3",
     "turbo": "^2.5.0",
     "typescript": "^5.8.3",
