@@ -8,6 +8,7 @@
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "cf-deploy": {
+      "dependsOn": ["^ci"],
       "cache": false,
       "env": [
         "CLOUDFLARE_API_TOKEN",
