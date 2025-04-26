@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import mongoose from "mongoose";
 import { verifyApiKey } from "../middleware/apikey.js";
-import { ScenarioModel } from "../models/Scenario.js";
+import { ScenarioModel } from "../models/scenario.js";
 
 const router = Router();
 

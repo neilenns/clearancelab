@@ -1,11 +1,11 @@
 import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
-import "./AirportInfo.js";
-import { AirportInfoData } from "./AirportInfo.js";
+import "./airportInfo.js";
+import { AirportInfoData } from "./airportInfo.js";
 import mongooseLeanVirtuals from "mongoose-lean-virtuals";
 
 // Combined schema data interface
-export interface ScenarioData {
+export interface Scenario {
   _id: Types.ObjectId;
   plan: {
     pilotName?: string;
@@ -22,7 +22,6 @@ export interface ScenarioData {
     rte: string;
     rmk?: string;
     raw?: string;
-    airportConditions?: string;
   };
   craft?: {
     altitude?: string;
@@ -42,16 +41,17 @@ export interface ScenarioData {
   }[];
   isValid: boolean;
   canClear: boolean;
+  airportConditions?: string;
 }
 
 // Static method interface
-export interface ScenarioModelType extends Model<ScenarioData> {
-  findScenarioById(id: string): Promise<ScenarioData | null>;
-  findAll(summary: boolean): Promise<Partial<ScenarioData[]>>;
+export interface ScenarioModelType extends Model<Scenario> {
+  findScenarioById(id: string): Promise<Scenario | null>;
+  findAll(summary: boolean): Promise<Partial<Scenario[]>>;
 }
 
 // Define schema
-const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
+const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
   {
     plan: {
       pilotName: { type: String },
@@ -72,7 +72,6 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
       rte: { type: String, required: true },
       rmk: { type: String },
       raw: { type: String },
-      airportConditions: { type: String },
     },
     craft: {
       altitude: { type: String, trim: true },
@@ -113,6 +112,9 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
       ],
       default: [],
     },
+    isValid: { type: Boolean, default: true },
+    canClear: { type: Boolean, default: true },
+    airportConditions: { type: String },
   },
   {
     collection: "scenarios",
@@ -141,19 +143,10 @@ ScenarioSchema.set("toObject", { virtuals: true });
 ScenarioSchema.set("toJSON", { virtuals: true });
 ScenarioSchema.plugin(mongooseLeanVirtuals);
 
-// Add virtuals for isValid and canClear based on whether there are problems.
-ScenarioSchema.virtual("isValid").get(function () {
-  return !this.problems.some((problem) => problem.level !== "info");
-});
-
-ScenarioSchema.virtual("canClear").get(function () {
-  return !this.problems.some((problem) => problem.level === "error");
-});
-
 // Static methods
 ScenarioSchema.statics.findScenarioById = function (
   id: string
-): Promise<ScenarioData | null> {
+): Promise<Scenario | null> {
   try {
     return this.findById(id)
       .populate("depAirportInfo") // Populate the departure airport info
@@ -170,7 +163,7 @@ ScenarioSchema.statics.findScenarioById = function (
 
 ScenarioSchema.statics.findAll = async function (
   summary: boolean
-): Promise<Partial<ScenarioData>[]> {
+): Promise<Partial<Scenario>[]> {
   try {
     if (summary) {
       // Results has to include "problems" so isValid and canClear can be calculated.
@@ -201,7 +194,7 @@ ScenarioSchema.statics.findAll = async function (
 };
 
 // Export model
-export const ScenarioModel = model<ScenarioData, ScenarioModelType>(
+export const ScenarioModel = model<Scenario, ScenarioModelType>(
   "Scenario",
   ScenarioSchema
 );
