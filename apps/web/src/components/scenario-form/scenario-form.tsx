@@ -63,6 +63,7 @@ export function ScenarioForm() {
       >
         <PlanSection />
         <ScenarioSection />
+
         {!isPending ? (
           <Button className="w-[125px]" type="submit">
             Save
