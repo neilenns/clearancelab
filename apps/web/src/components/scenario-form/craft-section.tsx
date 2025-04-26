@@ -37,16 +37,13 @@ export function CraftSection() {
               name="craft.clearanceLimit"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="clearanceLimit">
-                    Clearance limit
-                  </FormLabel>
+                  <FormLabel>Clearance limit</FormLabel>
                   <FormDescription>
                     Overrides the default clearance limit.
                   </FormDescription>
                   <FormControl>
                     <Input
                       id="clearanceLimit"
-                      aria-labelledby="clearanceLimit"
                       placeholder="Battleground VOR"
                       {...field}
                     />
@@ -62,7 +59,7 @@ export function CraftSection() {
               name="craft.route"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="route">Route</FormLabel>
+                  <FormLabel>Route</FormLabel>
                   <FormDescription>
                     Route for the clearance. &quot;via the&quot; is not
                     required.
@@ -70,7 +67,6 @@ export function CraftSection() {
                   <FormControl>
                     <Input
                       id="route"
-                      aria-labelledby="route"
                       placeholder="Portland 2 departure, then as filed"
                       {...field}
                     />
@@ -88,14 +84,13 @@ export function CraftSection() {
               name="craft.altitude"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="altitude">Altitude</FormLabel>
+                  <FormLabel>Altitude</FormLabel>
                   <FormDescription>
                     Initial climb altitude for the clearance.
                   </FormDescription>
                   <FormControl>
                     <Input
                       id="altitude"
-                      aria-labelledby="altitude"
                       placeholder="maintain 6,000"
                       {...field}
                     />
@@ -111,17 +106,12 @@ export function CraftSection() {
               name="craft.frequency"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="frequency">Frequency</FormLabel>
+                  <FormLabel>Frequency</FormLabel>
                   <FormDescription>
                     Departure frequency for the departure controller.
                   </FormDescription>
                   <FormControl>
-                    <Input
-                      id="frequency"
-                      aria-labelledby="frequency"
-                      placeholder="offline"
-                      {...field}
-                    />
+                    <Input id="frequency" placeholder="offline" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,17 +126,12 @@ export function CraftSection() {
               name="craft.transponder"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="transponder">Transponder</FormLabel>
+                  <FormLabel>Transponder</FormLabel>
                   <FormDescription>
                     Custom transponder code for the clearance.
                   </FormDescription>
                   <FormControl>
-                    <Input
-                      id="transponder"
-                      aria-labelledby="transponder"
-                      placeholder="1234"
-                      {...field}
-                    />
+                    <Input id="transponder" placeholder="1234" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

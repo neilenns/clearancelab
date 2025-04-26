@@ -46,7 +46,7 @@ export function PlanSection() {
               name="plan.vatsimId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="vatsimId">
+                  <FormLabel>
                     VATSIM ID
                     <button
                       type="button"
@@ -74,7 +74,7 @@ export function PlanSection() {
               name="plan.pilotName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="pilotName">
+                  <FormLabel>
                     <span>Name</span>
                     <button
                       type="button"
@@ -103,7 +103,7 @@ export function PlanSection() {
             name="plan.aid"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="aid">
+                <FormLabel>
                   AID
                   <button
                     type="button"
@@ -129,7 +129,7 @@ export function PlanSection() {
             name="plan.cid"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="cid">
+                <FormLabel>
                   <span>CID</span>
                   <button
                     type="button"
@@ -163,7 +163,7 @@ export function PlanSection() {
             name="plan.bcn"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="bcn">
+                <FormLabel>
                   BCN
                   <button
                     type="button"
@@ -196,7 +196,7 @@ export function PlanSection() {
             name="plan.typ"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="typ">TYP</FormLabel>
+                <FormLabel>TYP</FormLabel>
                 <FormControl>
                   <Input id="typ" {...field} />
                 </FormControl>
@@ -224,7 +224,7 @@ export function PlanSection() {
             name="plan.dep"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="dep">DEP</FormLabel>
+                <FormLabel>DEP</FormLabel>
                 <FormControl>
                   <Input id="dep" {...field} />
                 </FormControl>
@@ -238,7 +238,7 @@ export function PlanSection() {
             name="plan.dest"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="dest">DEST</FormLabel>
+                <FormLabel>DEST</FormLabel>
                 <FormControl>
                   <Input id="dest" {...field} />
                 </FormControl>
@@ -252,7 +252,7 @@ export function PlanSection() {
             name="plan.spd"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="spd">SPD</FormLabel>
+                <FormLabel>SPD</FormLabel>
                 <FormControl>
                   <Input
                     id="spd"
@@ -274,7 +274,7 @@ export function PlanSection() {
             name="plan.alt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="alt">ALT</FormLabel>
+                <FormLabel>ALT</FormLabel>
                 <FormControl>
                   <Input id="alt" {...field} />
                 </FormControl>
@@ -291,7 +291,7 @@ export function PlanSection() {
               name="plan.rte"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="rte">RTE</FormLabel>
+                  <FormLabel>RTE</FormLabel>
                   <FormControl>
                     <Input id="rte" {...field} />
                   </FormControl>

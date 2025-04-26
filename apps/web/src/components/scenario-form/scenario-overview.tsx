@@ -28,7 +28,7 @@ export function ScenarioOverview() {
               name="isValid"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="isValid">Flight plan valid?</FormLabel>
+                  <FormLabel>Flight plan valid?</FormLabel>
                   <FormDescription>
                     Is the flight plan completely correct with no errors?
                   </FormDescription>
@@ -36,7 +36,6 @@ export function ScenarioOverview() {
                     <Switch
                       checked={field.value}
                       onCheckedChange={field.onChange}
-                      aria-labelledby="isValid"
                     />
                   </FormControl>
                   <FormMessage />
@@ -51,7 +50,7 @@ export function ScenarioOverview() {
               name="canClear"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="canClear">Can clear?</FormLabel>
+                  <FormLabel>Can clear?</FormLabel>
                   <FormDescription>
                     Can the flight plan be cleared, even with errors?
                   </FormDescription>
@@ -59,7 +58,6 @@ export function ScenarioOverview() {
                     <Switch
                       checked={field.value}
                       onCheckedChange={field.onChange}
-                      aria-labelledby="canClear"
                     />
                   </FormControl>
                   <FormMessage />
@@ -75,9 +73,7 @@ export function ScenarioOverview() {
               name="airportConditions"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="airportConditions">
-                    Airport conditions
-                  </FormLabel>
+                  <FormLabel>Airport conditions</FormLabel>
                   <FormDescription>
                     Additional information about the airport, relevant to the
                     scenario. For example, airport flow, altimeter, and whether
