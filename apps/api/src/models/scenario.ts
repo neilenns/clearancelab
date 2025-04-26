@@ -47,7 +47,7 @@ export interface Scenario {
 // Static method interface
 export interface ScenarioModelType extends Model<Scenario> {
   findScenarioById(id: string): Promise<Scenario | null>;
-  findAll(summary: boolean): Promise<Partial<Scenario[]>>;
+  findAll(summary: boolean): Promise<Partial<Scenario>[]>;
 }
 
 // Define schema
@@ -114,7 +114,7 @@ const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
     },
     isValid: { type: Boolean, default: true },
     canClear: { type: Boolean, default: true },
-    airportConditions: { type: String },
+    airportConditions: { type: String, required: false },
   },
   {
     collection: "scenarios",
@@ -166,18 +166,14 @@ ScenarioSchema.statics.findAll = async function (
 ): Promise<Partial<Scenario>[]> {
   try {
     if (summary) {
-      // Results has to include "problems" so isValid and canClear can be calculated.
       const results = await this.find({})
         .select(
-          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt problems"
+          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt"
         )
-        .lean({ virtuals: ["isValid", "canClear"] })
+        .lean()
         .exec();
 
-      // We need to strip out the problems field from the results after it was used
-      // to calculate isValid and canClear, as we don't want to expose the full problems
-      // array in summary mode to reduce payload size.
-      return results.map(({ problems: _problems, ...rest }) => rest);
+      return results;
     }
 
     return await this.find({})
