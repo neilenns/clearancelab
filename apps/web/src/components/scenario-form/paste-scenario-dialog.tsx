@@ -85,6 +85,7 @@ export function PasteScenarioDialog() {
           </DialogDescription>
         </DialogHeader>
         <Textarea
+          aria-label="JSON input"
           placeholder="Paste scenario JSON"
           className="min-h-[200px] max-h-[200px]"
           value={jsonInput}

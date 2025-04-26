@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return -- Required for webpack config object manipulation */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access -- Required for webpack config object manipulation */
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {

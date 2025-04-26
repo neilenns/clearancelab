@@ -16,7 +16,7 @@ import {
 } from "../ui/form";
 import { Scenario } from "@workspace/validators";
 
-export function PlanSection() {
+export function ScenarioSection() {
   const { control } = useFormContext<Scenario>();
 
   return (

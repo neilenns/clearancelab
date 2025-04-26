@@ -28,7 +28,10 @@ export async function postJson<T>(path: string, body: T): Promise<T | null> {
 
   const response = await fetch(`${baseUrl}${path}`, {
     method: "POST",
-    ...(apiKey ? { headers: { "x-api-key": apiKey } } : null),
+    headers: {
+      "Content-Type": "application/json",
+      ...(apiKey ? { "x-api-key": apiKey } : null),
+    },
     body: JSON.stringify(body),
   });
 
