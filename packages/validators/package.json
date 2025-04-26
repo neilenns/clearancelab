@@ -29,9 +29,6 @@
     "check-types": "tsc --noEmit",
     "test": "jest"
   },
-  "jest": {
-    "preset": "@repo/jest-presets/node"
-  },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@workspace/eslint-config": "workspace:*",
