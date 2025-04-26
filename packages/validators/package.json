@@ -1,8 +1,8 @@
 {
   "name": "@workspace/validators",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.0",
   "type": "module",
+  "private": true,
   "files": [
     "dist"
   ],
@@ -26,13 +26,19 @@
     "ci": "pnpm run build",
     "dev": "bunchee --watch",
     "lint": "eslint src/",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "@repo/jest-presets/node"
   },
   "devDependencies": {
+    "@types/node": "^22.14.0",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "@types/node": "^22.15.2",
-    "bunchee": "^6.5.1"
+    "bunchee": "^6.4.0",
+    "eslint": "^9.25.0",
+    "typescript": "5.8.2"
   },
   "dependencies": {
     "mongoose": "^8.13.2",
