@@ -16,6 +16,9 @@
         "API_BASE_URL"
       ]
     },
+    "clean": {
+      "dependsOn": ["^clean"]
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },
