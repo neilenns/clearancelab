@@ -1,1 +1,1 @@
-export * from "./random.ts";
+export * from "./random";

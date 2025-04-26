@@ -75,7 +75,7 @@ function getRandomInt(min: number, max: number): number {
  * @returns A random pilot name
  */
 export function getRandomName(): string {
-  const index = Math.floor(Math.random() * names.length);
+  const index = getRandomInt(0, names.length - 1);
   return names[index];
 }
 
@@ -103,10 +103,9 @@ export function getRandomBcn(): number {
  * @returns A random VATSIM ID
  */
 export function getRandomVatsimId(): number {
-  // VATSIM general‐member IDs start at 810 000; use up to ~1 930 000 for current accounts.
-  const min = 810_000;
-  const max = 1_930_000;
-  return getRandomInt(min, max);
+  const VATSIM_MIN_ID = 810_000;
+  const VATSIM_MAX_ID = 1_930_000;
+  return getRandomInt(VATSIM_MIN_ID, VATSIM_MAX_ID);
 }
 
 /**

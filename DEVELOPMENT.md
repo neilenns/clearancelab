@@ -1,4 +1,4 @@
-# Development Guide <!-- omit from toc -->
+# Development guide <!-- omit from toc -->
 
 Welcome to the Clearance Lab development environment! The entire project is designed for quick setup using VSCode dev containers.
 
@@ -109,11 +109,12 @@ This is a monorepo powered by **Turborepo** and **pnpm**. The structure is based
 
 In most situations, local builds should be done with the [VS Code launch commands](#available-launch-commands). To build from the command line, use the following commands:
 
-| Command       | Description                                         |
-| ------------- | --------------------------------------------------- |
-| `turbo dev`   | Build and run debuggable instances.                 |
-| `turbo ci`    | Build everything but skip static page generation.   |
-| `turbo build` | Build everything, including static page generation. |
+| Command       | Description                                             |
+| ------------- | ------------------------------------------------------- |
+| `turbo build` | Build everything, including static page generation.     |
+| `turbo ci`    | Build everything but skip static page generation.       |
+| `turbo clean` | Removes all `node_modules`, `dist` and `.next` folders. |
+| `turbo dev`   | Build and run debuggable instances.                     |
 
 ### CI builds
 
