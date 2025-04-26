@@ -103,7 +103,7 @@ The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#dep
 
 ## Build process and deployment
 
-This is a monorepo powered by **Turborepo** and **pnpm**.
+This is a monorepo powered by **Turborepo** and **pnpm**. The structure of the monorepo, and how packages are built, is based on the [kitchen-sink example from Turborepo](https://github.com/vercel/turborepo/tree/main/examples/kitchen-sink). Packages are built using [`bunchee`](https://github.com/huozhi/bunchee).
 
 ### Local builds
 
