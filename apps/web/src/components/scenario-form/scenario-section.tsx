@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Switch } from "@radix-ui/react-switch";
+import { Switch } from "../ui/switch";
 import {
   FormField,
   FormItem,
@@ -34,13 +34,15 @@ export function PlanSection() {
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
               <div className="space-y-0.5">
-                <FormLabel>Marketing emails</FormLabel>
+                <FormLabel id="valid-scenario-label">Valid scenario</FormLabel>
                 <FormDescription>
-                  Receive emails about new products, features, and more.
-                </FormDescription>
+                  Indicates whether this scenario is valid and can be used for
+                  training.
+                </FormDescription>{" "}
               </div>
               <FormControl>
                 <Switch
+                  aria-labelledby="valid-scenario-label"
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />

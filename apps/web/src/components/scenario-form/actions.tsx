@@ -3,7 +3,7 @@
 // https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja
 
 import { postJson } from "@/lib/api";
-import { Plan, PlanSchema } from "@workspace/validators";
+import { Scenario, ScenarioSchema } from "@workspace/validators";
 
 interface FormState {
   success: boolean;
@@ -11,7 +11,7 @@ interface FormState {
   errors?: Record<string, string[]>;
 }
 
-export const onSubmitPlan = async (
+export const onSubmitScenario = async (
   _prevState: FormState,
   payload: FormData
 ): Promise<FormState> => {
@@ -23,10 +23,10 @@ export const onSubmitPlan = async (
   }
 
   const formData = Object.fromEntries(payload);
-  const plan = PlanSchema.safeParse(formData);
+  const Scenario = ScenarioSchema.safeParse(formData);
 
-  if (!plan.success) {
-    const errors = plan.error.flatten().fieldErrors;
+  if (!Scenario.success) {
+    const errors = Scenario.error.flatten().fieldErrors;
     const fields: Record<string, string> = {};
 
     for (const key of Object.keys(formData)) {
@@ -42,7 +42,7 @@ export const onSubmitPlan = async (
   }
 
   try {
-    const response = await postJson<Plan>("/scenarios", plan.data);
+    const response = await postJson<Scenario>("/scenarios", Scenario.data);
 
     if (!response) {
       return {

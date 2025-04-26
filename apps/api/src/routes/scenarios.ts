@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
 import mongoose from "mongoose";
-import { logger } from "../lib/logger.js";
 import { verifyApiKey } from "../middleware/apikey.js";
 import { ScenarioModel } from "../models/Scenario.js";
 import { Scenario, ScenarioSchema } from "@workspace/validators";
@@ -61,7 +60,12 @@ router.get(
 
 router.post(
   "/",
-  async (req: Request<unknown, unknown, Scenario>, res: Response) => {
+  verifyApiKey,
+  async (
+    req: Request<unknown, unknown, Scenario>,
+    res: Response,
+    next: NextFunction
+  ) => {
     const result = ScenarioSchema.safeParse(req.body);
 
     if (!result.success) {
@@ -81,12 +85,7 @@ router.post(
 
       return;
     } catch (err: unknown) {
-      const error = err as Error;
-
-      logger.error(`Failed to save new scenario: ${error.message}`);
-      res.status(500).json({ error: "Failed to save new scenario." });
-
-      return;
+      next(err);
     }
   }
 );

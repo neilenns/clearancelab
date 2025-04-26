@@ -14,7 +14,7 @@ import { Scenario, ScenarioSchema } from "@workspace/validators";
 import { Loader2 } from "lucide-react";
 import { useActionState } from "react";
 import { useForm } from "react-hook-form";
-import { onSubmitPlan as onSubmitScenario } from "./actions";
+import { onSubmitScenario } from "./actions";
 import { PlanSection } from "./plan-section";
 
 const defaultValues = {
@@ -62,8 +62,13 @@ export function ScenarioForm() {
             Save
           </Button>
         ) : (
-          <Button className="w-[125px]" disabled>
-            <Loader2 className="animate-spin" />
+          <Button
+            aria-busy="true"
+            aria-label="Saving scenario"
+            className="w-[125px]"
+            disabled
+          >
+            <Loader2 className="animate-spin" aria-hidden="true" />
             Save
           </Button>
         )}
