@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
 import rateLimit from "express-rate-limit";
-import { ApiKeyModel } from "../models/ApiKey.js";
+import { ApiKeyModel } from "../models/apiKey.js";
 import { ENV } from "../lib/env.js";
 
 const apiKeyLimiter = rateLimit({

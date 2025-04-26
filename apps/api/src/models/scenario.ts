@@ -1,11 +1,10 @@
 import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
-import "./AirportInfo.js";
-import { AirportInfoData } from "./AirportInfo.js";
-import mongooseLeanVirtuals from "mongoose-lean-virtuals";
+import "./airportInfo.js";
+import { AirportInfoData } from "./airportInfo.js";
 
 // Combined schema data interface
-export interface ScenarioData {
+export interface Scenario {
   _id: Types.ObjectId;
   plan: {
     pilotName?: string;
@@ -22,7 +21,6 @@ export interface ScenarioData {
     rte: string;
     rmk?: string;
     raw?: string;
-    airportConditions?: string;
   };
   craft?: {
     altitude?: string;
@@ -42,16 +40,17 @@ export interface ScenarioData {
   }[];
   isValid: boolean;
   canClear: boolean;
+  airportConditions?: string;
 }
 
 // Static method interface
-export interface ScenarioModelType extends Model<ScenarioData> {
-  findScenarioById(id: string): Promise<ScenarioData | null>;
-  findAll(summary: boolean): Promise<Partial<ScenarioData[]>>;
+export interface ScenarioModelType extends Model<Scenario> {
+  findScenarioById(id: string): Promise<Scenario | null>;
+  findAll(summary: boolean): Promise<Partial<Scenario>[]>;
 }
 
 // Define schema
-const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
+const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
   {
     plan: {
       pilotName: { type: String },
@@ -72,7 +71,6 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
       rte: { type: String, required: true },
       rmk: { type: String },
       raw: { type: String },
-      airportConditions: { type: String },
     },
     craft: {
       altitude: { type: String, trim: true },
@@ -113,6 +111,9 @@ const ScenarioSchema = new Schema<ScenarioData, ScenarioModelType>(
       ],
       default: [],
     },
+    isValid: { type: Boolean, default: true },
+    canClear: { type: Boolean, default: true },
+    airportConditions: { type: String, required: false },
   },
   {
     collection: "scenarios",
@@ -136,30 +137,20 @@ ScenarioSchema.virtual("destAirportInfo", {
   justOne: true, // Only one airport info per scenario
 });
 
-// Ensure virtuals are included when converting to JSON or Object
-ScenarioSchema.set("toObject", { virtuals: true });
-ScenarioSchema.set("toJSON", { virtuals: true });
-ScenarioSchema.plugin(mongooseLeanVirtuals);
-
-// Add virtuals for isValid and canClear based on whether there are problems.
-ScenarioSchema.virtual("isValid").get(function () {
-  return !this.problems.some((problem) => problem.level !== "info");
-});
-
-ScenarioSchema.virtual("canClear").get(function () {
-  return !this.problems.some((problem) => problem.level === "error");
-});
-
 // Static methods
 ScenarioSchema.statics.findScenarioById = function (
   id: string
-): Promise<ScenarioData | null> {
+): Promise<Scenario | null> {
   try {
-    return this.findById(id)
-      .populate("depAirportInfo") // Populate the departure airport info
-      .populate("destAirportInfo") // Populate the destination airport info
-      .lean({ virtuals: true })
-      .exec();
+    return (
+      this.findById(id)
+        // I have no idea why this is including all the matched scenarios in a matchedScenarios
+        // field. Force exclude them so I can move on to other things.
+        .populate("depAirportInfo", "-matchedScenarios") // Populate the departure airport info
+        .populate("destAirportInfo", "-matchedScenarios") // Populate the destination airport info
+        .lean()
+        .exec()
+    );
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error));
 
@@ -170,26 +161,24 @@ ScenarioSchema.statics.findScenarioById = function (
 
 ScenarioSchema.statics.findAll = async function (
   summary: boolean
-): Promise<Partial<ScenarioData>[]> {
+): Promise<Partial<Scenario>[]> {
   try {
     if (summary) {
-      // Results has to include "problems" so isValid and canClear can be calculated.
       const results = await this.find({})
         .select(
-          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt problems"
+          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt"
         )
-        .lean({ virtuals: ["isValid", "canClear"] })
+        .lean()
         .exec();
 
-      // We need to strip out the problems field from the results after it was used
-      // to calculate isValid and canClear, as we don't want to expose the full problems
-      // array in summary mode to reduce payload size.
-      return results.map(({ problems: _problems, ...rest }) => rest);
+      return results;
     }
 
     return await this.find({})
-      .populate("depAirportInfo") // Populate the departure airport info
-      .populate("destAirportInfo") // Populate the destination airport info
+      // I have no idea why this is including all the matched scenarios in a matchedScenarios
+      // field. Force exclude them so I can move on to other things.
+      .populate("depAirportInfo", "-matchedScenarios") // Populate the departure airport info
+      .populate("destAirportInfo", "-matchedScenarios") // Populate the destination airport info
       .lean({ virtuals: true })
       .exec();
   } catch (error) {
@@ -201,7 +190,7 @@ ScenarioSchema.statics.findAll = async function (
 };
 
 // Export model
-export const ScenarioModel = model<ScenarioData, ScenarioModelType>(
+export const ScenarioModel = model<Scenario, ScenarioModelType>(
   "Scenario",
   ScenarioSchema
 );

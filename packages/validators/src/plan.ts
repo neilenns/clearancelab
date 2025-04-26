@@ -2,8 +2,7 @@ import { z } from "zod";
 
 export const PlanSchema = z.object({
   aid: z.string(),
-  airportConditions: z.string().optional(),
-  alt: z.string().optional(),
+  alt: z.coerce.number().optional(),
   bcn: z.coerce.number().optional(),
   cid: z.coerce.number().optional(),
   dep: z.string().optional(),

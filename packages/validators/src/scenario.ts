@@ -11,11 +11,12 @@ export const ScenarioSchema = z.object({
       message: "Invalid ObjectId format",
     }),
   ]),
-  canClear: z.boolean(),
-  craft: CraftSchema,
-  depAirportInfo: AirportInfoSchema,
-  destAirportInfo: AirportInfoSchema,
-  isValid: z.boolean(),
+  isValid: z.boolean().default(true),
+  canClear: z.boolean().default(true),
+  airportConditions: z.string().optional(),
+  craft: CraftSchema.optional(),
+  depAirportInfo: AirportInfoSchema.optional(),
+  destAirportInfo: AirportInfoSchema.optional(),
   plan: PlanSchema,
 });
 
