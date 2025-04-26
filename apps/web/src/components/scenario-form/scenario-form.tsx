@@ -25,8 +25,6 @@ export function ScenarioForm() {
       bcn: getRandomBcn(),
       vatsimId: getRandomVatsimId(),
       pilotName: getRandomName(),
-      airportConditions: "",
-      alt: "",
       dep: "",
       dest: "",
       eq: "",

@@ -8,6 +8,10 @@
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "cf-deploy": {
+      "dependsOn": [
+        "@workspace/validators#build",
+        "@workspace/plantools#build"
+      ],
       "cache": false,
       "env": [
         "CLOUDFLARE_API_TOKEN",
@@ -24,7 +28,6 @@
       "dependsOn": ["^lint"]
     },
     "ci": {
-      "dependsOn": ["^ci"],
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
