@@ -10,33 +10,30 @@ import {
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
-import { Plan, PlanSchema } from "@workspace/validators";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
+import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
 
 export function ScenarioForm() {
-  const form = useForm<Plan>({
-    resolver: zodResolver(PlanSchema),
+  const form = useForm<ScenarioInput>({
+    resolver: zodResolver(ScenarioSchema),
     mode: "onChange",
     defaultValues: {
-      aid: getRandomCallsign(),
-      cid: getRandomCid(),
-      bcn: getRandomBcn(),
-      vatsimId: getRandomVatsimId(),
-      pilotName: getRandomName(),
-      dep: "",
-      dest: "",
-      eq: "",
-      raw: "",
-      rmk: "",
-      rte: "",
-      typ: "",
+      plan: {
+        aid: getRandomCallsign(),
+        bcn: getRandomBcn(),
+        cid: getRandomCid(),
+        pilotName: getRandomName(),
+        vatsimId: getRandomVatsimId(),
+      },
+      isValid: true,
+      canClear: true,
     },
   });
 
-  function onSubmit(values: Plan) {
-    toast.success(`Saved ${values.pilotName ?? ""}!`);
+  function onSubmit(values: ScenarioInput) {
+    toast.success(`Saved ${values.plan.aid}!`);
   }
 
   return (
