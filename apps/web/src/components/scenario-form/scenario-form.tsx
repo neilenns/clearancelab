@@ -3,72 +3,47 @@
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  getRandomBcn,
-  getRandomCallsign,
-  getRandomCid,
-  getRandomName,
-  getRandomVatsimId,
-} from "@workspace/plantools";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
 import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
 import { ScenarioOverview } from "./scenario-overview";
 import { CraftSection } from "./craft-section";
+import { useActionState } from "react";
+import { addScenario } from "./actions";
 
-export function ScenarioForm() {
-  const form = useForm<ScenarioInput>({
-    resolver: zodResolver(ScenarioSchema),
-    mode: "onChange",
-    defaultValues: {
-      plan: {
-        aid: getRandomCallsign(),
-        bcn: getRandomBcn(),
-        cid: getRandomCid(),
-        pilotName: getRandomName(),
-        vatsimId: getRandomVatsimId(),
-        dep: "",
-        dest: "",
-        typ: "",
-        eq: "",
-        rte: "",
-        rmk: "",
-        raw: "",
-        spd: 0,
-        alt: 0,
-      },
-      isValid: true,
-      canClear: true,
-      craft: {
-        clearanceLimit: "",
-        route: "",
-        altitude: "",
-        frequency: "",
-        transponder: "",
-      },
-      airportConditions: "",
-    },
+export interface ScenarioFormState {
+  errors: Record<string, { message: string }>;
+  values: ScenarioInput;
+}
+
+export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
+  const [state, formAction, isPending] = useActionState(addScenario, {
+    values,
+    errors: {},
   });
 
-  function onSubmit(_values: ScenarioInput) {
-    toast.success(`Scenario saved`);
-  }
+  const form = useForm<ScenarioInput>({
+    resolver: zodResolver(ScenarioSchema),
+    errors: state.errors,
+    mode: "onBlur",
+    values: state.values,
+  });
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={(e) => {
-          void form.handleSubmit(onSubmit)(e);
-        }}
-        className="space-y-8"
-      >
+      {
+        // This extra form element is required to get the action attribute. Shadcn's Form
+        // component does not expose it.
+      }
+      <form action={formAction} className="space-y-4">
         <ScenarioOverview />
         <PlanSection />
         <CraftSection />
 
-        <Button type="submit">Save</Button>
+        <Button type="submit" disabled={isPending}>
+          Save
+        </Button>
       </form>
     </Form>
   );
-}
+};
