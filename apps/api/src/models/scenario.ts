@@ -2,7 +2,6 @@ import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
 import "./airportInfo.js";
 import { AirportInfoData } from "./airportInfo.js";
-import mongooseLeanVirtuals from "mongoose-lean-virtuals";
 
 // Combined schema data interface
 export interface Scenario {
@@ -138,21 +137,20 @@ ScenarioSchema.virtual("destAirportInfo", {
   justOne: true, // Only one airport info per scenario
 });
 
-// Ensure virtuals are included when converting to JSON or Object
-ScenarioSchema.set("toObject", { virtuals: true });
-ScenarioSchema.set("toJSON", { virtuals: true });
-ScenarioSchema.plugin(mongooseLeanVirtuals);
-
 // Static methods
 ScenarioSchema.statics.findScenarioById = function (
   id: string
 ): Promise<Scenario | null> {
   try {
-    return this.findById(id)
-      .populate("depAirportInfo") // Populate the departure airport info
-      .populate("destAirportInfo") // Populate the destination airport info
-      .lean({ virtuals: true })
-      .exec();
+    return (
+      this.findById(id)
+        // I have no idea why this is including all the matched scenarios in a matchedScenarios
+        // field. Force exclude them so I can move on to other things.
+        .populate("depAirportInfo", "-matchedScenarios") // Populate the departure airport info
+        .populate("destAirportInfo", "-matchedScenarios") // Populate the destination airport info
+        .lean()
+        .exec()
+    );
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error));
 
@@ -177,8 +175,10 @@ ScenarioSchema.statics.findAll = async function (
     }
 
     return await this.find({})
-      .populate("depAirportInfo") // Populate the departure airport info
-      .populate("destAirportInfo") // Populate the destination airport info
+      // I have no idea why this is including all the matched scenarios in a matchedScenarios
+      // field. Force exclude them so I can move on to other things.
+      .populate("depAirportInfo", "-matchedScenarios") // Populate the departure airport info
+      .populate("destAirportInfo", "-matchedScenarios") // Populate the destination airport info
       .lean({ virtuals: true })
       .exec();
   } catch (error) {
