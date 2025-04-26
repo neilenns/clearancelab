@@ -1,12 +1,10 @@
 {
   "extends": "@workspace/typescript-config/base.json",
-  "moduleResolution": "nodenext",
-  "moduleDetection": "force",
-  "module": "NodeNext",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@workspace/plantools/*": ["./src/*"]
-    }
-  }
+    "lib": ["ES2015"],
+    "outDir": "./dist",
+    "types": ["node"]
+  },
+  "include": ["."],
+  "exclude": ["node_modules", "dist"]
 }
