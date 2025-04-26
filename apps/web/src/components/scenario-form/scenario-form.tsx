@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
 import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
+import { ScenarioOverview } from "./scenario-overview";
 
 export function ScenarioForm() {
   const form = useForm<ScenarioInput>({
@@ -45,6 +46,7 @@ export function ScenarioForm() {
         className="space-y-8"
       >
         <PlanSection />
+        <ScenarioOverview />
         <Button type="submit">Save</Button>
       </form>
     </Form>

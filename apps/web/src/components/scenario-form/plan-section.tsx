@@ -26,7 +26,7 @@ import { Input } from "../ui/input";
 import { PasteScenarioDialog } from "./paste-scenario-dialog";
 
 export function PlanSection() {
-  const { control } = useFormContext();
+  const { control } = useFormContext<ScenarioInput>();
 
   return (
     <Card>
