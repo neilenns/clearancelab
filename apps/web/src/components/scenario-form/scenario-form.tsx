@@ -36,6 +36,7 @@ const defaultValues = {
     typ: "",
   },
   isValid: true,
+  canClear: true,
 } as Scenario;
 
 export function ScenarioForm() {
@@ -45,14 +46,12 @@ export function ScenarioForm() {
     defaultValues,
   });
 
-  const [formState, submitScenarioAction, isPending] = useActionState(
+  const [_formState, submitScenarioAction, isPending] = useActionState(
     onSubmitScenario,
     {
       success: false,
     }
   );
-
-  console.log("fields returned: ", { ...(formState.fields ?? {}) });
 
   return (
     <Form {...form}>
