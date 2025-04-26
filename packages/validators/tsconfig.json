@@ -1,12 +1,10 @@
 {
   "extends": "@workspace/typescript-config/base.json",
   "compilerOptions": {
-    "moduleResolution": "nodenext",
-    "moduleDetection": "force",
-    "module": "NodeNext",
-    "baseUrl": ".",
-    "paths": {
-      "@workspace/validators/*": ["./src/*"]
-    }
-  }
+    "lib": ["ES2015"],
+    "outDir": "./dist",
+    "types": ["node"]
+  },
+  "include": ["."],
+  "exclude": ["node_modules", "dist"]
 }
