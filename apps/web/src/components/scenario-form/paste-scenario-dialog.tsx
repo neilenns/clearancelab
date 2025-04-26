@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { Plan, PlanSchema } from "@workspace/validators/plan";
 import { Textarea } from "../ui/textarea";
 import {
   Dialog,
@@ -15,6 +14,7 @@ import {
 } from "../ui/dialog";
 import { AlertTriangleIcon, ImportIcon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Plan, PlanSchema } from "@workspace/validators";
 
 export function PasteScenarioDialog() {
   const form = useFormContext();
