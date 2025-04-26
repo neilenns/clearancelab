@@ -14,16 +14,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { PasteScenarioDialog } from "./paste-scenario-dialog";
+import { ScenarioInput } from "@workspace/validators";
 
 export function PlanSection() {
   const { control } = useFormContext<ScenarioInput>();

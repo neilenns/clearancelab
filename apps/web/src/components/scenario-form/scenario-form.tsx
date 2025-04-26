@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { PlanSection } from "./plan-section";
 import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
 import { ScenarioOverview } from "./scenario-overview";
+import { CraftSection } from "./craft-section";
 
 export function ScenarioForm() {
   const form = useForm<ScenarioInput>({
@@ -27,14 +28,31 @@ export function ScenarioForm() {
         cid: getRandomCid(),
         pilotName: getRandomName(),
         vatsimId: getRandomVatsimId(),
+        dep: "",
+        dest: "",
+        typ: "",
+        eq: "",
+        rte: "",
+        rmk: "",
+        raw: "",
+        spd: 0,
+        alt: 0,
       },
       isValid: true,
       canClear: true,
+      craft: {
+        clearanceLimit: "",
+        route: "",
+        altitude: "",
+        frequency: "",
+        transponder: "",
+      },
+      airportConditions: "",
     },
   });
 
-  function onSubmit(values: ScenarioInput) {
-    toast.success(`Saved ${values.plan.aid}!`);
+  function onSubmit(_values: ScenarioInput) {
+    toast.success(`Scenario saved`);
   }
 
   return (
@@ -45,8 +63,10 @@ export function ScenarioForm() {
         }}
         className="space-y-8"
       >
-        <PlanSection />
         <ScenarioOverview />
+        <PlanSection />
+        <CraftSection />
+
         <Button type="submit">Save</Button>
       </form>
     </Form>
