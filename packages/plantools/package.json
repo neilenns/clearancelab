@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build": "bunchee",
-    "dev": "bunchee --sourcemap --watch",
+    "build:watch": "bunchee --sourcemap --watch",
     "ci": "pnpm run build",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit",
