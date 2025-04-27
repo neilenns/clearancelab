@@ -13,7 +13,11 @@ import { onSubmitScenario } from "./actions";
 import { toast } from "sonner";
 import { getRandomScenario } from "@workspace/plantools";
 
-export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
+export const ScenarioForm = ({
+  defaultValues,
+}: {
+  defaultValues: ScenarioInput;
+}) => {
   const [formState, formAction, isPending] = useActionState(onSubmitScenario, {
     success: false,
   });
@@ -21,7 +25,7 @@ export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
   const form = useForm<ScenarioInput>({
     resolver: zodResolver(ScenarioSchema),
     mode: "onTouched",
-    defaultValues: values,
+    defaultValues,
   });
 
   const { reset } = form;
