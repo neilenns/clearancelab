@@ -9,8 +9,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Scenario } from "@workspace/validators";
-import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
+import { ReactFormSwitch } from "@/components/ui/react-form-switch";
 
 export function ScenarioOverview() {
   const { control } = useFormContext<Scenario>();
@@ -33,17 +33,7 @@ export function ScenarioOverview() {
                     Is the flight plan completely correct with no errors?
                   </FormDescription>
                   <FormControl>
-                    <div>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                      <input
-                        type="hidden"
-                        name={field.name}
-                        value={field.value ? "true" : "false"}
-                      />
-                    </div>
+                    <ReactFormSwitch field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -62,17 +52,7 @@ export function ScenarioOverview() {
                     Can the flight plan be cleared, even with errors?
                   </FormDescription>
                   <FormControl>
-                    <div>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                      <input
-                        type="hidden"
-                        name={field.name}
-                        value={field.value ? "true" : "false"}
-                      />
-                    </div>
+                    <ReactFormSwitch field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
