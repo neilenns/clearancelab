@@ -5,18 +5,18 @@ import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { PlanSection } from "./plan-section";
-import { Scenario, ScenarioSchema } from "@workspace/validators";
+import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
 import { ScenarioOverview } from "./scenario-overview";
 import { CraftSection } from "./craft-section";
 import { useActionState, useEffect } from "react";
 import { onSubmitScenario } from "./actions";
 
-export const ScenarioForm = ({ values }: { values: Scenario }) => {
+export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
   const [formState, formAction, isPending] = useActionState(onSubmitScenario, {
     success: false,
   });
 
-  const form = useForm<Scenario>({
+  const form = useForm<ScenarioInput>({
     resolver: zodResolver(ScenarioSchema),
     mode: "onTouched",
     values,

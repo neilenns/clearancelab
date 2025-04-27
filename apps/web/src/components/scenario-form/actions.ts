@@ -1,6 +1,7 @@
 "use server";
 
 import { postJson } from "@/lib/api";
+import { unflatten } from "@workspace/plantools";
 import { Scenario, ScenarioSchema } from "@workspace/validators";
 
 interface ScenarioFormState {
@@ -8,6 +9,14 @@ interface ScenarioFormState {
   message?: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
+}
+
+function assertObject(
+  value: unknown
+): asserts value is Record<string, unknown> {
+  if (typeof value !== "object" || value === null) {
+    throw new Error("Expected an object");
+  }
 }
 
 // A lot of how this woks comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
@@ -22,7 +31,20 @@ export const onSubmitScenario = async (
     };
   }
 
-  const formData = Object.fromEntries(payload);
+  const formData = unflatten(Object.fromEntries(payload));
+
+  // Fix up the booleans
+  formData.isValid = formData.isValid === "true" || formData.isValid === true;
+  formData.canClear =
+    formData.canClear === "true" || formData.canClear === true;
+
+  assertObject(formData.plan);
+  formData.plan.alt = Number(formData.plan.alt);
+  formData.plan.bcn = Number(formData.plan.bcn);
+  formData.plan.cid = Number(formData.plan.cid);
+  formData.plan.spd = Number(formData.plan.spd);
+  formData.plan.vatsimId = Number(formData.plan.vatsimId);
+
   const scenario = ScenarioSchema.safeParse(formData);
 
   if (!scenario.success) {
