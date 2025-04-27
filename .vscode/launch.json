@@ -4,7 +4,7 @@
     {
       "name": "Clearance Lab (All)",
       "type": "node-terminal",
-      "command": "pnpx turbo watch dev",
+      "command": "pnpx turbo run dev",
       "request": "launch",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
@@ -17,7 +17,7 @@
     {
       "name": "Clearance Lab (Web)",
       "type": "node-terminal",
-      "command": "pnpx turbo watch dev --filter web",
+      "command": "pnpx turbo run dev --filter web",
       "internalConsoleOptions": "neverOpen",
       "request": "launch",
       "serverReadyAction": {
@@ -31,7 +31,7 @@
     {
       "name": "Clearance Lab (API)",
       "type": "node-terminal",
-      "command": "pnpx turbo watch dev --filter api",
+      "command": "pnpx turbo run dev --filter api",
       "request": "launch"
     }
   ]
