@@ -18,9 +18,10 @@ export const ScenarioForm = ({
 }: {
   defaultValues: ScenarioInput;
 }) => {
-  const [formState, formAction, isPending] = useActionState(onSubmitScenario, {
-    success: false,
-  });
+  const [formState, formAction, isPending] = useActionState(
+    onSubmitScenario,
+    null
+  );
 
   const form = useForm<ScenarioInput>({
     resolver: zodResolver(ScenarioSchema),
@@ -32,12 +33,19 @@ export const ScenarioForm = ({
 
   // Reset the form when the submit is successful.
   useEffect(() => {
-    if (formState.success) {
-      toast.success("Scenario saved successfully");
-      // This seems really wrong to just directly set, but it seems to work.
-      formState.success = false;
-      reset(getRandomScenario());
+    if (!formState) {
+      return;
     }
+
+    if (!formState.success) {
+      toast.error("Error saving scenario");
+      return;
+    }
+
+    toast.success("Scenario saved successfully");
+    // This seems really wrong to just directly set, but it seems to work.
+    formState.success = false;
+    reset(getRandomScenario());
   }, [reset, formAction, formState]);
 
   return (

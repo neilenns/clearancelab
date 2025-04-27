@@ -4,12 +4,12 @@ import { postJson } from "@/lib/api";
 import { unflatten } from "@workspace/plantools";
 import { Scenario, ScenarioSchema } from "@workspace/validators";
 
-interface ScenarioFormState {
+type ScenarioFormState = {
   success: boolean;
   message?: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
-}
+} | null;
 
 function assertObject(
   value: unknown
