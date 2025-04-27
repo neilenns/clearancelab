@@ -32,11 +32,9 @@
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
+    "dev-setup": {},
     "dev": {
-      "dependsOn": [
-        "@workspace/validators#build",
-        "@workspace/plantools#build"
-      ],
+      "dependsOn": ["^dev-setup"],
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
       "persistent": true,
       "cache": false
