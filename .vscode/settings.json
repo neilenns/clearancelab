@@ -20,6 +20,7 @@
     "healthcheck",
     "highgate",
     "Hoverable",
+    "interruptible",
     "logform",
     "mongoimport",
     "mongosh",
