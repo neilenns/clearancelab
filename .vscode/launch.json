@@ -23,7 +23,7 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["exec", "turbo", "run", "web#dev"],
+      "runtimeArgs": ["exec", "turbo", "run", "dev", "--filter", "web..."],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "restart": false,
@@ -40,7 +40,7 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["exec", "turbo", "run", "api#dev"],
+      "runtimeArgs": ["exec", "turbo", "run", "dev", "--filter", "api..."],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "restart": false
