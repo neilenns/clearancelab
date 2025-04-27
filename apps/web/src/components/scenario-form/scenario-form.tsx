@@ -10,6 +10,7 @@ import { ScenarioOverview } from "./scenario-overview";
 import { CraftSection } from "./craft-section";
 import { useActionState, useEffect } from "react";
 import { onSubmitScenario } from "./actions";
+import { toast } from "sonner";
 
 export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
   const [formState, formAction, isPending] = useActionState(onSubmitScenario, {
@@ -22,20 +23,16 @@ export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
     values,
   });
 
-  const {
-    reset,
-    formState: { isSubmitSuccessful },
-  } = form;
-
-  console.log(formState);
-  console.log("fields returned: ", { ...(formState.fields ?? {}) });
+  const { reset } = form;
 
   // Reset the form when the submit is successful.
   useEffect(() => {
-    if (isSubmitSuccessful && formState.success) {
+    if (formState.success) {
+      toast.success("Scenario saved successfully");
+      formState.success = false;
       reset();
     }
-  }, [reset, isSubmitSuccessful, formState.success]);
+  }, [reset, formAction, formState]);
 
   return (
     <Form {...form}>

@@ -38,6 +38,7 @@ export const onSubmitScenario = async (
   formData.canClear =
     formData.canClear === "true" || formData.canClear === true;
 
+  // Fix up the numbers
   assertObject(formData.plan);
   formData.plan.alt = Number(formData.plan.alt);
   formData.plan.bcn = Number(formData.plan.bcn);
