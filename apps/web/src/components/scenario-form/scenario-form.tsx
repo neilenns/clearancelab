@@ -8,27 +8,34 @@ import { PlanSection } from "./plan-section";
 import { Scenario, ScenarioSchema } from "@workspace/validators";
 import { ScenarioOverview } from "./scenario-overview";
 import { CraftSection } from "./craft-section";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { onSubmitScenario } from "./actions";
 
-export interface ScenarioFormState {
-  errors?: Record<string, string[]>;
-  values?: Scenario;
-  success?: boolean;
-}
-
 export const ScenarioForm = ({ values }: { values: Scenario }) => {
-  const [state, formAction, isPending] = useActionState(onSubmitScenario, {
-    values,
-    errors: {},
+  const [formState, formAction, isPending] = useActionState(onSubmitScenario, {
+    success: false,
   });
 
   const form = useForm<Scenario>({
     resolver: zodResolver(ScenarioSchema),
-    errors: state.errors,
-    mode: "onBlur",
-    values: state.values,
+    mode: "onTouched",
+    values,
   });
+
+  const {
+    reset,
+    formState: { isSubmitSuccessful },
+  } = form;
+
+  console.log(formState);
+  console.log("fields returned: ", { ...(formState.fields ?? {}) });
+
+  // Reset the form when the submit is successful.
+  useEffect(() => {
+    if (isSubmitSuccessful && formState.success) {
+      reset();
+    }
+  }, [reset, isSubmitSuccessful, formState.success]);
 
   return (
     <Form {...form}>

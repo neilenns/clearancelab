@@ -1,9 +1,16 @@
 "use server";
 
 import { postJson } from "@/lib/api";
-import { ScenarioFormState } from "./scenario-form";
 import { Scenario, ScenarioSchema } from "@workspace/validators";
 
+interface ScenarioFormState {
+  success: boolean;
+  message?: string;
+  fields?: Record<string, string>;
+  errors?: Record<string, string[]>;
+}
+
+// A lot of how this woks comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
 export const onSubmitScenario = async (
   _prevState: ScenarioFormState,
   payload: FormData
@@ -11,7 +18,7 @@ export const onSubmitScenario = async (
   if (!(payload instanceof FormData)) {
     return {
       success: false,
-      errors: { error: ["Invalid form data."] },
+      message: "Invalid payload",
     };
   }
 
@@ -23,12 +30,14 @@ export const onSubmitScenario = async (
     const fields: Record<string, string> = {};
 
     for (const key of Object.keys(formData)) {
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      fields[key] = formData[key].toString();
+      fields[key] = JSON.stringify(formData[key]);
     }
+
+    console.log(`Schema validation errors: ${JSON.stringify(errors)}`);
 
     return {
       success: false,
+      fields,
       errors,
     };
   }
@@ -39,7 +48,7 @@ export const onSubmitScenario = async (
     if (!response) {
       return {
         success: false,
-        errors: { error: ["Unable to save the scenario."] },
+        message: "Unable to save the scenario.",
       };
     }
   } catch (err) {
@@ -48,5 +57,6 @@ export const onSubmitScenario = async (
 
   return {
     success: true,
+    message: "Scenario saved!",
   };
 };
