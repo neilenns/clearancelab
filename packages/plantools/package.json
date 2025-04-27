@@ -6,23 +6,18 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/es/index.js",
-  "module": "./dist/es/index.js",
-  "types": "./dist/es/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/es/index.d.ts",
-        "default": "./dist/es/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       }
     }
   },
   "scripts": {
-    "build": "bunchee",
+    "build": "tsup",
     "dev-setup": "pnpm run build",
     "ci": "pnpm run build",
     "lint": "eslint src/",
@@ -36,6 +31,7 @@
     "bunchee": "^6.4.0",
     "eslint": "^9.25.0",
     "rimraf": "^6.0.1",
+    "tsup": "^8.4.0",
     "typescript": "^5.8.0"
   }
 }
