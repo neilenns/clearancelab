@@ -3,13 +3,9 @@
   "configurations": [
     {
       "name": "Clearance Lab (All)",
-      "type": "node",
+      "type": "node-terminal",
+      "command": "pnpx turbo watch dev",
       "request": "launch",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["exec", "turbo", "watch", "dev"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "restart": false,
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s/admin/scenarios/new",
@@ -20,13 +16,10 @@
     },
     {
       "name": "Clearance Lab (Web)",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["exec", "turbo", "watch", "dev", "--filter", "web"],
-      "console": "integratedTerminal",
+      "type": "node-terminal",
+      "command": "pnpx turbo watch dev --filter web",
       "internalConsoleOptions": "neverOpen",
-      "restart": false,
+      "request": "launch",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
@@ -37,13 +30,9 @@
     },
     {
       "name": "Clearance Lab (API)",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["exec", "turbo", "watch", "dev", "--filter", "api"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "restart": false
+      "type": "node-terminal",
+      "command": "pnpx turbo watch dev --filter api",
+      "request": "launch"
     }
   ]
 }
