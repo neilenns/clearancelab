@@ -13,8 +13,8 @@ export const ScenarioSchema = z.object({
       }),
     ])
     .optional(),
-  isValid: z.boolean().default(true),
-  canClear: z.boolean().default(true),
+  isValid: z.boolean(),
+  canClear: z.boolean(),
   airportConditions: z.string().optional(),
   craft: CraftSchema.optional(),
   depAirportInfo: AirportInfoSchema.optional(),
@@ -22,5 +22,4 @@ export const ScenarioSchema = z.object({
   plan: PlanSchema,
 });
 
-export type ScenarioInput = z.input<typeof ScenarioSchema>;
 export type Scenario = z.infer<typeof ScenarioSchema>;

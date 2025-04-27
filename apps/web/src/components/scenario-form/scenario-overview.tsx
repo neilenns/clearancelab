@@ -8,12 +8,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ScenarioInput } from "@workspace/validators";
+import { Scenario } from "@workspace/validators";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 
 export function ScenarioOverview() {
-  const { control } = useFormContext<ScenarioInput>();
+  const { control } = useFormContext<Scenario>();
 
   return (
     <Card>
@@ -33,10 +33,17 @@ export function ScenarioOverview() {
                     Is the flight plan completely correct with no errors?
                   </FormDescription>
                   <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <div>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <input
+                        type="hidden"
+                        name={field.name}
+                        value={field.value ? "true" : "false"}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -55,10 +62,17 @@ export function ScenarioOverview() {
                     Can the flight plan be cleared, even with errors?
                   </FormDescription>
                   <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <div>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <input
+                        type="hidden"
+                        name={field.name}
+                        value={field.value ? "true" : "false"}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

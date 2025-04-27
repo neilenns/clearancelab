@@ -5,7 +5,7 @@ import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { PlanSection } from "./plan-section";
-import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
+import { Scenario, ScenarioSchema } from "@workspace/validators";
 import { ScenarioOverview } from "./scenario-overview";
 import { CraftSection } from "./craft-section";
 import { useActionState } from "react";
@@ -13,17 +13,17 @@ import { onSubmitScenario } from "./actions";
 
 export interface ScenarioFormState {
   errors?: Record<string, string[]>;
-  values?: ScenarioInput;
+  values?: Scenario;
   success?: boolean;
 }
 
-export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
+export const ScenarioForm = ({ values }: { values: Scenario }) => {
   const [state, formAction, isPending] = useActionState(onSubmitScenario, {
     values,
     errors: {},
   });
 
-  const form = useForm<ScenarioInput>({
+  const form = useForm<Scenario>({
     resolver: zodResolver(ScenarioSchema),
     errors: state.errors,
     mode: "onBlur",

@@ -2,7 +2,7 @@
 
 import { postJson } from "@/lib/api";
 import { ScenarioFormState } from "./scenario-form";
-import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
+import { Scenario, ScenarioSchema } from "@workspace/validators";
 
 export const onSubmitScenario = async (
   _prevState: ScenarioFormState,
@@ -34,7 +34,7 @@ export const onSubmitScenario = async (
   }
 
   try {
-    const response = await postJson<ScenarioInput>("/scenarios", scenario.data);
+    const response = await postJson<Scenario>("/scenarios", scenario.data);
 
     if (!response) {
       return {
