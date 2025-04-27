@@ -6,7 +6,6 @@
       "type": "node-terminal",
       "command": "pnpx turbo watch dev",
       "request": "launch",
-      "internalConsoleOptions": "neverOpen",
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s/admin/scenarios/new",
@@ -33,7 +32,6 @@
       "name": "Clearance Lab (API)",
       "type": "node-terminal",
       "command": "pnpx turbo watch dev --filter api",
-      "internalConsoleOptions": "neverOpen",
       "request": "launch"
     }
   ]
