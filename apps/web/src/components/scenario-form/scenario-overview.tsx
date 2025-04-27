@@ -22,7 +22,7 @@ export function ScenarioOverview() {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
-          <div className="col-span-3">
+          <div className="col-span-4">
             <FormField
               control={control}
               name="isValid"
@@ -41,7 +41,7 @@ export function ScenarioOverview() {
             />
           </div>
 
-          <div className="col-span-3">
+          <div className="col-span-4">
             <FormField
               control={control}
               name="canClear"
