@@ -3,9 +3,13 @@
   "configurations": [
     {
       "name": "Clearance Lab (All)",
-      "type": "node-terminal",
+      "type": "node",
       "request": "launch",
-      "command": "pnpx turbo dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "turbo", "dev"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "restart": false,
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s/admin/scenarios/new",
@@ -16,9 +20,13 @@
     },
     {
       "name": "Clearance Lab (Web)",
-      "type": "node-terminal",
+      "type": "node",
       "request": "launch",
-      "command": "pnpx turbo run web#dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "turbo", "run", "web#dev"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "restart": false,
       "serverReadyAction": {
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
@@ -29,9 +37,13 @@
     },
     {
       "name": "Clearance Lab (API)",
-      "type": "node-terminal",
+      "type": "node",
       "request": "launch",
-      "command": "pnpx turbo run api#dev"
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "turbo", "run", "api#dev"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "restart": false
     }
   ]
 }
