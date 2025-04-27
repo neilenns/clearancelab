@@ -19,7 +19,6 @@ router.get(
   ) => {
     try {
       const summary = req.query.summary === "true";
-
       const scenarios = await ScenarioModel.findAll(summary);
 
       res.json(scenarios);

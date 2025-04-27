@@ -28,6 +28,7 @@
       "dependsOn": ["^lint"]
     },
     "ci": {
+      "dependsOn": ["^ci"],
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
