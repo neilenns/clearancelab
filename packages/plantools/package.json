@@ -10,10 +10,8 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
@@ -28,7 +26,6 @@
     "@types/node": "^22.14.0",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "bunchee": "^6.4.0",
     "eslint": "^9.25.0",
     "rimraf": "^6.0.1",
     "tsup": "^8.4.0",
