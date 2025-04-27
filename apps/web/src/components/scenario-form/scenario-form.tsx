@@ -11,6 +11,7 @@ import { CraftSection } from "./craft-section";
 import { useActionState, useEffect } from "react";
 import { onSubmitScenario } from "./actions";
 import { toast } from "sonner";
+import { getRandomScenario } from "@workspace/plantools";
 
 export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
   const [formState, formAction, isPending] = useActionState(onSubmitScenario, {
@@ -20,7 +21,7 @@ export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
   const form = useForm<ScenarioInput>({
     resolver: zodResolver(ScenarioSchema),
     mode: "onTouched",
-    values,
+    defaultValues: values,
   });
 
   const { reset } = form;
@@ -30,7 +31,7 @@ export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
     if (formState.success) {
       toast.success("Scenario saved successfully");
       formState.success = false;
-      reset();
+      reset(getRandomScenario());
     }
   }, [reset, formAction, formState]);
 

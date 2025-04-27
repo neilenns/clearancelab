@@ -1,41 +1,7 @@
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
-import {
-  getRandomBcn,
-  getRandomCallsign,
-  getRandomCid,
-  getRandomName,
-  getRandomVatsimId,
-} from "@workspace/plantools";
-import { ScenarioInput } from "@workspace/validators";
+import { getRandomScenario } from "@workspace/plantools";
 
-const defaultValues: ScenarioInput = {
-  plan: {
-    aid: getRandomCallsign(),
-    bcn: getRandomBcn(),
-    cid: getRandomCid(),
-    pilotName: getRandomName(),
-    vatsimId: getRandomVatsimId(),
-    dep: "",
-    dest: "",
-    typ: "",
-    eq: "",
-    rte: "",
-    rmk: "",
-    raw: "",
-    spd: 0,
-    alt: 0,
-  },
-  isValid: true,
-  canClear: true,
-  craft: {
-    clearanceLimit: "",
-    route: "",
-    altitude: "",
-    frequency: "",
-    transponder: "",
-  },
-  airportConditions: "",
-};
+const defaultValues = getRandomScenario();
 
 export default function NewScenarioPage() {
   return (

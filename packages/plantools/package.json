@@ -33,6 +33,7 @@
     "@types/node": "^22.14.0",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
+    "@workspace/validators": "workspace:*",
     "bunchee": "^6.4.0",
     "eslint": "^9.25.0",
     "rimraf": "^6.0.1",

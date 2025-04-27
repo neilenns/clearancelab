@@ -277,6 +277,9 @@ importers:
       '@workspace/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@workspace/validators':
+        specifier: workspace:*
+        version: link:../validators
       bunchee:
         specifier: ^6.4.0
         version: 6.5.1(typescript@5.8.3)

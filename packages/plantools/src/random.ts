@@ -1,3 +1,5 @@
+import { Scenario } from "@workspace/validators";
+
 const names: string[] = [
   "Ash",
   "Avery",
@@ -70,6 +72,36 @@ function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+export function getRandomScenario(): Scenario {
+  return {
+    plan: {
+      aid: getRandomCallsign(),
+      bcn: getRandomBcn(),
+      cid: getRandomCid(),
+      pilotName: getRandomName(),
+      vatsimId: getRandomVatsimId(),
+      dep: "",
+      dest: "",
+      typ: "",
+      eq: "",
+      rte: "",
+      rmk: "",
+      raw: "",
+      spd: 0,
+      alt: 0,
+    },
+    isValid: true,
+    canClear: true,
+    craft: {
+      clearanceLimit: "",
+      route: "",
+      altitude: "",
+      frequency: "",
+      transponder: "",
+    },
+    airportConditions: "",
+  };
+}
 /**
  * Generates a random pilot name from a predefined list of gender-neutral names.
  * @returns A random pilot name
