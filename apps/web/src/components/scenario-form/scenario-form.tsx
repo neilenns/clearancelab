@@ -30,6 +30,7 @@ export const ScenarioForm = ({ values }: { values: ScenarioInput }) => {
   useEffect(() => {
     if (formState.success) {
       toast.success("Scenario saved successfully");
+      // This seems really wrong to just directly set, but it seems to work.
       formState.success = false;
       reset(getRandomScenario());
     }
