@@ -120,18 +120,31 @@ export function ProblemsSection() {
                   )}
                 />
               </div>
-              <div className="col-span-1 w-12 flex justify-end items-center">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => {
-                    remove(index);
-                  }}
-                  aria-label="Delete problem"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+              <div className="col-span-1 w-12 flex justify-center items-center">
+                <FormItem>
+                  <FormLabel className={cn(index !== 0 && "sr-only")}>
+                    Delete
+                  </FormLabel>
+                  <FormDescription className={cn(index !== 0 && "sr-only")}>
+                    <div className="invisible" aria-hidden="true">
+                      Spacer
+                    </div>
+                  </FormDescription>
+                  <FormControl>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => {
+                        remove(index);
+                      }}
+                      aria-label="Delete problem"
+                    >
+                      <Trash2 />
+                    </Button>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               </div>{" "}
             </div>
           ))}
