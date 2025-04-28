@@ -89,4 +89,45 @@ router.post(
   }
 );
 
+router.put(
+  "/:id",
+  verifyApiKey,
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const isValid = mongoose.isValidObjectId(id);
+
+    if (!isValid) {
+      res.status(404).json({ error: `${id} is not a valid scenario ID.` });
+      return;
+    }
+
+    const result = ScenarioSchema.safeParse(req.body);
+
+    if (!result.success) {
+      res.status(400).json({
+        error: "Invalid scenario data",
+        details: result.error.format(),
+      });
+      return;
+    }
+
+    try {
+      const updatedScenario = await ScenarioModel.findByIdAndUpdate(
+        id,
+        result.data,
+        { new: true, runValidators: true }
+      );
+
+      if (!updatedScenario) {
+        res.status(404).json({ error: "Scenario not found" });
+        return;
+      }
+
+      res.json(updatedScenario);
+    } catch (err: unknown) {
+      next(err);
+    }
+  }
+);
+
 export default router;

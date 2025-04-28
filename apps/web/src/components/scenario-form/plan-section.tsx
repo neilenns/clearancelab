@@ -26,7 +26,11 @@ import { Input } from "@/components/ui/input";
 import { VatsimImportDialog } from "./vatsim-import-dialog";
 import { ScenarioInput } from "@workspace/validators";
 
-export function PlanSection() {
+interface PlanSectionProps {
+  isEditMode: boolean;
+}
+
+export function PlanSection({ isEditMode }: PlanSectionProps) {
   const { control } = useFormContext<ScenarioInput>();
 
   return (
@@ -327,9 +331,11 @@ export function PlanSection() {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="space-x-2">
-        <VatsimImportDialog />
-      </CardFooter>
+      {!isEditMode && (
+        <CardFooter className="space-x-2">
+          <VatsimImportDialog />
+        </CardFooter>
+      )}
     </Card>
   );
 }

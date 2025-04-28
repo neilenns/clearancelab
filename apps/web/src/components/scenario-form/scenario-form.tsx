@@ -75,7 +75,7 @@ export const ScenarioForm = ({
           />
 
           <ScenarioOverview />
-          <PlanSection />
+          <PlanSection isEditMode={isEditMode} />
           <CraftSection />
 
           {isPending ? (
