@@ -42,7 +42,12 @@ export function VatsimImportDialog() {
         return;
       }
 
-      // Populate the fields with the values from the VATSIM flight plan
+      // Reset and close the dialog.
+      resetDialog();
+      setOpen(false);
+
+      // Populate the fields with the values from the VATSIM flight plan.
+      // This happens after the dialog is closed to make it feel more responsive.
       setValue("plan.aid", result.plan.aid);
       setValue("plan.alt", result.plan.alt);
       setValue("plan.bcn", result.plan.bcn);
@@ -56,9 +61,6 @@ export function VatsimImportDialog() {
       setValue("plan.typ", result.plan.typ);
       setValue("plan.vatsimId", result.plan.vatsimId);
       setValue("plan.pilotName", result.plan.pilotName);
-
-      // Reset and close the dialog.
-      setOpen(false);
     });
   }
 
