@@ -11,7 +11,7 @@ import { revalidatePath } from "next/cache";
 
 export type OnSubmitScenarioState = {
   success: boolean;
-  message?: string;
+  message: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
 } | null;
@@ -101,12 +101,22 @@ export const onSubmitScenario = async (
 
     return {
       success: false,
+      message: "Validation failed",
       fields,
       errors,
     };
   }
 
   try {
+    if (scenario.data._id) {
+      console.log(`Updating scenario ${scenario.data._id.toString()}`);
+
+      return {
+        success: true,
+        message: "Scenario updated!",
+      };
+    }
+
     const response = await postJson<Scenario>("/scenarios", scenario.data);
 
     if (!response) {

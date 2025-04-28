@@ -10,13 +10,13 @@ import {
   SidebarHeader,
   SidebarMenu,
 } from "@/components/ui/sidebar";
-import { ScenarioData } from "@/models/scenario";
 import { useParams } from "next/navigation";
 import { ScenarioItem } from "./scenarioItem";
+import { Scenario } from "@workspace/validators";
 
 // Extend the props from the base Sidebar and add scenarios
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  scenarios: ScenarioData[];
+  scenarios: Scenario[];
 }
 
 export function AppSidebar({ scenarios, ...props }: AppSidebarProps) {
@@ -33,13 +33,19 @@ export function AppSidebar({ scenarios, ...props }: AppSidebarProps) {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
-                {scenarios.map((scenario) => (
-                  <ScenarioItem
-                    scenario={scenario}
-                    key={scenario._id}
-                    selected={selectedId === scenario._id}
-                  />
-                ))}
+                {scenarios.map((scenario) => {
+                  if (!scenario._id) {
+                    return null;
+                  }
+
+                  return (
+                    <ScenarioItem
+                      scenario={scenario}
+                      key={scenario._id.toString()}
+                      selected={selectedId === scenario._id.toString()}
+                    />
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

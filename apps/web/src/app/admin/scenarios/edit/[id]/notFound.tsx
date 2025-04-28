@@ -12,9 +12,6 @@ export default function NotFound({ id }: NotFoundProps) {
         Scenario not found
       </h1>
       <p className="mb-4 max-w-md">Scenario {id} doesn&apos;t exist.</p>
-      <p className="text-sm text-muted-foreground/60">
-        Please select a valid scenario from the sidebar.
-      </p>
     </main>
   );
 }

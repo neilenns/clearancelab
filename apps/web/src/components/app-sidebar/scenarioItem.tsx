@@ -1,10 +1,10 @@
-import { ScenarioData } from "@/models/scenario";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Scenario } from "@workspace/validators";
 
 interface ScenarioItemProps {
-  scenario: ScenarioData;
+  scenario: Scenario;
   selected: boolean;
 }
 
@@ -19,10 +19,19 @@ export function ScenarioItem({ scenario, selected }: ScenarioItemProps) {
     }
   }, [selected]);
 
+  if (!scenario._id) {
+    return null;
+  }
+
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild isActive={selected}>
-        <Link href={`/lab/${scenario._id}`}>
+        <Link
+          href={`/lab/${scenario._id.toString()}`}
+          aria-label={`View scenario ${scenario.plan.dep ?? ""} to ${
+            scenario.plan.dest ?? ""
+          }, flight ${plan.aid}`}
+        >
           {plan.dep} - {plan.dest} ({plan.aid})
         </Link>
       </SidebarMenuButton>

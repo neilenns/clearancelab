@@ -1,17 +1,18 @@
 import { cn } from "@/lib/utils";
-import { ScenarioData } from "@/models/scenario";
 import { forwardRef, useCallback, useState } from "react";
 import { FPEBox } from "./fpe-box";
 import { FPEInput } from "./fpe-input";
 import { FPELabel } from "./fpe-label";
 import { FPETextArea } from "./fpe-textarea";
 import "./fpe.css";
+import { Scenario } from "@workspace/validators";
 
 interface FPEProps {
-  plan?: ScenarioData["plan"] | null;
+  scenario?: Scenario | null;
 }
 
-const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
+const FPE = forwardRef<HTMLDivElement, FPEProps>(({ scenario }, ref) => {
+  const { plan, airportConditions } = scenario ?? {};
   const [isDirty, setIsDirty] = useState(false);
 
   const handleAnyChange = useCallback(() => {
@@ -168,7 +169,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
         />
       </div>
 
-      {plan?.airportConditions && (
+      {airportConditions && (
         <div
           className="relative px-4 py-2 mt-2 w-[800px] text-sm bg-[var(--color-fpe)] text-[var(--color-fpe-conditions-foreground)] 
          border border-[var(--color-fpe-conditions-border)]"
@@ -177,7 +178,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ plan }, ref) => {
           <span className="font-semibold text-[var(--color-fpe-conditions-label-foreground)]">
             Conditions:
           </span>{" "}
-          {plan.airportConditions}
+          {airportConditions}
         </div>
       )}
     </div>

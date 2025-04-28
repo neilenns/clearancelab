@@ -5,11 +5,11 @@ import FPE from "@/components/fpe/fpe";
 import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
 import { Answer } from "@/components/answer";
-import { ScenarioData } from "@/models/scenario";
 import { Button } from "@/components/ui/button";
+import { Scenario } from "@workspace/validators";
 
 interface ClientSectionProps {
-  scenario: ScenarioData;
+  scenario: Scenario;
 }
 
 export default function ClientSection({ scenario }: ClientSectionProps) {
@@ -46,7 +46,7 @@ export default function ClientSection({ scenario }: ClientSectionProps) {
           Copy screenshot
         </Button>
       </div>
-      <FPE plan={scenario.plan} ref={fpeRef} />
+      <FPE scenario={scenario} ref={fpeRef} />
       <Answer scenario={scenario} />
     </main>
   );

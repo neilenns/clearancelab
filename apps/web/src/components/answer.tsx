@@ -4,16 +4,16 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ScenarioData } from "@/models/scenario";
 import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { Conversation } from "@/conversation";
 import { Craft } from "@/components/craft/craft";
 import { Problems } from "@/components/problems/problems";
 import { Button } from "@/components/ui/button";
+import { Scenario } from "@workspace/validators";
 
 interface AnswerProps {
-  scenario: ScenarioData;
+  scenario: Scenario;
 }
 
 export function Answer({ scenario }: AnswerProps) {
@@ -22,14 +22,19 @@ export function Answer({ scenario }: AnswerProps) {
 
   return (
     <div className="w-[800px] bg-[var(--muted)]">
-      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <Collapsible
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        aria-expanded={isOpen}
+        aria-controls="answer-content"
+      >
         <CollapsibleTrigger className="mb-1 mt-1" asChild>
           <Button variant="ghost">
             {isOpen ? "Hide answer" : "Show answer"}
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="px-3 pb-3">
+        <CollapsibleContent id="answer-content" className="px-3 pb-3">
           <div>
             <Problems scenario={scenario} />
             {canClear && (
@@ -41,7 +46,7 @@ export function Answer({ scenario }: AnswerProps) {
                     from: "pilot",
                     content: `Portland Ground, ${
                       craft?.telephony ?? plan.aid
-                    }, IFR to ${plan.dest}.`,
+                    }, IFR to ${plan.dest ?? ""}.`,
                   },
                   {
                     from: "controller",

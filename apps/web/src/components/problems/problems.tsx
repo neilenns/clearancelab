@@ -1,12 +1,12 @@
-import { ProblemData, ScenarioData } from "@/models/scenario";
+import { Problem, Scenario } from "@workspace/validators";
 import { CalloutBox } from "../callout-box";
 
 interface ProblemsProps {
-  scenario?: ScenarioData;
+  scenario?: Scenario;
 }
 
 interface ProblemItemProps {
-  problem: ProblemData;
+  problem: Problem;
 }
 
 export function Problems({ scenario }: ProblemsProps) {

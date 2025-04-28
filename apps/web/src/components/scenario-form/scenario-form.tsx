@@ -19,6 +19,7 @@ export const ScenarioForm = ({
 }: {
   defaultValues: ScenarioInput;
 }) => {
+  const isEditMode = Boolean(defaultValues._id);
   const [formState, formAction, isPending] = useActionState(
     onSubmitScenario,
     null
@@ -39,15 +40,21 @@ export const ScenarioForm = ({
     }
 
     if (!formState.success) {
-      toast.error("Error saving scenario");
+      toast.error(formState.message);
       return;
     }
 
-    toast.success("Scenario saved successfully");
+    toast.success(formState.message);
+
     // This seems really wrong to just directly set, but it seems to work.
     formState.success = false;
-    reset(getRandomScenario());
-  }, [reset, formAction, formState]);
+
+    // Don't reset with new data if it was an edit of an existing scenario.
+
+    if (!isEditMode) {
+      reset(getRandomScenario());
+    }
+  }, [reset, formAction, formState, isEditMode]);
 
   return (
     <Form {...form}>
@@ -57,24 +64,34 @@ export const ScenarioForm = ({
       }
       <form
         action={formAction}
-        className="space-y-4"
         autoComplete="off"
         aria-label="Scenario creation form"
       >
-        <ScenarioOverview />
-        <PlanSection />
-        <CraftSection />
+        <fieldset disabled={isPending} className="space-y-4">
+          <input
+            type="hidden"
+            name="_id"
+            value={form.watch("_id")?.toString()}
+          />
 
-        {isPending ? (
-          <Button disabled className="w-[120px]">
-            <Loader2 className="animate-spin" />
-            Saving...
-          </Button>
-        ) : (
-          <Button type="submit" disabled={isPending} className="w-[120px]">
-            Save
-          </Button>
-        )}
+          <ScenarioOverview />
+          <PlanSection />
+          <CraftSection />
+
+          {isPending ? (
+            <Button disabled className="w-[120px]">
+              <Loader2 className="animate-spin" aria-hidden="true" />
+              <span className="sr-only">
+                {isEditMode ? "Updating..." : "Saving..."}
+              </span>
+              {isEditMode ? "Updating..." : "Saving..."}
+            </Button>
+          ) : (
+            <Button type="submit" disabled={isPending} className="w-[120px]">
+              {isEditMode ? "Update" : "Save"}
+            </Button>
+          )}
+        </fieldset>
       </form>
     </Form>
   );
