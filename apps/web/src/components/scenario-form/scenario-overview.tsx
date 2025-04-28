@@ -8,12 +8,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ScenarioInput } from "@workspace/validators";
-import { Switch } from "@/components/ui/switch";
+import { Scenario } from "@workspace/validators";
 import { Input } from "@/components/ui/input";
+import { ReactFormSwitch } from "@/components/ui/react-form-switch";
 
 export function ScenarioOverview() {
-  const { control } = useFormContext<ScenarioInput>();
+  const { control } = useFormContext<Scenario>();
 
   return (
     <Card>
@@ -22,7 +22,7 @@ export function ScenarioOverview() {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
-          <div className="col-span-3">
+          <div className="col-span-4">
             <FormField
               control={control}
               name="isValid"
@@ -33,10 +33,7 @@ export function ScenarioOverview() {
                     Is the flight plan completely correct with no errors?
                   </FormDescription>
                   <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <ReactFormSwitch field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -44,7 +41,7 @@ export function ScenarioOverview() {
             />
           </div>
 
-          <div className="col-span-3">
+          <div className="col-span-4">
             <FormField
               control={control}
               name="canClear"
@@ -55,10 +52,7 @@ export function ScenarioOverview() {
                     Can the flight plan be cleared, even with errors?
                   </FormDescription>
                   <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <ReactFormSwitch field={field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

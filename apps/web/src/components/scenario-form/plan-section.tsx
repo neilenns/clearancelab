@@ -35,7 +35,7 @@ export function PlanSection() {
         <CardTitle>Flight plan</CardTitle>
         <CardDescription>
           Enter the flight plan details. The flight plan does not have to be
-          valid, and all fields except AID are optional.
+          valid.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -50,6 +50,8 @@ export function PlanSection() {
                     VATSIM ID
                     <button
                       type="button"
+                      tabIndex={-1}
+                      aria-hidden="false"
                       aria-label="Generate random VATSIM ID"
                       onClick={() => {
                         const random = getRandomVatsimId();
@@ -79,6 +81,8 @@ export function PlanSection() {
                     <button
                       type="button"
                       aria-label="Generate random pilot name"
+                      tabIndex={-1}
+                      aria-hidden="false"
                       onClick={() => {
                         const random = getRandomName();
                         field.onChange(random);
@@ -108,6 +112,8 @@ export function PlanSection() {
                   <button
                     type="button"
                     aria-label="Generate random callsign"
+                    tabIndex={-1}
+                    aria-hidden="false"
                     onClick={() => {
                       const random = getRandomCallsign();
                       field.onChange(random);
@@ -134,6 +140,8 @@ export function PlanSection() {
                   <button
                     type="button"
                     aria-label="Generate random CID"
+                    tabIndex={-1}
+                    aria-hidden="false"
                     onClick={() => {
                       const random = getRandomCid();
                       field.onChange(random);
@@ -168,6 +176,8 @@ export function PlanSection() {
                   <button
                     type="button"
                     aria-label="Generate random beacon"
+                    tabIndex={-1}
+                    aria-hidden="false"
                     onClick={() => {
                       const random = getRandomBcn();
                       field.onChange(random.toString().padStart(4, "0"));
