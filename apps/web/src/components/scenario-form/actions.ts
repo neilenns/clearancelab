@@ -1,19 +1,29 @@
 "use server";
 
-import { postJson } from "@/lib/api";
+import { apiFetch, postJson } from "@/lib/api";
 import {
   convertToBoolean,
   convertToNumber,
   unflatten,
 } from "@workspace/plantools";
-import { Scenario, ScenarioSchema } from "@workspace/validators";
+import { Plan, Scenario, ScenarioSchema } from "@workspace/validators";
 
-export type ScenarioFormState = {
+export type OnSubmitScenarioState = {
   success: boolean;
   message?: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
 } | null;
+
+export type FetchPlanByCallsignState =
+  | {
+      success: true;
+      plan: Plan;
+    }
+  | {
+      success: false;
+      message: string;
+    };
 
 function assertObject(
   value: unknown
@@ -23,11 +33,29 @@ function assertObject(
   }
 }
 
+export async function fetchPlanByCallsign(
+  callsign: string
+): Promise<FetchPlanByCallsignState> {
+  const plan = await apiFetch<Plan>(`/vatsim/flightplan/${callsign}`);
+
+  if (!plan) {
+    return {
+      success: false,
+      message: `No flight plan found for ${callsign}.`,
+    };
+  }
+
+  return {
+    success: true,
+    plan,
+  };
+}
+
 // A lot of how this woks comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
 export const onSubmitScenario = async (
-  _prevState: ScenarioFormState,
+  _prevState: OnSubmitScenarioState,
   payload: FormData
-): Promise<ScenarioFormState> => {
+): Promise<OnSubmitScenarioState> => {
   if (!(payload instanceof FormData)) {
     return {
       success: false,

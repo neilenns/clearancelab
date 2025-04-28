@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { PasteScenarioDialog } from "./paste-scenario-dialog";
+import { VatsimImportDialog } from "./vatsim-import-dialog";
 import { ScenarioInput } from "@workspace/validators";
 
 export function PlanSection() {
@@ -327,8 +327,8 @@ export function PlanSection() {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
-        <PasteScenarioDialog />
+      <CardFooter className="space-x-2">
+        <VatsimImportDialog />
       </CardFooter>
     </Card>
   );
