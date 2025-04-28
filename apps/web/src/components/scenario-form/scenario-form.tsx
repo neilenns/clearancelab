@@ -68,22 +68,28 @@ export const ScenarioForm = ({
         autoComplete="off"
         aria-label="Scenario creation form"
       >
-        <input type="hidden" name="_id" value={form.watch("_id")?.toString()} />
+        <fieldset disabled={isPending}>
+          <input
+            type="hidden"
+            name="_id"
+            value={form.watch("_id")?.toString()}
+          />
 
-        <ScenarioOverview />
-        <PlanSection />
-        <CraftSection />
+          <ScenarioOverview />
+          <PlanSection />
+          <CraftSection />
 
-        {isPending ? (
-          <Button disabled className="w-[120px]">
-            <Loader2 className="animate-spin" />
-            {isEditMode ? "Updating..." : "Saving..."}
-          </Button>
-        ) : (
-          <Button type="submit" disabled={isPending} className="w-[120px]">
-            {isEditMode ? "Update" : "Save"}
-          </Button>
-        )}
+          {isPending ? (
+            <Button disabled className="w-[120px]">
+              <Loader2 className="animate-spin" />
+              {isEditMode ? "Updating..." : "Saving..."}
+            </Button>
+          ) : (
+            <Button type="submit" disabled={isPending} className="w-[120px]">
+              {isEditMode ? "Update" : "Save"}
+            </Button>
+          )}
+        </fieldset>
       </form>
     </Form>
   );
