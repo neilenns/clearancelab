@@ -64,11 +64,10 @@ export const ScenarioForm = ({
       }
       <form
         action={formAction}
-        className="space-y-4"
         autoComplete="off"
         aria-label="Scenario creation form"
       >
-        <fieldset disabled={isPending}>
+        <fieldset disabled={isPending} className="space-y-4">
           <input
             type="hidden"
             name="_id"
