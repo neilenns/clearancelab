@@ -12,6 +12,7 @@ import { useActionState, useEffect } from "react";
 import { onSubmitScenario } from "./actions";
 import { toast } from "sonner";
 import { getRandomScenario } from "@workspace/plantools";
+import { Loader2 } from "lucide-react";
 
 export const ScenarioForm = ({
   defaultValues,
@@ -54,14 +55,26 @@ export const ScenarioForm = ({
         // This extra form element is required to get the action attribute. Shadcn's Form
         // component does not expose it.
       }
-      <form action={formAction} className="space-y-4" autoComplete="off">
+      <form
+        action={formAction}
+        className="space-y-4"
+        autoComplete="off"
+        aria-label="Scenario creation form"
+      >
         <ScenarioOverview />
         <PlanSection />
         <CraftSection />
 
-        <Button type="submit" disabled={isPending}>
-          Save
-        </Button>
+        {isPending ? (
+          <Button disabled className="w-[120px]">
+            <Loader2 className="animate-spin" />
+            Saving...
+          </Button>
+        ) : (
+          <Button type="submit" disabled={isPending} className="w-[120px]">
+            Save
+          </Button>
+        )}
       </form>
     </Form>
   );

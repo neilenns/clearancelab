@@ -11,9 +11,9 @@ export interface Plan {
   pilotName?: string;
   raw?: string;
   rmk?: string;
-  rte: string;
+  rte?: string;
   spd?: number;
-  typ: string;
+  typ?: string;
   vatsimId?: number;
 }
 

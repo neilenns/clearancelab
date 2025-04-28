@@ -69,7 +69,7 @@ router.post(
 
     if (!result.success) {
       res.status(400).json({
-        error: "Invalid plan data",
+        error: "Invalid scenario data",
         details: result.error.format(),
       });
 

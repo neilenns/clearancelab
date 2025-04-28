@@ -1,10 +1,14 @@
 "use server";
 
 import { postJson } from "@/lib/api";
-import { unflatten } from "@workspace/plantools";
+import {
+  convertToBoolean,
+  convertToNumber,
+  unflatten,
+} from "@workspace/plantools";
 import { Scenario, ScenarioSchema } from "@workspace/validators";
 
-type ScenarioFormState = {
+export type ScenarioFormState = {
   success: boolean;
   message?: string;
   fields?: Record<string, string>;
@@ -34,17 +38,16 @@ export const onSubmitScenario = async (
   const formData = unflatten(Object.fromEntries(payload));
 
   // Fix up the booleans
-  formData.isValid = formData.isValid === "true" || formData.isValid === true;
-  formData.canClear =
-    formData.canClear === "true" || formData.canClear === true;
+  formData.isValid = convertToBoolean(formData.isValid);
+  formData.canClear = convertToBoolean(formData.canClear);
 
   // Fix up the numbers
   assertObject(formData.plan);
-  formData.plan.alt = Number(formData.plan.alt);
-  formData.plan.bcn = Number(formData.plan.bcn);
-  formData.plan.cid = Number(formData.plan.cid);
-  formData.plan.spd = Number(formData.plan.spd);
-  formData.plan.vatsimId = Number(formData.plan.vatsimId);
+  formData.plan.alt = convertToNumber(formData.plan.alt);
+  formData.plan.bcn = convertToNumber(formData.plan.bcn);
+  formData.plan.cid = convertToNumber(formData.plan.cid);
+  formData.plan.spd = convertToNumber(formData.plan.spd);
+  formData.plan.vatsimId = convertToNumber(formData.plan.vatsimId);
 
   const scenario = ScenarioSchema.safeParse(formData);
 
@@ -76,6 +79,10 @@ export const onSubmitScenario = async (
     }
   } catch (err) {
     console.error("Network error", err);
+    return {
+      success: false,
+      message: "Unable to connect to the server.",
+    };
   }
 
   return {

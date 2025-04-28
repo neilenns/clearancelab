@@ -13,8 +13,8 @@ export const ScenarioSchema = z.object({
       }),
     ])
     .optional(),
-  isValid: z.boolean(),
-  canClear: z.boolean(),
+  isValid: z.boolean().default(true),
+  canClear: z.boolean().default(true),
   airportConditions: z.string().optional(),
   craft: CraftSchema.optional(),
   depAirportInfo: AirportInfoSchema.optional(),
