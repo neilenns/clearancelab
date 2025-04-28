@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import mongoose from "mongoose";
 import { verifyApiKey } from "../middleware/apikey.js";
 import { ScenarioModel } from "../models/scenario.js";
+import { Scenario, ScenarioSchema } from "@workspace/validators";
 
 const router = Router();
 
@@ -52,6 +53,38 @@ router.get(
       res.json(scenario);
     } catch (err) {
       next(err); // Pass to centralized error handler
+    }
+  }
+);
+
+router.post(
+  "/",
+  verifyApiKey,
+  async (
+    req: Request<unknown, unknown, Scenario>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const result = ScenarioSchema.safeParse(req.body);
+
+    if (!result.success) {
+      res.status(400).json({
+        error: "Invalid scenario data",
+        details: result.error.format(),
+      });
+
+      return;
+    }
+
+    try {
+      const newScenario = new ScenarioModel(result.data);
+      const saved = await newScenario.save();
+
+      res.status(201).json(saved);
+
+      return;
+    } catch (err: unknown) {
+      next(err);
     }
   }
 );

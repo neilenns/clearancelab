@@ -57,6 +57,21 @@ ScenarioSchema.virtual("destAirportInfo", {
   justOne: true, // Only one airport info per scenario
 });
 
+// Pre-save hook to ensure data consistency.
+ScenarioSchema.pre("save", function (next) {
+  // Ensure routes don't have "the" in the front, since it's not really part of the route it's part
+  // of how clearances are spoken.
+  if (this.craft?.route?.toLowerCase().startsWith("the ")) {
+    const originalRoute = this.craft.route;
+    this.craft.route = this.craft.route.substring(4);
+    logger.debug(
+      `Normalized route from "${originalRoute}" to "${this.craft.route}"`
+    );
+  }
+
+  next();
+});
+
 // Static methods
 ScenarioSchema.statics.findScenarioById = function (
   id: string

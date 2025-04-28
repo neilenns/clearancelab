@@ -22,5 +22,8 @@ export const ScenarioSchema = z.object({
   plan: PlanSchema,
 });
 
+// Type definition *before* any parsing, for example isValid is a string not a boolean.
 export type ScenarioInput = z.input<typeof ScenarioSchema>;
+
+// Type definition *after* parsing, for example isValid is a boolean.
 export type Scenario = z.infer<typeof ScenarioSchema>;

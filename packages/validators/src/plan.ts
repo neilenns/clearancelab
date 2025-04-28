@@ -14,7 +14,7 @@ export const PlanSchema = z.object({
   rte: z.string().optional(),
   spd: z.coerce.number().optional(),
   typ: z.string().optional(),
-  vatsimId: z.number(),
+  vatsimId: z.coerce.number(),
 });
 
 export type Plan = z.infer<typeof PlanSchema>;
