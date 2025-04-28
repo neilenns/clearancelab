@@ -1,11 +1,11 @@
-import { ScenarioData } from "@/models/scenario";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { formatAirportName } from "@/lib/format";
 import { CraftElement } from "./craft-element";
 import * as changeCase from "change-case";
+import { Scenario } from "@workspace/validators";
 
 interface CraftProps {
-  scenario: ScenarioData;
+  scenario: Scenario;
 }
 
 export function Craft({ scenario }: CraftProps) {

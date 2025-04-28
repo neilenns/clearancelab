@@ -4,16 +4,16 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ScenarioData } from "@/models/scenario";
 import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { Conversation } from "@/conversation";
 import { Craft } from "@/components/craft/craft";
 import { Problems } from "@/components/problems/problems";
 import { Button } from "@/components/ui/button";
+import { Scenario } from "@workspace/validators";
 
 interface AnswerProps {
-  scenario: ScenarioData;
+  scenario: Scenario;
 }
 
 export function Answer({ scenario }: AnswerProps) {
@@ -41,7 +41,7 @@ export function Answer({ scenario }: AnswerProps) {
                     from: "pilot",
                     content: `Portland Ground, ${
                       craft?.telephony ?? plan.aid
-                    }, IFR to ${plan.dest}.`,
+                    }, IFR to ${plan.dest ?? ""}.`,
                   },
                   {
                     from: "controller",
