@@ -16,8 +16,12 @@ export function Problems({ scenario }: ProblemsProps) {
 
   return (
     <div>
-      {(scenario.problems.length === 0 || scenario.canClear) && (
+      {scenario.canClear ? (
         <CalloutBox level="ok">You can issue the clearance!</CalloutBox>
+      ) : (
+        <CalloutBox level="warning">
+          You cannot issue the clearance yet.
+        </CalloutBox>
       )}
 
       <div className="mt-2">
