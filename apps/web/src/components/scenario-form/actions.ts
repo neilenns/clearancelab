@@ -7,6 +7,7 @@ import {
   unflatten,
 } from "@workspace/plantools";
 import { Plan, Scenario, ScenarioSchema } from "@workspace/validators";
+import { revalidatePath } from "next/cache";
 
 export type OnSubmitScenarioState = {
   success: boolean;
@@ -114,6 +115,18 @@ export const onSubmitScenario = async (
         message: "Unable to save the scenario.",
       };
     }
+
+    if (response._id) {
+      const cachePath = `/lab/${response._id.toString()}`;
+
+      revalidatePath(cachePath);
+      revalidatePath("/lab");
+    }
+
+    return {
+      success: true,
+      message: "Scenario saved!",
+    };
   } catch (err) {
     console.error("Network error", err);
     return {
@@ -121,9 +134,4 @@ export const onSubmitScenario = async (
       message: "Unable to connect to the server.",
     };
   }
-
-  return {
-    success: true,
-    message: "Scenario saved!",
-  };
 };
