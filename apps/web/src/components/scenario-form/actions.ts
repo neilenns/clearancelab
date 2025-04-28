@@ -111,8 +111,6 @@ export const onSubmitScenario = async (
     if (scenario.data._id) {
       console.log(`Updating scenario ${scenario.data._id.toString()}`);
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
       return {
         success: true,
         message: "Scenario updated!",
