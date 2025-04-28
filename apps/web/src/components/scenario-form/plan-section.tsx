@@ -35,7 +35,7 @@ export function PlanSection() {
         <CardTitle>Flight plan</CardTitle>
         <CardDescription>
           Enter the flight plan details. The flight plan does not have to be
-          valid, and all fields except AID are optional.
+          valid.
         </CardDescription>
       </CardHeader>
       <CardContent>
