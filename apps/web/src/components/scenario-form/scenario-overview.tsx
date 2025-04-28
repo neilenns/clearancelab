@@ -8,12 +8,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Scenario } from "@workspace/validators";
+import { ScenarioInput } from "@workspace/validators";
 import { Input } from "@/components/ui/input";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
 
 export function ScenarioOverview() {
-  const { control } = useFormContext<Scenario>();
+  const { control } = useFormContext<ScenarioInput>();
 
   return (
     <Card>
