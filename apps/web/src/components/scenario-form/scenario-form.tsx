@@ -19,6 +19,7 @@ export const ScenarioForm = ({
 }: {
   defaultValues: ScenarioInput;
 }) => {
+  const isEditMode = Boolean(defaultValues._id);
   const [formState, formAction, isPending] = useActionState(
     onSubmitScenario,
     null
@@ -39,15 +40,21 @@ export const ScenarioForm = ({
     }
 
     if (!formState.success) {
-      toast.error("Error saving scenario");
+      toast.error(formState.message);
       return;
     }
 
-    toast.success("Scenario saved successfully");
+    toast.success(formState.message);
+
     // This seems really wrong to just directly set, but it seems to work.
     formState.success = false;
-    reset(getRandomScenario());
-  }, [reset, formAction, formState]);
+
+    // Don't reset with new data if it was an edit of an existing scenario.
+
+    if (!isEditMode) {
+      reset(getRandomScenario());
+    }
+  }, [reset, formAction, formState, isEditMode]);
 
   return (
     <Form {...form}>
@@ -61,6 +68,8 @@ export const ScenarioForm = ({
         autoComplete="off"
         aria-label="Scenario creation form"
       >
+        <input type="hidden" name="_id" value={form.watch("_id")?.toString()} />
+
         <ScenarioOverview />
         <PlanSection />
         <CraftSection />
@@ -68,11 +77,11 @@ export const ScenarioForm = ({
         {isPending ? (
           <Button disabled className="w-[120px]">
             <Loader2 className="animate-spin" />
-            Saving...
+            {isEditMode ? "Updating..." : "Saving..."}
           </Button>
         ) : (
           <Button type="submit" disabled={isPending} className="w-[120px]">
-            Save
+            {isEditMode ? "Update" : "Save"}
           </Button>
         )}
       </form>
