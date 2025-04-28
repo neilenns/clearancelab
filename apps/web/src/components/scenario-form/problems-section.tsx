@@ -69,8 +69,8 @@ export function ProblemsSection() {
                         </FormControl>
                         <SelectContent>
                           <SelectItem value="info">Info</SelectItem>
-                          <SelectItem value="error">Error</SelectItem>
                           <SelectItem value="warning">Warning</SelectItem>
+                          <SelectItem value="error">Error</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
