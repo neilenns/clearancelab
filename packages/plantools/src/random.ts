@@ -86,7 +86,6 @@ export function getRandomScenario(): Scenario {
       eq: "",
       rte: "",
       rmk: "",
-      raw: "",
       spd: 0,
       alt: 0,
     },
