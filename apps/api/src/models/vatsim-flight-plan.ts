@@ -13,7 +13,7 @@ export enum VatsimCommunicationMethod {
   RECEIVE = "RECEIVE",
 }
 
-export interface VastimFlightPlan {
+export interface VatsimFlightPlan {
   _id: Types.ObjectId;
   cid: number;
   name?: string;
@@ -44,13 +44,13 @@ export interface VastimFlightPlan {
 }
 
 // Static method interface
-export interface VastimFlightPlanModelType extends Model<VastimFlightPlan> {
-  findByCallsign(callsign: string): Promise<VastimFlightPlan | null>;
+export interface VatsimFlightPlanModelType extends Model<VatsimFlightPlan> {
+  findByCallsign(callsign: string): Promise<VatsimFlightPlan | null>;
 }
 
 const VatsimFlightPlanSchema = new Schema<
-  VastimFlightPlan,
-  VastimFlightPlanModelType
+  VatsimFlightPlan,
+  VatsimFlightPlanModelType
 >(
   {
     cid: { type: Number, required: true },
@@ -146,6 +146,6 @@ VatsimFlightPlanSchema.statics.findByCallsign = function (callsign) {
 };
 
 export const VatsimFlightPlanModel = mongoose.model<
-  VastimFlightPlan,
-  VastimFlightPlanModelType
+  VatsimFlightPlan,
+  VatsimFlightPlanModelType
 >("vatsimflightplan", VatsimFlightPlanSchema);

@@ -11,7 +11,7 @@ import {
 
 const router = Router();
 
-// Add a route to look up a scenario by ID
+// Add a route to look up a flight plan by callsign.
 router.get(
   "/flightplan/:callsign",
   verifyApiKey,
