@@ -19,11 +19,12 @@ import { ScenarioInput } from "@workspace/validators";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Trash2 } from "lucide-react";
 
 export function ProblemsSection() {
   const { control } = useFormContext<ScenarioInput>();
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "problems",
     control,
   });
@@ -34,7 +35,7 @@ export function ProblemsSection() {
         <CardTitle>Problems</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 gap-2 items-start mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-10 gap-2 items-start mb-4">
           {fields.map((field, index) => (
             <div key={field.id} className="contents">
               <div className="col-span-1">
@@ -55,7 +56,7 @@ export function ProblemsSection() {
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className="w-32">
                             <SelectValue placeholder="Select level" />
                           </SelectTrigger>
                         </FormControl>
@@ -70,7 +71,6 @@ export function ProblemsSection() {
                   )}
                 />
               </div>
-
               <div className="col-span-4">
                 <FormField
                   control={control}
@@ -92,7 +92,6 @@ export function ProblemsSection() {
                   )}
                 />
               </div>
-
               <div className="col-span-4">
                 <FormField
                   control={control}
@@ -114,6 +113,19 @@ export function ProblemsSection() {
                   )}
                 />
               </div>
+              <div className="col-span-1 w-12 flex justify-end items-center">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    remove(index);
+                  }}
+                  aria-label="Delete problem"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>{" "}
             </div>
           ))}
         </div>
