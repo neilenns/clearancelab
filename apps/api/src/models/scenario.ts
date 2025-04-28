@@ -1,7 +1,6 @@
 import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
-import "./airportInfo.js";
-import { AirportInfoData } from "./airportInfo.js";
+import { AirportInfoData } from "./airport-info.js";
 import { Plan, PlanSchema } from "./plan.js";
 import { Craft, CraftSchema } from "./craft.js";
 import { Problem, ProblemSchema } from "./problem.js";

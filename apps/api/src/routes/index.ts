@@ -3,7 +3,7 @@ import express from "express";
 // Routes
 import defaultRouter from "./default.js";
 import scenarioRoutes from "./scenarios.js";
-
+import vatsimRoutes from "./vatsim.js";
 /**
  * Registers all application routes with the Express application.
  * @param app Express application instance
@@ -11,4 +11,5 @@ import scenarioRoutes from "./scenarios.js";
 export default function addRoutes(app: express.Express) {
   app.use(defaultRouter);
   app.use("/scenarios", scenarioRoutes);
+  app.use("/vatsim", vatsimRoutes);
 }
