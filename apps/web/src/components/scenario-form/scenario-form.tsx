@@ -54,7 +54,7 @@ export const ScenarioForm = ({
         // This extra form element is required to get the action attribute. Shadcn's Form
         // component does not expose it.
       }
-      <form action={formAction} className="space-y-4">
+      <form action={formAction} className="space-y-4" autoComplete="off">
         <ScenarioOverview />
         <PlanSection />
         <CraftSection />
