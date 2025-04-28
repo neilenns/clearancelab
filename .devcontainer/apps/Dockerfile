@@ -15,4 +15,4 @@ RUN . /etc/os-release \
 	&& apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Install pnpm
-RUN npm install -g pnpm@10.8.1
+RUN npm install -g pnpm@10.10.0

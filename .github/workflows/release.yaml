@@ -50,7 +50,7 @@ jobs:
           key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Inject cache into Docker
-        uses: reproducible-containers/buildkit-cache-dance@v3.1.0
+        uses: reproducible-containers/buildkit-cache-dance@v3.1.2
         with:
           cache-map: |
             {
@@ -96,7 +96,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 10.8.1
+          version: 10.10.0
 
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4

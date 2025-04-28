@@ -1,12 +1,12 @@
 # This method comes from https://depot.dev/docs/container-builds/how-to-guides/optimal-dockerfiles/node-pnpm-dockerfile
 # Dependencies image
-FROM node:22.14.0-alpine AS base
+FROM node:22.15.0-alpine AS base
 
 # Install pnpm
 ARG PNPM_HOME="/pnpm-store"
 ENV PNPM_HOME=${PNPM_HOME}
 
-RUN corepack enable && corepack prepare pnpm@10.8.1 --activate
+RUN corepack enable && corepack prepare pnpm@10.10.0 --activate
 
 FROM base AS deps
 
