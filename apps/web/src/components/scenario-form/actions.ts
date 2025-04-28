@@ -1,6 +1,6 @@
 "use server";
 
-import { apiFetch, postJson } from "@/lib/api";
+import { apiFetch, postJson, putJson } from "@/lib/api";
 import {
   convertToBoolean,
   convertToNumber,
@@ -107,22 +107,25 @@ export const onSubmitScenario = async (
     };
   }
 
+  const isEdit = Boolean(scenario.data._id);
+
   try {
+    let response: Scenario | null = null;
     if (scenario.data._id) {
-      console.log(`Updating scenario ${scenario.data._id.toString()}`);
-
-      return {
-        success: true,
-        message: "Scenario updated!",
-      };
+      console.debug(`Updating scenario ${scenario.data._id.toString()}`);
+      response = await putJson<Scenario>(
+        `/scenarios/${scenario.data._id.toString()}`,
+        scenario.data
+      );
+    } else {
+      console.debug("Saving new scenario");
+      response = await postJson<Scenario>("/scenarios", scenario.data);
     }
-
-    const response = await postJson<Scenario>("/scenarios", scenario.data);
 
     if (!response) {
       return {
         success: false,
-        message: "Unable to save the scenario.",
+        message: `Unable to ${isEdit ? "update" : "save"} the scenario.`,
       };
     }
 
@@ -135,7 +138,7 @@ export const onSubmitScenario = async (
 
     return {
       success: true,
-      message: "Scenario saved!",
+      message: `Scenario ${isEdit ? "updated" : "saved"}!`,
     };
   } catch (err) {
     console.error("Network error", err);
