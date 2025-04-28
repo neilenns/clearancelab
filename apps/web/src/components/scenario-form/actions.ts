@@ -36,12 +36,21 @@ function assertObject(
 export async function fetchPlanByCallsign(
   callsign: string
 ): Promise<FetchPlanByCallsignState> {
-  const plan = await apiFetch<Plan>(`/vatsim/flightplan/${callsign}`);
+  const requestedCallsign = callsign.toUpperCase().trim();
+
+  if (!requestedCallsign) {
+    return {
+      success: false,
+      message: "Please enter a callsign.",
+    };
+  }
+
+  const plan = await apiFetch<Plan>(`/vatsim/flightplan/${requestedCallsign}`);
 
   if (!plan) {
     return {
       success: false,
-      message: `No flight plan found for ${callsign}.`,
+      message: `No flight plan found for ${requestedCallsign}.`,
     };
   }
 

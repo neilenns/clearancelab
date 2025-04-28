@@ -94,9 +94,16 @@ export function VatsimImportDialog() {
         <Input
           placeholder="SWA2878"
           value={callsign}
+          aria-label="Callsign"
           required
           onChange={(e) => {
             setCallsign(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleImport();
+            }
           }}
         />
         {errorContent && (
@@ -107,7 +114,7 @@ export function VatsimImportDialog() {
           </Alert>
         )}
 
-        <DialogFooter>
+        <DialogFooter aria-live="polite">
           {isPending ? (
             <Button disabled className="w-[120px]">
               <Loader2 className="animate-spin" />
@@ -116,8 +123,8 @@ export function VatsimImportDialog() {
           ) : (
             <Button
               onClick={handleImport}
-              disabled={isPending}
               className="w-[120px]"
+              aria-label="Import flight plan from VATSIM"
             >
               Import
             </Button>
