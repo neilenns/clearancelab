@@ -76,7 +76,7 @@ export function ScenarioOverview() {
                   <FormControl>
                     <Input
                       id="airportConditions"
-                      placeholder="West flow, altimeter 29.92, departure 124.350."
+                      placeholder="West flow. Altimeter 29.92. Departure 124.350."
                       {...field}
                     />
                   </FormControl>

@@ -23,7 +23,17 @@ export function VatsimImportDialog() {
 
   const { setValue } = useFormContext();
 
+  function resetDialog() {
+    setCallsign("");
+    setErrorContent(null);
+  }
+
   function handleImport() {
+    if (!callsign) {
+      setErrorContent("Please enter a callsign.");
+      return;
+    }
+
     startTransition(async () => {
       const result = await fetchPlanByCallsign(callsign.toUpperCase());
 
@@ -48,14 +58,20 @@ export function VatsimImportDialog() {
       setValue("plan.pilotName", result.plan.pilotName);
 
       // Reset and close the dialog.
-      setCallsign("");
-      setErrorContent(null);
       setOpen(false);
     });
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(isOpen) => {
+        setOpen(isOpen);
+        if (!isOpen) {
+          resetDialog();
+        }
+      }}
+    >
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -86,7 +102,7 @@ export function VatsimImportDialog() {
         {errorContent && (
           <Alert variant="error">
             <AlertTriangleIcon className="h-4 w-4" />
-            <AlertTitle>Unable to import scenario</AlertTitle>
+            <AlertTitle>Unable to import flight plan</AlertTitle>
             <AlertDescription>{errorContent}</AlertDescription>
           </Alert>
         )}
