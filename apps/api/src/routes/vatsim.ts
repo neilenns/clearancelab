@@ -1,6 +1,13 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { verifyApiKey } from "../middleware/apikey.js";
 import { VatsimFlightPlanModel } from "../models/vatsim-flight-plan.js";
+import { Plan } from "@workspace/validators";
+import {
+  getRandomBcn,
+  getRandomCid,
+  getRandomName,
+  getRandomVatsimId,
+} from "@workspace/plantools";
 
 const router = Router();
 
@@ -19,7 +26,23 @@ router.get(
         return;
       }
 
-      res.json(flightPlan);
+      const returnedFlightPlan = {
+        aid: flightPlan.callsign,
+        alt: flightPlan.cruiseAltitude,
+        bcn: getRandomBcn(),
+        cid: getRandomCid(),
+        dep: flightPlan.departure,
+        dest: flightPlan.arrival,
+        pilotName: getRandomName(),
+        rmk: flightPlan.remarks,
+        rte: flightPlan.route,
+        spd: flightPlan.groundspeed,
+        typ: flightPlan.equipmentType,
+        eq: flightPlan.equipmentSuffix,
+        vatsimId: getRandomVatsimId(),
+      } as Plan;
+
+      res.json(returnedFlightPlan);
     } catch (err) {
       next(err); // Pass to centralized error handler
     }

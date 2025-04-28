@@ -29,6 +29,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@workspace/plantools':
+        specifier: workspace:*
+        version: link:../../packages/plantools
       '@workspace/validators':
         specifier: workspace:*
         version: link:../../packages/validators
