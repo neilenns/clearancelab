@@ -2,6 +2,7 @@
   "name": "clearancelab",
   "packageManager": "pnpm@10.10.0",
   "scripts": {
+    "build:devcontainer": "devcontainer build --workspace-folder . --config ./.devcontainer/apps/devcontainer.json",
     "lint:md": "markdownlint '**/*.md' --ignore node_modules"
   },
   "devDependencies": {

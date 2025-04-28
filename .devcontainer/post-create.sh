@@ -25,6 +25,7 @@ grep -qxF 'export PATH="$PNPM_HOME:$PATH"' ~/.zshrc || \
 echo "📦 Installing pnpm packages"
 
 pnpm add -g turbo@2.5.0
+pnpm add -g @devcontainers/cli
 pnpm install --frozen-lockfile
 
 ### Database setup
