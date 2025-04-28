@@ -126,9 +126,9 @@ export function ProblemsSection() {
                     Delete
                   </FormLabel>
                   <FormDescription className={cn(index !== 0 && "sr-only")}>
-                    <div className="invisible" aria-hidden="true">
+                    <span className="invisible" aria-hidden="true">
                       Spacer
-                    </div>
+                    </span>
                   </FormDescription>
                   <FormControl>
                     <Button
