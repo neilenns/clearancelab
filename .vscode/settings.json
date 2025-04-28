@@ -12,6 +12,7 @@
     "couldn",
     "cruiseid",
     "doesn",
+    "EDCT",
     "Enroute",
     "expressjs",
     "fontawesome",
@@ -34,11 +35,15 @@
     "shadcn",
     "Skyler",
     "sonner",
+    "TEXTONLY",
     "Turbopack",
     "Turborepo",
     "unflatten",
+    "Vatsim",
     "vatsim",
-    "virtuals"
+    "vatsimflightplan",
+    "virtuals",
+    "vnas"
   ],
   "files.exclude": {
     "**/node_modules": true,

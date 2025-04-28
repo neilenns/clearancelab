@@ -13,3 +13,4 @@ mongosh ${DB_URI} "${SCRIPT_DIR}/init.js" # Basic user setup and disable telemet
 echo "📦 Importing data..."
 mongoimport --uri=${DB_URI} --collection=scenarios --file="${SCRIPT_DIR}/clearancelab.scenarios.json" --jsonArray
 mongoimport --uri=${DB_URI} --collection=airportinfo --file="${SCRIPT_DIR}/clearancelab.airportinfo.json" --jsonArray
+mongoimport --uri=${DB_URI} --collection=vatsimflightplans --file="${SCRIPT_DIR}/clearancelab.vatsimflightplans.json" --jsonArray
