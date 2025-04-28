@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function PlanSectionSkeleton() {
   return (
-    <Card>
+    <Card aria-busy="true" aria-label="Loading plan details section">
       <CardHeader>
         <CardTitle>Flight plan</CardTitle>
         <CardDescription>

@@ -80,7 +80,10 @@ export const ScenarioForm = ({
 
           {isPending ? (
             <Button disabled className="w-[120px]">
-              <Loader2 className="animate-spin" />
+              <Loader2 className="animate-spin" aria-hidden="true" />
+              <span className="sr-only">
+                {isEditMode ? "Updating..." : "Saving..."}
+              </span>
               {isEditMode ? "Updating..." : "Saving..."}
             </Button>
           ) : (

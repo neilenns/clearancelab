@@ -26,7 +26,12 @@ export function ScenarioItem({ scenario, selected }: ScenarioItemProps) {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild isActive={selected}>
-        <Link href={`/lab/${scenario._id.toString()}`}>
+        <Link
+          href={`/lab/${scenario._id.toString()}`}
+          aria-label={`View scenario ${scenario.plan.dep ?? ""} to ${
+            scenario.plan.dest ?? ""
+          }, flight ${plan.aid}`}
+        >
           {plan.dep} - {plan.dest} ({plan.aid})
         </Link>
       </SidebarMenuButton>

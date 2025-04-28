@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function CraftSectionSkeleton() {
   return (
-    <Card>
+    <Card aria-busy="true" aria-label="Loading CRAFT details section">
       <CardHeader>
         <CardTitle>CRAFT details</CardTitle>
         <CardDescription>

@@ -22,14 +22,19 @@ export function Answer({ scenario }: AnswerProps) {
 
   return (
     <div className="w-[800px] bg-[var(--muted)]">
-      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <Collapsible
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        aria-expanded={isOpen}
+        aria-controls="answer-content"
+      >
         <CollapsibleTrigger className="mb-1 mt-1" asChild>
           <Button variant="ghost">
             {isOpen ? "Hide answer" : "Show answer"}
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="px-3 pb-3">
+        <CollapsibleContent id="answer-content" className="px-3 pb-3">
           <div>
             <Problems scenario={scenario} />
             {canClear && (

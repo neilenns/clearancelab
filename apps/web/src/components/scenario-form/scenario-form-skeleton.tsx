@@ -6,10 +6,11 @@ import { ScenarioOverviewSkeleton } from "./scenario-overview-skeleton";
 
 export const ScenarioFormSkeleton = () => {
   return (
-    <div className="space-y-4">
+    <div role="status" className="space-y-4" aria-label="Loading scenario form">
       <ScenarioOverviewSkeleton />
       <PlanSectionSkeleton />
       <CraftSectionSkeleton />
+      <span className="sr-only">Loading scenario form...</span>
     </div>
   );
 };

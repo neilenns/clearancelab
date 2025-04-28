@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function ScenarioOverviewSkeleton() {
   return (
-    <Card>
+    <Card aria-busy="true" aria-label="Loading scenario overview section">
       <CardHeader>
         <CardTitle>Overview</CardTitle>
       </CardHeader>
