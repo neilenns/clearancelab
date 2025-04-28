@@ -56,9 +56,16 @@ export function ProblemsSection() {
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger className="w-32">
-                            <SelectValue placeholder="Select level" />
-                          </SelectTrigger>
+                          <div>
+                            <input
+                              type="hidden"
+                              name={field.name}
+                              value={field.value}
+                            />
+                            <SelectTrigger className="w-32">
+                              <SelectValue placeholder="Select level" />
+                            </SelectTrigger>
+                          </div>
                         </FormControl>
                         <SelectContent>
                           <SelectItem value="info">Info</SelectItem>
