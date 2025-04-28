@@ -14,10 +14,5 @@ RUN . /etc/os-release \
 	&& if [ "$(dpkg --print-architecture)" = "amd64" ]; then apt-get install -y mongodb-database-tools; fi \
 	&& apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-# Install GitLeaks
-RUN apt-get update && apt-get install -y curl \
-	&& curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o /usr/local/bin/gitleaks \
-	&& chmod +x /usr/local/bin/gitleaks
-
 # Install pnpm
 RUN npm install -g pnpm@10.10.0
