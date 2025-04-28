@@ -61,7 +61,7 @@ export async function fetchPlanByCallsign(
   };
 }
 
-// A lot of how this woks comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
+// A lot of how this works comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
 export const onSubmitScenario = async (
   _prevState: OnSubmitScenarioState,
   payload: FormData
