@@ -61,6 +61,7 @@ export function AdminSidebar({ ...props }) {
               <Button variant="outline" size="icon" asChild>
                 <a href="/auth/logout">
                   <LogOut />
+                  <span className="sr-only">Log out</span>
                 </a>
               </Button>
             </div>
