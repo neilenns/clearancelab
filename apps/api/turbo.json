@@ -2,11 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
+    "dev": {
+      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME"]
+    },
     "build": {
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME"]
     },
     "ci": {
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME"]
     }
   }
 }
