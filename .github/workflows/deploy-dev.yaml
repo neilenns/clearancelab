@@ -45,6 +45,9 @@ jobs:
 
       # This method of caching pnpm files in Docker builds during CI workflows is from
       # https://dev.to/henryjw/caching-pnpm-modules-in-docker-builds-in-github-actions-mj7#implementation
+      - name: Ensure pnpm store directory exists
+        run: mkdir -p ${{ env.PNPM_HOME }}
+
       - name: Cache pnpm
         uses: actions/cache@v4
         id: pnpm-cache
