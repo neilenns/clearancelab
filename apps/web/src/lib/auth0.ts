@@ -1,5 +1,3 @@
-// lib/auth0.js
-
 import { Auth0Client } from "@auth0/nextjs-auth0/server";
 import { ENV } from "./env";
 

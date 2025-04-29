@@ -12,8 +12,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Edit, Home } from "lucide-react";
+import { Edit, Home, LogOut } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const items = [
   {
@@ -54,7 +55,16 @@ export function AdminSidebar({ ...props }) {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-          <ModeToggle />
+          <div className="flex items-center px-2">
+            <ModeToggle />
+            <div className="ml-auto">
+              <Button variant="outline" size="icon" asChild>
+                <a href="/auth/logout">
+                  <LogOut />
+                </a>
+              </Button>
+            </div>
+          </div>
         </SidebarFooter>
       </Sidebar>
     </aside>
