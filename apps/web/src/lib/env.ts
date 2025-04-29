@@ -22,9 +22,7 @@ const envSchema = z.object({
   AUTH0_AUDIENCE: z.string(),
   AUTH0_CLIENT_SECRET: z.string(), // To generate this use `openssl rand -hex 32`
   AUTH0_CLIENT_ID: z.string(),
-  AUTH0_DOMAIN: z
-    .string()
-    .url({ message: "AUTH0_DOMAIN must be a valid URL." }),
+  AUTH0_DOMAIN: z.string(),
   AUTH0_SECRET: z.string(),
   APP_BASE_URL: z
     .string()
