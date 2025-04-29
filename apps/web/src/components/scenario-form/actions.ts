@@ -75,6 +75,15 @@ export const onSubmitScenario = async (
 
   const formData = unflatten(Object.fromEntries(payload));
 
+  // Fix up the ID. If it is an empty string, set it to undefined.
+  if (formData._id === "") {
+    formData._id = undefined;
+  }
+
+  // Fix up the problems array
+  const problemsObject = formData.problems ?? {};
+  const problemsArray = Object.values(problemsObject);
+
   // Fix up the booleans
   formData.isValid = convertToBoolean(formData.isValid);
   formData.canClear = convertToBoolean(formData.canClear);
@@ -87,7 +96,11 @@ export const onSubmitScenario = async (
   formData.plan.spd = convertToNumber(formData.plan.spd);
   formData.plan.vatsimId = convertToNumber(formData.plan.vatsimId);
 
-  const scenario = ScenarioSchema.safeParse(formData);
+  const toParse = {
+    ...formData,
+    problems: problemsArray,
+  };
+  const scenario = ScenarioSchema.safeParse(toParse);
 
   if (!scenario.success) {
     const errors = scenario.error.flatten().fieldErrors;

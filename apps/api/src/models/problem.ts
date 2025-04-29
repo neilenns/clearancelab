@@ -7,11 +7,11 @@ export interface Problem {
 }
 
 export const ProblemSchema = new Schema<Problem>({
-  issue: { type: String, required: true },
+  issue: { type: String },
   level: {
     type: String,
     enum: ["info", "warning", "error"],
     required: true,
   },
-  solution: { type: String, required: true },
+  solution: { type: String },
 });
