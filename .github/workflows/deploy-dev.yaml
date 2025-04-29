@@ -40,7 +40,7 @@ jobs:
 
       - name: Extract short hash of current commit
         id: vars
-        run: echo "VERSION=dev-$(git rev-parse --short=7 HEAD)" >> $GITHUB_OUTPUT
+        run: echo "VERSION=dev-$(git rev-parse --short=7 HEAD)" >> $GITHUB_ENV
 
       # This method of caching pnpm files in Docker builds during CI workflows is from
       # https://dev.to/henryjw/caching-pnpm-modules-in-docker-builds-in-github-actions-mj7#implementation
@@ -76,7 +76,7 @@ jobs:
             TURBO_TEAM=${{ env.TURBO_TEAM }}
             PNPM_HOME=${{ env.PNPM_HOME }}
           tags: |
-            ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.output.VERSION }}
+            ghcr.io/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
             ghcr.io/${{ env.IMAGE_NAME }}:latest-dev
             ghcr.io/${{ env.IMAGE_NAME }}:cache
 
@@ -122,8 +122,8 @@ jobs:
         working-directory: ./out/apps/web
         # Wrangler secret put takes the value as a piped input.
         run: |
-          echo "${{ secrets.API_KEY }}" | pnpx wrangler secret --env ${{ job.environment }} put API_KEY
-          echo "${{ secrets.AUTH0_SECRET }}" | pnpx wrangler secret --env ${{ job.environment }} put AUTH0_SECRET
+          echo "${{ secrets.API_KEY }}" | pnpx wrangler secret put API_KEY --env ${{ job.environment }}
+          echo "${{ secrets.AUTH0_SECRET }}" | pnpx wrangler secret put AUTH0_SECRET --env ${{ job.environment }}
 
       - name: Deploy to site to Cloudflare
         working-directory: ./out
