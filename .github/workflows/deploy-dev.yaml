@@ -9,6 +9,7 @@ env:
   TURBO_API: ${{ vars.TURBO_API }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  DEPLOY_ENV: dev
 
 jobs:
   docker:
@@ -90,6 +91,7 @@ jobs:
     env:
       API_KEY: ${{ secrets.API_KEY }}
       API_BASE_URL: ${{ vars.API_BASE_URL }}
+      APP_BASE_URL: ${{ vars.APP_BASE_URL }}
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
@@ -97,7 +99,6 @@ jobs:
       AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
       AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
       AUTH0_SECRET: ${{ secrets.AUTH0_SECRET }}
-      DEPLOY_ENV: dev
 
     permissions:
       contents: read
