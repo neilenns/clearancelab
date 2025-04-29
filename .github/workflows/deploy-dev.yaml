@@ -1,4 +1,4 @@
-name: Release
+name: Deploy - dev
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
 
       - name: Extract short hash of current commit
         id: vars
-        run: echo "VERSION=dev-$(git rev-parse --short=7 HEAD)" >> $GITHUB_ENV
+        run: echo "VERSION=dev-$(git rev-parse --short=7 HEAD)" >> $GITHUB_OUTPUT
 
       # This method of caching pnpm files in Docker builds during CI workflows is from
       # https://dev.to/henryjw/caching-pnpm-modules-in-docker-builds-in-github-actions-mj7#implementation
@@ -71,13 +71,13 @@ jobs:
           secrets: |
             TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
           build-args: |
-            VERSION=${{ github.steps.vars.output.VERSION }}
+            VERSION=${{ steps.vars.output.VERSION }}
             TURBO_API=${{ env.TURBO_API }}
             TURBO_TEAM=${{ env.TURBO_TEAM }}
             PNPM_HOME=${{ env.PNPM_HOME }}
           tags: |
-            ghcr.io/${{ env.IMAGE_NAME }}:${{ github.steps.vars.output.VERSION }}
-            ghcr.io/${{ env.IMAGE_NAME }}:dev
+            ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.output.VERSION }}
+            ghcr.io/${{ env.IMAGE_NAME }}:latest-dev
             ghcr.io/${{ env.IMAGE_NAME }}:cache
 
   cloudflare:
