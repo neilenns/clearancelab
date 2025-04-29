@@ -89,9 +89,16 @@ jobs:
 
     env:
       API_KEY: ${{ secrets.API_KEY }}
-      AUTH0_SECRET: ${{ secrets.AUTH0_SECRET }}
+      API_BASE_URL: ${{ vars.API_BASE_URL }}
       CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
+      AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+      AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+      AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
+      AUTH0_SCOPE: ${{ vars.AUTH0_SCOPE }}
+      AUTH0_SECRET: ${{ secrets.AUTH0_SECRET }}
+      DEPLOY_ENV: dev
 
     permissions:
       contents: read
@@ -128,5 +135,3 @@ jobs:
       - name: Deploy to site to Cloudflare
         working-directory: ./out
         run: pnpx turbo run cf-deploy
-        env:
-          DEPLOY_ENV: dev

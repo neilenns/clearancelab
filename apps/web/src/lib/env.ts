@@ -20,7 +20,7 @@ const envSchema = z.object({
       return val;
     }),
   AUTH0_AUDIENCE: z.string(),
-  AUTH0_CLIENT_SECRET: z.string(),
+  AUTH0_CLIENT_SECRET: z.string(), // To generate this use `openssl rand -hex 32`
   AUTH0_CLIENT_ID: z.string(),
   AUTH0_DOMAIN: z
     .string()
