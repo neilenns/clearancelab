@@ -3,7 +3,7 @@ import { ENV } from "./env";
 
 export const auth0 = new Auth0Client({
   authorizationParameters: {
-    scope: ENV.AUTH0_SCOPE,
+    scope: "openid",
     audience: ENV.AUTH0_AUDIENCE,
   },
 });

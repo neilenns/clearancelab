@@ -25,7 +25,6 @@ const envSchema = z.object({
   AUTH0_DOMAIN: z
     .string()
     .url({ message: "AUTH0_DOMAIN must be a valid URL." }),
-  AUTH0_SCOPE: z.string(),
   AUTH0_SECRET: z.string(),
   APP_BASE_URL: z
     .string()
