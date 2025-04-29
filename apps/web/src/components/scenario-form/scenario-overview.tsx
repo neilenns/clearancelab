@@ -21,8 +21,8 @@ export function ScenarioOverview() {
         <CardTitle>Overview</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
-          <div className="col-span-4">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-2 items-start mb-4">
+          <div>
             <FormField
               control={control}
               name="isValid"
@@ -41,7 +41,7 @@ export function ScenarioOverview() {
             />
           </div>
 
-          <div className="col-span-4">
+          <div>
             <FormField
               control={control}
               name="canClear"
@@ -59,9 +59,7 @@ export function ScenarioOverview() {
               )}
             />
           </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
-          <div className="col-span-8">
+          <div className="col-span-full">
             <FormField
               control={control}
               name="airportConditions"

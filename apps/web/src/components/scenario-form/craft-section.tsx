@@ -30,8 +30,8 @@ export function CraftSection() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
-          <div className="col-span-4">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-2 items-start mb-4">
+          <div>
             <FormField
               control={control}
               name="craft.clearanceLimit"
@@ -53,7 +53,7 @@ export function CraftSection() {
               )}
             />
           </div>
-          <div className="col-span-4">
+          <div>
             <FormField
               control={control}
               name="craft.route"
@@ -76,9 +76,7 @@ export function CraftSection() {
               )}
             />
           </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
-          <div className="col-span-4">
+          <div>
             <FormField
               control={control}
               name="craft.altitude"
@@ -100,7 +98,7 @@ export function CraftSection() {
               )}
             />
           </div>
-          <div className="col-span-4">
+          <div>
             <FormField
               control={control}
               name="craft.frequency"
@@ -118,9 +116,7 @@ export function CraftSection() {
               )}
             />
           </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
-          <div className="col-span-4">
+          <div>
             <FormField
               control={control}
               name="craft.transponder"
