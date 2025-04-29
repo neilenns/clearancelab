@@ -19,6 +19,17 @@ const envSchema = z.object({
       }
       return val;
     }),
+  AUTH0_AUDIENCE: z.string(),
+  AUTH0_CLIENT_SECRET: z.string(),
+  AUTH0_CLIENT_ID: z.string(),
+  AUTH0_DOMAIN: z
+    .string()
+    .url({ message: "AUTH0_DOMAIN must be a valid URL." }),
+  AUTH0_SCOPE: z.string(),
+  AUTH0_SECRET: z.string(),
+  APP_BASE_URL: z
+    .string()
+    .url({ message: "APP_BASE_URL must be a valid URL." }),
 });
 
 const result = envSchema.safeParse(process.env);
