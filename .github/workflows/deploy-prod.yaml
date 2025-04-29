@@ -121,11 +121,11 @@ jobs:
         working-directory: ./out/apps/web
         # Wrangler secret put takes the value as a piped input.
         run: |
-          echo "${{ secrets.API_KEY }}" | pnpx wrangler secret --env ${{ job.environment }} put API_KEY
-          echo "${{ secrets.AUTH0_SECRET }}" | pnpx wrangler secret --env ${{ job.environment }} put AUTH0_SECRET
+          echo "${{ secrets.API_KEY }}" | pnpx wrangler secret put API_KEY --env prod
+          echo "${{ secrets.AUTH0_SECRET }}" | pnpx wrangler secret put AUTH0_SECRET --env prod
 
       - name: Deploy to site to Cloudflare
         working-directory: ./out
         run: pnpx turbo run cf-deploy
         env:
-          DEPLOY_ENV: ${{ job.environment }}
+          DEPLOY_ENV: prod
