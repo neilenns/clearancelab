@@ -4,8 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"]
     },
     "cf-deploy": {
       "dependsOn": [
@@ -29,12 +28,10 @@
     },
     "ci": {
       "dependsOn": ["^ci"],
-      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"]
     },
     "dev-setup": {
-      "dependsOn": ["^dev-setup"],
-      "cache": false
+      "dependsOn": ["^dev-setup"]
     },
     "dev": {
       "dependsOn": ["^dev-setup"],
