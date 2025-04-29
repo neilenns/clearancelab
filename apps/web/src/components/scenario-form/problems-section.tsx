@@ -35,10 +35,10 @@ export function ProblemsSection() {
         <CardTitle>Problems</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-10 gap-2 items-start mb-4">
+        <div className="grid grid-cols-[auto_1fr_1fr_auto] items-start mb-4 gap-2">
           {fields.map((field, index) => (
             <div key={field.id} className="contents">
-              <div className="col-span-1">
+              <div>
                 <FormField
                   control={control}
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -49,7 +49,9 @@ export function ProblemsSection() {
                         Level
                       </FormLabel>
                       <FormDescription className={cn(index !== 0 && "sr-only")}>
-                        Severity of the issue.
+                        <span className="invisible" aria-hidden="true">
+                          Spacer
+                        </span>
                       </FormDescription>
                       <Select
                         onValueChange={field.onChange}
@@ -62,7 +64,7 @@ export function ProblemsSection() {
                               name={field.name}
                               value={field.value}
                             />
-                            <SelectTrigger className="w-32">
+                            <SelectTrigger className="w-28">
                               <SelectValue placeholder="Select level" />
                             </SelectTrigger>
                           </div>
@@ -78,7 +80,7 @@ export function ProblemsSection() {
                   )}
                 />
               </div>
-              <div className="col-span-4">
+              <div>
                 <FormField
                   control={control}
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -99,7 +101,7 @@ export function ProblemsSection() {
                   )}
                 />
               </div>
-              <div className="col-span-4">
+              <div>
                 <FormField
                   control={control}
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -120,8 +122,8 @@ export function ProblemsSection() {
                   )}
                 />
               </div>
-              <div className="col-span-1 w-12 flex justify-center items-center">
-                <FormItem>
+              <div className="flex justify-center items-center">
+                <FormItem className="flex flex-col items-center">
                   <FormLabel className={cn(index !== 0 && "sr-only")}>
                     Delete
                   </FormLabel>
@@ -145,7 +147,7 @@ export function ProblemsSection() {
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-              </div>{" "}
+              </div>
             </div>
           ))}
         </div>
