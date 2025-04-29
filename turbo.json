@@ -32,7 +32,10 @@
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
-    "dev-setup": {},
+    "dev-setup": {
+      "dependsOn": ["^dev-setup"],
+      "cache": false
+    },
     "dev": {
       "dependsOn": ["^dev-setup"],
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"],
