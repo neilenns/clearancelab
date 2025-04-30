@@ -12,7 +12,7 @@ jobs:
 
     env:
       IMAGE_NAME: ${{ github.repository }}-api
-      PNPM_HOME: "/pnpm-store"
+      PNPM_STORE: "/pnpm-store"
 
     permissions:
       contents: read
@@ -42,7 +42,7 @@ jobs:
         uses: actions/cache@v4
         id: pnpm-cache
         with:
-          path: ${{ env.PNPM_HOME }}
+          path: pnpm-store
           key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Inject cache into Docker
@@ -50,7 +50,7 @@ jobs:
         with:
           cache-map: |
             {
-              "pnpm-store": "${{ env.PNPM_HOME }}"
+              "pnpm-store": "${{ env.PNPM_STORE }}"
             }
           skip-extraction: ${{ steps.pnpm-cache.outputs.cache-hit }}
 
@@ -68,7 +68,7 @@ jobs:
             VERSION=${{ github.event.release.tag_name }}
             TURBO_API=${{ vars.TURBO_API }}
             TURBO_TEAM=${{ vars.TURBO_TEAM }}
-            PNPM_HOME=${{ vars.PNPM_HOME }}
+            PNPM_STORE=${{ vars.PNPM_STORE }}
           tags: |
             ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.TAG }}
             ghcr.io/${{ env.IMAGE_NAME }}:latest

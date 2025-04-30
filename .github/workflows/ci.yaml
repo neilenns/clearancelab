@@ -12,7 +12,7 @@ env:
   IMAGE_NAME: ghcr.io/${{ github.repository }}-api
   VERSION: ${{ github.sha }}
   TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
-  PNPM_HOME: "/pnpm-store"
+  PNPM_STORE: "/pnpm-store"
 
 jobs:
   monorepo:
@@ -101,7 +101,7 @@ jobs:
         with:
           cache-map: |
             {
-              "pnpm-store": "${{ env.PNPM_HOME }}"
+              "pnpm-store": "${{ env.PNPM_STORE }}"
             }
           skip-extraction: ${{ steps.pnpm-cache.outputs.cache-hit }}
 
@@ -127,4 +127,4 @@ jobs:
             VERSION=dev
             TURBO_API=${{ env.TURBO_API }}
             TURBO_TEAM=${{ env.TURBO_TEAM }}
-            PNPM_HOME=${{ env.PNPM_HOME }}
+            PNPM_STORE=${{ env.PNPM_STORE }}
