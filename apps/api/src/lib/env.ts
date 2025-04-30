@@ -1,5 +1,9 @@
 import z from "zod";
-import "@dotenvx/dotenvx/config";
+import { config } from "@dotenvx/dotenvx";
+
+config({
+  ignore: ["MISSING_ENV_FILE"],
+});
 
 const envSchema = z.object({
   AUTH0_AUDIENCE: z.string(),
