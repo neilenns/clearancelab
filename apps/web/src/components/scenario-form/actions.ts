@@ -128,11 +128,14 @@ export const onSubmitScenario = async (
       console.debug(`Updating scenario ${scenario.data._id.toString()}`);
       response = await putJson<Scenario>(
         `/scenarios/${scenario.data._id.toString()}`,
-        scenario.data
+        scenario.data,
+        { withAuthToken: true }
       );
     } else {
       console.debug("Saving new scenario");
-      response = await postJson<Scenario>("/scenarios", scenario.data);
+      response = await postJson<Scenario>("/scenarios", scenario.data, {
+        withAuthToken: true,
+      });
     }
 
     if (!response) {
