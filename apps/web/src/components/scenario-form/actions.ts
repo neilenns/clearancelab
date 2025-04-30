@@ -128,11 +128,14 @@ export const onSubmitScenario = async (
       console.debug(`Updating scenario ${scenario.data._id.toString()}`);
       response = await putJson<Scenario>(
         `/scenarios/${scenario.data._id.toString()}`,
-        scenario.data
+        scenario.data,
+        { withAuthToken: true }
       );
     } else {
       console.debug("Saving new scenario");
-      response = await postJson<Scenario>("/scenarios", scenario.data);
+      response = await postJson<Scenario>("/scenarios", scenario.data, {
+        withAuthToken: true,
+      });
     }
 
     if (!response) {
@@ -154,10 +157,10 @@ export const onSubmitScenario = async (
       message: `Scenario ${isEdit ? "updated" : "saved"}!`,
     };
   } catch (err) {
-    console.error("Network error", err);
+    console.error(err);
     return {
       success: false,
-      message: "Unable to connect to the server.",
+      message: (err as Error).message,
     };
   }
 };

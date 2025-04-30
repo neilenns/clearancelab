@@ -14,3 +14,4 @@ echo "📦 Importing data..."
 mongoimport --uri=${DB_URI} --collection=scenarios --file="${SCRIPT_DIR}/clearancelab.scenarios.json" --jsonArray
 mongoimport --uri=${DB_URI} --collection=airportinfo --file="${SCRIPT_DIR}/clearancelab.airportinfo.json" --jsonArray
 mongoimport --uri=${DB_URI} --collection=vatsimflightplans --file="${SCRIPT_DIR}/clearancelab.vatsimflightplans.json" --jsonArray
+mongoimport --uri=${DB_URI} --collection=auth0users --file="${SCRIPT_DIR}/clearancelab.auth0users.json" --jsonArray
