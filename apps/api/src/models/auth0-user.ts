@@ -59,7 +59,7 @@ Auth0UserSchema.statics.findOrCreate = async function (
   }
 };
 
-export const Auth0UserModel: Model<Auth0User> = mongoose.model<
-  Auth0User,
-  Auth0UserModelType
->("Auth0User", Auth0UserSchema);
+export const Auth0UserModel = mongoose.model<Auth0User, Auth0UserModelType>(
+  "Auth0User",
+  Auth0UserSchema
+);

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { verifyApiKey } from "../middleware/apikey.js";
 import { ScenarioModel } from "../models/scenario.js";
 import { Scenario, ScenarioSchema } from "@workspace/validators";
+import { verifyUser } from "../middleware/permissions.js";
 
 const router = Router();
 
@@ -59,7 +60,7 @@ router.get(
 
 router.post(
   "/",
-  verifyApiKey,
+  verifyUser,
   async (
     req: Request<unknown, unknown, Scenario>,
     res: Response,
@@ -91,7 +92,7 @@ router.post(
 
 router.put(
   "/:id",
-  verifyApiKey,
+  verifyUser,
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const isValid = mongoose.isValidObjectId(id);

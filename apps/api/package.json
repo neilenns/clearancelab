@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsup --watch --onSuccess \"node dist/index.js\"",
+    "dev": "dotenvx run -f .env.local -- tsup --watch --onSuccess \"node dist/index.js\"",
     "dev:docker": "BUILDKIT_PROGRESS=plain docker compose run api",
     "ci": "pnpm run build",
     "start": "node dist/index.js",
@@ -16,6 +16,7 @@
   },
   "description": "API for the Clearance Lab website.",
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.41.0",
     "@workspace/plantools": "workspace:*",
     "@workspace/validators": "workspace:*",
     "auth0": "^4.22.0",
