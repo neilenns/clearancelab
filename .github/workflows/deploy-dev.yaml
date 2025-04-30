@@ -66,7 +66,7 @@ jobs:
           secrets: |
             TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
           build-args: |
-            VERSION=${{ steps.vars.output.VERSION }}
+            VERSION=${{ env.VERSION }}
             TURBO_API=${{ vars.TURBO_API }}
             TURBO_TEAM=${{ vars.TURBO_TEAM }}
             PNPM_STORE=${{ env.PNPM_STORE }}
