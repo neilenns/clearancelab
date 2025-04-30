@@ -18,7 +18,7 @@
       "kv_namespaces": [
         {
           "binding": "NEXT_INC_CACHE_KV",
-          "id": "clearancelab-web-dev"
+          "id": "66c16465a23f4dea8872600f554fcf34"
         }
       ],
       "durable_objects": {
@@ -54,7 +54,7 @@
       "kv_namespaces": [
         {
           "binding": "NEXT_INC_CACHE_KV",
-          "id": "clearancelab-web-prod"
+          "id": "e64cd5c8710b403f8325e977470f1096"
         }
       ],
       "durable_objects": {
