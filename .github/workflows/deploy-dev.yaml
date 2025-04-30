@@ -99,12 +99,12 @@ jobs:
       contents: read
 
     steps:
-    - name: Assert DEPLOY_ENV
-      run: |
-        if [ -z "${{ vars.DEPLOY_ENV }}" ]; then
-          echo "Error: DEPLOY_ENV is not set"
-          exit 1
-        fi
+      - name: Assert DEPLOY_ENV
+        run: |
+          if [ -z "${{ vars.DEPLOY_ENV }}" ]; then
+            echo "Error: DEPLOY_ENV is not set"
+            exit 1
+          fi
 
       - name: Checkout code
         uses: actions/checkout@v4
