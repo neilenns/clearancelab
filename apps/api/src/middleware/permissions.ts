@@ -24,7 +24,7 @@ export const verifyUser = async (
             return;
           }
         }
-        res.status(500).json({ error: "Auth failure", details: err });
+        res.status(500).json({ error: "Authorization failure" });
         return;
       }
       next();
