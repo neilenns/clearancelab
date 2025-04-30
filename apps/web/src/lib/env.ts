@@ -32,7 +32,7 @@ const envSchema = z.object({
 const result = envSchema.safeParse(process.env);
 if (!result.success) {
   console.error("Environment validation failed:", result.error.format());
-  throw new Error("Environment validation failed");
+  process.exit(1);
 }
 
 export const ENV = result.data;
