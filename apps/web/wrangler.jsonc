@@ -18,7 +18,7 @@
       "kv_namespaces": [
         {
           "binding": "NEXT_INC_CACHE_KV",
-          "id": "clearancelab-web-dev"
+          "id": "66c16465a23f4dea8872600f554fcf34"
         }
       ],
       "durable_objects": {
@@ -29,6 +29,13 @@
           }
         ]
       },
+      "d1_databases": [
+        {
+          "binding": "NEXT_TAG_CACHE_D1",
+          "database_id": "61eacd5e-ea4e-4100-9d91-8be52a9843de",
+          "database_name": "clearancelab-web-dev"
+        }
+      ],
       "migrations": [
         {
           "tag": "v1",
@@ -54,7 +61,7 @@
       "kv_namespaces": [
         {
           "binding": "NEXT_INC_CACHE_KV",
-          "id": "clearancelab-web-prod"
+          "id": "e64cd5c8710b403f8325e977470f1096"
         }
       ],
       "durable_objects": {
@@ -65,6 +72,13 @@
           }
         ]
       },
+      "d1_databases": [
+        {
+          "binding": "NEXT_TAG_CACHE_D1",
+          "database_id": "b85551e9-7a2c-4086-9939-f0f97e902f44",
+          "database_name": "clearancelab-web-prod"
+        }
+      ],
       "migrations": [
         {
           "tag": "v1",
