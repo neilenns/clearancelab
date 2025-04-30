@@ -1,13 +1,14 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { type AuthResult, auth } from "express-oauth2-jwt-bearer";
 import { ENV } from "../lib/env.js";
+import { Auth0UserModel, Auth0User } from "../models/auth0-user.js";
 import { logger } from "../lib/logger.js";
-import { Auth0UserModel } from "../models/auth0-user.js";
 
 const log = logger.child({ service: "permissions" });
 
 export interface Auth0UserRequest extends Request {
   auth?: AuthResult;
+  userId: string;
 }
 
 interface VerifyErrorResponse {
@@ -23,21 +24,26 @@ export const verifyUser = async (
   next: NextFunction
 ) => {
   const middleware = auth({
-    audience: "https://planverifier.badcasserole.com:4001/",
+    audience: ENV.AUTH0_AUDIENCE,
     issuerBaseURL: ENV.AUTH0_DOMAIN,
   });
 
-  await middleware(req, res, (err?: unknown) => {
-    if (err) {
-      if (typeof err === "object" && "name" in err) {
-        if ((err as { name: string }).name === "UnauthorizedError") {
-          return res.status(401).json({ error: "Invalid or missing token" });
+  try {
+    await middleware(req, res, (err?: unknown) => {
+      if (err) {
+        if (typeof err === "object" && "name" in err) {
+          if ((err as { name: string }).name === "UnauthorizedError") {
+            return res.status(401).json({ error: "Invalid or missing token" });
+          }
         }
+        return res.status(500).json({ error: "Auth failure", details: err });
       }
-      return res.status(500).json({ error: "Auth failure", details: err });
-    }
-    next();
-  });
+      next();
+    });
+  } catch (err) {
+    log.error("Authorization middleware failed", err);
+    return res.status(500).json({ error: "Authorization failure" });
+  }
 };
 
 export const verifyAndAddUserInfo = async (
@@ -85,9 +91,8 @@ export const verifyAndAddUserInfo = async (
         return res.status(404).json({ message: "User not found" });
       }
 
-      // Kind of a hack, just blindly replace the Auth0 sub (which isn't useful elsewhere)
-      // with the _id of the user in the database (which is useful).
-      req.auth.payload.sub = user._id as string;
+      // Store the user ID in the request so it can be used elsewhere.
+      req.userId = user._id as string;
 
       next();
     } catch (err) {
@@ -104,7 +109,7 @@ export const dumpJwt = (
   res: Response,
   next: NextFunction
 ): void => {
-  logger.debug(req.headers.authorization);
+  log.debug(req.headers.authorization);
   next();
 };
 
@@ -114,16 +119,23 @@ export const verifyRole =
     const sub = req.auth?.payload.sub;
 
     if (sub == null) {
-      logger.error(`No sub found for ${JSON.stringify(req.auth)}`);
+      log.error(`No sub found for ${JSON.stringify(req.auth)}`);
       return res.status(401).json({
         error: { isPending: false, message: "Unauthorized" },
       } satisfies VerifyErrorResponse);
     }
 
-    const userInfo = await Auth0UserModel.findOrCreate(sub);
+    let userInfo: Auth0User | null;
+
+    try {
+      userInfo = await Auth0UserModel.findOrCreate(sub);
+    } catch (err) {
+      log.error(`Unable to get user data from database`, err);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
 
     if (userInfo == null) {
-      logger.error(`No user found for ${sub}`);
+      log.error(`No user found for ${sub}`);
       return res.status(401).json({
         error: { isPending: false, message: "Unauthorized" },
       } satisfies VerifyErrorResponse);
@@ -131,16 +143,14 @@ export const verifyRole =
 
     // Pending users get a special 403 message
     if (userInfo.isPending) {
-      logger.warn(
-        `User ${sub} (${userInfo._id as string}) is pending approval`
-      );
+      log.warn(`User ${sub} (${userInfo._id as string}) is pending approval`);
       return res.status(403).json({
         error: { isPending: true, message: "Account not verified" },
       } satisfies VerifyErrorResponse);
     }
     // If the role doesn't match they also get a 403 message
     else if (!userInfo.roles.includes(role)) {
-      logger.error(
+      log.error(
         `User ${sub} (${userInfo._id as string}) has ${userInfo.roles.join(
           ", "
         )} roles but not the requested role ${role}`

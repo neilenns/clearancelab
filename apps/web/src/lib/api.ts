@@ -36,7 +36,7 @@ async function apiRequest<T>(
 
   if (!response.ok) {
     if (response.status === 404) {
-      throw new Error("Resource not found");
+      return null;
     }
 
     if (response.status === 401) {
@@ -47,6 +47,7 @@ async function apiRequest<T>(
     throw new Error(`API error ${response.status.toString()}: ${message}`);
   }
 
+  if (response.status === 204) return null;
   return (await response.json()) as T;
 }
 

@@ -1,11 +1,10 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import { ManagementClient } from "auth0";
-import { ENV } from "../lib/env.js";
 import { logger } from "../lib/logger.js";
+import { getAuth0ManagementClient } from "../lib/auth0.js";
 
 const log = logger.child({ service: "auth0user" });
 
-interface Auth0User extends Document {
+export interface Auth0User extends Document {
   colorMode: string;
   email: string;
   isPending: boolean;
@@ -35,14 +34,8 @@ Auth0UserSchema.statics.findOrCreate = async function (
     return existingUser;
   }
 
-  const management = new ManagementClient({
-    domain: ENV.AUTH0_DOMAIN,
-    clientId: ENV.AUTH0_CLIENT_ID,
-    clientSecret: ENV.AUTH0_CLIENT_SECRET,
-  });
-
   try {
-    const result = await management.users.get({ id: sub });
+    const result = await getAuth0ManagementClient().users.get({ id: sub });
 
     const newUser = await this.create({
       sub,
