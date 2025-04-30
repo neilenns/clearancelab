@@ -1,4 +1,3 @@
-import { Types } from "mongoose";
 import { z } from "zod";
 import { AirportInfoSchema } from "./airport-info.js";
 import { CraftSchema } from "./craft.js";
@@ -6,14 +5,7 @@ import { PlanSchema } from "./plan.js";
 import { ProblemSchema } from "./problems.js";
 
 export const ScenarioSchema = z.object({
-  _id: z
-    .union([
-      z.instanceof(Types.ObjectId),
-      z.string().refine((value) => Types.ObjectId.isValid(value), {
-        message: "Invalid ObjectId format",
-      }),
-    ])
-    .optional(),
+  _id: z.string().optional(),
   isValid: z.boolean().default(true),
   canClear: z.boolean().default(true),
   airportConditions: z.string().optional(),
