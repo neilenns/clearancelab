@@ -96,7 +96,6 @@ jobs:
       DEPLOY_ENV: ${{ vars.DEPLOY_ENV }}
       TURBO_API: ${{ vars.TURBO_API }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
 
     permissions:
       contents: read
@@ -125,6 +124,8 @@ jobs:
       # Prune to just the necessary files for the web build. Result is in ./out.
       - name: Prep for build
         run: pnpx turbo prune --scope=web
+        secrets: |
+          TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
 
       - name: Install dependencies
         working-directory: ./out
@@ -141,3 +142,5 @@ jobs:
       - name: Deploy to site to Cloudflare
         working-directory: ./out
         run: pnpx turbo run cf-deploy
+        secrets: |
+          TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
