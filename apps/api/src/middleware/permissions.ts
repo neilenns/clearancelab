@@ -19,7 +19,7 @@ interface VerifyErrorResponse {
 
 export const verifyUser = auth({
   audience: "https://planverifier.badcasserole.com:4001/",
-  issuerBaseURL: "https://dev-q5itijfspt3smgyw.us.auth0.com/",
+  issuerBaseURL: ENV.AUTH0_DOMAIN,
 });
 
 export const verifyAndAddUserInfo = async (
@@ -30,7 +30,7 @@ export const verifyAndAddUserInfo = async (
   // Call your existing authentication middleware
   await auth({
     audience: ENV.AUTH0_AUDIENCE,
-    issuerBaseURL: ENV.AUTH0_ISSUER_BASE_URL,
+    issuerBaseURL: ENV.AUTH0_DOMAIN,
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
   })(req, res, async (err: unknown) => {
     if (err != null) {

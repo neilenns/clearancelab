@@ -6,7 +6,6 @@ const envSchema = z.object({
   AUTH0_CLIENT_ID: z.string(),
   AUTH0_CLIENT_SECRET: z.string(), // To generate this use `openssl rand -hex 32`
   AUTH0_DOMAIN: z.string(),
-  AUTH0_ISSUER_BASE_URL: z.string(),
   LOG_LEVEL: z.enum(["error", "warn", "info", "debug"]).default("info"),
   MONGO_DB_CONNECTION_STRING: z
     .string()
