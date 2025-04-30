@@ -15,10 +15,10 @@
           "service": "clearancelab-web-dev"
         }
       ],
-      "r2_buckets": [
+      "kv_namespaces": [
         {
-          "binding": "NEXT_INC_CACHE_R2_BUCKET",
-          "bucket_name": "clearancelab-web-dev"
+          "binding": "NEXT_INC_CACHE_KV",
+          "id": "clearancelab-web-dev"
         }
       ],
       "durable_objects": {
@@ -58,10 +58,10 @@
           "service": "clearancelab-web-prod"
         }
       ],
-      "r2_buckets": [
+      "kv_namespaces": [
         {
-          "binding": "NEXT_INC_CACHE_R2_BUCKET",
-          "bucket_name": "clearancelab-web-prod"
+          "binding": "NEXT_INC_CACHE_KV",
+          "id": "clearancelab-web-prod"
         }
       ],
       "durable_objects": {
