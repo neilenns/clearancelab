@@ -16,9 +16,11 @@
   },
   "description": "API for the Clearance Lab website.",
   "dependencies": {
-    "@workspace/validators": "workspace:*",
     "@workspace/plantools": "workspace:*",
+    "@workspace/validators": "workspace:*",
+    "auth0": "^4.22.0",
     "express": "^5.1.0",
+    "express-oauth2-jwt-bearer": "^1.6.1",
     "express-rate-limit": "^7.5.0",
     "express-winston": "^4.2.0",
     "helmet": "^8.1.0",
