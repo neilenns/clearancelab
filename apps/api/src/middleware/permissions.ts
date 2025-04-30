@@ -17,10 +17,28 @@ interface VerifyErrorResponse {
   };
 }
 
-export const verifyUser = auth({
-  audience: "https://planverifier.badcasserole.com:4001/",
-  issuerBaseURL: ENV.AUTH0_DOMAIN,
-});
+export const verifyUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const middleware = auth({
+    audience: "https://planverifier.badcasserole.com:4001/",
+    issuerBaseURL: ENV.AUTH0_DOMAIN,
+  });
+
+  await middleware(req, res, (err?: unknown) => {
+    if (err) {
+      if (typeof err === "object" && "name" in err) {
+        if ((err as { name: string }).name === "UnauthorizedError") {
+          return res.status(401).json({ error: "Invalid or missing token" });
+        }
+      }
+      return res.status(500).json({ error: "Auth failure", details: err });
+    }
+    next();
+  });
+};
 
 export const verifyAndAddUserInfo = async (
   req: Auth0UserRequest,

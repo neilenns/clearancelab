@@ -21,7 +21,11 @@ async function apiRequest<T>(
 
   if (!response.ok) {
     if (response.status === 404) {
-      return null;
+      throw new Error("Resource not found");
+    }
+
+    if (response.status === 401) {
+      throw new Error(`Unauthorized access, please check your credentials.`);
     }
 
     const message = await response.text();

@@ -154,10 +154,10 @@ export const onSubmitScenario = async (
       message: `Scenario ${isEdit ? "updated" : "saved"}!`,
     };
   } catch (err) {
-    console.error("Network error", err);
+    console.error(err);
     return {
       success: false,
-      message: "Unable to connect to the server.",
+      message: (err as Error).message,
     };
   }
 };
