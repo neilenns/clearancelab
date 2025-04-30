@@ -9,6 +9,39 @@
   },
   "env": {
     "dev": {
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "clearancelab-web-dev"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "NEXT_INC_CACHE_R2_BUCKET",
+          "bucket_name": "clearancelab-web-dev"
+        }
+      ],
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "NEXT_CACHE_DO_QUEUE",
+            "class_name": "DOQueueHandler"
+          }
+        ]
+      },
+      "migrations": [
+        {
+          "tag": "v1",
+          "new_sqlite_classes": ["DOQueueHandler"]
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "NEXT_TAG_CACHE_D1",
+          "database_id": "61eacd5e-ea4e-4100-9d91-8be52a9843de",
+          "database_name": "clearancelab-web-dev"
+        }
+      ],
       "route": "clearancelab-dev.badcasserole.com/*",
       "vars": {
         "API_BASE_URL": "https://clearancelab-backend-dev.badcasserole.com",
@@ -19,6 +52,39 @@
       }
     },
     "prod": {
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "clearancelab-web-prod"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "NEXT_INC_CACHE_R2_BUCKET",
+          "bucket_name": "clearancelab-web-prod"
+        }
+      ],
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "NEXT_CACHE_DO_QUEUE",
+            "class_name": "DOQueueHandler"
+          }
+        ]
+      },
+      "migrations": [
+        {
+          "tag": "v1",
+          "new_sqlite_classes": ["DOQueueHandler"]
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "NEXT_TAG_CACHE_D1",
+          "database_id": "b85551e9-7a2c-4086-9939-f0f97e902f44",
+          "database_name": "clearancelab-web-prod"
+        }
+      ],
       "route": "clearancelab.badcasserole.com/*",
       "vars": {
         "API_BASE_URL": "https://clearancelab-backend.badcasserole.com",
