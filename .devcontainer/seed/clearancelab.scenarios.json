@@ -20,7 +20,11 @@
     },
     "isValid": false,
     "canClear": true,
-    "airportConditions": "West flow. Altimeter 29.90. Departure is offline.",
+    "airportConditions": {
+      "flow": "WEST",
+      "altimeter": 29.9,
+      "departureOnline": false
+    },
     "craft": {
       "telephony": "Alaska 1160",
       "controllerName": "Portland Ground",
@@ -57,7 +61,11 @@
     },
     "isValid": true,
     "canClear": true,
-    "airportConditions": "West flow. Altimeter 29.90. Portland Approach is online.",
+    "airportConditions": {
+      "flow": "WEST",
+      "altimeter": 29.9,
+      "departureOnline": true
+    },
     "craft": {
       "telephony": "Alaska 17",
       "controllerName": "Portland Ground",
@@ -89,7 +97,11 @@
     },
     "isValid": true,
     "canClear": true,
-    "airportConditions": "West flow. Altimeter 29.90. Portland Approach is online.",
+    "airportConditions": {
+      "flow": "WEST",
+      "altimeter": 29.9,
+      "departureOnline": true
+    },
     "craft": {
       "telephony": "Alaska 223",
       "controllerName": "Portland Ground",
@@ -121,7 +133,11 @@
     },
     "isValid": true,
     "canClear": true,
-    "airportConditions": "East flow. Altimeter 30.02. Portland Approach is offline.",
+    "airportConditions": {
+      "flow": "EAST",
+      "altimeter": 30.02,
+      "departureOnline": false
+    },
     "craft": {
       "telephony": "N357JK Heavy",
       "controllerName": "Portland Ground",
@@ -159,7 +175,11 @@
     },
     "isValid": true,
     "canClear": true,
-    "airportConditions": "East flow. Altimeter 30.02. Portland Approach is online.",
+    "airportConditions": {
+      "flow": "EAST",
+      "altimeter": 30.02,
+      "departureOnline": true
+    },
     "problems": []
   },
   {
@@ -184,7 +204,11 @@
     },
     "isValid": false,
     "canClear": false,
-    "airportConditions": "East flow. Altimeter 30.02. Portland Approach is offline.",
+    "airportConditions": {
+      "flow": "EAST",
+      "altimeter": 30.02,
+      "departureOnline": false
+    },
     "problems": [
       {
         "level": "error",

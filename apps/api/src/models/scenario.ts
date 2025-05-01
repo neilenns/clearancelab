@@ -5,6 +5,7 @@ import { AirportInfoData } from "./airport-info.js";
 import { Plan, PlanSchema } from "./plan.js";
 import { Craft, CraftSchema } from "./craft.js";
 import { Problem, ProblemSchema } from "./problem.js";
+import { AirportConditionsSchema } from "./airport-conditions.js";
 
 // Combined schema data interface
 export interface Scenario {
@@ -28,7 +29,7 @@ export interface ScenarioModelType extends Model<Scenario> {
 // Define schema
 const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
   {
-    airportConditions: { type: String, required: false },
+    airportConditions: { type: [AirportConditionsSchema], required: true },
     canClear: { type: Boolean, default: true },
     craft: CraftSchema,
     isValid: { type: Boolean, default: true },
