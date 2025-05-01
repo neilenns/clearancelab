@@ -2,7 +2,7 @@ name: Deploy - prod
 
 on:
   release:
-    types: [published] # triggers when a new GitHub Release is published
+    types: [published]
 
 jobs:
   docker:
@@ -10,69 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod
 
-    env:
-      IMAGE_NAME: ${{ github.repository }}-api
-      PNPM_STORE: "/pnpm-store"
-
-    permissions:
-      contents: read
-      packages: write # needed to push to GHCR
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Extract tag name
         id: vars
-        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        shell: bash
 
-      # This method of caching pnpm files in Docker builds during CI workflows is from
-      # https://dev.to/henryjw/caching-pnpm-modules-in-docker-builds-in-github-actions-mj7#implementation
-      - name: Cache pnpm
-        uses: actions/cache@v4
-        id: pnpm-cache
+      - name: Docker Build & Push
+        uses: ./.github/actions/docker-build
         with:
-          path: pnpm-store
-          key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
-
-      - name: Inject cache into Docker
-        uses: reproducible-containers/buildkit-cache-dance@v3.1.2
-        with:
-          cache-map: |
-            {
-              "pnpm-store": "${{ env.PNPM_STORE }}"
-            }
-          skip-extraction: ${{ steps.pnpm-cache.outputs.cache-hit }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: apps/api/Dockerfile
-          push: true
-          cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
-          cache-to: type=inline
-          secrets: |
-            TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
-          build-args: |
-            VERSION=${{ github.event.release.tag_name }}
-            TURBO_API=${{ vars.TURBO_API }}
-            TURBO_TEAM=${{ vars.TURBO_TEAM }}
-            PNPM_STORE=${{ vars.PNPM_STORE }}
-          tags: |
-            ghcr.io/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.TAG }}
-            ghcr.io/${{ env.IMAGE_NAME }}:latest
-            ghcr.io/${{ env.IMAGE_NAME }}:cache
+          version: ${{ env.VERSION }}
+          env: prod
 
   cloudflare:
     name: Deploy to Cloudflare
@@ -80,63 +31,9 @@ jobs:
     environment:
       name: prod
       url: ${{ vars.APP_BASE_URL }}
-
-    env:
-      API_BASE_URL: ${{ vars.API_BASE_URL }}
-      API_KEY: ${{ secrets.API_KEY }}
-      APP_BASE_URL: ${{ vars.APP_BASE_URL }}
-      AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE }}
-      AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
-      AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
-      AUTH0_DOMAIN: ${{ vars.AUTH0_DOMAIN }}
-      AUTH0_SECRET: ${{ secrets.AUTH0_SECRET }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      DEPLOY_ENV: ${{ vars.DEPLOY_ENV }}
-      TURBO_API: ${{ vars.TURBO_API }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-
     permissions:
       contents: read
 
     steps:
-      - name: Assert DEPLOY_ENV
-        run: |
-          if [ -z "${{ vars.DEPLOY_ENV }}" ]; then
-            echo "Error: DEPLOY_ENV is not set"
-            exit 1
-          fi
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.10.0
-
-      - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-
-      # Prune to just the necessary files for the web build. Result is in ./out.
-      - name: Prep for build
-        run: pnpx turbo prune --scope=web
-
-      - name: Install dependencies
-        working-directory: ./out
-        run: pnpm install
-
-      - name: Deploy secrets to Cloudflare
-        working-directory: ./out/apps/web
-        # Wrangler secret put takes the value as a piped input.
-        run: |
-          echo "${{ secrets.API_KEY }}" | pnpx wrangler secret put API_KEY --env ${{ vars.DEPLOY_ENV }}
-          echo "${{ secrets.AUTH0_SECRET }}" | pnpx wrangler secret put AUTH0_SECRET --env ${{ vars.DEPLOY_ENV }}
-          echo "${{ secrets.AUTH0_CLIENT_SECRET }}" | pnpx wrangler secret put AUTH0_CLIENT_SECRET --env ${{ vars.DEPLOY_ENV }}
-
-      - name: Deploy to site to Cloudflare
-        working-directory: ./out
-        run: pnpx turbo run cf-deploy
+      - name: Deploy to Cloudflare
+        uses: ./.github/actions/cloudflare-deploy
