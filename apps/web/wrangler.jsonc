@@ -9,6 +9,39 @@
   },
   "env": {
     "dev": {
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "clearancelab-web-dev"
+        }
+      ],
+      "kv_namespaces": [
+        {
+          "binding": "NEXT_INC_CACHE_KV",
+          "id": "66c16465a23f4dea8872600f554fcf34"
+        }
+      ],
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "NEXT_CACHE_DO_QUEUE",
+            "class_name": "DOQueueHandler"
+          }
+        ]
+      },
+      "d1_databases": [
+        {
+          "binding": "NEXT_TAG_CACHE_D1",
+          "database_id": "61eacd5e-ea4e-4100-9d91-8be52a9843de",
+          "database_name": "clearancelab-web-dev"
+        }
+      ],
+      "migrations": [
+        {
+          "tag": "v1",
+          "new_sqlite_classes": ["DOQueueHandler"]
+        }
+      ],
       "route": "clearancelab-dev.badcasserole.com/*",
       "vars": {
         "API_BASE_URL": "https://clearancelab-backend-dev.badcasserole.com",
@@ -19,6 +52,39 @@
       }
     },
     "prod": {
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "clearancelab-web-prod"
+        }
+      ],
+      "kv_namespaces": [
+        {
+          "binding": "NEXT_INC_CACHE_KV",
+          "id": "e64cd5c8710b403f8325e977470f1096"
+        }
+      ],
+      "durable_objects": {
+        "bindings": [
+          {
+            "name": "NEXT_CACHE_DO_QUEUE",
+            "class_name": "DOQueueHandler"
+          }
+        ]
+      },
+      "d1_databases": [
+        {
+          "binding": "NEXT_TAG_CACHE_D1",
+          "database_id": "b85551e9-7a2c-4086-9939-f0f97e902f44",
+          "database_name": "clearancelab-web-prod"
+        }
+      ],
+      "migrations": [
+        {
+          "tag": "v1",
+          "new_sqlite_classes": ["DOQueueHandler"]
+        }
+      ],
       "route": "clearancelab.badcasserole.com/*",
       "vars": {
         "API_BASE_URL": "https://clearancelab-backend.badcasserole.com",

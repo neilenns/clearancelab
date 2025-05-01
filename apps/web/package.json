@@ -12,7 +12,8 @@
     "cf-build": "opennextjs-cloudflare build",
     "cf-preview": "pnpm run cf-build && opennextjs-cloudflare preview",
     "cf-deploy": "pnpm run cf-build && opennextjs-cloudflare deploy -- --env=$DEPLOY_ENV",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "cf-populate": "opennextjs-cloudflare populateCache remote -- --env=$DEPLOY_ENV"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.5.1",
