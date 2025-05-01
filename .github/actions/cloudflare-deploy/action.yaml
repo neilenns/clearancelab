@@ -1,0 +1,61 @@
+name: "Deploy to Cloudflare"
+description: "Prunes, builds, and deploys the web app to Cloudflare"
+
+inputs:
+  deploy_env:
+    required: true
+    description: "The environment to deploy to (e.g., production, staging)"
+  api_key:
+    required: true
+    description: "API key for Cloudflare"
+  auth0_secret:
+    required: true
+    description: "Auth0 secret for authentication"
+  auth0_client_secret:
+    required: true
+    description: "Auth0 client secret for authentication"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Assert DEPLOY_ENV
+      run: |
+        if [ -z "$DEPLOY_ENV" ]; then
+          echo "Error: deploy_env input is not set"
+          exit 1
+        fi
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 10.10.0
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: ".nvmrc"
+        cache: "pnpm"
+
+    - name: Prep for build
+      run: pnpx turbo prune --scope=web
+      shell: bash
+
+    - name: Install dependencies
+      working-directory: ./out
+      run: pnpm install
+      shell: bash
+
+    - name: Deploy secrets to Cloudflare
+      working-directory: ./out/apps/web
+      run: |
+        echo "${{ inputs.api_key }}" | pnpx wrangler secret put API_KEY --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.auth0_secret }}" | pnpx wrangler secret put AUTH0_SECRET --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.auth0_client_secret }}" | pnpx wrangler secret put AUTH0_CLIENT_SECRET --env ${{ inputs.deploy_env }}
+      shell: bash
+
+    - name: Deploy to Cloudflare
+      working-directory: ./out
+      run: pnpx turbo run cf-deploy
+      shell: bash

@@ -18,7 +18,6 @@ jobs:
   monorepo:
     name: Build monorepo
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: true
 
@@ -58,7 +57,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # To ensure since_last_remote_commit works on initial PR open
+          fetch-depth: 0
 
       - name: Check for changed Dockerfile
         id: changed-files
@@ -71,60 +70,18 @@ jobs:
               - apps/api/.dockerignore
               - .github/workflows/ci.yaml
 
-      - name: List changed Dockerfiles
-        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
-        env:
-          DOCKER_ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.dockerfile_all_changed_files }}
-        run: |
-          echo "Dockerfiles changed: $DOCKER_ALL_CHANGED_FILES"
-
-      - name: Stop workflow if no changed Dockerfiles
+      - name: Skip if Dockerfiles unchanged
         if: steps.changed-files.outputs.dockerfile_any_changed != 'true'
-        env:
-          GH_TOKEN: ${{ secrets. GITHUB_TOKEN }}
-        run: |
-          echo "No change to Dockerfile, skipping build."
+        run: echo "No Dockerfile changes, skipping build."
 
-      # This method of caching pnpm files in Docker builds during CI workflows is from
-      # https://dev.to/henryjw/caching-pnpm-modules-in-docker-builds-in-github-actions-mj7#implementation
-      - name: Cache pnpm
+      - name: Docker build (CI only, no push)
         if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
-        uses: actions/cache@v4
-        id: pnpm-cache
+        uses: ./.github/actions/docker-build
         with:
-          path: pnpm-store
-          key: pnpm-cache-${{ hashFiles('pnpm-lock.yaml') }}
-
-      - name: Inject cache into Docker
-        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
-        uses: reproducible-containers/buildkit-cache-dance@v3.1.2
-        with:
-          cache-map: |
-            {
-              "pnpm-store": "${{ env.PNPM_STORE }}"
-            }
-          skip-extraction: ${{ steps.pnpm-cache.outputs.cache-hit }}
-
-      - name: Log in to GitHub Container Registry
-        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push Docker image
-        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: apps/api/Dockerfile
+          version: dev
           push: false
-          cache-from: type=registry,ref=ghcr.io/${{ env.IMAGE_NAME }}:cache
-          secrets: |
-            TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
-          build-args: |
-            VERSION=dev
-            TURBO_API=${{ env.TURBO_API }}
-            TURBO_TEAM=${{ env.TURBO_TEAM }}
-            PNPM_STORE=${{ env.PNPM_STORE }}
+          tag_latest: false
+          turbo_token: ${{ secrets.TURBO_TOKEN }}
+          turbo_api: ${{ vars.TURBO_API }}
+          turbo_team: ${{ vars.TURBO_TEAM }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
