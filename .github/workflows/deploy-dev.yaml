@@ -2,11 +2,6 @@ name: Deploy - dev
 
 on:
   workflow_dispatch:
-    inputs:
-      ref:
-        description: "Git reference to deploy (branch, tag, or SHA)"
-        required: false
-        default: "main"
 
 jobs:
   docker:
@@ -17,8 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.ref }}
 
       - name: Extract short hash of current commit
         id: vars
