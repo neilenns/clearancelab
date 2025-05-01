@@ -125,7 +125,7 @@ The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#dep
 | `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.   | ✅       |
 | `DEPLOY_ENV`          | Deployment environment, either `prod` or `dev`.      | ✅       |
 
-The environment variables are set in the [`wrangler.toml`](apps/web/wrangler.toml) file and in GitHub environment variables. They must be set in both places so the CI builds will pass environment variable verification.
+The environment variables are set in the [`wrangler.toml`](apps/web/wrangler.toml) file and in GitHub environment variables. They must be set in both places, so the CI builds will pass environment variable verification.
 
 The API key and Auth0 secrets are stored as GitHub secrets and are pushed to Cloudflare during the release workflow.
 
@@ -159,4 +159,4 @@ All jobs leverage a TurboRepo remote cache and prune to only run when dependent 
 
 Deployments to the `dev` environment are triggered manually by running the [`Deploy - dev`](.github/workflows/deploy-dev.yaml) workflow in GitHub. Deployments to the `prod` environment are triggered by the [`Deploy - prod`](.github/workflows/deploy-prod.yaml) workflow.
 
-The only part that requires manual deployment is updating whatever Docker instance is running the API server Docker image.
+The only part that requires manual deployment is updating the Docker instance running the API server Docker image.
