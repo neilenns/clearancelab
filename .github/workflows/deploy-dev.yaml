@@ -36,7 +36,11 @@ jobs:
       url: ${{ vars.APP_BASE_URL }}
     permissions:
       contents: read
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Deploy to Cloudflare
         uses: ./.github/actions/cloudflare-deploy
         with:
