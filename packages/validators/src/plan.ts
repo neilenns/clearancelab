@@ -8,6 +8,7 @@ export const PlanSchema = z.object({
   dep: z.string().optional(),
   dest: z.string().optional(),
   eq: z.string().optional(),
+  homeAirport: z.string().optional(),
   pilotName: z.string().optional(),
   rmk: z.string().optional(),
   rte: z.string().optional(),

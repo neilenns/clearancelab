@@ -1,4 +1,5 @@
 import {
+  getRandomAirportCode,
   getRandomBcn,
   getRandomCallsign,
   getRandomCid,
@@ -98,6 +99,36 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
                   </FormLabel>
                   <FormControl>
                     <Input id="pilotName" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div>
+            <FormField
+              control={control}
+              name="plan.homeAirport"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <span>Home airport</span>
+                    <button
+                      type="button"
+                      aria-label="Generate random home airport"
+                      tabIndex={-1}
+                      aria-hidden="false"
+                      onClick={() => {
+                        const random = getRandomAirportCode();
+                        field.onChange(random);
+                      }}
+                    >
+                      <RefreshCwIcon width={14} height={14} />
+                    </button>
+                  </FormLabel>
+                  <FormControl>
+                    <Input id="homeAirport" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
