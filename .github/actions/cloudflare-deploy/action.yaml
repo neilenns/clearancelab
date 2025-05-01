@@ -24,6 +24,7 @@ runs:
           echo "Error: deploy_env input is not set"
           exit 1
         fi
+      shell: bash
 
     - name: Checkout code
       uses: actions/checkout@v4
