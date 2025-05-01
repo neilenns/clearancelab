@@ -11,12 +11,12 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { VatsimImportDialog } from "./vatsim-import-dialog";
 import { ScenarioInput } from "@workspace/validators";
+import { ReactFormSwitch } from "@/components/ui/react-form-switch";
 
 interface PlanSectionProps {
   isEditMode: boolean;
@@ -43,8 +44,8 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 gap-2 items-start mb-4">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 items-start mb-4">
+          <div>
             <FormField
               control={control}
               name="plan.vatsimId"
@@ -74,7 +75,7 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
             />
           </div>
 
-          <div className="col-span-2">
+          <div>
             <FormField
               control={control}
               name="plan.pilotName"
@@ -103,9 +104,13 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
               )}
             />
           </div>
+
+          <div className="self-end">
+            {!isEditMode && <VatsimImportDialog />}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 gap-2 items-start mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(4,_1fr)_35px_repeat(4,_1fr)] gap-2 items-start mb-4">
           <FormField
             control={control}
             name="plan.aid"
@@ -298,7 +303,7 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 mb-4">
           <div className="w-1/2">
             <FormField
               control={control}
@@ -314,6 +319,7 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
               )}
             />
           </div>
+
           <div className="w-1/2">
             <FormField
               control={control}
@@ -330,12 +336,71 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
             />
           </div>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-2 items-start mb-4">
+          <div>
+            <FormField
+              control={control}
+              name="isValid"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Valid?</FormLabel>
+                  <FormDescription>
+                    Is the flight plan completely correct with no errors?
+                  </FormDescription>
+                  <FormControl>
+                    <ReactFormSwitch field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div>
+            <FormField
+              control={control}
+              name="canClear"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Can clear?</FormLabel>
+                  <FormDescription>
+                    Can the flight plan be cleared, even with errors?
+                  </FormDescription>
+                  <FormControl>
+                    <ReactFormSwitch field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="col-span-full">
+            <FormField
+              control={control}
+              name="airportConditions"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Airport conditions</FormLabel>
+                  <FormDescription>
+                    Additional information about the airport, relevant to the
+                    scenario. For example, airport flow, altimeter, and whether
+                    departure is online.
+                  </FormDescription>
+                  <FormControl>
+                    <Input
+                      id="airportConditions"
+                      placeholder="West flow. Altimeter 29.92. Departure 124.350."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
       </CardContent>
-      {!isEditMode && (
-        <CardFooter className="space-x-2">
-          <VatsimImportDialog />
-        </CardFooter>
-      )}
     </Card>
   );
 }
