@@ -14,6 +14,12 @@ inputs:
   auth0_client_secret:
     required: true
     description: "Auth0 client secret for authentication"
+  cloudflare_account_id:
+    required: true
+    description: "Cloudflare account ID for deployment"
+  cloudflare_api_token:
+    required: true
+    description: "Cloudflare API token for deployment"
 
 runs:
   using: "composite"
@@ -52,3 +58,7 @@ runs:
       working-directory: ./out
       run: pnpx turbo run cf-deploy
       shell: bash
+      env:
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        CLOUDFLARE_API_KEY: ${{ inputs.api_key }}

@@ -48,7 +48,9 @@ jobs:
       - name: Deploy to Cloudflare
         uses: ./.github/actions/cloudflare-deploy
         with:
-          deploy_env: ${{ vars.DEPLOY_ENV }}
           api_key: ${{ secrets.API_KEY }}
-          auth0_secret: ${{ secrets.AUTH0_SECRET }}
           auth0_client_secret: ${{ secrets.AUTH0_CLIENT_SECRET }}
+          auth0_secret: ${{ secrets.AUTH0_SECRET }}
+          cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          deploy_env: ${{ vars.DEPLOY_ENV }}
