@@ -7,13 +7,12 @@ import { useForm } from "react-hook-form";
 import { PlanSection } from "./plan-section";
 import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
 import { ScenarioOverview } from "./scenario-overview";
-import { CraftSection } from "./craft-section";
 import { useActionState, useEffect } from "react";
 import { onSubmitScenario } from "./actions";
 import { toast } from "sonner";
 import { getRandomScenario } from "@workspace/plantools";
 import { Loader2 } from "lucide-react";
-import { ProblemsSection } from "./problems-section";
+import { ToggleControlledSections } from "./toggle-controlled-sections";
 
 export const ScenarioForm = ({
   defaultValues,
@@ -77,8 +76,7 @@ export const ScenarioForm = ({
 
           <ScenarioOverview />
           <PlanSection isEditMode={isEditMode} />
-          <CraftSection />
-          <ProblemsSection />
+          <ToggleControlledSections />
 
           {isPending ? (
             <Button disabled className="w-[120px]">
