@@ -53,6 +53,9 @@ runs:
         echo "${{ inputs.auth0_secret }}" | pnpx wrangler secret put AUTH0_SECRET --env ${{ inputs.deploy_env }}
         echo "${{ inputs.auth0_client_secret }}" | pnpx wrangler secret put AUTH0_CLIENT_SECRET --env ${{ inputs.deploy_env }}
       shell: bash
+      env:
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
 
     - name: Deploy to Cloudflare
       working-directory: ./out
@@ -61,4 +64,3 @@ runs:
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-        CLOUDFLARE_API_KEY: ${{ inputs.api_key }}
