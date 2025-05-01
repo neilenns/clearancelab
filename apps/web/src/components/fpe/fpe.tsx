@@ -6,6 +6,7 @@ import { FPELabel } from "./fpe-label";
 import { FPETextArea } from "./fpe-textarea";
 import "./fpe.css";
 import { Scenario } from "@workspace/validators";
+import * as changeCase from "change-case";
 
 interface FPEProps {
   scenario?: Scenario | null;
@@ -178,7 +179,9 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ scenario }, ref) => {
           <span className="font-semibold text-[var(--color-fpe-conditions-label-foreground)]">
             Conditions:
           </span>{" "}
-          {airportConditions}
+          Flow: {changeCase.sentenceCase(airportConditions.flow)}. Altimeter:{" "}
+          {airportConditions.altimeter.toFixed(2)}. Departure{" "}
+          {airportConditions.departureOnline ? "online" : "offline"}.
         </div>
       )}
     </div>
