@@ -74,10 +74,14 @@ jobs:
         if: steps.changed-files.outputs.dockerfile_any_changed != 'true'
         run: echo "No Dockerfile changes, skipping build."
 
-      - name: Docker Build (CI only, no push)
+      - name: Docker build (CI only, no push)
         if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
         uses: ./.github/actions/docker-build
         with:
           version: dev
           env: dev
-          push: "false"
+          push: false
+          turbo_token: ${{ secrets.TURBO_TOKEN }}
+          turbo_api: ${{ vars.TURBO_API }}
+          turbo_team: ${{ vars.TURBO_TEAM }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

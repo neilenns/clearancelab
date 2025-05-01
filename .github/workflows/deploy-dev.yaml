@@ -2,6 +2,11 @@ name: Deploy - dev
 
 on:
   workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git reference to deploy (branch, tag, or SHA)"
+        required: false
+        default: "main"
 
 jobs:
   docker:
@@ -12,17 +17,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref }}
 
       - name: Extract short hash of current commit
         id: vars
         run: echo "VERSION=dev-$(git rev-parse --short=7 HEAD)" >> $GITHUB_ENV
         shell: bash
 
-      - name: Docker build and push
+      - name: Docker build & push
         uses: ./.github/actions/docker-build
         with:
           version: ${{ env.VERSION }}
           env: dev
+          push: true
+          turbo_token: ${{ secrets.TURBO_TOKEN }}
+          turbo_api: ${{ vars.TURBO_API }}
+          turbo_team: ${{ vars.TURBO_TEAM }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   cloudflare:
     name: Deploy to Cloudflare
@@ -32,7 +44,11 @@ jobs:
       url: ${{ vars.APP_BASE_URL }}
     permissions:
       contents: read
-
     steps:
       - name: Deploy to Cloudflare
         uses: ./.github/actions/cloudflare-deploy
+        with:
+          deploy_env: ${{ vars.DEPLOY_ENV }}
+          api_key: ${{ secrets.API_KEY }}
+          auth0_secret: ${{ secrets.AUTH0_SECRET }}
+          auth0_client_secret: ${{ secrets.AUTH0_CLIENT_SECRET }}

@@ -9,6 +9,14 @@ inputs:
   push:
     required: false
     default: "true"
+  turbo_token:
+    required: true
+  turbo_api:
+    required: true
+  turbo_team:
+    required: true
+  github_token:
+    required: true
 
 runs:
   using: "composite"
@@ -24,7 +32,7 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ inputs.github_token }}
 
     - name: Cache pnpm
       uses: actions/cache@v4
@@ -51,11 +59,11 @@ runs:
         cache-from: type=registry,ref=ghcr.io/${{ github.repository }}-api:cache
         cache-to: type=inline
         secrets: |
-          TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
+          TURBO_TOKEN=${{ inputs.turbo_token }}
         build-args: |
           VERSION=${{ inputs.version }}
-          TURBO_API=${{ vars.TURBO_API }}
-          TURBO_TEAM=${{ vars.TURBO_TEAM }}
+          TURBO_API=${{ inputs.turbo_api }}
+          TURBO_TEAM=${{ inputs.turbo_team }}
           PNPM_STORE=/pnpm-store
         tags: |
           ghcr.io/${{ github.repository }}-api:${{ inputs.version }}
