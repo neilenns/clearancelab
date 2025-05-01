@@ -73,6 +73,23 @@ Default values for local development are set in the [`devcontainer.json`](.devco
 | `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
 | `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
 
+The API server also needs two Auth0 variables set to validate secured endpoints. These are not currently set automatically, and you'll have to ask for the values from the project maintainers.
+
+| Variable         | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| `AUTH0_DOMAIN`   | Domain of the Auth0 Clearance Lab application.  |
+| `AUTH0_AUDIENCE` | URL for the API created in the Auth0 dashboard. |
+
+The web app also needs several Auth0 variables set to validate secured endpoints. These are not currently set automatically, and you'll have to ask for the values from the project maintainers.
+
+| Variable              | Description                                          | Required |
+| --------------------- | ---------------------------------------------------- | -------- |
+| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.      | ✅       |
+| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0. | ✅       |
+| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                        | ✅       |
+| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0.    | ✅       |
+| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.   | ✅       |
+
 To speed builds, the following environment variables can be set to enable TurboRepo remote caching:
 
 | Variable      | Description                                |
@@ -96,10 +113,21 @@ The API server supports the following variables:
 
 The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#deployment). The following variables and secrets are supported:
 
-| Variable       | Description                                                                                                                             | Required |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `API_BASE_URL` | URI to the API server. Configured in [`wrangler.jsonc`](apps/web/wrangler.jsonc).                                                       | ✅       |
-| `API_KEY`      | API key for access to the API server. Configured in GitHub as a repository secret and pushed to Cloudflare during the release workflow. | ✅       |
+| Variable              | Description                                          | Required |
+| --------------------- | ---------------------------------------------------- | -------- |
+| `API_BASE_URL`        | URI to the API server.                               | ✅       |
+| `API_KEY`             | API key for access to the API server.                | ✅       |
+| `APP_BASE_URL`        | URI to the web app.                                  | ✅       |
+| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.      | ✅       |
+| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0. | ✅       |
+| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                        | ✅       |
+| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0.    | ✅       |
+| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.   | ✅       |
+| `DEPLOY_ENV`          | Deployment environment, either `prod` or `dev`.      | ✅       |
+
+The environment variables are set in the [`wrangler.toml`](apps/web/wrangler.toml) file and in GitHub environment variables. They must be set in both places, so the CI builds will pass environment variable verification.
+
+The API key and Auth0 secrets are stored as GitHub secrets and are pushed to Cloudflare during the release workflow.
 
 ## Build process and deployment
 
@@ -129,10 +157,6 @@ All jobs leverage a TurboRepo remote cache and prune to only run when dependent 
 
 ### Deployment
 
-Deployments are triggered either by pushes to main or GitHub releases.
+Deployments to the `dev` environment are triggered manually by running the [`Deploy - dev`](.github/workflows/deploy-dev.yaml) workflow in GitHub. Deployments to the `prod` environment are triggered by the [`Deploy - prod`](.github/workflows/deploy-prod.yaml) workflow.
 
-- **Devcontainer - Build**: Builds the devcontainer image on pushes to `main`.
-- **Release - Build Docker image**: Builds the API Docker image and publishes it to the container repository.
-- **Release - Cloudflare**: Builds the website and deploys to a Cloudflare worker.
-
-The only part that requires manual deployment is updating whatever Docker instance is running the API Docker image.
+The only part that requires manual deployment is updating the Docker instance running the API server Docker image.
