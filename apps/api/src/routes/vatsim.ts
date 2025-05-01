@@ -39,6 +39,7 @@ router.get(
         spd: flightPlan.groundspeed,
         typ: flightPlan.equipmentType,
         eq: flightPlan.equipmentSuffix,
+        homeAirport: flightPlan.homeAirport,
         vatsimId: getRandomVatsimId(),
       } as Plan;
 

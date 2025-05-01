@@ -120,6 +120,114 @@ const airlineCodes = [
   "SIA", // Singapore Airlines
 ];
 
+const airportCodes = [
+  // United States (60)
+  "KSEA",
+  "KLAX",
+  "KSFO",
+  "KDEN",
+  "KORD",
+  "KATL",
+  "KJFK",
+  "KLGA",
+  "KEWR",
+  "KDFW",
+  "KPHX",
+  "KLAS",
+  "KSAN",
+  "KSLC",
+  "KPDX",
+  "KBOI",
+  "KMSP",
+  "KDTW",
+  "KIAD",
+  "KDCA",
+  "KBOS",
+  "KCLT",
+  "KTPA",
+  "KMCO",
+  "KIAH",
+  "KHOU",
+  "KSTL",
+  "KMEM",
+  "KBWI",
+  "KCVG",
+  "KSMF",
+  "KSJC",
+  "KOAK",
+  "KANC",
+  "KFAI",
+  "KTUS",
+  "KOMA",
+  "KOKC",
+  "KABQ",
+  "KMSY",
+  "KCMH",
+  "KIND",
+  "KRDU",
+  "KRIC",
+  "KPIT",
+  "KCHS",
+  "KBUF",
+  "KALB",
+  "KGRR",
+  "KORF",
+  "KSAV",
+  "KGEG",
+  "KEUG",
+  "KMDW",
+  "KPVD",
+  "KELP",
+  "KLIT",
+  "KHSV",
+  "KGSO",
+  "KLEX",
+
+  // Canada (10)
+  "CYVR",
+  "CYYJ",
+  "CYLW",
+  "CYCD",
+  "CYQQ",
+  "CYXX",
+  "CYEG",
+  "CYYC",
+  "CYWG",
+  "CYYZ",
+
+  // International (30, excluding Canadian)
+  "RJTT",
+  "RJAA",
+  "ZBAA",
+  "ZSPD",
+  "RKSI",
+  "VHHH",
+  "RCTP",
+  "WSSS",
+  "YSSY",
+  "NZAA",
+  "EGLL",
+  "EHAM",
+  "LFPG",
+  "EDDF",
+  "OMDB",
+  "ZGGG",
+  "ZKPY",
+  "UUEE",
+  "SBGR",
+  "MMMX",
+  "MROC",
+  "MPTO",
+  "SCEL",
+  "EGKK",
+  "LSZH",
+  "LIRF",
+  "RJBB",
+  "RPLL",
+  "VTBS",
+  "OEJN",
+];
+
 function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -136,6 +244,11 @@ export function getRandomAltimeter(): number {
   return Number.parseFloat(
     biasedRandom(LOWEST_PRESSURE, HIGHEST_PRESSURE, 2).toFixed(2)
   );
+}
+
+export function getRandomAirportCode(): string {
+  const index = getRandomInt(0, airportCodes.length - 1);
+  return airportCodes[index];
 }
 
 export function getRandomScenario(): Scenario {

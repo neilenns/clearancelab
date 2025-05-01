@@ -9,6 +9,7 @@ export interface Plan {
   dest?: string;
   eq?: string;
   pilotName?: string;
+  homeAirport?: string;
   raw?: string;
   rmk?: string;
   rte?: string;
@@ -29,6 +30,7 @@ export const PlanSchema = new Schema<Plan>({
   dest: { type: String },
   eq: { type: String },
   pilotName: { type: String },
+  homeAirport: { type: String },
   rmk: { type: String },
   rte: { type: String },
   spd: { type: Number },
