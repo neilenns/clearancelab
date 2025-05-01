@@ -39,7 +39,13 @@ export function AirportConditionsSection() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex gap-2">
+        <fieldset
+          className="flex gap-2"
+          aria-describedby="airport-section-description"
+        >
+          <legend id="airport-section-description" className="sr-only">
+            Airport conditions
+          </legend>
           <div>
             <FormField
               control={control}
@@ -58,7 +64,11 @@ export function AirportConditionsSection() {
                           name={field.name}
                           value={field.value}
                         />
-                        <SelectTrigger className="w-28">
+                        <SelectTrigger
+                          aria-haspopup="listbox"
+                          aria-label="Select flow direction"
+                          className="w-28"
+                        >
                           <SelectValue placeholder="Select flow" />
                         </SelectTrigger>
                       </div>
@@ -128,7 +138,7 @@ export function AirportConditionsSection() {
               )}
             />
           </div>
-        </div>
+        </fieldset>
       </CardContent>
     </Card>
   );

@@ -5,12 +5,15 @@ import { AirportInfoData } from "./airport-info.js";
 import { Plan, PlanSchema } from "./plan.js";
 import { Craft, CraftSchema } from "./craft.js";
 import { Problem, ProblemSchema } from "./problem.js";
-import { AirportConditionsSchema } from "./airport-conditions.js";
+import {
+  AirportConditions,
+  AirportConditionsSchema,
+} from "./airport-conditions.js";
 
 // Combined schema data interface
 export interface Scenario {
   _id: Types.ObjectId;
-  airportConditions?: string;
+  airportConditions: AirportConditions;
   canClear: boolean;
   craft?: Craft;
   depAirportInfo?: AirportInfoData;
@@ -29,7 +32,7 @@ export interface ScenarioModelType extends Model<Scenario> {
 // Define schema
 const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
   {
-    airportConditions: { type: [AirportConditionsSchema], required: true },
+    airportConditions: { type: AirportConditionsSchema, required: true },
     canClear: { type: Boolean, default: true },
     craft: CraftSchema,
     isValid: { type: Boolean, default: true },

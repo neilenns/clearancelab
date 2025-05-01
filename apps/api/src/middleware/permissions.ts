@@ -18,7 +18,7 @@ export const verifyUser = async (
   try {
     await middleware(req, res, (err?: unknown) => {
       if (err) {
-        console.debug("Authorization error", err);
+        log.debug("Authorization error", err);
         if (typeof err === "object" && "name" in err) {
           if ((err as { name: string }).name === "UnauthorizedError") {
             res.status(401).json({ error: "Invalid or missing token" });
