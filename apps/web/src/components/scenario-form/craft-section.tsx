@@ -40,7 +40,14 @@ export function CraftSection() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <fieldset disabled={!canClear} className="space-y-4">
+        <fieldset
+          disabled={!canClear}
+          className="space-y-4"
+          aria-describedby="craft-section-description"
+        >
+          <legend id="craft-section-description" className="sr-only">
+            CRAFT clearance details
+          </legend>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-2 items-start mb-4">
             <div>
               <FormField

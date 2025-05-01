@@ -55,7 +55,14 @@ export function ProblemsSection() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <fieldset disabled={isValid} className="space-y-4">
+        <fieldset
+          disabled={isValid}
+          className="space-y-4"
+          aria-describedby="problems-section-description"
+        >
+          <legend id="problems-section-description" className="sr-only">
+            Problems with the flight plan
+          </legend>
           <div className="grid grid-cols-[auto_1fr_1fr_auto] items-start mb-4 gap-2">
             {fields.map((field, index) => (
               <div key={field.id} className="contents">
@@ -66,7 +73,10 @@ export function ProblemsSection() {
                     name={`problems.${index}.level`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className={cn(index !== 0 && "sr-only")}>
+                        <FormLabel
+                          htmlFor={`problem-level-${index.toString()}`}
+                          className={cn(index !== 0 && "sr-only")}
+                        >
                           Level
                         </FormLabel>
                         <FormDescription
@@ -84,6 +94,7 @@ export function ProblemsSection() {
                             <div>
                               <input
                                 type="hidden"
+                                id={`problem-level-${index.toString()}`}
                                 name={field.name}
                                 value={field.value}
                               />
@@ -170,6 +181,7 @@ export function ProblemsSection() {
                         aria-label="Delete problem"
                       >
                         <Trash2 />
+                        <span className="sr-only">Delete problem</span>
                       </Button>
                     </FormControl>
                     <FormMessage />
