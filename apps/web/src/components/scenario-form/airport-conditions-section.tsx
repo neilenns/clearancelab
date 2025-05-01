@@ -23,6 +23,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
+import { getRandomAltimeter } from "@workspace/plantools";
+import { RefreshCwIcon } from "lucide-react";
 
 export function AirportConditionsSection() {
   const { control } = useFormContext<ScenarioInput>();
@@ -37,7 +39,7 @@ export function AirportConditionsSection() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-2 items-start mb-4">
+        <div className="flex gap-2">
           <div>
             <FormField
               control={control}
@@ -79,7 +81,21 @@ export function AirportConditionsSection() {
               name="airportConditions.altimeter"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Altimeter</FormLabel>
+                  <FormLabel>
+                    Altimeter
+                    <button
+                      type="button"
+                      tabIndex={-1}
+                      aria-hidden="false"
+                      aria-label="Generate random altimeter"
+                      onClick={() => {
+                        const random = getRandomAltimeter();
+                        field.onChange(random);
+                      }}
+                    >
+                      <RefreshCwIcon width={14} height={14} />
+                    </button>
+                  </FormLabel>{" "}
                   <FormControl>
                     <Input id="altimeter" placeholder="29.92" {...field} />
                   </FormControl>
@@ -94,10 +110,19 @@ export function AirportConditionsSection() {
               name="airportConditions.departureOnline"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Departure online?</FormLabel>
-                  <FormControl>
-                    <ReactFormSwitch field={field} />
-                  </FormControl>
+                  <FormLabel>
+                    {" "}
+                    <span className="invisible" aria-hidden="true">
+                      Spacer
+                    </span>
+                  </FormLabel>
+                  <div className="mt-2">
+                    <FormControl>
+                      <ReactFormSwitch field={field}>
+                        Departure online
+                      </ReactFormSwitch>
+                    </FormControl>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
