@@ -31,7 +31,8 @@
         "mongodb.mongodb-vscode",
         "nize.oklch-preview",
         "starbist.oklchanger",
-        "vk-l.nanoid-generator"
+        "vk-l.nanoid-generator",
+        "github.vscode-github-actions"
       ]
     }
   },
