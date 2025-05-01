@@ -92,6 +92,7 @@ const names: string[] = [
   "Zubair",
   "Zuri",
 ];
+Object.freeze(names);
 
 const airlineCodes = [
   // US Airlines
@@ -119,6 +120,7 @@ const airlineCodes = [
   "QFA", // Qantas
   "SIA", // Singapore Airlines
 ];
+Object.freeze(airlineCodes);
 
 const airportCodes = [
   // United States (60)
@@ -192,7 +194,7 @@ const airportCodes = [
   "CYXX",
   "CYEG",
   "CYYC",
-  "CYWG",
+  "CYBR",
   "CYYZ",
 
   // International (30, excluding Canadian)
@@ -227,6 +229,7 @@ const airportCodes = [
   "VTBS",
   "OEJN",
 ];
+Object.freeze(airportCodes);
 
 function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;

@@ -54,11 +54,12 @@ export interface VatsimFlightPlanStaticMethods
   findByCallsign(
     callsign: string
   ): Promise<
-    (VatsimFlightPlanDocument & VirtualsForModel<VatsimFlightPlanModel>) | null
+    | (VatsimFlightPlanDocument & VirtualsForModel<VatsimFlightPlanModelType>)
+    | null
   >;
 }
 
-type VatsimFlightPlanModel = mongoose.Model<
+type VatsimFlightPlanModelType = mongoose.Model<
   VatsimFlightPlanDocument,
   unknown,
   unknown,
@@ -67,7 +68,7 @@ type VatsimFlightPlanModel = mongoose.Model<
 
 const VatsimFlightPlanSchema = new Schema<
   VatsimFlightPlanDocument,
-  VatsimFlightPlanModel,
+  VatsimFlightPlanModelType,
   unknown,
   unknown,
   VatsimFlightPlanVirtuals,
@@ -154,11 +155,10 @@ const VatsimFlightPlanSchema = new Schema<
 
           const codeMatch = /^([A-Z0-9]+)(\/([A-Z]))?$/.exec(rawAircraftType);
           if (codeMatch != null && codeMatch.length > 0) {
-            if (codeMatch.length > 2 && codeMatch[3].length > 0) {
+            if (codeMatch.length > 3 && codeMatch[3]) {
               return codeMatch[3];
             }
           }
-
           return undefined;
         },
       },
@@ -170,7 +170,8 @@ const VatsimFlightPlanSchema = new Schema<
             return undefined;
           }
 
-          return parts[parts.length - 1].toUpperCase();
+          const candidate = parts[parts.length - 1].toUpperCase();
+          return /^[A-Z]{4}$/.test(candidate) ? candidate : undefined;
         },
       },
     },
@@ -181,11 +182,11 @@ VatsimFlightPlanSchema.plugin(mongooseLeanVirtuals);
 
 VatsimFlightPlanSchema.statics.findByCallsign = function (callsign) {
   return this.findOne({ callsign }).lean<
-    VatsimFlightPlanDocument & VirtualsForModel<VatsimFlightPlanModel>
+    VatsimFlightPlanDocument & VirtualsForModel<VatsimFlightPlanModelType>
   >({ virtuals: true });
 };
 
-export const VatsimFlightPlanModel = mongoose.model(
-  "vatsimflightplans",
-  VatsimFlightPlanSchema
-);
+export const VatsimFlightPlanModel = mongoose.model<
+  VatsimFlightPlanDocument,
+  VatsimFlightPlanStaticMethods
+>("vatsimflightplans", VatsimFlightPlanSchema);

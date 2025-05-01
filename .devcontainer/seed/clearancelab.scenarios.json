@@ -15,6 +15,7 @@
       "dest": "KLAX",
       "spd": 225,
       "alt": 370,
+      "homeAirport": "KPDX",
       "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
       "raw": "ASA1160  B738M/X  0000  6660  KPDX - KLAX  370 CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1"
     },
@@ -56,6 +57,7 @@
       "dest": "KLAS",
       "spd": 225,
       "alt": 350,
+      "homeAirport": "KPDX",
       "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
       "raw": "ASA17  B739/L  0000  0755  KPDX - KLAS  330 CASCD2 PAWLI RUFUS RALEY OAL BASIC COKTL1"
     },
@@ -92,6 +94,7 @@
       "dest": "CYEG",
       "spd": 200,
       "alt": 350,
+      "homeAirport": "KPDX",
       "rte": "LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
       "raw": "ASA223  A320/L  0000  2000  KPDX - CYEG  350 LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2"
     },
@@ -128,6 +131,7 @@
       "dest": "KPHX",
       "spd": 200,
       "alt": 390,
+      "homeAirport": "KSEA",
       "rte": "WHAMY5 KOATA Q35 NEERO BERYL CORKR TENTS BRUSR1",
       "raw": "N357JK  H/B78X/L  2247  KPDX - KPHX  390  WHAMY5 KOATA Q35 NEERO BERYL CORKR TENTS BRUSR1"
     },
@@ -162,6 +166,7 @@
       "dest": "PHNL",
       "spd": 200,
       "alt": 360,
+      "homeAirport": "CYBR",
       "rte": "ONP HEMLO 40N130W ADTIL BILLO/N0448F380 R464 BITTA INOYI1",
       "rmk": "RALT/KSFO PHTO SIMBRIEF/FIRST IFR FLIGHT/ VERY NEW TO VATSIM",
       "raw": "ASA498  B38M/L  7420  KPDX - PHNL  360  ONP HEMLO 40N130W ADTIL BILLO/N0448F380 R464 BITTA INOYI1"
@@ -198,6 +203,7 @@
       "dest": "KLAX",
       "spd": 200,
       "alt": 350,
+      "homeAirport": "CYYC",
       "rte": "KPDX TO SMIGE TO SUNBE TO SHIMR TO KLAX",
       "raw": "FFT1522  A320/S  1655  KPDX - KLAX  350  KPDX TO SMIGE TO SUNBE TO SHIMR TO KLAX",
       "rmk": "NEW PILOT"
