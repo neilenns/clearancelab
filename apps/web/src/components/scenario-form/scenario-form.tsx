@@ -13,6 +13,7 @@ import { getRandomScenario } from "@workspace/plantools";
 import { Loader2 } from "lucide-react";
 import { ProblemsSection } from "./problems-section";
 import { CraftSection } from "./craft-section";
+import { AirportConditionsSection } from "./airport-conditions-section";
 
 export const ScenarioForm = ({
   defaultValues,
@@ -75,6 +76,7 @@ export const ScenarioForm = ({
           />
 
           <PlanSection isEditMode={isEditMode} />
+          <AirportConditionsSection />
           <CraftSection />
           <ProblemsSection />
 

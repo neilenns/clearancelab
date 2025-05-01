@@ -1,4 +1,4 @@
-import { Scenario } from "@workspace/validators";
+import { FlowDirection, Scenario } from "@workspace/validators";
 
 const names: string[] = [
   "Alejandro",
@@ -124,6 +124,20 @@ function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function biasedRandom(min: number, max: number, biasStrength: number): number {
+  const r = Math.random() ** (1 / biasStrength); // skewed toward 1
+  return min + (max - min) * r;
+}
+
+export function getRandomAltimeter(): number {
+  const LOWEST_PRESSURE = 28;
+  const HIGHEST_PRESSURE = 31;
+
+  return Number.parseFloat(
+    biasedRandom(LOWEST_PRESSURE, HIGHEST_PRESSURE, 2).toFixed(2)
+  );
+}
+
 export function getRandomScenario(): Scenario {
   return {
     plan: {
@@ -150,7 +164,11 @@ export function getRandomScenario(): Scenario {
       frequency: "",
       transponder: "",
     },
-    airportConditions: "",
+    airportConditions: {
+      flow: FlowDirection.WEST,
+      altimeter: getRandomAltimeter(),
+      departureOnline: false,
+    },
     problems: [],
   };
 }

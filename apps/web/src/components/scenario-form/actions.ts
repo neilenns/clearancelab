@@ -74,6 +74,8 @@ export const onSubmitScenario = async (
   }
 
   const formData = unflatten(Object.fromEntries(payload));
+  assertObject(formData.airportConditions);
+  assertObject(formData.plan);
 
   // Fix up the ID. If it is an empty string, set it to undefined.
   if (formData._id === "") {
@@ -88,13 +90,19 @@ export const onSubmitScenario = async (
   formData.isValid = convertToBoolean(formData.isValid);
   formData.canClear = convertToBoolean(formData.canClear);
 
+  formData.airportConditions.departureOnline = convertToBoolean(
+    formData.airportConditions.departureOnline
+  );
+
   // Fix up the numbers
-  assertObject(formData.plan);
   formData.plan.alt = convertToNumber(formData.plan.alt);
   formData.plan.bcn = convertToNumber(formData.plan.bcn);
   formData.plan.cid = convertToNumber(formData.plan.cid);
   formData.plan.spd = convertToNumber(formData.plan.spd);
   formData.plan.vatsimId = convertToNumber(formData.plan.vatsimId);
+  formData.airportConditions.altimeter = convertToNumber(
+    formData.airportConditions.altimeter
+  );
 
   const toParse = {
     ...formData,

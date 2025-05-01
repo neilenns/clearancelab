@@ -82,13 +82,13 @@ The API server also needs two Auth0 variables set to validate secured endpoints.
 
 The web app also needs several Auth0 variables set to validate secured endpoints. These are not currently set automatically, and you'll have to ask for the values from the project maintainers.
 
-| Variable              | Description                                          | Required |
-| --------------------- | ---------------------------------------------------- | -------- |
-| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.      | ✅       |
-| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0. | ✅       |
-| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                        | ✅       |
-| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0.    | ✅       |
-| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.   | ✅       |
+| Variable              | Description                                                                                         | Required |
+| --------------------- | --------------------------------------------------------------------------------------------------- | -------- |
+| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                     | ✅       |
+| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                | ✅       |
+| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                       | ✅       |
+| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. This must be a valid URI and start with https://. | ✅       |
+| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                  | ✅       |
 
 To speed builds, the following environment variables can be set to enable TurboRepo remote caching:
 
@@ -113,17 +113,17 @@ The API server supports the following variables:
 
 The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#deployment). The following variables and secrets are supported:
 
-| Variable              | Description                                          | Required |
-| --------------------- | ---------------------------------------------------- | -------- |
-| `API_BASE_URL`        | URI to the API server.                               | ✅       |
-| `API_KEY`             | API key for access to the API server.                | ✅       |
-| `APP_BASE_URL`        | URI to the web app.                                  | ✅       |
-| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.      | ✅       |
-| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0. | ✅       |
-| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                        | ✅       |
-| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0.    | ✅       |
-| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.   | ✅       |
-| `DEPLOY_ENV`          | Deployment environment, either `prod` or `dev`.      | ✅       |
+| Variable              | Description                                                                                         | Required |
+| --------------------- | --------------------------------------------------------------------------------------------------- | -------- |
+| `API_BASE_URL`        | URI to the API server.                                                                              | ✅       |
+| `API_KEY`             | API key for access to the API server.                                                               | ✅       |
+| `APP_BASE_URL`        | URI to the web app.                                                                                 | ✅       |
+| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                     | ✅       |
+| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                | ✅       |
+| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                       | ✅       |
+| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. This must be a valid URI and start with https://. | ✅       |
+| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                  | ✅       |
+| `DEPLOY_ENV`          | Deployment environment, either `prod` or `dev`.                                                     | ✅       |
 
 The environment variables are set in the [`wrangler.toml`](apps/web/wrangler.toml) file and in GitHub environment variables. They must be set in both places, so the CI builds will pass environment variable verification.
 
