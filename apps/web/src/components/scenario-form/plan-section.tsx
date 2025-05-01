@@ -375,30 +375,6 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
               )}
             />
           </div>
-          <div className="col-span-full">
-            <FormField
-              control={control}
-              name="airportConditions"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Airport conditions</FormLabel>
-                  <FormDescription>
-                    Additional information about the airport, relevant to the
-                    scenario. For example, airport flow, altimeter, and whether
-                    departure is online.
-                  </FormDescription>
-                  <FormControl>
-                    <Input
-                      id="airportConditions"
-                      placeholder="West flow. Altimeter 29.92. Departure 124.350."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
         </div>
       </CardContent>
     </Card>

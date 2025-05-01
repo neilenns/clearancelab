@@ -3,12 +3,13 @@ import { AirportInfoSchema } from "./airport-info.js";
 import { CraftSchema } from "./craft.js";
 import { PlanSchema } from "./plan.js";
 import { ProblemSchema } from "./problems.js";
+import { AirportConditionsSchema } from "./airport-conditions.js";
 
 export const ScenarioSchema = z.object({
   _id: z.string().optional(),
   isValid: z.boolean().default(true),
   canClear: z.boolean().default(true),
-  airportConditions: z.string().optional(),
+  airportConditions: AirportConditionsSchema,
   craft: CraftSchema.optional(),
   depAirportInfo: AirportInfoSchema.optional(),
   destAirportInfo: AirportInfoSchema.optional(),

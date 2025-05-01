@@ -1,4 +1,4 @@
-import { Scenario } from "@workspace/validators";
+import { FlowDirection, Scenario } from "@workspace/validators";
 
 const names: string[] = [
   "Alejandro",
@@ -150,7 +150,11 @@ export function getRandomScenario(): Scenario {
       frequency: "",
       transponder: "",
     },
-    airportConditions: "",
+    airportConditions: {
+      flow: FlowDirection.WEST,
+      altimeter: 29.92,
+      departureOnline: false,
+    },
     problems: [],
   };
 }

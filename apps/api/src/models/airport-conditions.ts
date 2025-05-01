@@ -1,11 +1,5 @@
 import { Schema } from "mongoose";
-
-export enum FlowDirection {
-  NORTH = "NORTH",
-  SOUTH = "SOUTH",
-  EAST = "EAST",
-  WEST = "WEST",
-}
+import { FlowDirection } from "@workspace/validators";
 
 export interface AirportConditions {
   flow: FlowDirection;
@@ -19,7 +13,7 @@ export const AirportConditionsSchema = new Schema<AirportConditions>({
     type: Number,
     required: true,
     validate: {
-      validator: (v: number) => v >= 28.0 && v <= 31.0,
+      validator: (v: number) => v >= 28 && v <= 31,
       message: (props: { value: number }) =>
         `${props.value.toString()} is not a valid altimeter setting.`,
     },
