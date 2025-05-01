@@ -23,13 +23,11 @@ jobs:
       - name: Extract short hash of current commit
         id: vars
         run: echo "VERSION=dev-$(git rev-parse --short=7 HEAD)" >> $GITHUB_ENV
-        shell: bash
 
       - name: Docker build & push
         uses: ./.github/actions/docker-build
         with:
           version: ${{ env.VERSION }}
-          env: dev
           push: true
           turbo_token: ${{ secrets.TURBO_TOKEN }}
           turbo_api: ${{ vars.TURBO_API }}

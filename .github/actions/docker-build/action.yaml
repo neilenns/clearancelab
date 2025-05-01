@@ -4,17 +4,23 @@ description: "Builds and pushes the Docker image with optional caching"
 inputs:
   version:
     required: true
-  env:
-    required: true
+    description: "Version tag for the Docker image"
+  tag_latest:
+    required: false
+    default: "false"
+    description: "Tag the image as latest"
   push:
     required: false
     default: "true"
   turbo_token:
     required: true
+    description: "Turborepo token for remote cache authentication"
   turbo_api:
     required: true
+    description: "API endpoint for Turborepo remote cache"
   turbo_team:
     required: true
+    description: "Team name for Turborepo remote cache"
   github_token:
     required: true
 
@@ -66,5 +72,6 @@ runs:
           TURBO_TEAM=${{ inputs.turbo_team }}
           PNPM_STORE=/pnpm-store
         tags: |
+          ${{ inputs.tag_latest == 'true' && format('ghcr.io/{0}-api:latest', github.repository) || '' }}
           ghcr.io/${{ github.repository }}-api:${{ inputs.version }}
           ghcr.io/${{ github.repository }}-api:cache
