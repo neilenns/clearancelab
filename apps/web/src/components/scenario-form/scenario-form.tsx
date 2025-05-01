@@ -6,13 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { PlanSection } from "./plan-section";
 import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
-import { ScenarioOverview } from "./scenario-overview";
 import { useActionState, useEffect } from "react";
 import { onSubmitScenario } from "./actions";
 import { toast } from "sonner";
 import { getRandomScenario } from "@workspace/plantools";
 import { Loader2 } from "lucide-react";
-import { ToggleControlledSections } from "./toggle-controlled-sections";
+import { ProblemsSection } from "./problems-section";
+import { CraftSection } from "./craft-section";
 
 export const ScenarioForm = ({
   defaultValues,
@@ -74,9 +74,9 @@ export const ScenarioForm = ({
             value={form.watch("_id")?.toString()}
           />
 
-          <ScenarioOverview />
           <PlanSection isEditMode={isEditMode} />
-          <ToggleControlledSections />
+          <CraftSection />
+          <ProblemsSection />
 
           {isPending ? (
             <Button disabled className="w-[120px]">
