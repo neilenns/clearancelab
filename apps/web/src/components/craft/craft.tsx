@@ -4,11 +4,11 @@ import { CraftElement } from "./craft-element";
 import * as changeCase from "change-case";
 import { Scenario } from "@workspace/validators";
 
-interface CraftProps {
+interface CraftProperties {
   scenario: Scenario;
 }
 
-export function Craft({ scenario }: CraftProps) {
+export function Craft({ scenario }: CraftProperties) {
   const { destAirportInfo, craft } = scenario;
   const clearanceLimit = destAirportInfo?.name ?? craft?.clearanceLimit;
   const departure = craft?.frequency ?? "offline";

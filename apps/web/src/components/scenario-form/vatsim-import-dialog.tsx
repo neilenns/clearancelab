@@ -18,14 +18,14 @@ import { fetchPlanByCallsign } from "./actions";
 export function VatsimImportDialog() {
   const [callsign, setCallsign] = useState("");
   const [open, setOpen] = useState(false);
-  const [errorContent, setErrorContent] = useState<React.ReactNode>(null);
+  const [errorContent, setErrorContent] = useState<React.ReactNode>();
   const [isPending, startTransition] = useTransition();
 
   const { setValue } = useFormContext();
 
   function resetDialog() {
     setCallsign("");
-    setErrorContent(null);
+    setErrorContent(undefined);
   }
 
   function handleImport() {
@@ -98,12 +98,12 @@ export function VatsimImportDialog() {
           value={callsign}
           aria-label="Callsign"
           required
-          onChange={(e) => {
-            setCallsign(e.target.value);
+          onChange={(event) => {
+            setCallsign(event.target.value);
           }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
               handleImport();
             }
           }}

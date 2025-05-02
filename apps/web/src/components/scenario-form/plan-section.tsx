@@ -28,11 +28,11 @@ import { VatsimImportDialog } from "./vatsim-import-dialog";
 import { ScenarioInput } from "@workspace/validators";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
 
-interface PlanSectionProps {
+interface PlanSectionProperties {
   isEditMode: boolean;
 }
 
-export function PlanSection({ isEditMode }: PlanSectionProps) {
+export function PlanSection({ isEditMode }: PlanSectionProperties) {
   const { control } = useFormContext<ScenarioInput>();
 
   return (
@@ -195,9 +195,11 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
                     id="cid"
                     type="number"
                     {...field}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      field.onChange(val === "" ? "" : parseInt(val));
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      field.onChange(
+                        value === "" ? "" : Number.parseInt(value)
+                      );
                     }}
                   />
                 </FormControl>
@@ -230,9 +232,11 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
                   <Input
                     id="bcn"
                     {...field}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      field.onChange(val === "" ? "" : parseInt(val));
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      field.onChange(
+                        value === "" ? "" : Number.parseInt(value)
+                      );
                     }}
                   />
                 </FormControl>
@@ -308,9 +312,11 @@ export function PlanSection({ isEditMode }: PlanSectionProps) {
                     id="spd"
                     type="number"
                     {...field}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      field.onChange(val === "" ? "" : parseInt(val));
+                    onChange={(event) => {
+                      const value = event.target.value;
+                      field.onChange(
+                        value === "" ? "" : Number.parseInt(value)
+                      );
                     }}
                   />
                 </FormControl>

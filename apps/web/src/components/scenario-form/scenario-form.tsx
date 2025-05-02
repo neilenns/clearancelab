@@ -21,9 +21,10 @@ export const ScenarioForm = ({
   defaultValues: ScenarioInput;
 }) => {
   const isEditMode = Boolean(defaultValues._id);
+  const initialFormState = { success: false, message: "", hasSubmitted: false };
   const [formState, formAction, isPending] = useActionState(
     onSubmitScenario,
-    null
+    initialFormState
   );
 
   const form = useForm<ScenarioInput>({
@@ -36,7 +37,7 @@ export const ScenarioForm = ({
 
   // Reset the form when the submit is successful.
   useEffect(() => {
-    if (!formState) {
+    if (!formState?.hasSubmitted) {
       return;
     }
 
@@ -67,6 +68,7 @@ export const ScenarioForm = ({
         action={formAction}
         autoComplete="off"
         aria-label="Scenario creation form"
+        role="form"
       >
         <fieldset disabled={isPending} className="space-y-4">
           <input

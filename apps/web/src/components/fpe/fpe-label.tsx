@@ -1,13 +1,17 @@
 import { ReactNode } from "react";
 
-interface FPELabelProps extends React.HTMLAttributes<HTMLDivElement> {
+interface FPELabelProperties extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className: string;
 }
 
-export function FPELabel({ children, className, ...props }: FPELabelProps) {
+export function FPELabel({
+  children,
+  className,
+  ...properties
+}: FPELabelProperties) {
   return (
-    <div className={`text-center ${className}`} {...props}>
+    <div className={`text-center ${className}`} {...properties}>
       {children}
     </div>
   );

@@ -6,14 +6,14 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { ReactNode } from "react";
-import { craftLabels } from "@/interfaces/craftLabels";
+import { craftLabels } from "@/interfaces/craft-labels";
 
-interface CraftElementProps {
+interface CraftElementProperties {
   element: keyof typeof craftLabels;
   children: ReactNode;
 }
 
-export function CraftElement({ element, children }: CraftElementProps) {
+export function CraftElement({ element, children }: CraftElementProperties) {
   return (
     <Tooltip>
       <TooltipTrigger

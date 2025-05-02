@@ -1,20 +1,17 @@
 "use client";
 
-import { useRef } from "react";
 import FPE from "@/components/fpe/fpe";
 import { Answer } from "@/components/answer";
 import { Scenario } from "@workspace/validators";
 
-interface ClientSectionProps {
+interface ClientSectionProperties {
   scenario: Scenario;
 }
 
-export default function ClientSection({ scenario }: ClientSectionProps) {
-  const fpeRef = useRef<HTMLDivElement>(null);
-
+export default function ClientSection({ scenario }: ClientSectionProperties) {
   return (
     <main className="p-6 overflow-y-auto">
-      <FPE scenario={scenario} ref={fpeRef} />
+      <FPE scenario={scenario} />
       <Answer scenario={scenario} />
     </main>
   );

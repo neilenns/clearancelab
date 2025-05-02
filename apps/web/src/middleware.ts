@@ -5,29 +5,29 @@ import { SessionData } from "@auth0/nextjs-auth0/types";
 
 // This method of protecting routes comes from https://github.com/auth0/nextjs-auth0/blob/main/EXAMPLES.md#middleware
 export async function middleware(request: NextRequest) {
-  let authRes: NextResponse;
+  let authorizationResponse: NextResponse;
 
   try {
-    authRes = await auth0.middleware(request);
-  } catch (err) {
-    console.error("Authentication middleware error:", err);
+    authorizationResponse = await auth0.middleware(request);
+  } catch (error) {
+    console.error("Authentication middleware error:", error);
     return NextResponse.redirect(new URL("/", request.nextUrl.origin));
   }
 
   if (request.nextUrl.pathname.startsWith("/auth")) {
-    return authRes;
+    return authorizationResponse;
   }
 
   if (!request.nextUrl.pathname.startsWith("/admin")) {
-    return authRes;
+    return authorizationResponse;
   }
 
   let session: SessionData | null;
 
   try {
     session = await auth0.getSession(request);
-  } catch (err) {
-    console.error("Error getting session:", err);
+  } catch (error) {
+    console.error("Error getting session:", error);
     return NextResponse.redirect(new URL("/", request.nextUrl.origin));
   }
 
@@ -42,5 +42,5 @@ export async function middleware(request: NextRequest) {
   }
 
   // The headers from the auth middleware should always be returned
-  return authRes;
+  return authorizationResponse;
 }

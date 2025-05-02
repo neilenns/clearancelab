@@ -14,7 +14,8 @@ export type OnSubmitScenarioState = {
   message: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
-} | null;
+  hasSubmitted: boolean;
+};
 
 export type FetchPlanByCallsignState =
   | {
@@ -63,13 +64,14 @@ export async function fetchPlanByCallsign(
 
 // A lot of how this works comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
 export const onSubmitScenario = async (
-  _prevState: OnSubmitScenarioState,
+  _previousState: OnSubmitScenarioState,
   payload: FormData
 ): Promise<OnSubmitScenarioState> => {
   if (!(payload instanceof FormData)) {
     return {
       success: false,
       message: "Invalid payload",
+      hasSubmitted: true,
     };
   }
 
@@ -122,6 +124,7 @@ export const onSubmitScenario = async (
 
     return {
       success: false,
+      hasSubmitted: true,
       message: "Validation failed",
       fields,
       errors,
@@ -131,7 +134,7 @@ export const onSubmitScenario = async (
   const isEdit = Boolean(scenario.data._id);
 
   try {
-    let response: Scenario | null = null;
+    let response: Scenario | undefined = undefined;
     if (scenario.data._id) {
       console.debug(`Updating scenario ${scenario.data._id.toString()}`);
       response = await putJson<Scenario>(
@@ -149,6 +152,7 @@ export const onSubmitScenario = async (
     if (!response) {
       return {
         success: false,
+        hasSubmitted: true,
         message: `Unable to ${isEdit ? "update" : "save"} the scenario.`,
       };
     }
@@ -162,13 +166,15 @@ export const onSubmitScenario = async (
 
     return {
       success: true,
+      hasSubmitted: true,
       message: `Scenario ${isEdit ? "updated" : "saved"}!`,
     };
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return {
       success: false,
-      message: (err as Error).message,
+      hasSubmitted: true,
+      message: (error as Error).message,
     };
   }
 };

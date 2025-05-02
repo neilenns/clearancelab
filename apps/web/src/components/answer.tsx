@@ -12,11 +12,11 @@ import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
 import { Scenario } from "@workspace/validators";
 
-interface AnswerProps {
+interface AnswerProperties {
   scenario: Scenario;
 }
 
-export function Answer({ scenario }: AnswerProps) {
+export function Answer({ scenario }: AnswerProperties) {
   const { plan, canClear, craft } = scenario;
   const [isOpen, setIsOpen] = useState(false);
 

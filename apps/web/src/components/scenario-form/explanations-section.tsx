@@ -24,7 +24,7 @@ import {
 import { ScenarioInput } from "@workspace/validators";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 import { Trash2 } from "lucide-react";
 
 export function ExplanationsSection() {
@@ -55,7 +55,6 @@ export function ExplanationsSection() {
                 <div>
                   <FormField
                     control={control}
-                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     name={`explanations.${index}.level`}
                     render={({ field }) => (
                       <FormItem>
@@ -105,7 +104,6 @@ export function ExplanationsSection() {
                 <div>
                   <FormField
                     control={control}
-                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     name={`explanations.${index}.headline`}
                     render={({ field }) => (
                       <FormItem>
@@ -128,7 +126,6 @@ export function ExplanationsSection() {
                 <div>
                   <FormField
                     control={control}
-                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     name={`explanations.${index}.description`}
                     render={({ field }) => (
                       <FormItem>

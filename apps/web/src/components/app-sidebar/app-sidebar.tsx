@@ -11,21 +11,21 @@ import {
   SidebarMenu,
 } from "@/components/ui/sidebar";
 import { useParams } from "next/navigation";
-import { ScenarioItem } from "./scenarioItem";
+import { ScenarioItem } from "./scenario-item";
 import { Scenario } from "@workspace/validators";
 
 // Extend the props from the base Sidebar and add scenarios
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+interface AppSidebarProperties extends React.ComponentProps<typeof Sidebar> {
   scenarios: Scenario[];
 }
 
-export function AppSidebar({ scenarios, ...props }: AppSidebarProps) {
-  const params = useParams();
-  const selectedId = params.id as string;
+export function AppSidebar({ scenarios, ...properties }: AppSidebarProperties) {
+  const parameters = useParams();
+  const selectedId = parameters.id as string;
 
   return (
     <aside>
-      <Sidebar {...props}>
+      <Sidebar {...properties}>
         <SidebarHeader>
           <h3>Scenarios</h3>
         </SidebarHeader>
@@ -35,7 +35,7 @@ export function AppSidebar({ scenarios, ...props }: AppSidebarProps) {
               <SidebarMenu>
                 {scenarios.map((scenario) => {
                   if (!scenario._id) {
-                    return null;
+                    return;
                   }
 
                   return (

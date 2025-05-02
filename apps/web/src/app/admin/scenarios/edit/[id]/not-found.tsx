@@ -1,8 +1,8 @@
-interface NotFoundProps {
+interface NotFoundProperties {
   id: string;
 }
 
-export default function NotFound({ id }: NotFoundProps) {
+export default function NotFound({ id }: NotFoundProperties) {
   return (
     <main
       aria-label="Error page for scenario not found"

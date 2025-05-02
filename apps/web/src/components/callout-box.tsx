@@ -1,9 +1,15 @@
 import React, { ReactNode } from "react";
 import { Alert, AlertDescription } from "./ui/alert";
-import { Info, CheckCircle, AlertTriangle, AlertOctagon, Lightbulb } from "lucide-react";
+import {
+  Info,
+  CheckCircle,
+  AlertTriangle,
+  AlertOctagon,
+  Lightbulb,
+} from "lucide-react";
 import { ExplanationLevel } from "@workspace/validators";
 
-interface CalloutBoxProps {
+interface CalloutBoxProperties {
   level: ExplanationLevel;
   children: ReactNode;
 }
@@ -16,7 +22,7 @@ const levelIcons: Record<ExplanationLevel, React.ElementType> = {
   error: AlertOctagon,
 } as const;
 
-export function CalloutBox({ level, children }: CalloutBoxProps) {
+export function CalloutBox({ level, children }: CalloutBoxProperties) {
   return (
     <Alert className="mb-2" variant={level} role="alert" aria-live="polite">
       {(() => {
