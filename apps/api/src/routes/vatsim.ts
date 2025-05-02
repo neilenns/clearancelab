@@ -47,7 +47,7 @@ router.get(
     } catch (err) {
       next(err); // Pass to centralized error handler
     }
-  }
+  },
 );
 
 export default router;

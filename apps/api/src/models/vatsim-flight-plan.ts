@@ -1,4 +1,4 @@
-import mongoose, { Schema, Model, Types } from "mongoose";
+import mongoose, { Schema, Model, Types, model } from "mongoose";
 import mongooseLeanVirtuals, { VirtualsForModel } from "mongoose-lean-virtuals";
 
 export enum VatsimFlightStatus {
@@ -14,7 +14,7 @@ export enum VatsimCommunicationMethod {
   RECEIVE = "RECEIVE",
 }
 
-export interface VatsimFlightPlanDocument {
+export interface VatsimFlightPlan {
   _id: Types.ObjectId;
   cid: number;
   name?: string;
@@ -49,25 +49,23 @@ export interface VatsimFlightPlanVirtuals {
 }
 
 // Static method interface
-export interface VatsimFlightPlanStaticMethods
-  extends Model<VatsimFlightPlanDocument> {
+export interface VatsimFlightPlanStaticMethods extends Model<VatsimFlightPlan> {
   findByCallsign(
-    callsign: string
+    callsign: string,
   ): Promise<
-    | (VatsimFlightPlanDocument & VirtualsForModel<VatsimFlightPlanModelType>)
-    | null
+    (VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>) | null
   >;
 }
 
 type VatsimFlightPlanModelType = mongoose.Model<
-  VatsimFlightPlanDocument,
+  VatsimFlightPlan,
   unknown,
   unknown,
   VatsimFlightPlanVirtuals
 >;
 
 const VatsimFlightPlanSchema = new Schema<
-  VatsimFlightPlanDocument,
+  VatsimFlightPlan,
   VatsimFlightPlanModelType,
   unknown,
   unknown,
@@ -175,18 +173,19 @@ const VatsimFlightPlanSchema = new Schema<
         },
       },
     },
-  }
+  },
 );
 
 VatsimFlightPlanSchema.plugin(mongooseLeanVirtuals);
 
 VatsimFlightPlanSchema.statics.findByCallsign = function (callsign) {
   return this.findOne({ callsign }).lean<
-    VatsimFlightPlanDocument & VirtualsForModel<VatsimFlightPlanModelType>
+    VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>
   >({ virtuals: true });
 };
 
-export const VatsimFlightPlanModel = mongoose.model<
-  VatsimFlightPlanDocument,
-  VatsimFlightPlanStaticMethods
+export const VatsimFlightPlanModel = model<
+  VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>,
+  VatsimFlightPlanStaticMethods,
+  unknown
 >("vatsimflightplans", VatsimFlightPlanSchema);
