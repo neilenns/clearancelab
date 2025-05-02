@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import { getRandomAltimeter } from "@workspace/plantools";
 import { AlertTriangleIcon, ImportIcon, Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import { useFormContext } from "react-hook-form";
@@ -61,6 +62,10 @@ export function VatsimImportDialog() {
       setValue("plan.typ", result.plan.typ);
       setValue("plan.vatsimId", result.plan.vatsimId);
       setValue("plan.pilotName", result.plan.pilotName);
+      setValue(
+        "airportConditions.altimeter",
+        result.plan.altimeter ?? getRandomAltimeter(),
+      );
     });
   }
 
@@ -89,8 +94,8 @@ export function VatsimImportDialog() {
         <DialogHeader>
           <DialogTitle>Import flight plan from VATSIM</DialogTitle>
           <DialogDescription>
-            Enter the callsign for an active VATSIM flight, then press <b>Import</b> to populate the
-            flight plan with the values.
+            Enter the callsign for an active VATSIM flight, then press{" "}
+            <b>Import</b> to populate the flight plan with the values.
           </DialogDescription>
         </DialogHeader>
         <Input
