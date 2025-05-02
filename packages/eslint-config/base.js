@@ -2,6 +2,7 @@ import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
+import eslintPluginSecurity from "eslint-plugin-security";
 
 /**
  * A shared ESLint configuration for the repository.
@@ -15,6 +16,7 @@ export const config = tseslint.config(
   eslintConfigPrettier,
   eslint.configs.recommended,
   eslintPluginUnicorn.configs.recommended,
+  eslintPluginSecurity.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
   {

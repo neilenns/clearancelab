@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 export const convertToBoolean = (value: unknown) => {
   return value === "true" || value === true;
 };
