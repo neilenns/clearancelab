@@ -1,7 +1,7 @@
 "use client";
 
-import FPE from "@/components/fpe/fpe";
 import { Answer } from "@/components/answer";
+import FPE from "@/components/fpe/fpe";
 import { Scenario } from "@workspace/validators";
 
 interface ClientSectionProperties {

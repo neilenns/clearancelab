@@ -1,5 +1,4 @@
 {
-  "version": "0.2.0",
   "configurations": [
     {
       "name": "Clearance Lab (All)",
@@ -34,5 +33,6 @@
       "command": "pnpx turbo run dev --filter api",
       "request": "launch"
     }
-  ]
+  ],
+  "version": "0.2.0"
 }

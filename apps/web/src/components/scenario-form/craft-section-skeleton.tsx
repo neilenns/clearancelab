@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function CraftSectionSkeleton() {
@@ -13,8 +7,7 @@ export function CraftSectionSkeleton() {
       <CardHeader>
         <CardTitle>CRAFT details</CardTitle>
         <CardDescription>
-          Provides custom values for the CRAFT clearance when shown to the
-          student.
+          Provides custom values for the CRAFT clearance when shown to the student.
         </CardDescription>
       </CardHeader>
       <CardContent>

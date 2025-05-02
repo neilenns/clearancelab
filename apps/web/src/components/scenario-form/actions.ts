@@ -1,11 +1,7 @@
 "use server";
 
 import { apiFetch, postJson, putJson } from "@/lib/api";
-import {
-  convertToBoolean,
-  convertToNumber,
-  unflatten,
-} from "@workspace/plantools";
+import { convertToBoolean, convertToNumber, unflatten } from "@workspace/plantools";
 import { Plan, Scenario, ScenarioSchema } from "@workspace/validators";
 import { revalidatePath } from "next/cache";
 
@@ -27,17 +23,13 @@ export type FetchPlanByCallsignState =
       message: string;
     };
 
-function assertObject(
-  value: unknown
-): asserts value is Record<string, unknown> {
+function assertObject(value: unknown): asserts value is Record<string, unknown> {
   if (typeof value !== "object" || value === null) {
     throw new Error("Expected an object");
   }
 }
 
-export async function fetchPlanByCallsign(
-  callsign: string
-): Promise<FetchPlanByCallsignState> {
+export async function fetchPlanByCallsign(callsign: string): Promise<FetchPlanByCallsignState> {
   const requestedCallsign = callsign.toUpperCase().trim();
 
   if (!requestedCallsign) {
@@ -65,7 +57,7 @@ export async function fetchPlanByCallsign(
 // A lot of how this works comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
 export const onSubmitScenario = async (
   _previousState: OnSubmitScenarioState,
-  payload: FormData
+  payload: FormData,
 ): Promise<OnSubmitScenarioState> => {
   if (!(payload instanceof FormData)) {
     return {
@@ -93,7 +85,7 @@ export const onSubmitScenario = async (
   formData.canClear = convertToBoolean(formData.canClear);
 
   formData.airportConditions.departureOnline = convertToBoolean(
-    formData.airportConditions.departureOnline
+    formData.airportConditions.departureOnline,
   );
 
   // Fix up the numbers
@@ -102,9 +94,7 @@ export const onSubmitScenario = async (
   formData.plan.cid = convertToNumber(formData.plan.cid);
   formData.plan.spd = convertToNumber(formData.plan.spd);
   formData.plan.vatsimId = convertToNumber(formData.plan.vatsimId);
-  formData.airportConditions.altimeter = convertToNumber(
-    formData.airportConditions.altimeter
-  );
+  formData.airportConditions.altimeter = convertToNumber(formData.airportConditions.altimeter);
 
   const toParse = {
     ...formData,
@@ -140,7 +130,7 @@ export const onSubmitScenario = async (
       response = await putJson<Scenario>(
         `/scenarios/${scenario.data._id.toString()}`,
         scenario.data,
-        { withAuthToken: true }
+        { withAuthToken: true },
       );
     } else {
       console.debug("Saving new scenario");

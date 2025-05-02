@@ -1,20 +1,4 @@
-import {
-  getRandomAirportCode,
-  getRandomBcn,
-  getRandomCallsign,
-  getRandomCid,
-  getRandomName,
-  getRandomVatsimId,
-} from "@workspace/plantools";
-import { RefreshCwIcon } from "lucide-react";
-import { useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   FormControl,
   FormDescription,
@@ -24,9 +8,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { VatsimImportDialog } from "./vatsim-import-dialog";
-import { ScenarioInput } from "@workspace/validators";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
+import {
+  getRandomAirportCode,
+  getRandomBcn,
+  getRandomCallsign,
+  getRandomCid,
+  getRandomName,
+  getRandomVatsimId,
+} from "@workspace/plantools";
+import { ScenarioInput } from "@workspace/validators";
+import { RefreshCwIcon } from "lucide-react";
+import { useFormContext } from "react-hook-form";
+import { VatsimImportDialog } from "./vatsim-import-dialog";
 
 interface PlanSectionProperties {
   isEditMode: boolean;
@@ -40,8 +34,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
       <CardHeader>
         <CardTitle>Flight plan</CardTitle>
         <CardDescription>
-          Enter the flight plan details. The flight plan does not have to be
-          valid.
+          Enter the flight plan details. The flight plan does not have to be valid.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -136,9 +129,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
             />
           </div>
 
-          <div className="self-end">
-            {!isEditMode && <VatsimImportDialog />}
-          </div>
+          <div className="self-end">{!isEditMode && <VatsimImportDialog />}</div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(4,_1fr)_35px_repeat(4,_1fr)] gap-2 items-start mb-4">
@@ -197,9 +188,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(
-                        value === "" ? "" : Number.parseInt(value)
-                      );
+                      field.onChange(value === "" ? "" : Number.parseInt(value));
                     }}
                   />
                 </FormControl>
@@ -234,9 +223,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(
-                        value === "" ? "" : Number.parseInt(value)
-                      );
+                      field.onChange(value === "" ? "" : Number.parseInt(value));
                     }}
                   />
                 </FormControl>
@@ -314,9 +301,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(
-                        value === "" ? "" : Number.parseInt(value)
-                      );
+                      field.onChange(value === "" ? "" : Number.parseInt(value));
                     }}
                   />
                 </FormControl>

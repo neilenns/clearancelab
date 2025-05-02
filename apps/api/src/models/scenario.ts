@@ -1,14 +1,11 @@
 import { Model, Schema, Types, model } from "mongoose";
 import { logger } from "../lib/logger.js";
+import { AirportConditions, AirportConditionsSchema } from "./airport-conditions.js";
 import "./airport-info.js"; // Import the AirportInfo model to use for population
 import { AirportInfoData } from "./airport-info.js";
-import { Plan, PlanSchema } from "./plan.js";
 import { Craft, CraftSchema } from "./craft.js";
 import { Explanation, ExplanationSchema } from "./explanations.js";
-import {
-  AirportConditions,
-  AirportConditionsSchema,
-} from "./airport-conditions.js";
+import { Plan, PlanSchema } from "./plan.js";
 
 // Combined schema data interface
 export interface Scenario {
@@ -38,9 +35,7 @@ const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
     isValid: { type: Boolean, default: true },
     plan: PlanSchema,
     explanations: {
-      type: [
-        ExplanationSchema,
-      ],
+      type: [ExplanationSchema],
       default: [],
     },
   },
@@ -73,18 +68,14 @@ ScenarioSchema.pre("save", function (next) {
   if (this.craft?.route?.toLowerCase().startsWith("the ")) {
     const originalRoute = this.craft.route;
     this.craft.route = this.craft.route.slice(4);
-    logger.debug(
-      `Normalized route from "${originalRoute}" to "${this.craft.route}"`,
-    );
+    logger.debug(`Normalized route from "${originalRoute}" to "${this.craft.route}"`);
   }
 
   next();
 });
 
 // Static methods
-ScenarioSchema.statics.findScenarioById = function (
-  id: string,
-): Promise<Scenario | null> {
+ScenarioSchema.statics.findScenarioById = function (id: string): Promise<Scenario | null> {
   try {
     return (
       this.findById(id)
@@ -101,15 +92,11 @@ ScenarioSchema.statics.findScenarioById = function (
   }
 };
 
-ScenarioSchema.statics.findAll = async function (
-  summary: boolean,
-): Promise<Partial<Scenario>[]> {
+ScenarioSchema.statics.findAll = async function (summary: boolean): Promise<Partial<Scenario>[]> {
   try {
     if (summary) {
       const results = await this.find({})
-        .select(
-          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt",
-        )
+        .select("isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt")
         .lean()
         .exec();
 
@@ -130,7 +117,4 @@ ScenarioSchema.statics.findAll = async function (
 };
 
 // Export model
-export const ScenarioModel = model<Scenario, ScenarioModelType>(
-  "Scenario",
-  ScenarioSchema,
-);
+export const ScenarioModel = model<Scenario, ScenarioModelType>("Scenario", ScenarioSchema);

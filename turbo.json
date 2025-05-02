@@ -1,6 +1,5 @@
 {
   "$schema": "./node_modules/turbo/schema.json",
-  "ui": "tui",
   "globalPassThroughEnv": ["DEPLOY_ENV"],
   "tasks": {
     "build": {
@@ -8,10 +7,7 @@
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"]
     },
     "cf-deploy": {
-      "dependsOn": [
-        "@workspace/validators#build",
-        "@workspace/plantools#build"
-      ],
+      "dependsOn": ["@workspace/validators#build", "@workspace/plantools#build"],
       "cache": false
     },
     "clean": {
@@ -32,5 +28,6 @@
       "persistent": true,
       "cache": false
     }
-  }
+  },
+  "ui": "tui"
 }

@@ -1,10 +1,10 @@
 "use server";
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
 import { apiFetch } from "@/lib/api";
-import NotFound from "./not-found";
 import { ScenarioInput } from "@workspace/validators";
 import { Suspense } from "react";
 import Loading from "./loading";
+import NotFound from "./not-found";
 
 type Parameters = Promise<{ id: string }>;
 

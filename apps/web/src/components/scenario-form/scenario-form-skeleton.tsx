@@ -10,7 +10,7 @@ export const ScenarioFormSkeleton = () => {
     <div role="status" className="space-y-4" aria-label="Loading scenario form">
       <PlanSectionSkeleton />
       <AirportConditionsSectionSkeleton />
-      <ExplanationsSectionSkeleton/>
+      <ExplanationsSectionSkeleton />
       <CraftSectionSkeleton />
       <span className="sr-only">Loading scenario form...</span>
     </div>

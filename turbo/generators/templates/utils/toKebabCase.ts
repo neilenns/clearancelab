@@ -6,8 +6,7 @@ export const toKebabCase = (string: string): string => {
     .replace(/([a-z])([A-Z])/g, "$1-$2");
 
   // Replace non-alphanumeric characters, spaces, and underscores with hyphens
-  const normalized = withSeparators
-    .replace(/[^a-zA-Z0-9]+/g, "-");
+  const normalized = withSeparators.replace(/[^a-zA-Z0-9]+/g, "-");
 
   // Remove leading and trailing hyphens and convert to lowercase
   return normalized.replace(/^-+|-+$/g, "").toLowerCase();

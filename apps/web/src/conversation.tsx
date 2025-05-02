@@ -24,9 +24,7 @@ export function Conversation({
             })}
           >
             <article
-              aria-label={`Message from ${
-                isPilot ? pilotCallsign : controllerName
-              }`}
+              aria-label={`Message from ${isPilot ? pilotCallsign : controllerName}`}
               className={cn(
                 "max-w-[70%] px-4 py-3 rounded-[1em] leading-[1.4] break-words whitespace-pre-line",
                 {
@@ -34,7 +32,7 @@ export function Conversation({
                     isPilot,
                   "bg-[var(--color-chat-controller)] text-[var(--color-chat-controller-foreground)] rounded-tr-none":
                     !isPilot,
-                }
+                },
               )}
             >
               <div className="text-sm font-bold mb-1">

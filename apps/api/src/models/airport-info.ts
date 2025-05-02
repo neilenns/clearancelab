@@ -36,10 +36,7 @@ const AirportInfoSchema: Schema = new Schema(
   },
   {
     collection: "airportinfo",
-  }
+  },
 );
 
-export const AirportInfo = mongoose.model<AirportInfoData>(
-  "AirportInfo",
-  AirportInfoSchema
-);
+export const AirportInfo = mongoose.model<AirportInfoData>("AirportInfo", AirportInfoSchema);

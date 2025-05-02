@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
 // Define the interface for the document
 export interface ApiKeyDocument extends Document {
@@ -15,9 +15,11 @@ const ApiKeySchema = new Schema<ApiKeyDocument>(
   {
     collection: "apikeys", // Custom collection name
     timestamps: true,
-  }
+  },
 );
 
 // Create the model
-export const ApiKeyModel: Model<ApiKeyDocument> =
-  mongoose.model<ApiKeyDocument>("ApiKey", ApiKeySchema);
+export const ApiKeyModel: Model<ApiKeyDocument> = mongoose.model<ApiKeyDocument>(
+  "ApiKey",
+  ApiKeySchema,
+);

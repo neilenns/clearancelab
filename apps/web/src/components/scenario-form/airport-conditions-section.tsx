@@ -1,30 +1,12 @@
-import { useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { ScenarioInput } from "@workspace/validators";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
 import { getRandomAltimeter } from "@workspace/plantools";
+import { ScenarioInput } from "@workspace/validators";
 import { RefreshCwIcon } from "lucide-react";
+import { useFormContext } from "react-hook-form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export function AirportConditionsSection() {
   const { control } = useFormContext<ScenarioInput>();
@@ -34,15 +16,11 @@ export function AirportConditionsSection() {
       <CardHeader>
         <CardTitle>Airport conditions</CardTitle>
         <CardDescription>
-          Provides additional context required to evaluate and clear the flight
-          plan.
+          Provides additional context required to evaluate and clear the flight plan.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <fieldset
-          className="flex gap-2"
-          aria-describedby="airport-section-description"
-        >
+        <fieldset className="flex gap-2" aria-describedby="airport-section-description">
           <legend id="airport-section-description" className="sr-only">
             Airport conditions
           </legend>
@@ -53,17 +31,10 @@ export function AirportConditionsSection() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Flow</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <div>
-                        <input
-                          type="hidden"
-                          name={field.name}
-                          value={field.value}
-                        />
+                        <input type="hidden" name={field.name} value={field.value} />
                         <SelectTrigger
                           aria-haspopup="listbox"
                           aria-label="Select flow direction"
@@ -128,9 +99,7 @@ export function AirportConditionsSection() {
                   </FormLabel>
                   <div className="mt-2">
                     <FormControl>
-                      <ReactFormSwitch field={field}>
-                        Departure online
-                      </ReactFormSwitch>
+                      <ReactFormSwitch field={field}>Departure online</ReactFormSwitch>
                     </FormControl>
                   </div>
                   <FormMessage />

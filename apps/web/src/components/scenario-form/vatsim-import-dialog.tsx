@@ -1,4 +1,8 @@
+import { Input } from "@/components/ui/input";
+import { AlertTriangleIcon, ImportIcon, Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
+import { useFormContext } from "react-hook-form";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -9,10 +13,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { AlertTriangleIcon, ImportIcon, Loader2 } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { Input } from "@/components/ui/input";
-import { useFormContext } from "react-hook-form";
 import { fetchPlanByCallsign } from "./actions";
 
 export function VatsimImportDialog() {
@@ -89,8 +89,8 @@ export function VatsimImportDialog() {
         <DialogHeader>
           <DialogTitle>Import flight plan from VATSIM</DialogTitle>
           <DialogDescription>
-            Enter the callsign for an active VATSIM flight, then press{" "}
-            <b>Import</b> to populate the flight plan with the values.
+            Enter the callsign for an active VATSIM flight, then press <b>Import</b> to populate the
+            flight plan with the values.
           </DialogDescription>
         </DialogHeader>
         <Input

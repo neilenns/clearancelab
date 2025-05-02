@@ -17,9 +17,7 @@ export const convertToNumber = (value: unknown): number | undefined => {
   return convertedValue;
 };
 
-export const unflatten = (
-  data: Record<string, unknown>
-): Record<string, unknown> => {
+export const unflatten = (data: Record<string, unknown>): Record<string, unknown> => {
   const result: Record<string, unknown> = {};
 
   for (const [flatKey, value] of Object.entries(data)) {

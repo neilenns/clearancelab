@@ -1,5 +1,4 @@
 {
-  "version": "2.0.0",
   "tasks": [
     {
       "label": "Lint everything",
@@ -12,5 +11,6 @@
       },
       "problemMatcher": ["$eslint-stylish"]
     }
-  ]
+  ],
+  "version": "2.0.0"
 }

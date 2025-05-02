@@ -1,10 +1,6 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-  "name": "Clearancelab development",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "containerEnv": {
     "MONGO_DB_CONNECTION_STRING": "mongodb://db:27017/",
     "MONGO_DB_NAME": "clearancelab",
@@ -13,9 +9,11 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": [
-        "Jacano.vscode-pnpm"
-      ]
+      "extensions": ["Jacano.vscode-pnpm"]
     }
-  }
+  },
+  "dockerComposeFile": "docker-compose.yml",
+  "name": "Clearancelab development",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }

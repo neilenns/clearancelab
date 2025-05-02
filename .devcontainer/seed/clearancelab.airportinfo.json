@@ -1,95 +1,97 @@
-[{
-  "_id": {
-    "$oid": "6800beda6868240804868cd5"
+[
+  {
+    "_id": {
+      "$oid": "6800beda6868240804868cd5"
+    },
+    "airportCode": "KLAS",
+    "icaoCode": "KLAS",
+    "iataCode": "LAS",
+    "name": "Harry Reid International",
+    "city": "Las Vegas",
+    "state": "Nevada",
+    "longitude": -115.1522361,
+    "latitude": 36.0800439,
+    "timezone": "America/Los_Angeles",
+    "countryCode": "US",
+    "__v": 0
   },
-  "airportCode": "KLAS",
-  "icaoCode": "KLAS",
-  "iataCode": "LAS",
-  "name": "Harry Reid International",
-  "city": "Las Vegas",
-  "state": "Nevada",
-  "longitude": -115.1522361,
-  "latitude": 36.0800439,
-  "timezone": "America/Los_Angeles",
-  "countryCode": "US",
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6800beda686824080486c57c"
+  {
+    "_id": {
+      "$oid": "6800beda686824080486c57c"
+    },
+    "airportCode": "PHNL",
+    "icaoCode": "PHNL",
+    "iataCode": "HNL",
+    "name": "Daniel K Inouye International",
+    "city": "Honolulu",
+    "state": "Hawaii",
+    "longitude": -157.920228,
+    "latitude": 21.317817,
+    "timezone": "Pacific/Honolulu",
+    "countryCode": "US",
+    "__v": 0
   },
-  "airportCode": "PHNL",
-  "icaoCode": "PHNL",
-  "iataCode": "HNL",
-  "name": "Daniel K Inouye International",
-  "city": "Honolulu",
-  "state": "Hawaii",
-  "longitude": -157.920228,
-  "latitude": 21.317817,
-  "timezone": "Pacific/Honolulu",
-  "countryCode": "US",
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6800beda6868240804868df6"
+  {
+    "_id": {
+      "$oid": "6800beda6868240804868df6"
+    },
+    "airportCode": "KLAX",
+    "icaoCode": "KLAX",
+    "iataCode": "LAX",
+    "name": "Los Angeles International",
+    "city": "Los Angeles",
+    "state": "California",
+    "longitude": -118.408049,
+    "latitude": 33.942496,
+    "timezone": "America/Los_Angeles",
+    "countryCode": "US",
+    "__v": 0
   },
-  "airportCode": "KLAX",
-  "icaoCode": "KLAX",
-  "iataCode": "LAX",
-  "name": "Los Angeles International",
-  "city": "Los Angeles",
-  "state": "California",
-  "longitude": -118.408049,
-  "latitude": 33.942496,
-  "timezone": "America/Los_Angeles",
-  "countryCode": "US",
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6800beda686824080486dc5f"
+  {
+    "_id": {
+      "$oid": "6800beda686824080486dc5f"
+    },
+    "airportCode": "KPHX",
+    "icaoCode": "KPHX",
+    "iataCode": "PHX",
+    "name": "Phoenix Sky Harbor International",
+    "city": "Phoenix",
+    "state": "Arizona",
+    "longitude": -112.011583,
+    "latitude": 33.434278,
+    "timezone": "America/Phoenix",
+    "countryCode": "US",
+    "__v": 0
   },
-  "airportCode": "KPHX",
-  "icaoCode": "KPHX",
-  "iataCode": "PHX",
-  "name": "Phoenix Sky Harbor International",
-  "city": "Phoenix",
-  "state": "Arizona",
-  "longitude": -112.011583,
-  "latitude": 33.434278,
-  "timezone": "America/Phoenix",
-  "countryCode": "US",
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6800beda686824080486df9a"
+  {
+    "_id": {
+      "$oid": "6800beda686824080486df9a"
+    },
+    "airportCode": "CYEG",
+    "icaoCode": "CYEG",
+    "iataCode": "YEG",
+    "name": "Edmonton International",
+    "state": "Alberta",
+    "longitude": -113.5794944,
+    "latitude": 53.3098833,
+    "timezone": "America/Edmonton",
+    "countryCode": "CA",
+    "__v": 0
   },
-  "airportCode": "CYEG",
-  "icaoCode": "CYEG",
-  "iataCode": "YEG",
-  "name": "Edmonton International",
-  "state": "Alberta",
-  "longitude": -113.5794944,
-  "latitude": 53.3098833,
-  "timezone": "America/Edmonton",
-  "countryCode": "CA",
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6800beda686824080486a05b"
-  },
-  "airportCode": "KPDX",
-  "icaoCode": "KPDX",
-  "iataCode": "PDX",
-  "name": "Portland International",
-  "city": "Portland",
-  "state": "Oregon",
-  "longitude": -122.596869,
-  "latitude": 45.588709,
-  "timezone": "America/Los_Angeles",
-  "countryCode": "US",
-  "__v": 0
-}]
+  {
+    "_id": {
+      "$oid": "6800beda686824080486a05b"
+    },
+    "airportCode": "KPDX",
+    "icaoCode": "KPDX",
+    "iataCode": "PDX",
+    "name": "Portland International",
+    "city": "Portland",
+    "state": "Oregon",
+    "longitude": -122.596869,
+    "latitude": 45.588709,
+    "timezone": "America/Los_Angeles",
+    "countryCode": "US",
+    "__v": 0
+  }
+]

@@ -1,4 +1,7 @@
 {
+  "cSpell.enabledSchemes": {
+    "json": false
+  },
   "cSpell.words": [
     "addgroup",
     "adduser",
@@ -49,6 +52,11 @@
     "virtuals",
     "vnas"
   ],
+  "debug.internalConsoleOptions": "neverOpen",
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": ["apps/*", "packages/*"],
+  "explorer.fileNesting.enabled": true,
+  "fileNestingUpdater.promptOnAutoUpdate": false,
   "files.exclude": {
     "**/node_modules": true,
     "**/.next": true,
@@ -60,20 +68,12 @@
     "**/dist": true,
     "**/out": true
   },
-  "debug.internalConsoleOptions": "neverOpen",
-  "fileNestingUpdater.promptOnAutoUpdate": false,
-  "nanoid-generator.length": 21,
-  "cSpell.enabledSchemes": {
-    "json": false
-  },
-  "explorer.fileNesting.enabled": true,
-  "npm.packageManager": "pnpm",
   "mdb.presetConnections": [
     {
       "name": "Clearance Lab local dev",
       "connectionString": "mongodb://localhost:27017"
     }
   ],
-  "eslint.workingDirectories": ["apps/*", "packages/*"],
-  "eslint.useFlatConfig": true
+  "nanoid-generator.length": 21,
+  "npm.packageManager": "pnpm"
 }

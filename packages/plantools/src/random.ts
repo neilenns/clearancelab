@@ -256,9 +256,7 @@ export function getRandomAltimeter(): number {
   const LOWEST_PRESSURE = 28;
   const HIGHEST_PRESSURE = 31;
 
-  return Number.parseFloat(
-    biasedRandom(LOWEST_PRESSURE, HIGHEST_PRESSURE, 2).toFixed(2)
-  );
+  return Number.parseFloat(biasedRandom(LOWEST_PRESSURE, HIGHEST_PRESSURE, 2).toFixed(2));
 }
 
 /**
