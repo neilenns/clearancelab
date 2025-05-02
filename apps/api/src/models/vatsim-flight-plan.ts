@@ -1,4 +1,10 @@
-import mongoose, { Schema, Model, Types, model } from "mongoose";
+import mongoose, {
+  Schema,
+  Model,
+  Types,
+  model,
+  HydratedDocument,
+} from "mongoose";
 import mongooseLeanVirtuals, { VirtualsForModel } from "mongoose-lean-virtuals";
 
 export enum VatsimFlightStatus {
@@ -14,7 +20,7 @@ export enum VatsimCommunicationMethod {
   RECEIVE = "RECEIVE",
 }
 
-export interface VatsimFlightPlan {
+export interface IVatsimFlightPlan {
   _id: Types.ObjectId;
   cid: number;
   name?: string;
@@ -42,35 +48,40 @@ export interface VatsimFlightPlan {
   flightPlanRevision: number;
 }
 
-export interface VatsimFlightPlanVirtuals {
+export interface IVatsimFlightPlanVirtuals {
   equipmentType?: string;
   equipmentSuffix?: string;
   homeAirport?: string;
 }
 
-// Static method interface
-export interface VatsimFlightPlanStaticMethods extends Model<VatsimFlightPlan> {
-  findByCallsign(
-    callsign: string,
-  ): Promise<
-    (VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>) | null
-  >;
-}
-
-type VatsimFlightPlanModelType = mongoose.Model<
-  VatsimFlightPlan,
-  unknown,
-  unknown,
-  VatsimFlightPlanVirtuals
+type VatsimFlightPlanHydratedDocument = HydratedDocument<
+  IVatsimFlightPlan,
+  IVatsimFlightPlanVirtuals
 >;
 
+// Static method interface
+// There is no way in Mongoose to tell TypeScript about the static methods when creating a model
+// so you have to extend the interface with the static methods. See
+// https://mongoosejs.com/docs/typescript/statics-and-methods.html.
+interface VatsimFlightPlanModelType
+  extends mongoose.Model<
+    IVatsimFlightPlan,
+    unknown,
+    unknown,
+    IVatsimFlightPlanVirtuals,
+    VatsimFlightPlanHydratedDocument
+  > {
+  findByCallsign(
+    callsign: string,
+  ): Promise<VatsimFlightPlanHydratedDocument | null>;
+}
+
 const VatsimFlightPlanSchema = new Schema<
-  VatsimFlightPlan,
+  IVatsimFlightPlan,
   VatsimFlightPlanModelType,
   unknown,
   unknown,
-  VatsimFlightPlanVirtuals,
-  VatsimFlightPlanStaticMethods
+  IVatsimFlightPlanVirtuals
 >(
   {
     cid: { type: Number, required: true },
@@ -188,13 +199,13 @@ const VatsimFlightPlanSchema = new Schema<
 VatsimFlightPlanSchema.plugin(mongooseLeanVirtuals);
 
 VatsimFlightPlanSchema.statics.findByCallsign = function (callsign) {
-  return this.findOne({ callsign }).lean<
-    VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>
-  >({ virtuals: true });
+  return this.findOne({ callsign }).lean<VatsimFlightPlanHydratedDocument>({
+    virtuals: true,
+  });
 };
 
 export const VatsimFlightPlanModel = model<
-  VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>,
-  VatsimFlightPlanStaticMethods,
+  IVatsimFlightPlan,
+  VatsimFlightPlanModelType,
   unknown
 >("vatsimflightplans", VatsimFlightPlanSchema);
