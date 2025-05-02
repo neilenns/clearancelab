@@ -12,3 +12,4 @@ mongoimport --quiet --uri="${DB_URI}" --collection=scenarios --file="${SCRIPT_DI
 mongoimport --quiet --uri="${DB_URI}" --collection=airportinfo --file="${SCRIPT_DIR}/clearancelab.airportinfo.json" --jsonArray
 mongoimport --quiet --uri="${DB_URI}" --collection=vatsimflightplans --file="${SCRIPT_DIR}/clearancelab.vatsimflightplans.json" --jsonArray
 mongoimport --quiet --uri="${DB_URI}" --collection=auth0users --file="${SCRIPT_DIR}/clearancelab.auth0users.json" --jsonArray
+mongoimport --quiet --uri="${DB_URI}" --collection=metars --file="${SCRIPT_DIR}/clearancelab.metars.json" --jsonArray

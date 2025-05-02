@@ -1,5 +1,7 @@
 import mongoose, { HydratedDocument, Schema, Types, model } from "mongoose";
 import mongooseLeanVirtuals from "mongoose-lean-virtuals";
+import "./metar.js";
+import { IMetar } from "./metar.js";
 
 export enum VatsimFlightStatus {
   UNKNOWN = "UNKNOWN",
@@ -46,6 +48,7 @@ export interface IVatsimFlightPlanVirtuals {
   equipmentType?: string;
   equipmentSuffix?: string;
   homeAirport?: string;
+  metar?: IMetar;
 }
 
 type VatsimFlightPlanHydratedDocument = HydratedDocument<
@@ -65,7 +68,9 @@ interface VatsimFlightPlanModelType
     IVatsimFlightPlanVirtuals,
     VatsimFlightPlanHydratedDocument
   > {
-  findByCallsign(callsign: string): Promise<VatsimFlightPlanHydratedDocument | null>;
+  findByCallsign(
+    callsign: string,
+  ): Promise<VatsimFlightPlanHydratedDocument | null>;
 }
 
 const VatsimFlightPlanSchema = new Schema<
@@ -185,13 +190,23 @@ const VatsimFlightPlanSchema = new Schema<
 
 VatsimFlightPlanSchema.plugin(mongooseLeanVirtuals);
 
+VatsimFlightPlanSchema.virtual("metar", {
+  ref: "Metar", // The model to use
+  localField: "departure", // Field in Scenario to match
+  foreignField: "icao", // Field in Metar to match
+  justOne: true, // Only one metar per scenario
+});
+
 VatsimFlightPlanSchema.statics.findByCallsign = function (callsign) {
-  return this.findOne({ callsign }).lean<VatsimFlightPlanHydratedDocument>({
-    virtuals: true,
-  });
+  return this.findOne({ callsign })
+    .populate("metar")
+    .lean<VatsimFlightPlanHydratedDocument>({
+      virtuals: true,
+    });
 };
 
-export const VatsimFlightPlanModel = model<IVatsimFlightPlan, VatsimFlightPlanModelType, unknown>(
-  "vatsimflightplans",
-  VatsimFlightPlanSchema,
-);
+export const VatsimFlightPlanModel = model<
+  IVatsimFlightPlan,
+  VatsimFlightPlanModelType,
+  unknown
+>("vatsimflightplans", VatsimFlightPlanSchema);
