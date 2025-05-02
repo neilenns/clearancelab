@@ -1,5 +1,5 @@
-import { Schema } from "mongoose";
 import { FlowDirection } from "@workspace/validators";
+import { Schema } from "mongoose";
 
 export interface AirportConditions {
   flow: FlowDirection;

@@ -5,11 +5,7 @@ import { logger } from "../lib/logger.js";
 
 const log = logger.child({ service: "permissions" });
 
-export const verifyUser = async (
-  request: Request,
-  response: Response,
-  next: NextFunction,
-) => {
+export const verifyUser = async (request: Request, response: Response, next: NextFunction) => {
   const middleware = auth({
     audience: ENV.AUTH0_AUDIENCE,
     issuerBaseURL: ENV.AUTH0_DOMAIN,

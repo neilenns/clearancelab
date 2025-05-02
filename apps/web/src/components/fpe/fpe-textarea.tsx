@@ -1,12 +1,8 @@
-interface FPETextAreaProperties
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface FPETextAreaProperties extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
 }
 
-export function FPETextArea({
-  className = "",
-  ...properties
-}: FPETextAreaProperties) {
+export function FPETextArea({ className = "", ...properties }: FPETextAreaProperties) {
   return (
     <textarea
       rows={2}

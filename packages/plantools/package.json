@@ -1,26 +1,26 @@
 {
   "name": "@workspace/plantools",
   "version": "0.0.0",
-  "type": "module",
   "private": true,
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     }
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
-    "dev-setup": "pnpm run build",
-    "ci": "pnpm run build",
-    "lint": "eslint src/",
     "check-types": "tsc --noEmit",
-    "clean": "rimraf node_modules dist"
+    "ci": "pnpm run build",
+    "clean": "rimraf node_modules dist",
+    "dev-setup": "pnpm run build",
+    "lint": "eslint src/"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

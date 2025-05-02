@@ -3,8 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import "./globals.css";
 
-const description =
-  "Where aspiring controllers sharpen their flight plan review skills.";
+const description = "Where aspiring controllers sharpen their flight plan review skills.";
 const title = "Clearance Lab";
 const url = "https://clearancelab.badcasserole.com";
 

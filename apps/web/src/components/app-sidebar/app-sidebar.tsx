@@ -10,9 +10,9 @@ import {
   SidebarHeader,
   SidebarMenu,
 } from "@/components/ui/sidebar";
+import { Scenario } from "@workspace/validators";
 import { useParams } from "next/navigation";
 import { ScenarioItem } from "./scenario-item";
-import { Scenario } from "@workspace/validators";
 
 // Extend the props from the base Sidebar and add scenarios
 interface AppSidebarProperties extends React.ComponentProps<typeof Sidebar> {

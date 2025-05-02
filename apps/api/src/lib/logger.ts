@@ -1,5 +1,5 @@
-import winston from "winston";
 import type { TransformableInfo } from "logform"; // logform is a Winston dep
+import winston from "winston";
 import { ENV } from "./environment.js";
 
 const format =
@@ -16,7 +16,5 @@ const format =
 export const logger = winston.createLogger({
   level: ENV.LOG_LEVEL,
   format,
-  transports: [
-    new winston.transports.Console(),
-  ],
+  transports: [new winston.transports.Console()],
 });

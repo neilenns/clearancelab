@@ -1,11 +1,4 @@
-import { useFormContext, useWatch } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   FormControl,
   FormDescription,
@@ -14,8 +7,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ScenarioInput } from "@workspace/validators";
 import { Input } from "@/components/ui/input";
+import { ScenarioInput } from "@workspace/validators";
+import { useFormContext, useWatch } from "react-hook-form";
 
 export function CraftSection() {
   const { control } = useFormContext<ScenarioInput>();
@@ -27,14 +21,10 @@ export function CraftSection() {
         <CardTitle>CRAFT details</CardTitle>
         <CardDescription>
           {canClear ? (
-            <span>
-              Provides custom values for the CRAFT clearance when shown to the
-              student.
-            </span>
+            <span>Provides custom values for the CRAFT clearance when shown to the student.</span>
           ) : (
             <span>
-              To provide CRAFT details, turn on the flight plan{" "}
-              <b>Can clear?</b> option.
+              To provide CRAFT details, turn on the flight plan <b>Can clear?</b> option.
             </span>
           )}
         </CardDescription>
@@ -56,15 +46,9 @@ export function CraftSection() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Clearance limit</FormLabel>
-                    <FormDescription>
-                      Overrides the default clearance limit.
-                    </FormDescription>
+                    <FormDescription>Overrides the default clearance limit.</FormDescription>
                     <FormControl>
-                      <Input
-                        id="clearanceLimit"
-                        placeholder="Battleground VOR"
-                        {...field}
-                      />
+                      <Input id="clearanceLimit" placeholder="Battleground VOR" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -79,8 +63,7 @@ export function CraftSection() {
                   <FormItem>
                     <FormLabel>Route</FormLabel>
                     <FormDescription>
-                      Route for the clearance. &quot;via the&quot; is not
-                      required.
+                      Route for the clearance. &quot;via the&quot; is not required.
                     </FormDescription>
                     <FormControl>
                       <Input
@@ -101,15 +84,9 @@ export function CraftSection() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Altitude</FormLabel>
-                    <FormDescription>
-                      Initial climb altitude for the clearance.
-                    </FormDescription>
+                    <FormDescription>Initial climb altitude for the clearance.</FormDescription>
                     <FormControl>
-                      <Input
-                        id="altitude"
-                        placeholder="maintain 6,000"
-                        {...field}
-                      />
+                      <Input id="altitude" placeholder="maintain 6,000" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -141,9 +118,7 @@ export function CraftSection() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Transponder</FormLabel>
-                    <FormDescription>
-                      Custom transponder code for the clearance.
-                    </FormDescription>
+                    <FormDescription>Custom transponder code for the clearance.</FormDescription>
                     <FormControl>
                       <Input id="transponder" placeholder="1234" {...field} />
                     </FormControl>

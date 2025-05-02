@@ -7,9 +7,7 @@ export async function connectToDatabase(): Promise<void> {
     /mongodb(\+srv)?:\/\/([^:]+):([^@]+)@/,
     "mongodb$1://$2:****@",
   );
-  logger.info(
-    `Connecting to ${ENV.MONGO_DB_NAME} at ${maskedConnectionString}`,
-  );
+  logger.info(`Connecting to ${ENV.MONGO_DB_NAME} at ${maskedConnectionString}`);
 
   mongoose.set("debug", function (collectionName, method, query, _document) {
     logger.debug(`[${collectionName}.${method}] ${JSON.stringify(query)}`);

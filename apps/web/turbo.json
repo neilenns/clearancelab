@@ -2,21 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
-    "dev": {
-      "env": [
-        "API_BASE_URL",
-        "API_KEY",
-        "APP_BASE_URL",
-        "AUTH0_AUDIENCE",
-        "AUTH0_CLIENT_ID",
-        "AUTH0_CLIENT_SECRET",
-        "AUTH0_DOMAIN",
-        "AUTH0_SCOPE",
-        "AUTH0_SECRET"
-      ]
-    },
     "build": {
-      "outputs": [".next/**", "!.next/cache/**"],
       "env": [
         "API_BASE_URL",
         "API_KEY",
@@ -29,23 +15,8 @@
         "AUTH0_SECRET",
         "MONGO_DB_CONNECTION_STRING",
         "MONGO_DB_NAME"
-      ]
-    },
-    "ci": {
-      "outputs": [".next/**", "!.next/cache/**"],
-      "env": [
-        "API_BASE_URL",
-        "API_KEY",
-        "APP_BASE_URL",
-        "AUTH0_AUDIENCE",
-        "AUTH0_CLIENT_ID",
-        "AUTH0_CLIENT_SECRET",
-        "AUTH0_DOMAIN",
-        "AUTH0_SCOPE",
-        "AUTH0_SECRET",
-        "MONGO_DB_CONNECTION_STRING",
-        "MONGO_DB_NAME"
-      ]
+      ],
+      "outputs": [".next/**", "!.next/cache/**"]
     },
     "cf-deploy": {
       "env": [
@@ -60,6 +31,35 @@
         "AUTH0_SECRET",
         "CLOUDFLARE_ACCOUNT_ID",
         "CLOUDFLARE_API_TOKEN"
+      ]
+    },
+    "ci": {
+      "env": [
+        "API_BASE_URL",
+        "API_KEY",
+        "APP_BASE_URL",
+        "AUTH0_AUDIENCE",
+        "AUTH0_CLIENT_ID",
+        "AUTH0_CLIENT_SECRET",
+        "AUTH0_DOMAIN",
+        "AUTH0_SCOPE",
+        "AUTH0_SECRET",
+        "MONGO_DB_CONNECTION_STRING",
+        "MONGO_DB_NAME"
+      ],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "dev": {
+      "env": [
+        "API_BASE_URL",
+        "API_KEY",
+        "APP_BASE_URL",
+        "AUTH0_AUDIENCE",
+        "AUTH0_CLIENT_ID",
+        "AUTH0_CLIENT_SECRET",
+        "AUTH0_DOMAIN",
+        "AUTH0_SCOPE",
+        "AUTH0_SECRET"
       ]
     }
   }

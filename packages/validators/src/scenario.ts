@@ -1,9 +1,9 @@
 import { z } from "zod";
+import { AirportConditionsSchema } from "./airport-conditions.js";
 import { AirportInfoSchema } from "./airport-info.js";
 import { CraftSchema } from "./craft.js";
-import { PlanSchema } from "./plan.js";
 import { ExplanationSchema } from "./explanations.js";
-import { AirportConditionsSchema } from "./airport-conditions.js";
+import { PlanSchema } from "./plan.js";
 
 export const ScenarioSchema = z.object({
   _id: z.string().optional(),

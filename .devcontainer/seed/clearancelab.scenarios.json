@@ -3,229 +3,229 @@
     "_id": {
       "$oid": "6802cef1cd28e1a43a89e8d9"
     },
-    "plan": {
-      "pilotName": "Jordan",
-      "vatsimId": 1914093,
-      "cid": 353,
-      "aid": "ASA1160",
-      "typ": "B738M",
-      "eq": "X",
-      "bcn": 6660,
-      "dep": "KPDX",
-      "dest": "KLAX",
-      "spd": 225,
-      "alt": 370,
-      "homeAirport": "KPDX",
-      "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-      "raw": "ASA1160  B738M/X  0000  6660  KPDX - KLAX  370 CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1"
-    },
-    "isValid": false,
-    "canClear": true,
     "airportConditions": {
-      "flow": "WEST",
       "altimeter": 29.9,
-      "departureOnline": false
+      "departureOnline": false,
+      "flow": "WEST"
     },
+    "canClear": true,
     "craft": {
-      "telephony": "Alaska 1160",
+      "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
       "route": "the CASCD3 departure, then as filed",
-      "altitude": "Climb via SID except maintain 7000",
+      "telephony": "Alaska 1160",
       "transponder": "6660"
     },
     "explanations": [
       {
-        "level": "warning",
+        "description": "Change the suffix to '/L' in the flight plan then clear the pilot as usual.",
         "headline": "The equipment suffix '/X' is not valid for this aircraft type.",
-        "description": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
+        "level": "warning"
       }
-    ]
+    ],
+    "isValid": false,
+    "plan": {
+      "aid": "ASA1160",
+      "alt": 370,
+      "bcn": 6660,
+      "cid": 353,
+      "dep": "KPDX",
+      "dest": "KLAX",
+      "eq": "X",
+      "homeAirport": "KPDX",
+      "pilotName": "Jordan",
+      "raw": "ASA1160  B738M/X  0000  6660  KPDX - KLAX  370 CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+      "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+      "spd": 225,
+      "typ": "B738M",
+      "vatsimId": 1914093
+    }
   },
   {
     "_id": {
       "$oid": "6802cf01cd28e1a43a89e8da"
     },
-    "plan": {
-      "pilotName": "Quinn",
-      "vatsimId": 1531877,
-      "cid": 925,
-      "aid": "ASA17",
-      "typ": "B739",
-      "eq": "L",
-      "bcn": 6660,
-      "dep": "KPDX",
-      "dest": "KLAS",
-      "spd": 225,
-      "alt": 350,
-      "homeAirport": "KPDX",
-      "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-      "raw": "ASA17  B739/L  0000  0755  KPDX - KLAS  330 CASCD2 PAWLI RUFUS RALEY OAL BASIC COKTL1"
-    },
-    "isValid": true,
-    "canClear": true,
     "airportConditions": {
-      "flow": "WEST",
       "altimeter": 29.9,
-      "departureOnline": true
+      "departureOnline": true,
+      "flow": "WEST"
     },
+    "canClear": true,
     "craft": {
-      "telephony": "Alaska 17",
-      "controllerName": "Portland Ground",
-      "route": "the CASCD3 departure, then as filed",
       "altitude": "Climb via SID except maintain 7000",
+      "controllerName": "Portland Ground",
       "frequency": "124.35",
+      "route": "the CASCD3 departure, then as filed",
+      "telephony": "Alaska 17",
       "transponder": "6660"
     },
-    "explanations": []
+    "explanations": [],
+    "isValid": true,
+    "plan": {
+      "aid": "ASA17",
+      "alt": 350,
+      "bcn": 6660,
+      "cid": 925,
+      "dep": "KPDX",
+      "dest": "KLAS",
+      "eq": "L",
+      "homeAirport": "KPDX",
+      "pilotName": "Quinn",
+      "raw": "ASA17  B739/L  0000  0755  KPDX - KLAS  330 CASCD2 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+      "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+      "spd": 225,
+      "typ": "B739",
+      "vatsimId": 1531877
+    }
   },
   {
     "_id": {
       "$oid": "6802cf0fcd28e1a43a89e8db"
     },
-    "plan": {
-      "pilotName": "Dakota",
-      "vatsimId": 1400467,
-      "cid": 585,
-      "aid": "ASA223",
-      "typ": "A320",
-      "eq": "L",
-      "bcn": 2000,
-      "dep": "KPDX",
-      "dest": "CYEG",
-      "spd": 200,
-      "alt": 350,
-      "homeAirport": "KPDX",
-      "rte": "LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
-      "raw": "ASA223  A320/L  0000  2000  KPDX - CYEG  350 LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2"
-    },
-    "isValid": true,
-    "canClear": true,
     "airportConditions": {
-      "flow": "WEST",
       "altimeter": 29.9,
-      "departureOnline": true
+      "departureOnline": true,
+      "flow": "WEST"
     },
+    "canClear": true,
     "craft": {
-      "telephony": "Alaska 223",
-      "controllerName": "Portland Ground",
-      "route": "the LAVAA6 departure, Yakima transition, then as filed",
       "altitude": "Climb via SID except maintain 7000",
+      "controllerName": "Portland Ground",
       "frequency": "124.35",
+      "route": "the LAVAA6 departure, Yakima transition, then as filed",
+      "telephony": "Alaska 223",
       "transponder": "2000"
     },
-    "explanations": []
+    "explanations": [],
+    "isValid": true,
+    "plan": {
+      "aid": "ASA223",
+      "alt": 350,
+      "bcn": 2000,
+      "cid": 585,
+      "dep": "KPDX",
+      "dest": "CYEG",
+      "eq": "L",
+      "homeAirport": "KPDX",
+      "pilotName": "Dakota",
+      "raw": "ASA223  A320/L  0000  2000  KPDX - CYEG  350 LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+      "rte": "LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+      "spd": 200,
+      "typ": "A320",
+      "vatsimId": 1400467
+    }
   },
   {
     "_id": {
       "$oid": "680313113b56b8441f25bee0"
     },
-    "plan": {
-      "pilotName": "Avery",
-      "vatsimId": 1719339,
-      "cid": 585,
-      "aid": "N357JK",
-      "typ": "H/B78X",
-      "eq": "L",
-      "bcn": 2247,
-      "dep": "KPDX",
-      "dest": "KPHX",
-      "spd": 200,
-      "alt": 390,
-      "homeAirport": "KSEA",
-      "rte": "WHAMY5 KOATA Q35 NEERO BERYL CORKR TENTS BRUSR1",
-      "raw": "N357JK  H/B78X/L  2247  KPDX - KPHX  390  WHAMY5 KOATA Q35 NEERO BERYL CORKR TENTS BRUSR1"
-    },
-    "isValid": true,
-    "canClear": true,
     "airportConditions": {
-      "flow": "EAST",
       "altimeter": 30.02,
-      "departureOnline": false
+      "departureOnline": false,
+      "flow": "EAST"
     },
+    "canClear": true,
     "craft": {
-      "telephony": "N357JK Heavy",
+      "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
       "route": "the WHAMY5 departure, then as filed",
-      "altitude": "Climb via SID except maintain 7000"
+      "telephony": "N357JK Heavy"
     },
-    "explanations": []
+    "explanations": [],
+    "isValid": true,
+    "plan": {
+      "aid": "N357JK",
+      "alt": 390,
+      "bcn": 2247,
+      "cid": 585,
+      "dep": "KPDX",
+      "dest": "KPHX",
+      "eq": "L",
+      "homeAirport": "KSEA",
+      "pilotName": "Avery",
+      "raw": "N357JK  H/B78X/L  2247  KPDX - KPHX  390  WHAMY5 KOATA Q35 NEERO BERYL CORKR TENTS BRUSR1",
+      "rte": "WHAMY5 KOATA Q35 NEERO BERYL CORKR TENTS BRUSR1",
+      "spd": 200,
+      "typ": "H/B78X",
+      "vatsimId": 1719339
+    }
   },
   {
     "_id": {
       "$oid": "6803137a3b56b8441f25bee2"
     },
+    "airportConditions": {
+      "altimeter": 30.02,
+      "departureOnline": true,
+      "flow": "EAST"
+    },
+    "canClear": true,
+    "craft": {
+      "altitude": "Climb via SID except maintain 6000",
+      "controllerName": "Portland Ground",
+      "frequency": "124.35",
+      "route": "the PTLD2 departure, then as filed",
+      "telephony": "Alaska 498"
+    },
+    "explanations": [],
+    "isValid": true,
     "plan": {
-      "pilotName": "Skyler",
-      "vatsimId": 1842516,
-      "cid": 585,
       "aid": "ASA498",
-      "typ": "B38M",
-      "eq": "L",
+      "alt": 360,
       "bcn": 7420,
+      "cid": 585,
       "dep": "KPDX",
       "dest": "PHNL",
-      "spd": 200,
-      "alt": 360,
+      "eq": "L",
       "homeAirport": "CYBR",
-      "rte": "ONP HEMLO 40N130W ADTIL BILLO/N0448F380 R464 BITTA INOYI1",
+      "pilotName": "Skyler",
+      "raw": "ASA498  B38M/L  7420  KPDX - PHNL  360  ONP HEMLO 40N130W ADTIL BILLO/N0448F380 R464 BITTA INOYI1",
       "rmk": "RALT/KSFO PHTO SIMBRIEF/FIRST IFR FLIGHT/ VERY NEW TO VATSIM",
-      "raw": "ASA498  B38M/L  7420  KPDX - PHNL  360  ONP HEMLO 40N130W ADTIL BILLO/N0448F380 R464 BITTA INOYI1"
-    },
-    "craft": {
-      "telephony": "Alaska 498",
-      "controllerName": "Portland Ground",
-      "route": "the PTLD2 departure, then as filed",
-      "altitude": "Climb via SID except maintain 6000",
-      "frequency": "124.35"
-    },
-    "isValid": true,
-    "canClear": true,
-    "airportConditions": {
-      "flow": "EAST",
-      "altimeter": 30.02,
-      "departureOnline": true
-    },
-    "explanations": []
+      "rte": "ONP HEMLO 40N130W ADTIL BILLO/N0448F380 R464 BITTA INOYI1",
+      "spd": 200,
+      "typ": "B38M",
+      "vatsimId": 1842516
+    }
   },
   {
     "_id": {
       "$oid": "680315453b56b8441f25bee4"
     },
-    "plan": {
-      "pilotName": "Emery",
-      "vatsimId": 1719339,
-      "cid": 585,
-      "aid": "FFT1522",
-      "typ": "A320",
-      "eq": "S",
-      "bcn": 1655,
-      "dep": "KPDX",
-      "dest": "KLAX",
-      "spd": 200,
-      "alt": 350,
-      "homeAirport": "CYYC",
-      "rte": "KPDX TO SMIGE TO SUNBE TO SHIMR TO KLAX",
-      "raw": "FFT1522  A320/S  1655  KPDX - KLAX  350  KPDX TO SMIGE TO SUNBE TO SHIMR TO KLAX",
-      "rmk": "NEW PILOT"
-    },
-    "isValid": false,
-    "canClear": false,
     "airportConditions": {
-      "flow": "EAST",
       "altimeter": 30.02,
-      "departureOnline": false
+      "departureOnline": false,
+      "flow": "EAST"
     },
+    "canClear": false,
     "explanations": [
       {
-        "level": "error",
+        "description": "Issue a full route clearance on the preferred route: CASCD3 CHISM JUDAH JUNEJ Q7 JAGWA BURGL IRNMN2.",
         "headline": "The route is nonsense.",
-        "description": "Issue a full route clearance on the preferred route: CASCD3 CHISM JUDAH JUNEJ Q7 JAGWA BURGL IRNMN2."
+        "level": "error"
       },
       {
-        "level": "warning",
+        "description": "Change the suffix to '/L' in the flight plan then clear the pilot as usual.",
         "headline": "The equipment suffix '/S' is not appropriate for the A320.",
-        "description": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
+        "level": "warning"
       }
-    ]
+    ],
+    "isValid": false,
+    "plan": {
+      "aid": "FFT1522",
+      "alt": 350,
+      "bcn": 1655,
+      "cid": 585,
+      "dep": "KPDX",
+      "dest": "KLAX",
+      "eq": "S",
+      "homeAirport": "CYYC",
+      "pilotName": "Emery",
+      "raw": "FFT1522  A320/S  1655  KPDX - KLAX  350  KPDX TO SMIGE TO SUNBE TO SHIMR TO KLAX",
+      "rmk": "NEW PILOT",
+      "rte": "KPDX TO SMIGE TO SUNBE TO SHIMR TO KLAX",
+      "spd": 200,
+      "typ": "A320",
+      "vatsimId": 1719339
+    }
   }
 ]

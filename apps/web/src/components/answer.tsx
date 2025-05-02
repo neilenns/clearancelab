@@ -1,16 +1,12 @@
 "use client";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
-import { Conversation } from "@/conversation";
 import { Craft } from "@/components/craft/craft";
 import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Conversation } from "@/conversation";
 import { Scenario } from "@workspace/validators";
+import { ChevronsUpDown } from "lucide-react";
+import { useState } from "react";
 
 interface AnswerProperties {
   scenario: Scenario;

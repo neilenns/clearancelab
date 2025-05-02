@@ -36,8 +36,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(
       new URL(
         `/auth/login?returnTo=${encodeURIComponent(request.nextUrl.pathname)}`,
-        request.nextUrl.origin
-      )
+        request.nextUrl.origin,
+      ),
     );
   }
 

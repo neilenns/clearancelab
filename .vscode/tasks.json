@@ -1,16 +1,16 @@
 {
-  "version": "2.0.0",
   "tasks": [
     {
-      "label": "Lint everything",
-      "type": "shell",
-      "command": "${workspaceFolder}/node_modules/.bin/turbo",
       "args": ["lint", "--log-prefix=none", "--ui=stream"],
+      "command": "${workspaceFolder}/node_modules/.bin/turbo",
       "group": {
-        "kind": "test",
-        "isDefault": true
+        "isDefault": true,
+        "kind": "test"
       },
-      "problemMatcher": ["$eslint-stylish"]
+      "label": "Lint everything",
+      "problemMatcher": ["$eslint-stylish"],
+      "type": "shell"
     }
-  ]
+  ],
+  "version": "2.0.0"
 }

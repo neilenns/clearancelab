@@ -1,17 +1,13 @@
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
-import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import eslintConfigPrettier from "eslint-config-prettier";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import eslintPluginSecurity from "eslint-plugin-security";
+import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: [
-      "dist/**",
-      "eslint.config.js",
-      "tsup.config.js",
-      "prettier.config.js",
-    ],
+    ignores: ["dist/**", "eslint.config.js", "tsup.config.js", "prettier.config.js"],
   },
   eslintConfigPrettier,
   eslint.configs.recommended,
@@ -19,6 +15,7 @@ export default tseslint.config(
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
   eslintPluginSecurity.configs.recommended,
+  eslintPluginPrettierRecommended,
   {
     languageOptions: {
       parserOptions: {
@@ -37,5 +34,5 @@ export default tseslint.config(
         },
       ],
     },
-  }
+  },
 );

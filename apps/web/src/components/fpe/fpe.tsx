@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utilities";
+import { Scenario } from "@workspace/validators";
+import * as changeCase from "change-case";
 import { useCallback, useState } from "react";
 import { FPEBox } from "./fpe-box";
 import { FPEInput } from "./fpe-input";
 import { FPELabel } from "./fpe-label";
 import { FPETextArea } from "./fpe-textarea";
 import "./fpe.css";
-import { Scenario } from "@workspace/validators";
-import * as changeCase from "change-case";
 
 interface FPEProperties {
   scenario?: Scenario | undefined;
@@ -90,28 +90,19 @@ const FPE = ({ scenario }: FPEProperties) => {
             "fpe-amend text-center justify-self-center mt-[6px] mb-1 border-2 px-2 py-[6px] text-[var(--color-fpe-amend-foreground)] border-[var(--color-fpe-amend-border)]",
             {
               "text-white": isDirty,
-            }
+            },
           )}
         >
           Amend
         </button>
 
-        <FPEBox
-          aria-labelledby="fpe-aid-label"
-          className="fpe-aid-box border-none"
-        >
+        <FPEBox aria-labelledby="fpe-aid-label" className="fpe-aid-box border-none">
           {plan?.aid}
         </FPEBox>
-        <FPEBox
-          aria-labelledby="fpe-aid-label"
-          className="fpe-cruiseid-box border-none"
-        >
+        <FPEBox aria-labelledby="fpe-aid-label" className="fpe-cruiseid-box border-none">
           {plan?.cid}
         </FPEBox>
-        <FPEBox
-          aria-labelledby="fpe-bcn-label"
-          className="fpe-bcn-box border-none"
-        >
+        <FPEBox aria-labelledby="fpe-bcn-label" className="fpe-bcn-box border-none">
           {plan?.bcn}
         </FPEBox>
         <FPEInput

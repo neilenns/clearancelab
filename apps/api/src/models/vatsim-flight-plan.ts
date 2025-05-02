@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types, model, HydratedDocument } from "mongoose";
+import mongoose, { HydratedDocument, Schema, Types, model } from "mongoose";
 import mongooseLeanVirtuals from "mongoose-lean-virtuals";
 
 export enum VatsimFlightStatus {
@@ -65,9 +65,7 @@ interface VatsimFlightPlanModelType
     IVatsimFlightPlanVirtuals,
     VatsimFlightPlanHydratedDocument
   > {
-  findByCallsign(
-    callsign: string,
-  ): Promise<VatsimFlightPlanHydratedDocument | null>;
+  findByCallsign(callsign: string): Promise<VatsimFlightPlanHydratedDocument | null>;
 }
 
 const VatsimFlightPlanSchema = new Schema<
@@ -157,12 +155,7 @@ const VatsimFlightPlanSchema = new Schema<
           }
 
           const codeMatch = /^([A-Z0-9]+)(\/([A-Z]))?$/.exec(rawAircraftType);
-          if (
-            codeMatch &&
-            codeMatch.length > 0 &&
-            codeMatch.length > 3 &&
-            codeMatch[3]
-          ) {
+          if (codeMatch?.[3]) {
             return codeMatch[3];
           }
 
@@ -198,8 +191,7 @@ VatsimFlightPlanSchema.statics.findByCallsign = function (callsign) {
   });
 };
 
-export const VatsimFlightPlanModel = model<
-  IVatsimFlightPlan,
-  VatsimFlightPlanModelType,
-  unknown
->("vatsimflightplans", VatsimFlightPlanSchema);
+export const VatsimFlightPlanModel = model<IVatsimFlightPlan, VatsimFlightPlanModelType, unknown>(
+  "vatsimflightplans",
+  VatsimFlightPlanSchema,
+);

@@ -19,17 +19,12 @@ export function Explanations({ scenario }: ExplanationsProperties) {
       {scenario.canClear ? (
         <CalloutBox level="ok">You can issue the clearance!</CalloutBox>
       ) : (
-        <CalloutBox level="warning">
-          You cannot issue the clearance yet.
-        </CalloutBox>
+        <CalloutBox level="warning">You cannot issue the clearance yet.</CalloutBox>
       )}
 
       <div className="mt-2" aria-label="Explanation details">
         {scenario.explanations.map((explanation, index) => (
-          <ExplanationItem
-            key={`explanation-${index.toString()}`}
-            explanation={explanation}
-          />
+          <ExplanationItem key={`explanation-${index.toString()}`} explanation={explanation} />
         ))}
       </div>
     </div>
@@ -41,17 +36,13 @@ function ExplanationItem({ explanation }: ExplanationItemProperties) {
     <CalloutBox level={explanation.level}>
       <p
         className="flex items-start gap-2 font-bold"
-        id={`explanation-headline-${explanation.headline
-          .replaceAll(/\s+/g, "-")
-          .toLowerCase()}`}
+        id={`explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`}
       >
         {explanation.headline}
       </p>
       <p
         className="flex items-start gap-2"
-        aria-labelledby={`explanation-headline-${explanation.headline
-          .replaceAll(/\s+/g, "-")
-          .toLowerCase()}`}
+        aria-labelledby={`explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`}
       >
         {explanation.description}
       </p>

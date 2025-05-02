@@ -2,10 +2,10 @@
   "name": "@workspace/typescript-config",
   "version": "0.0.0",
   "private": true,
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

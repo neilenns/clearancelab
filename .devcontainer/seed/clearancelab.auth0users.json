@@ -1,17 +1,17 @@
 [
   {
+    "__v": 0,
     "_id": {
       "$oid": "65d01c5a852667f08c063b72"
     },
-    "sub": "auth0|65c6b856d26e9173bdabdb2e",
+    "autoHideImported": true,
+    "colorMode": "dark",
     "email": "admin@example.com",
+    "hideInformational": true,
     "isPending": false,
     "roles": ["S2", "TMU", "admin"],
-    "__v": 0,
-    "colorMode": "dark",
-    "autoHideImported": true,
+    "sortByCreatedAt": true,
     "streamingMode": false,
-    "hideInformational": true,
-    "sortByCreatedAt": true
+    "sub": "auth0|65c6b856d26e9173bdabdb2e"
   }
 ]

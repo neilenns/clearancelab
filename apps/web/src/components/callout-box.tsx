@@ -1,13 +1,7 @@
+import { ExplanationLevel } from "@workspace/validators";
+import { AlertOctagon, AlertTriangle, CheckCircle, Info, Lightbulb } from "lucide-react";
 import React, { ReactNode } from "react";
 import { Alert, AlertDescription } from "./ui/alert";
-import {
-  Info,
-  CheckCircle,
-  AlertTriangle,
-  AlertOctagon,
-  Lightbulb,
-} from "lucide-react";
-import { ExplanationLevel } from "@workspace/validators";
 
 interface CalloutBoxProperties {
   level: ExplanationLevel;

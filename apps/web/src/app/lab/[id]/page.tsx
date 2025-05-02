@@ -1,9 +1,9 @@
 "use server";
 
+import { apiFetch } from "@/lib/api";
 import { Scenario } from "@workspace/validators";
 import ClientSection from "./client-section";
 import NotFound from "./not-found";
-import { apiFetch } from "@/lib/api";
 
 type Parameters = Promise<{ id: string }>;
 

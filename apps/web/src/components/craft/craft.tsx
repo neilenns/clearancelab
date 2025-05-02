@@ -1,8 +1,8 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { formatAirportName } from "@/lib/format";
-import { CraftElement } from "./craft-element";
-import * as changeCase from "change-case";
 import { Scenario } from "@workspace/validators";
+import * as changeCase from "change-case";
+import { CraftElement } from "./craft-element";
 
 interface CraftProperties {
   scenario: Scenario;
@@ -31,17 +31,11 @@ export function Craft({ scenario }: CraftProperties) {
           </span>
         )}{" "}
         {craft?.altitude && (
-          <CraftElement element="altitude">
-            {changeCase.sentenceCase(craft.altitude)}.
-          </CraftElement>
+          <CraftElement element="altitude">{changeCase.sentenceCase(craft.altitude)}.</CraftElement>
         )}{" "}
-        <CraftElement element="frequency">
-          Departure is {departure}.
-        </CraftElement>{" "}
+        <CraftElement element="frequency">Departure is {departure}.</CraftElement>{" "}
         {scenario.plan.bcn && (
-          <CraftElement element="transponder">
-            Squawk {scenario.plan.bcn}.
-          </CraftElement>
+          <CraftElement element="transponder">Squawk {scenario.plan.bcn}.</CraftElement>
         )}
       </div>
     </TooltipProvider>

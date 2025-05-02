@@ -1,11 +1,5 @@
-import { useFieldArray, useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   FormControl,
   FormDescription,
@@ -14,6 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -21,11 +16,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ScenarioInput } from "@workspace/validators";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utilities";
+import { ScenarioInput } from "@workspace/validators";
 import { Trash2 } from "lucide-react";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 export function ExplanationsSection() {
   const { control } = useFormContext<ScenarioInput>();
@@ -40,15 +34,12 @@ export function ExplanationsSection() {
       <CardHeader>
         <CardTitle id="explanations-section-title">Explanations</CardTitle>
         <CardDescription>
-          A list of explanations for the filed flight plan, describing any
-          issues or offering tips to the student.
+          A list of explanations for the filed flight plan, describing any issues or offering tips
+          to the student.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <fieldset
-          className="space-y-4"
-          aria-describedby="explanations-section-title"
-        >
+        <fieldset className="space-y-4" aria-describedby="explanations-section-title">
           <div className="grid grid-cols-[auto_1fr_1fr_auto] items-start mb-4 gap-2">
             {fields.map((field, index) => (
               <div key={field.id} className="contents">
@@ -64,17 +55,12 @@ export function ExplanationsSection() {
                         >
                           Level
                         </FormLabel>
-                        <FormDescription
-                          className={cn(index !== 0 && "sr-only")}
-                        >
+                        <FormDescription className={cn(index !== 0 && "sr-only")}>
                           <span className="invisible" aria-hidden="true">
                             Spacer
                           </span>
                         </FormDescription>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <div>
                               <input
@@ -107,12 +93,8 @@ export function ExplanationsSection() {
                     name={`explanations.${index}.headline`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className={cn(index !== 0 && "sr-only")}>
-                          Headline
-                        </FormLabel>
-                        <FormDescription
-                          className={cn(index !== 0 && "sr-only")}
-                        >
+                        <FormLabel className={cn(index !== 0 && "sr-only")}>Headline</FormLabel>
+                        <FormDescription className={cn(index !== 0 && "sr-only")}>
                           Headline for the explanation box.
                         </FormDescription>
                         <FormControl>
@@ -129,12 +111,8 @@ export function ExplanationsSection() {
                     name={`explanations.${index}.description`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className={cn(index !== 0 && "sr-only")}>
-                          Description
-                        </FormLabel>
-                        <FormDescription
-                          className={cn(index !== 0 && "sr-only")}
-                        >
+                        <FormLabel className={cn(index !== 0 && "sr-only")}>Description</FormLabel>
+                        <FormDescription className={cn(index !== 0 && "sr-only")}>
                           Detailed description of the tip or issue.
                         </FormDescription>
                         <FormControl>
@@ -147,9 +125,7 @@ export function ExplanationsSection() {
                 </div>
                 <div className="flex justify-center items-center">
                   <FormItem className="flex flex-col items-center">
-                    <FormLabel className={cn(index !== 0 && "sr-only")}>
-                      Delete
-                    </FormLabel>
+                    <FormLabel className={cn(index !== 0 && "sr-only")}>Delete</FormLabel>
                     <FormDescription className={cn(index !== 0 && "sr-only")}>
                       <span className="invisible" aria-hidden="true">
                         Spacer

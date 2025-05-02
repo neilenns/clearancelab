@@ -5,11 +5,7 @@ interface FPELabelProperties extends React.HTMLAttributes<HTMLDivElement> {
   className: string;
 }
 
-export function FPELabel({
-  children,
-  className,
-  ...properties
-}: FPELabelProperties) {
+export function FPELabel({ children, className, ...properties }: FPELabelProperties) {
   return (
     <div className={`text-center ${className}`} {...properties}>
       {children}

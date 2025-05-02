@@ -1,12 +1,8 @@
 "use client";
 
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/tooltip";
-import { ReactNode } from "react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { craftLabels } from "@/interfaces/craft-labels";
+import { ReactNode } from "react";
 
 interface CraftElementProperties {
   element: keyof typeof craftLabels;

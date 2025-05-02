@@ -1,5 +1,5 @@
-import { ENV } from "./environment";
 import { auth0 } from "@/lib/auth0";
+import { ENV } from "./environment";
 
 interface ApiRequestOptions {
   withAuthToken?: boolean;
@@ -9,7 +9,7 @@ async function apiRequest<T>(
   method: string,
   path: string,
   body?: T,
-  options: ApiRequestOptions = {}
+  options: ApiRequestOptions = {},
 ): Promise<T | undefined> {
   const baseUrl = ENV.API_BASE_URL;
   const apiKey = ENV.API_KEY;
@@ -53,7 +53,7 @@ async function apiRequest<T>(
 
 export async function apiFetch<T>(
   path: string,
-  options: ApiRequestOptions = {}
+  options: ApiRequestOptions = {},
 ): Promise<T | undefined> {
   return apiRequest<T>("GET", path, undefined, options);
 }
@@ -61,7 +61,7 @@ export async function apiFetch<T>(
 export async function postJson<T>(
   path: string,
   body: T,
-  options: ApiRequestOptions = {}
+  options: ApiRequestOptions = {},
 ): Promise<T | undefined> {
   return apiRequest<T>("POST", path, body, options);
 }
@@ -69,7 +69,7 @@ export async function postJson<T>(
 export async function putJson<T>(
   path: string,
   body: T,
-  options: ApiRequestOptions = {}
+  options: ApiRequestOptions = {},
 ): Promise<T | undefined> {
   return apiRequest<T>("PUT", path, body, options);
 }
