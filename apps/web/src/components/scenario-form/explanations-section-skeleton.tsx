@@ -17,15 +17,15 @@ export function ExplanationsSectionSkeleton() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-          <div className="grid grid-cols-[auto_1fr_1fr_auto] items-start mb-4 gap-2">
+          <div className="grid grid-cols-[auto_1fr_1fr_auto] items-start mb-4 gap-2" aria-busy="true" aria-label="Loading explanations">
             <div>
-            <Skeleton/>
+            <Skeleton aria-hidden="true"/>
             </div>
             <div>
-            <Skeleton/>
+            <Skeleton aria-hidden="true"/>
             </div>
             <div>
-            <Skeleton/>
+            <Skeleton aria-hidden="true"/>
             </div>
           </div>
       </CardContent>

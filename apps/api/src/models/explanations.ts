@@ -15,11 +15,11 @@ export interface Explanation {
 }
 
 export const ExplanationSchema = new Schema<Explanation>({
-  headline: { type: String },
+  headline: { type: String, required: true },
   level: {
     type: String,
     enum: Object.values(Level),
     required: true,
   },
-  description: { type: String },
+  description: { type: String, required: true },
 });

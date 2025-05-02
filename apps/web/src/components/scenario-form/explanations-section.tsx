@@ -38,15 +38,16 @@ export function ExplanationsSection() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Explanations</CardTitle>
-        <CardDescription id="explanations-section-description">
-              A list of explanations for the filed flight plan, describing any issues or offering tips to the student.
+        <CardTitle id="explanations-section-title">Explanations</CardTitle>
+        <CardDescription>
+          A list of explanations for the filed flight plan, describing any
+          issues or offering tips to the student.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <fieldset
           className="space-y-4"
-          aria-describedby="explanations-section-description"
+          aria-describedby="explanations-section-title"
         >
           <div className="grid grid-cols-[auto_1fr_1fr_auto] items-start mb-4 gap-2">
             {fields.map((field, index) => (
@@ -79,6 +80,7 @@ export function ExplanationsSection() {
                             <div>
                               <input
                                 type="hidden"
+                                aria-hidden="true"
                                 id={`explanation-level-${index.toString()}`}
                                 name={field.name}
                                 value={field.value}
