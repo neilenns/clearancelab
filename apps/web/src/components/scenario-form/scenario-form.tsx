@@ -46,7 +46,11 @@ export const ScenarioForm = ({ defaultValues }: { defaultValues: ScenarioInput }
         {formState.id && (
           <>
             &nbsp;
-            <Link href={`/lab/${formState.id}`} className="text-blue-500 hover:underline">
+            <Link
+              href={`/lab/${formState.id}`}
+              className="text-blue-500 hover:underline"
+              aria-label="View scenario details"
+            >
               View
             </Link>
           </>
