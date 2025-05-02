@@ -1,37 +1,37 @@
 {
   "configurations": [
     {
-      "name": "Clearance Lab (All)",
-      "type": "node-terminal",
       "command": "pnpx turbo run dev",
+      "name": "Clearance Lab (All)",
       "request": "launch",
       "serverReadyAction": {
+        "action": "debugWithEdge",
+        "killOnServerStop": true,
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s/admin/scenarios/new",
-        "action": "debugWithEdge",
-        "killOnServerStop": true,
         "webRoot": "${workspaceFolder}/apps/web/src"
-      }
+      },
+      "type": "node-terminal"
     },
     {
-      "name": "Clearance Lab (Web)",
-      "type": "node-terminal",
       "command": "pnpx turbo run dev --filter web",
       "internalConsoleOptions": "neverOpen",
+      "name": "Clearance Lab (Web)",
       "request": "launch",
       "serverReadyAction": {
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
         "action": "debugWithEdge",
         "killOnServerStop": true,
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
         "webRoot": "${workspaceFolder}/apps/web/src"
-      }
+      },
+      "type": "node-terminal"
     },
     {
-      "name": "Clearance Lab (API)",
-      "type": "node-terminal",
       "command": "pnpx turbo run dev --filter api",
-      "request": "launch"
+      "name": "Clearance Lab (API)",
+      "request": "launch",
+      "type": "node-terminal"
     }
   ],
   "version": "0.2.0"

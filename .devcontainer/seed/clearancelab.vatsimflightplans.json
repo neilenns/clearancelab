@@ -1,176 +1,176 @@
 [
   {
+    "__v": 0,
     "_id": {
       "$oid": "68116e0af70c7449d529ed7d"
     },
+    "arrival": "KSFO",
+    "callsign": "GTI8",
+    "cid": 1590865,
+    "communicationMethod": "VOICE",
     "createdAt": {
       "$date": "2025-04-30T00:25:46.616Z"
     },
-    "updatedAt": {
-      "$date": "2025-04-30T03:10:31.496Z"
-    },
-    "cid": 1590865,
-    "name": "Gareth G. KLOT",
-    "callsign": "GTI8",
-    "flightRules": "I",
-    "groundspeed": 300,
-    "rawAircraftType": "H/B748/L",
+    "cruiseAltitude": 350,
     "departure": "KPDX",
-    "arrival": "KSFO",
     "departureTime": {
       "$date": "2025-04-30T03:15:00.000Z"
     },
-    "cruiseAltitude": 350,
-    "route": "MINNE5 EASON Q1 ETCHY MLBEC BDEGA4",
-    "squawk": "6613",
-    "remarks": "PBN/A1B1D1O1S2 DOF/250430 REG/N749SB EET/KZOA0036 OPR/GTI PER/D RMK/TCAS SIMBRIEF /V/",
-    "status": "ENROUTE",
+    "flightPlanRevision": 1,
+    "flightRules": "I",
+    "groundspeed": 300,
     "latitude": 45.90039,
     "longitude": -122.96402,
-    "communicationMethod": "VOICE",
-    "sentEDCT": false,
+    "name": "Gareth G. KLOT",
+    "rawAircraftType": "H/B748/L",
+    "remarks": "PBN/A1B1D1O1S2 DOF/250430 REG/N749SB EET/KZOA0036 OPR/GTI PER/D RMK/TCAS SIMBRIEF /V/",
     "revision": 189,
-    "flightPlanRevision": 1,
-    "__v": 0,
+    "route": "MINNE5 EASON Q1 ETCHY MLBEC BDEGA4",
+    "sentEDCT": false,
+    "squawk": "6613",
+    "status": "ENROUTE",
+    "updatedAt": {
+      "$date": "2025-04-30T03:10:31.496Z"
+    },
     "vnasPlanRevision": 5
   },
   {
+    "__v": 0,
     "_id": {
       "$oid": "68117d6ed797b6cf25f9bd16"
     },
+    "arrival": "KLAS",
+    "callsign": "GTI3641",
+    "cid": 892626,
+    "communicationMethod": "VOICE",
     "createdAt": {
       "$date": "2025-04-30T01:31:26.186Z"
     },
-    "updatedAt": {
-      "$date": "2025-04-30T03:07:56.571Z"
-    },
-    "cid": 892626,
-    "name": "Greg Goodavish KPHX",
-    "callsign": "GTI3641",
-    "groundspeed": 468,
-    "rawAircraftType": "B738/L",
-    "arrival": "KLAS",
     "cruiseAltitude": 370,
-    "route": "CASCD4 PUHTS RUFUS Q13 LOMIA TQILA COKTL4",
-    "squawk": "1543",
-    "remarks": "DOF/250430 RMK/GLOBECARGOVA.ORG /V/",
-    "status": "ENROUTE",
-    "latitude": 39.20283,
-    "longitude": -119.10562,
-    "communicationMethod": "VOICE",
-    "sentEDCT": false,
-    "revision": 62,
-    "flightPlanRevision": 1,
-    "__v": 0,
     "departure": "KPDX",
     "departureTime": {
       "$date": "2025-04-30T02:00:00.000Z"
     },
+    "flightPlanRevision": 1,
     "flightRules": "I",
+    "groundspeed": 468,
+    "latitude": 39.20283,
+    "longitude": -119.10562,
+    "name": "Greg Goodavish KPHX",
+    "rawAircraftType": "B738/L",
+    "remarks": "DOF/250430 RMK/GLOBECARGOVA.ORG /V/",
+    "revision": 62,
+    "route": "CASCD4 PUHTS RUFUS Q13 LOMIA TQILA COKTL4",
+    "sentEDCT": false,
+    "squawk": "1543",
+    "status": "ENROUTE",
+    "updatedAt": {
+      "$date": "2025-04-30T03:07:56.571Z"
+    },
     "vnasPlanRevision": 2
   },
   {
+    "__v": 0,
     "_id": {
       "$oid": "681183e082252e230d1cfee8"
     },
+    "arrival": "KPDX",
+    "callsign": "DAL1370",
+    "cid": 1911122,
+    "communicationMethod": "VOICE",
     "createdAt": {
       "$date": "2025-04-30T01:58:56.499Z"
     },
-    "updatedAt": {
-      "$date": "2025-04-30T03:09:31.552Z"
-    },
-    "cid": 1911122,
-    "name": "Ryan Jones KMSP",
-    "callsign": "DAL1370",
-    "flightRules": "I",
-    "groundspeed": 357,
-    "rawAircraftType": "B38M/L",
+    "cruiseAltitude": 320,
     "departure": "KPDX",
-    "arrival": "KPDX",
     "departureTime": {
       "$date": "2025-04-30T02:25:00.000Z"
     },
-    "cruiseAltitude": 320,
-    "route": "PTLD2 AST LTJ",
-    "squawk": "4677",
-    "remarks": "PBN/A1B1C1D1L1O1S1S2 DOF/250430 REG/N882TW OPR/DAL PER/D SIMBRIEF RMK/TCAS/V/",
-    "status": "ENROUTE",
-    "communicationMethod": "VOICE",
-    "sentEDCT": false,
-    "revision": 97,
     "flightPlanRevision": 1,
-    "__v": 0,
-    "vnasPlanRevision": 2,
-    "latitude": 46.19315,
-    "longitude": -121.96396
-  },
-  {
-    "_id": {
-      "$oid": "681189e9e153d2a64f50de23"
-    },
-    "createdAt": {
-      "$date": "2025-04-30T02:24:41.957Z"
-    },
-    "updatedAt": {
-      "$date": "2025-04-30T02:32:34.106Z"
-    },
-    "cid": 1780294,
-    "name": "1780294",
-    "callsign": "DAL2138",
-    "isPrefile": true,
     "flightRules": "I",
-    "groundspeed": null,
-    "rawAircraftType": "B738/L",
-    "departure": "KPDX",
-    "arrival": "KSLC",
-    "departureTime": {
-      "$date": "2025-04-30T02:55:00.000Z"
-    },
-    "cruiseAltitude": 370,
-    "route": "WHAMY5 IMB J15 BOI BYI SKEES6",
-    "squawk": "0673",
-    "remarks": "PBN/A1B1C1D1S1S2 DOF/250430 REG/PMDG738 EET/KZLC0029 OPR/DAL PER/C RMK/TCAS SIMBRIEF /V/",
-    "status": "DEPARTING",
-    "communicationMethod": "VOICE",
+    "groundspeed": 357,
+    "latitude": 46.19315,
+    "longitude": -121.96396,
+    "name": "Ryan Jones KMSP",
+    "rawAircraftType": "B38M/L",
+    "remarks": "PBN/A1B1C1D1L1O1S1S2 DOF/250430 REG/N882TW OPR/DAL PER/D SIMBRIEF RMK/TCAS/V/",
+    "revision": 97,
+    "route": "PTLD2 AST LTJ",
     "sentEDCT": false,
-    "revision": 1,
-    "flightPlanRevision": 0,
-    "__v": 0,
+    "squawk": "4677",
+    "status": "ENROUTE",
+    "updatedAt": {
+      "$date": "2025-04-30T03:09:31.552Z"
+    },
     "vnasPlanRevision": 2
   },
   {
+    "__v": 0,
+    "_id": {
+      "$oid": "681189e9e153d2a64f50de23"
+    },
+    "arrival": "KSLC",
+    "callsign": "DAL2138",
+    "cid": 1780294,
+    "communicationMethod": "VOICE",
+    "createdAt": {
+      "$date": "2025-04-30T02:24:41.957Z"
+    },
+    "cruiseAltitude": 370,
+    "departure": "KPDX",
+    "departureTime": {
+      "$date": "2025-04-30T02:55:00.000Z"
+    },
+    "flightPlanRevision": 0,
+    "flightRules": "I",
+    "groundspeed": null,
+    "isPrefile": true,
+    "name": "1780294",
+    "rawAircraftType": "B738/L",
+    "remarks": "PBN/A1B1C1D1S1S2 DOF/250430 REG/PMDG738 EET/KZLC0029 OPR/DAL PER/C RMK/TCAS SIMBRIEF /V/",
+    "revision": 1,
+    "route": "WHAMY5 IMB J15 BOI BYI SKEES6",
+    "sentEDCT": false,
+    "squawk": "0673",
+    "status": "DEPARTING",
+    "updatedAt": {
+      "$date": "2025-04-30T02:32:34.106Z"
+    },
+    "vnasPlanRevision": 2
+  },
+  {
+    "__v": 0,
     "_id": {
       "$oid": "681190ab92b6747439986c02"
     },
+    "arrival": "KSFO",
+    "callsign": "GTI224",
+    "cid": 1591636,
+    "communicationMethod": "VOICE",
     "createdAt": {
       "$date": "2025-04-30T02:53:31.363Z"
     },
-    "updatedAt": {
-      "$date": "2025-04-30T03:10:31.496Z"
-    },
-    "cid": 1591636,
-    "name": "Qadir Picard",
-    "callsign": "GTI224",
-    "groundspeed": 199,
-    "rawAircraftType": "H/B748/L",
-    "arrival": "KSFO",
     "cruiseAltitude": 370,
-    "route": "MINNE5 EASON Q1 ETCHY MLBEC BDEGA4",
-    "squawk": "3454",
-    "remarks": "PBN/A1B1D1O1S2 NAV/RNVD1E2A1 SUR/TCAS DOF/250430 REG/N749SB EET/KZOA0036 OPR/GTI PER/D RVR/075 RMK/TCAS LAHSO /V/",
-    "status": "ENROUTE",
-    "latitude": 45.5832,
-    "longitude": -122.6105,
-    "communicationMethod": "VOICE",
-    "sentEDCT": false,
-    "revision": 17,
-    "flightPlanRevision": 1,
-    "__v": 0,
     "departure": "KPDX",
     "departureTime": {
       "$date": "2025-04-30T03:25:00.000Z"
     },
+    "flightPlanRevision": 1,
     "flightRules": "I",
+    "groundspeed": 199,
+    "latitude": 45.5832,
+    "longitude": -122.6105,
+    "name": "Qadir Picard",
+    "rawAircraftType": "H/B748/L",
+    "remarks": "PBN/A1B1D1O1S2 NAV/RNVD1E2A1 SUR/TCAS DOF/250430 REG/N749SB EET/KZOA0036 OPR/GTI PER/D RVR/075 RMK/TCAS LAHSO /V/",
+    "revision": 17,
+    "route": "MINNE5 EASON Q1 ETCHY MLBEC BDEGA4",
+    "sentEDCT": false,
+    "squawk": "3454",
+    "status": "ENROUTE",
+    "updatedAt": {
+      "$date": "2025-04-30T03:10:31.496Z"
+    },
     "vnasPlanRevision": 3
   }
 ]

@@ -58,20 +58,20 @@
   "explorer.fileNesting.enabled": true,
   "fileNestingUpdater.promptOnAutoUpdate": false,
   "files.exclude": {
-    "**/node_modules": true,
     "**/.next": true,
-    "**/next-env.d.ts": true,
     "**/.open-next": true,
-    "**/.wrangler": true,
-    "**/.turbo": true,
     "**/.pnpm-store": true,
+    "**/.turbo": true,
+    "**/.wrangler": true,
     "**/dist": true,
+    "**/next-env.d.ts": true,
+    "**/node_modules": true,
     "**/out": true
   },
   "mdb.presetConnections": [
     {
-      "name": "Clearance Lab local dev",
-      "connectionString": "mongodb://localhost:27017"
+      "connectionString": "mongodb://localhost:27017",
+      "name": "Clearance Lab local dev"
     }
   ],
   "nanoid-generator.length": 21,

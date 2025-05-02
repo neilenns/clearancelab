@@ -7,11 +7,12 @@ module.exports = {
   printWidth: 100,
   tabWidth: 2,
   useTabs: false,
+  jsonRecursiveSort: true,
   plugins: [
-    "prettier-plugin-multiline-arrays",
-    "prettier-plugin-organize-imports",
     "prettier-plugin-sort-json",
     "prettier-plugin-packagejson",
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-multiline-arrays",
   ],
-  multilineArraysWrapThreshold: 6,
+  multilineArraysWrapThreshold: -1,
 };

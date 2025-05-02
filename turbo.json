@@ -7,26 +7,26 @@
       "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"]
     },
     "cf-deploy": {
-      "dependsOn": ["@workspace/validators#build", "@workspace/plantools#build"],
-      "cache": false
-    },
-    "clean": {
-      "dependsOn": ["^clean"],
-      "cache": false
-    },
-    "lint": {
-      "dependsOn": ["^lint"]
+      "cache": false,
+      "dependsOn": ["@workspace/validators#build", "@workspace/plantools#build"]
     },
     "ci": {
       "dependsOn": ["^ci"]
     },
+    "clean": {
+      "cache": false,
+      "dependsOn": ["^clean"]
+    },
+    "dev": {
+      "cache": false,
+      "dependsOn": ["^dev-setup"],
+      "persistent": true
+    },
     "dev-setup": {
       "dependsOn": ["^dev-setup"]
     },
-    "dev": {
-      "dependsOn": ["^dev-setup"],
-      "persistent": true,
-      "cache": false
+    "lint": {
+      "dependsOn": ["^lint"]
     }
   },
   "ui": "tui"
