@@ -1,233 +1,42 @@
 import { FlowDirection, Scenario } from "@workspace/validators";
 
 const names: string[] = [
-  "Alejandro",
-  "Alex",
-  "Amara",
-  "Amari",
-  "Amina",
-  "Amir",
-  "Anika",
-  "Aoife",
-  "Ari",
-  "Arjun",
-  "Ash",
-  "Avery",
-  "Bailey",
-  "Benoît",
-  "Blair",
-  "Briar",
-  "Cameron",
-  "Camila",
-  "Casey",
-  "Chiara",
-  "Dakota",
-  "Devan",
-  "Dmitri",
-  "Drew",
-  "Eden",
-  "Elias",
-  "Ellis",
-  "Elsa",
-  "Emery",
-  "Enzo",
-  "Finley",
-  "Freya",
-  "Hugo",
-  "Idris",
-  "Indigo",
-  "Ines",
-  "Isabella",
-  "Jordan",
-  "Jules",
-  "Kendall",
-  "Lane",
-  "Layla",
-  "Leif",
-  "Lennox",
-  "Logan",
-  "Luca",
-  "Lucía",
-  "Marley",
-  "Mateo",
-  "Mei",
-  "Micah",
-  "Morgan",
-  "Naomi",
-  "Niko",
-  "Noa",
-  "Noor",
-  "Peyton",
-  "Phoenix",
-  "Quinn",
-  "Quinnley",
-  "Raj",
-  "Reese",
-  "Remy",
-  "Ren",
-  "Riley",
-  "Rio",
-  "River",
-  "Robin",
-  "Rowan",
-  "Saanvi",
-  "Sage",
-  "Sasha",
-  "Seamus",
-  "Shiloh",
-  "Sky",
-  "Skyler",
-  "Sloane",
-  "Sofia",
-  "Soren",
-  "Tao",
-  "Tatum",
-  "Taylor",
-  "Thiago",
-  "Tobi",
-  "Yael",
-  "Yara",
-  "Yuna",
-  "Zara",
-  "Zubair",
-  "Zuri",
+  "Alejandro", "Alex", "Amara", "Amari", "Amina", "Amir", "Anika", "Aoife",
+  "Ari", "Arjun", "Ash", "Avery", "Bailey", "Benoît", "Blair", "Briar",
+  "Cameron", "Camila", "Casey", "Chiara", "Dakota", "Devan", "Dmitri", "Drew",
+  "Eden", "Elias", "Ellis", "Elsa", "Emery", "Enzo", "Finley", "Freya",
+  "Hugo", "Idris", "Indigo", "Ines", "Isabella", "Jordan", "Jules", "Kendall",
+  "Lane", "Layla", "Leif", "Lennox", "Logan", "Luca", "Lucía", "Marley",
+  "Mateo", "Mei", "Micah", "Morgan", "Naomi", "Niko", "Noa", "Noor",
+  "Peyton", "Phoenix", "Quinn", "Quinnley", "Raj", "Reese", "Remy", "Ren",
+  "Riley", "Rio", "River", "Robin", "Rowan", "Saanvi", "Sage", "Sasha",
+  "Seamus", "Shiloh", "Sky", "Skyler", "Sloane", "Sofia", "Soren", "Tao",
+  "Tatum", "Taylor", "Thiago", "Tobi", "Yael", "Yara", "Yuna", "Zara",
+  "Zubair", "Zuri",
 ];
 Object.freeze(names);
 
 const airlineCodes = [
-  // US Airlines
-  "AAL", // American Airlines
-  "DAL", // Delta Air Lines
-  "UAL", // United Airlines
-  "SWA", // Southwest Airlines
-  "ASA", // Alaska Airlines
-  "FFT", // Frontier Airlines
-  "JBU", // JetBlue Airways
-  "NKS", // Spirit Airlines
-  "SKW", // SkyWest Airlines
-  "ENY", // Envoy Air
-  "QXE", // Horizon Air
-
-  // International Airlines
-  "BAW", // British Airways
-  "AFR", // Air France
-  "DLH", // Lufthansa
-  "ACA", // Air Canada
-  "KLM", // KLM Royal Dutch Airlines
-  "UAE", // Emirates
-  "ANA", // All Nippon Airways
-  "JAL", // Japan Airlines
-  "QFA", // Qantas
-  "SIA", // Singapore Airlines
+  "AAL", "ACA", "AFR", "ANA", "ASA", "BAW", "DAL", "DLH",
+  "ENY", "FFT", "JAL", "JBU", "KLM", "NKS", "QFA", "QXE",
+  "SIA", "SKW", "SWA", "UAE", "UAL",
 ];
 Object.freeze(airlineCodes);
 
 const airportCodes = [
-  // United States (60)
-  "KSEA",
-  "KLAX",
-  "KSFO",
-  "KDEN",
-  "KORD",
-  "KATL",
-  "KJFK",
-  "KLGA",
-  "KEWR",
-  "KDFW",
-  "KPHX",
-  "KLAS",
-  "KSAN",
-  "KSLC",
-  "KPDX",
-  "KBOI",
-  "KMSP",
-  "KDTW",
-  "KIAD",
-  "KDCA",
-  "KBOS",
-  "KCLT",
-  "KTPA",
-  "KMCO",
-  "KIAH",
-  "KHOU",
-  "KSTL",
-  "KMEM",
-  "KBWI",
-  "KCVG",
-  "KSMF",
-  "KSJC",
-  "KOAK",
-  "KANC",
-  "KFAI",
-  "KTUS",
-  "KOMA",
-  "KOKC",
-  "KABQ",
-  "KMSY",
-  "KCMH",
-  "KIND",
-  "KRDU",
-  "KRIC",
-  "KPIT",
-  "KCHS",
-  "KBUF",
-  "KALB",
-  "KGRR",
-  "KORF",
-  "KSAV",
-  "KGEG",
-  "KEUG",
-  "KMDW",
-  "KPVD",
-  "KELP",
-  "KLIT",
-  "KHSV",
-  "KGSO",
-  "KLEX",
-
-  // Canada (10)
-  "CYVR",
-  "CYYJ",
-  "CYLW",
-  "CYCD",
-  "CYQQ",
-  "CYXX",
-  "CYEG",
-  "CYYC",
-  "CYBR",
-  "CYYZ",
-
-  // International (30, excluding Canadian)
-  "RJTT",
-  "RJAA",
-  "ZBAA",
-  "ZSPD",
-  "RKSI",
-  "VHHH",
-  "RCTP",
-  "WSSS",
-  "YSSY",
-  "NZAA",
-  "EGLL",
-  "EHAM",
-  "LFPG",
-  "EDDF",
-  "OMDB",
-  "ZGGG",
-  "ZKPY",
-  "UUEE",
-  "SBGR",
-  "MMMX",
-  "MROC",
-  "MPTO",
-  "SCEL",
-  "EGKK",
-  "LSZH",
-  "LIRF",
-  "RJBB",
-  "RPLL",
-  "VTBS",
-  "OEJN",
+  "CYBR", "CYCD", "CYEG", "CYLW", "CYQQ", "CYVR", "CYXX", "CYYC",
+  "CYYJ", "CYYZ", "EDDF", "EGKK", "EGLL", "EHAM", "KABQ", "KALB",
+  "KANC", "KATL", "KBOI", "KBOS", "KBUF", "KBWI", "KCHS", "KCLT",
+  "KCMH", "KCVG", "KDCA", "KDEN", "KDFW", "KDTW", "KELP", "KEUG",
+  "KEWR", "KFAI", "KGEG", "KGRR", "KGSO", "KHOU", "KHSV", "KIAD",
+  "KIAH", "KIND", "KJFK", "KLAS", "KLAX", "KLEX", "KLGA", "KLIT",
+  "KMCO", "KMDW", "KMEM", "KMSP", "KMSY", "KOAK", "KOKC", "KOMA",
+  "KORD", "KORF", "KPDX", "KPHX", "KPIT", "KPVD", "KRDU", "KRIC",
+  "KSAN", "KSAV", "KSEA", "KSFO", "KSJC", "KSLC", "KSMF", "KSTL",
+  "KTPA", "KTUS", "LFPG", "LIRF", "LSZH", "MMMX", "MPTO", "MROC",
+  "NZAA", "OEJN", "OMDB", "RCTP", "RJAA", "RJBB", "RJTT", "RKSI",
+  "RPLL", "SBGR", "SCEL", "UUEE", "VHHH", "VTBS", "WSSS", "YSSY",
+  "ZBAA", "ZGGG", "ZKPY", "ZSPD",
 ];
 Object.freeze(airportCodes);
 
@@ -245,7 +54,7 @@ export function getRandomAltimeter(): number {
   const HIGHEST_PRESSURE = 31;
 
   return Number.parseFloat(
-    biasedRandom(LOWEST_PRESSURE, HIGHEST_PRESSURE, 2).toFixed(2)
+    biasedRandom(LOWEST_PRESSURE, HIGHEST_PRESSURE, 2).toFixed(2),
   );
 }
 
@@ -304,9 +113,10 @@ export function getRandomName(): string {
  */
 export function getRandomBcn(): number {
   // These are the ZSE ranges.
+  // prettier-ignore
   const ranges: [number, number][] = [
-    [650, 677],
-    [2236, 2277],
+    [ 650,  677], 
+    [2236, 2277], 
     [3430, 3477],
     [7412, 7477],
   ];
