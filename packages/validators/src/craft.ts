@@ -7,7 +7,6 @@ export const CraftSchema = z.object({
   frequency: z.string().optional(),
   route: z.string().optional(),
   telephony: z.string().optional(),
-  transponder: z.string().optional(),
 });
 
 export type Craft = z.infer<typeof CraftSchema>;

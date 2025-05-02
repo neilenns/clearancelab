@@ -7,7 +7,6 @@ export interface Craft {
   frequency?: string;
   route?: string;
   telephony?: string;
-  transponder?: string;
 }
 
 export const CraftSchema = new Schema<Craft>({
@@ -25,13 +24,4 @@ export const CraftSchema = new Schema<Craft>({
   },
   route: { type: String, trim: true },
   telephony: { type: String, trim: true },
-  transponder: {
-    type: String,
-    trim: true,
-    validate: {
-      validator: (v: string) => !v || /^\d{4}$/.test(v),
-      message: (properties: { value: string }) =>
-        `${properties.value} is not a valid transponder code.`,
-    },
-  },
 });
