@@ -14,6 +14,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 export function CraftSection() {
   const { control } = useFormContext<ScenarioInput>();
   const canClear = useWatch({ control, name: "canClear" });
+  const departureOnline = useWatch({ control, name: "airportConditions.departureOnline" });
 
   return (
     <Card>
@@ -46,7 +47,9 @@ export function CraftSection() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Clearance limit</FormLabel>
-                    <FormDescription>Overrides the default clearance limit.</FormDescription>
+                    <FormDescription>
+                      Overrides the destination airport as the clearance limit.
+                    </FormDescription>
                     <FormControl>
                       <Input id="clearanceLimit" placeholder="Battleground VOR" {...field} />
                     </FormControl>
@@ -97,14 +100,21 @@ export function CraftSection() {
               <FormField
                 control={control}
                 name="craft.frequency"
+                disabled={!departureOnline}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Frequency</FormLabel>
                     <FormDescription>
-                      Departure frequency for the departure controller.
+                      {departureOnline
+                        ? "Frequency for the departure controller."
+                        : "Enable departure online to set a departure frequency."}
                     </FormDescription>
                     <FormControl>
-                      <Input id="frequency" placeholder="offline" {...field} />
+                      <Input
+                        id="frequency"
+                        placeholder={departureOnline ? "124.350" : "offline"}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
