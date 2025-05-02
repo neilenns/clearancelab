@@ -42,7 +42,7 @@ function ExplanationItem({ explanation }: ExplanationItemProperties) {
       <p
         className="flex items-start gap-2 font-bold"
         id={`explanation-headline-${explanation.headline
-          .replaceAll(/\s+/, "-")
+          .replaceAll(/\s+/g, "-")
           .toLowerCase()}`}
       >
         {explanation.headline}
@@ -50,9 +50,8 @@ function ExplanationItem({ explanation }: ExplanationItemProperties) {
       <p
         className="flex items-start gap-2"
         aria-labelledby={`explanation-headline-${explanation.headline
-          .replaceAll(/\s+/, "-")
+          .replaceAll(/\s+/g, "-")
           .toLowerCase()}`}
-        aria-hidden="true"
       >
         {explanation.description}
       </p>

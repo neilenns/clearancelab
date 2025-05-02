@@ -9,8 +9,6 @@ import turboPlugin from "eslint-plugin-turbo";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 
 /**
- * A custom ESLint configuration for libraries that use Next.js.
- *
  * @type {import("eslint").FlatConfig[]}
  * */
 export default [
@@ -18,8 +16,8 @@ export default [
     ignores: [
       "dist/**",
       ".next/**",
-      "src/components/ui/**",
-      "src/hooks/**",
+      "src/components/ui/**", // shadcn components, I'm not fixing their linting issues
+      "src/hooks/**", // shadcn hooks, I'm not fixing their linting issues
       "prettier.config.js",
     ],
   },

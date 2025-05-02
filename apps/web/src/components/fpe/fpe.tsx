@@ -174,6 +174,8 @@ const FPE = ({ scenario }: FPEProperties) => {
         <div
           className="relative px-4 py-2 mt-2 w-[800px] text-sm bg-[var(--color-fpe)] text-[var(--color-fpe-conditions-foreground)] 
          border border-[var(--color-fpe-conditions-border)]"
+          role="region"
+          aria-label="Airport conditions"
         >
           <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-fpe-conditions-left-bar)]"></div>
           <span className="font-semibold text-[var(--color-fpe-conditions-label-foreground)]">

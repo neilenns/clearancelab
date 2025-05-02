@@ -68,6 +68,7 @@ export const ScenarioForm = ({
         action={formAction}
         autoComplete="off"
         aria-label="Scenario creation form"
+        role="form"
       >
         <fieldset disabled={isPending} className="space-y-4">
           <input
