@@ -1,4 +1,4 @@
-import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import {
   Card,
   CardContent,
@@ -29,7 +29,6 @@ import { Trash2 } from "lucide-react";
 
 export function ExplanationsSection() {
   const { control } = useFormContext<ScenarioInput>();
-  const isValid = useWatch({ control, name: "isValid" });
 
   const { fields, append, remove } = useFieldArray({
     name: "explanations",
@@ -39,30 +38,16 @@ export function ExplanationsSection() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Problems</CardTitle>
-        <CardDescription>
-          {!isValid ? (
-            <span>
-              The list of problems with the filed flight plan, and the
-              associated solutions.
-            </span>
-          ) : (
-            <span>
-              To provide problems details, turn off the flight plan{" "}
-              <b>Is valid?</b> option.
-            </span>
-          )}
+        <CardTitle>Explanations</CardTitle>
+        <CardDescription id="explanations-section-description">
+              A list of explanations for the filed flight plan, describing any issues or offering tips to the student.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <fieldset
-          disabled={isValid}
           className="space-y-4"
           aria-describedby="explanations-section-description"
         >
-          <legend id="explanations-section-description" className="sr-only">
-            Explanations about the flight plan and issuing clearance
-          </legend>
           <div className="grid grid-cols-[auto_1fr_1fr_auto] items-start mb-4 gap-2">
             {fields.map((field, index) => (
               <div key={field.id} className="contents">
@@ -104,6 +89,7 @@ export function ExplanationsSection() {
                             </div>
                           </FormControl>
                           <SelectContent>
+                            <SelectItem value="tip">Tip</SelectItem>
                             <SelectItem value="info">Info</SelectItem>
                             <SelectItem value="warning">Warning</SelectItem>
                             <SelectItem value="error">Error</SelectItem>
@@ -199,7 +185,7 @@ export function ExplanationsSection() {
               append({ headline: "", level: "error", description: "" });
             }}
           >
-            Add problem
+            Add explanation
           </Button>
         </fieldset>
       </CardContent>

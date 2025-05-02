@@ -77,8 +77,8 @@ export const ScenarioForm = ({
 
           <PlanSection isEditMode={isEditMode} />
           <AirportConditionsSection />
-          <CraftSection />
           <ExplanationsSection />
+          <CraftSection />
 
           {isPending ? (
             <Button disabled className="w-[120px]">

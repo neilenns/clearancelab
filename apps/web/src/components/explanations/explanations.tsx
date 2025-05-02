@@ -36,8 +36,7 @@ export function Explanations({ scenario }: ExplanationsProperties) {
 function ExplanationItem({ explanation }: ExplanationItemProps) {
   return (
     <CalloutBox level={explanation.level}>
-      <div className="flex items-start gap-2">{explanation.headline}
-      </div>
+      <div className="flex items-start gap-2 font-bold">{explanation.headline}</div>
       <div className="flex items-start gap-2">{explanation.description}
       </div>
     </CalloutBox>
