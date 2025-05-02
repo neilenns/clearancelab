@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/neilenns/clearancelab-devcontainer:latest
+    image: ghcr.io/neilenns/clearancelab/clearancelab-devcontainer:latest
     volumes:
       - ../..:/workspaces:cached
       - pnpm-store-devcontainer:/pnpm-store
