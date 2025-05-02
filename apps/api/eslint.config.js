@@ -1,6 +1,5 @@
 import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import eslintPluginSecurity from "eslint-plugin-security";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
@@ -15,7 +14,6 @@ export default tseslint.config(
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
   eslintPluginSecurity.configs.recommended,
-  eslintPluginPrettierRecommended,
   {
     languageOptions: {
       parserOptions: {

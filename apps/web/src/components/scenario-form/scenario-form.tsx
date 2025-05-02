@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getRandomScenario } from "@workspace/plantools";
 import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -17,7 +18,7 @@ import { PlanSection } from "./plan-section";
 
 export const ScenarioForm = ({ defaultValues }: { defaultValues: ScenarioInput }) => {
   const isEditMode = Boolean(defaultValues._id);
-  const initialFormState = { success: false, message: "", hasSubmitted: false };
+  const initialFormState = { success: false, message: "", hasSubmitted: false, id: undefined };
   const [formState, formAction, isPending] = useActionState(onSubmitScenario, initialFormState);
 
   const form = useForm<ScenarioInput>({
@@ -39,7 +40,21 @@ export const ScenarioForm = ({ defaultValues }: { defaultValues: ScenarioInput }
       return;
     }
 
-    toast.success(formState.message);
+    const message = (
+      <div>
+        Scenario {isEditMode ? "updated" : "saved"}!
+        {formState.id && (
+          <>
+            &nbsp;
+            <Link href={`/lab/${formState.id}`} className="text-blue-500 hover:underline">
+              View
+            </Link>
+          </>
+        )}
+      </div>
+    );
+
+    toast.success(message);
 
     // This seems really wrong to just directly set, but it seems to work.
     formState.hasSubmitted = false;
