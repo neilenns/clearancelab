@@ -56,7 +56,7 @@ jobs:
         if: steps.changed-files.outputs.devcontainer_any_changed == 'true'
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/${{ github.repository }}-devcontainer
+          imageName: ghcr.io/${{ github.repository }}/clearancelab-devcontainer
           configFile: .devcontainer/apps/devcontainer.json
           refFilterForPush: refs/heads/main
           push: filter

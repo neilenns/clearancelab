@@ -227,5 +227,57 @@
       "typ": "A320",
       "vatsimId": 1719339
     }
+  },
+  {
+    "__v": 0,
+    "_id": {
+      "$oid": "68151a4081bc2aa747584c6b"
+    },
+    "airportConditions": {
+      "_id": {
+        "$oid": "68151a4081bc2aa747584c6c"
+      },
+      "altimeter": 30.22,
+      "departureOnline": false,
+      "flow": "NORTH"
+    },
+    "canClear": true,
+    "craft": {
+      "_id": {
+        "$oid": "68151a4081bc2aa747584c6d"
+      },
+      "altitude": "climb via SID except maintain 9,000",
+      "clearanceLimit": "",
+      "frequency": "",
+      "route": "BANGR9, ARRIE transition, then as filed.",
+      "transponder": "3440"
+    },
+    "createdAt": {
+      "$date": "2025-05-02T19:17:20.548Z"
+    },
+    "explanations": [],
+    "isValid": true,
+    "plan": {
+      "_id": {
+        "$oid": "68151a4081bc2aa747584c6e"
+      },
+      "aid": "PTI737",
+      "alt": 340,
+      "bcn": 3440,
+      "cid": 832,
+      "dep": "KSEA",
+      "dest": "RCKH",
+      "eq": "L",
+      "homeAirport": "KFAI",
+      "pilotName": "Tao",
+      "rmk": "PBN/A1B1C1D1S1S2 NAV/RNVD1E2A1 DOF/250502 REG/VPCTY EET/CZVR0022 PAZA0117 UHMM0443 UHHH0740 RJJJ0836 RCAA1246 SEL/JPDF CODE/7377BB OPR/PTI ORGN/KCHIUALE PER/C RMK/NRP TCAS PRIVATEAIR SIMBRIEF /V/",
+      "rte": "BANGR9 ARRIE J523 TOU Q801 TED NODLE R220 NEONN G349 MARCC G583 BESAT/K0819F340 G583 BISIV/N0431F340 G583 MVE Y116 CHE Y12 TAPPI Z16 MIHOU Y45 HKC A1 APU V23 GUBAO W4 TNN TNN1M",
+      "spd": 0,
+      "typ": "B737",
+      "vatsimId": 930375
+    },
+    "updatedAt": {
+      "$date": "2025-05-02T19:17:20.548Z"
+    }
   }
 ]
