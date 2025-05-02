@@ -8,7 +8,7 @@ import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { Conversation } from "@/conversation";
 import { Craft } from "@/components/craft/craft";
-import { Problems } from "@/components/problems/problems";
+import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
 import { Scenario } from "@workspace/validators";
 
@@ -36,7 +36,7 @@ export function Answer({ scenario }: AnswerProps) {
         </CollapsibleTrigger>
         <CollapsibleContent id="answer-content" className="px-3 pb-3">
           <div>
-            <Problems scenario={scenario} />
+            <Explanations scenario={scenario} />
             {canClear && (
               <Conversation
                 pilotCallsign={plan.aid}

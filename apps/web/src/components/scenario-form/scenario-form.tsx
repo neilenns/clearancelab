@@ -11,7 +11,7 @@ import { onSubmitScenario } from "./actions";
 import { toast } from "sonner";
 import { getRandomScenario } from "@workspace/plantools";
 import { Loader2 } from "lucide-react";
-import { ProblemsSection } from "./problems-section";
+import { ExplanationsSection } from "./explanations-section";
 import { CraftSection } from "./craft-section";
 import { AirportConditionsSection } from "./airport-conditions-section";
 
@@ -78,7 +78,7 @@ export const ScenarioForm = ({
           <PlanSection isEditMode={isEditMode} />
           <AirportConditionsSection />
           <CraftSection />
-          <ProblemsSection />
+          <ExplanationsSection />
 
           {isPending ? (
             <Button disabled className="w-[120px]">

@@ -2,7 +2,7 @@ import { z } from "zod";
 import { AirportInfoSchema } from "./airport-info.js";
 import { CraftSchema } from "./craft.js";
 import { PlanSchema } from "./plan.js";
-import { ProblemSchema } from "./problems.js";
+import { ExplanationSchema } from "./explanations.js";
 import { AirportConditionsSchema } from "./airport-conditions.js";
 
 export const ScenarioSchema = z.object({
@@ -14,7 +14,7 @@ export const ScenarioSchema = z.object({
   depAirportInfo: AirportInfoSchema.optional(),
   destAirportInfo: AirportInfoSchema.optional(),
   plan: PlanSchema,
-  problems: z.array(ProblemSchema).default([]),
+  explanations: z.array(ExplanationSchema).default([]),
 });
 
 // Type definition *before* any parsing, for example isValid is a string not a boolean.

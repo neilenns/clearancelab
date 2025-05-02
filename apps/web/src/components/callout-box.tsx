@@ -1,16 +1,17 @@
-import { ProblemLevel } from "@/interfaces/level";
 import React, { ReactNode } from "react";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Info, CheckCircle, AlertTriangle, AlertOctagon } from "lucide-react";
+import { ExplanationLevel } from "@workspace/validators";
 
 interface CalloutBoxProps {
-  level: ProblemLevel;
+  level: ExplanationLevel;
   children: ReactNode;
 }
 
-const levelIcons: Record<ProblemLevel, React.ElementType> = {
+const levelIcons: Record<ExplanationLevel, React.ElementType> = {
   info: Info,
   ok: CheckCircle,
+  tip: CheckCircle,
   warning: AlertTriangle,
   error: AlertOctagon,
 } as const;

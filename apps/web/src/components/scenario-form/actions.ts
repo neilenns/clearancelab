@@ -82,9 +82,9 @@ export const onSubmitScenario = async (
     formData._id = undefined;
   }
 
-  // Fix up the problems array
-  const problemsObject = formData.problems ?? {};
-  const problemsArray = Object.values(problemsObject);
+  // Fix up the explanations array
+  const explanationsObject = formData.explanations ?? {};
+  const explanationsArray = Object.values(explanationsObject);
 
   // Fix up the booleans
   formData.isValid = convertToBoolean(formData.isValid);
@@ -106,7 +106,7 @@ export const onSubmitScenario = async (
 
   const toParse = {
     ...formData,
-    problems: problemsArray,
+    explanations: explanationsArray,
   };
   const scenario = ScenarioSchema.safeParse(toParse);
 
