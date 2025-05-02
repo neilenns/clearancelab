@@ -25,7 +25,7 @@ export function Conversation({
           >
             <div
               role="article"
-              arial-label={`Message from ${
+              aria-label={`Message from ${
                 isPilot ? pilotCallsign : controllerName
               }`}
               className={cn(

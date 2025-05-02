@@ -55,7 +55,6 @@ export function ExplanationsSection() {
                 <div>
                   <FormField
                     control={control}
-                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     name={`explanations.${index}.level`}
                     render={({ field }) => (
                       <FormItem>
@@ -105,7 +104,6 @@ export function ExplanationsSection() {
                 <div>
                   <FormField
                     control={control}
-                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     name={`explanations.${index}.headline`}
                     render={({ field }) => (
                       <FormItem>
@@ -128,7 +126,6 @@ export function ExplanationsSection() {
                 <div>
                   <FormField
                     control={control}
-                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     name={`explanations.${index}.description`}
                     render={({ field }) => (
                       <FormItem>
