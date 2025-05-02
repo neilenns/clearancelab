@@ -172,7 +172,12 @@ const VatsimFlightPlanSchema = new Schema<
             return;
           }
 
-          const candidate = parts.at(-1).toUpperCase();
+          const candidate = parts.at(-1)?.toUpperCase();
+
+          if (!candidate) {
+            return;
+          }
+
           return /^[A-Z]{4}$/.test(candidate) ? candidate : undefined;
         },
       },
