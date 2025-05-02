@@ -6,12 +6,12 @@ import { apiFetch } from "@/lib/api";
 import { Scenario } from "@workspace/validators";
 import { Metadata } from "next";
 
-type Params = Promise<{ id: string }>;
+type Parameters = Promise<{ id: string }>;
 
 export async function generateMetadata({
   params,
 }: {
-  params: Params;
+  params: Parameters;
 }): Promise<Metadata | undefined> {
   const { id } = await params;
   const scenario = await apiFetch<Scenario>(`/scenarios/${id}`);

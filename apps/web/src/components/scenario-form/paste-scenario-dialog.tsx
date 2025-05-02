@@ -20,17 +20,19 @@ export function PasteScenarioDialog() {
   const form = useFormContext();
   const [jsonInput, setJsonInput] = useState("");
   const [open, setOpen] = useState(false);
-  const [errorContent, setErrorContent] = useState<React.ReactNode>(null);
+  const [errorContent, setErrorContent] = useState<React.ReactNode>();
 
   function handleImport() {
     let rawData;
 
     try {
       rawData = JSON.parse(jsonInput) as Plan;
-    } catch (err: unknown) {
-      const error = err as Error;
-
-      console.log(`Unable to parse JSON: ${error.message}`);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log(`Unable to parse JSON: ${error.message}`);
+      } else {
+        console.log("Unable to parse JSON:", error);
+      }
       setErrorContent(<div>The provided JSON isn&apos;t valid.</div>);
       return;
     }
@@ -40,11 +42,11 @@ export function PasteScenarioDialog() {
     if (!result.success) {
       console.log("Validation errors:", result.error.errors);
 
-      const formatted = result.error.errors.map((e, idx) => {
-        const path = e.path.join(".") || "root";
+      const formatted = result.error.errors.map((error, index) => {
+        const path = error.path.join(".") || "root";
         return (
-          <li key={idx}>
-            <strong>{path}</strong>: {e.message}
+          <li key={index}>
+            <strong>{path}</strong>: {error.message}
           </li>
         );
       });
@@ -88,8 +90,8 @@ export function PasteScenarioDialog() {
           placeholder="Paste scenario JSON"
           className="min-h-[200px] max-h-[200px]"
           value={jsonInput}
-          onChange={(e) => {
-            setJsonInput(e.target.value);
+          onChange={(event) => {
+            setJsonInput(event.target.value);
           }}
         />
         {errorContent && (

@@ -6,6 +6,7 @@ import pluginReact from "eslint-plugin-react";
 import globals from "globals";
 import pluginNext from "@next/eslint-plugin-next";
 import turboPlugin from "eslint-plugin-turbo";
+import eslintPluginUnicorn from "eslint-plugin-unicorn";
 
 /**
  * A custom ESLint configuration for libraries that use Next.js.
@@ -13,8 +14,18 @@ import turboPlugin from "eslint-plugin-turbo";
  * @type {import("eslint").Linter.Config}
  * */
 export default [
+  {
+    ignores: [
+      "dist/**",
+      ".next/**",
+      "src/components/ui/**",
+      "src/hooks/**",
+      "prettier.config.js",
+    ],
+  },
   js.configs.recommended,
   eslintConfigPrettier,
+  eslintPluginUnicorn.configs.recommended,
   ...tseslint.configs.recommended,
   {
     ...pluginReact.configs.flat.recommended,

@@ -1,4 +1,4 @@
-import { ENV } from "./env";
+import { ENV } from "./environment";
 import { auth0 } from "@/lib/auth0";
 
 interface ApiRequestOptions {
@@ -10,7 +10,7 @@ async function apiRequest<T>(
   path: string,
   body?: T,
   options: ApiRequestOptions = {}
-): Promise<T | null> {
+): Promise<T | undefined> {
   const baseUrl = ENV.API_BASE_URL;
   const apiKey = ENV.API_KEY;
 
@@ -23,8 +23,8 @@ async function apiRequest<T>(
     try {
       const token = await auth0.getAccessToken();
       headers.Authorization = `Bearer ${token.token}`;
-    } catch (err) {
-      console.error("Failed to request auth token", err);
+    } catch (error) {
+      console.error("Failed to request auth token", error);
     }
   }
 
@@ -36,7 +36,7 @@ async function apiRequest<T>(
 
   if (!response.ok) {
     if (response.status === 404) {
-      return null;
+      return;
     }
 
     if (response.status === 401) {
@@ -47,14 +47,14 @@ async function apiRequest<T>(
     throw new Error(`API error ${response.status.toString()}: ${message}`);
   }
 
-  if (response.status === 204) return null;
+  if (response.status === 204) return;
   return (await response.json()) as T;
 }
 
 export async function apiFetch<T>(
   path: string,
   options: ApiRequestOptions = {}
-): Promise<T | null> {
+): Promise<T | undefined> {
   return apiRequest<T>("GET", path, undefined, options);
 }
 
@@ -62,7 +62,7 @@ export async function postJson<T>(
   path: string,
   body: T,
   options: ApiRequestOptions = {}
-): Promise<T | null> {
+): Promise<T | undefined> {
   return apiRequest<T>("POST", path, body, options);
 }
 
@@ -70,6 +70,6 @@ export async function putJson<T>(
   path: string,
   body: T,
   options: ApiRequestOptions = {}
-): Promise<T | null> {
+): Promise<T | undefined> {
   return apiRequest<T>("PUT", path, body, options);
 }

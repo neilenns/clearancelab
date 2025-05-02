@@ -29,10 +29,10 @@ const items = [
   },
 ];
 
-export function AdminSidebar({ ...props }) {
+export function AdminSidebar({ ...properties }) {
   return (
     <aside>
-      <Sidebar {...props}>
+      <Sidebar {...properties}>
         <SidebarHeader>
           <h3>Admin</h3>
         </SidebarHeader>

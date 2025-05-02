@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { forwardRef, useCallback, useState } from "react";
+import { cn } from "@/lib/utilities";
+import { useCallback, useState } from "react";
 import { FPEBox } from "./fpe-box";
 import { FPEInput } from "./fpe-input";
 import { FPELabel } from "./fpe-label";
@@ -8,11 +8,11 @@ import "./fpe.css";
 import { Scenario } from "@workspace/validators";
 import * as changeCase from "change-case";
 
-interface FPEProps {
-  scenario?: Scenario | null;
+interface FPEProperties {
+  scenario?: Scenario | undefined;
 }
 
-const FPE = forwardRef<HTMLDivElement, FPEProps>(({ scenario }, ref) => {
+const FPE = ({ scenario }: FPEProperties) => {
   const { plan, airportConditions } = scenario ?? {};
   const [isDirty, setIsDirty] = useState(false);
 
@@ -25,7 +25,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ scenario }, ref) => {
   }, []);
 
   return (
-    <div className="w-[800px] mt-2 mb-2" ref={ref}>
+    <div className="w-[800px] mt-2 mb-2">
       <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[0.9375rem] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
         {plan && (
           <div className="fpe-title text-xs ml-[2px] mb-[2px]">
@@ -186,7 +186,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ scenario }, ref) => {
       )}
     </div>
   );
-});
+};
 
 FPE.displayName = "FPE";
 export default FPE;

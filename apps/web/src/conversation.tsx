@@ -1,5 +1,5 @@
 import { Message } from "@/interfaces/message";
-import { cn } from "./lib/utils";
+import { cn } from "./lib/utilities";
 
 export function Conversation({
   pilotCallsign,
@@ -12,12 +12,12 @@ export function Conversation({
 }) {
   return (
     <div role="log" aria-label="Conversation">
-      {messages.map((msg, idx) => {
-        const isPilot = msg.from === "pilot";
+      {messages.map((message, index) => {
+        const isPilot = message.from === "pilot";
 
         return (
           <div
-            key={idx}
+            key={index}
             className={cn("flex mt-3 mb-3", {
               "justify-start": isPilot,
               "justify-end": !isPilot,
@@ -41,7 +41,7 @@ export function Conversation({
               <div className="text-sm font-bold mb-1">
                 {isPilot ? pilotCallsign : controllerName}
               </div>
-              {msg.content}
+              {message.content}
             </div>
           </div>
         );

@@ -5,13 +5,13 @@ interface ExplanationsProperties {
   scenario?: Scenario;
 }
 
-interface ExplanationItemProps {
+interface ExplanationItemProperties {
   explanation: Explanation;
 }
 
 export function Explanations({ scenario }: ExplanationsProperties) {
   if (!scenario) {
-    return null;
+    return;
   }
 
   return (
@@ -36,13 +36,13 @@ export function Explanations({ scenario }: ExplanationsProperties) {
   );
 }
 
-function ExplanationItem({ explanation }: ExplanationItemProps) {
+function ExplanationItem({ explanation }: ExplanationItemProperties) {
   return (
     <CalloutBox level={explanation.level}>
       <p
         className="flex items-start gap-2 font-bold"
         id={`explanation-headline-${explanation.headline
-          .replace(/\s+/g, "-")
+          .replaceAll(/\s+/, "-")
           .toLowerCase()}`}
       >
         {explanation.headline}
@@ -50,7 +50,7 @@ function ExplanationItem({ explanation }: ExplanationItemProps) {
       <p
         className="flex items-start gap-2"
         aria-labelledby={`explanation-headline-${explanation.headline
-          .replace(/\s+/g, "-")
+          .replaceAll(/\s+/, "-")
           .toLowerCase()}`}
         aria-hidden="true"
       >

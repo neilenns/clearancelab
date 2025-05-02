@@ -24,7 +24,7 @@ import {
 import { ScenarioInput } from "@workspace/validators";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 import { Trash2 } from "lucide-react";
 
 export function ExplanationsSection() {
