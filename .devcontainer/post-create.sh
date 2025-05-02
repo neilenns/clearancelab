@@ -10,7 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 ### pnpm setup
 
-echo "🔓 Fixing permissions of ${PNPM_STORE}"
+echo "🔓 Fixing permissions of ${PNPM_STORE}..."
 
 sudo chown -R node:node "${PNPM_STORE}"
 export PNPM_HOME="${HOME}/.local/share/pnpm"
@@ -22,17 +22,17 @@ grep -qxF 'export PNPM_HOME="$HOME/.local/share/pnpm"' ~/.zshrc || \
 grep -qxF 'export PATH="$PNPM_HOME:$PATH"' ~/.zshrc || \
   echo 'export PATH="$PNPM_HOME:$PATH"' >> ~/.zshrc
 
-echo "📦 Installing pnpm packages"
+echo "⬇️  Installing pnpm packages..."
 
-pnpm add -g turbo@2.5.0
-pnpm add -g @devcontainers/cli
-pnpm install --frozen-lockfile
+pnpm --silent add -g turbo@2.5.0
+pnpm --silent add -g @devcontainers/cli
+pnpm --silent install --frozen-lockfile
 
 ### Database setup
-echo "📦 Seeding database"
+echo "📦 Seeding database..."
 "${SCRIPT_DIR}/seed/init.sh"
 
 ### Aliases
-echo "🪄 Shell magic: creating developer-friendly aliases"
+echo "🪄  Shell magic: creating developer-friendly aliases..."
 grep -qxF "alias npm='pnpm'" ~/.zshrc || \
   echo "alias npm='pnpm'" >> ~/.zshrc
