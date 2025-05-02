@@ -111,22 +111,6 @@ export function CraftSection() {
                 )}
               />
             </div>
-            <div>
-              <FormField
-                control={control}
-                name="craft.transponder"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Transponder</FormLabel>
-                    <FormDescription>Custom transponder code for the clearance.</FormDescription>
-                    <FormControl>
-                      <Input id="transponder" placeholder="1234" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
           </div>
         </fieldset>
       </CardContent>

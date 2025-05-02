@@ -111,7 +111,6 @@ export function getRandomScenario(): Scenario {
       route: "",
       altitude: "",
       frequency: "",
-      transponder: "",
     },
     airportConditions: {
       flow: FlowDirection.WEST,

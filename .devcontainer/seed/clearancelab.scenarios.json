@@ -13,8 +13,7 @@
       "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
       "route": "the CASCD3 departure, then as filed",
-      "telephony": "Alaska 1160",
-      "transponder": "6660"
+      "telephony": "Alaska 1160"
     },
     "explanations": [
       {
@@ -56,8 +55,7 @@
       "controllerName": "Portland Ground",
       "frequency": "124.35",
       "route": "the CASCD3 departure, then as filed",
-      "telephony": "Alaska 17",
-      "transponder": "6660"
+      "telephony": "Alaska 17"
     },
     "explanations": [],
     "isValid": true,
@@ -93,8 +91,7 @@
       "controllerName": "Portland Ground",
       "frequency": "124.35",
       "route": "the LAVAA6 departure, Yakima transition, then as filed",
-      "telephony": "Alaska 223",
-      "transponder": "2000"
+      "telephony": "Alaska 223"
     },
     "explanations": [],
     "isValid": true,
@@ -249,8 +246,7 @@
       "altitude": "climb via SID except maintain 9,000",
       "clearanceLimit": "",
       "frequency": "",
-      "route": "BANGR9, ARRIE transition, then as filed.",
-      "transponder": "3440"
+      "route": "BANGR9, ARRIE transition, then as filed."
     },
     "createdAt": {
       "$date": "2025-05-02T19:17:20.548Z"
