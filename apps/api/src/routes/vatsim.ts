@@ -1,4 +1,9 @@
-import { getRandomBcn, getRandomCid, getRandomName, getRandomVatsimId } from "@workspace/plantools";
+import {
+  getRandomBcn,
+  getRandomCid,
+  getRandomName,
+  getRandomVatsimId,
+} from "@workspace/plantools";
 import { Plan } from "@workspace/validators";
 import { NextFunction, Request, Response, Router } from "express";
 import { verifyApiKey } from "../middleware/apikey.js";
@@ -36,6 +41,7 @@ router.get(
         eq: flightPlan.equipmentSuffix,
         homeAirport: flightPlan.homeAirport,
         vatsimId: getRandomVatsimId(),
+        altimeter: flightPlan.metar?.altimeter,
       } as Plan;
 
       response.json(returnedFlightPlan);

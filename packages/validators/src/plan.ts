@@ -15,6 +15,7 @@ export const PlanSchema = z.object({
   spd: z.coerce.number().optional(),
   typ: z.string().optional(),
   vatsimId: z.coerce.number(),
+  altimeter: z.coerce.number().optional(),
 });
 
 export type Plan = z.infer<typeof PlanSchema>;

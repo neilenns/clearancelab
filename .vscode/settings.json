@@ -29,6 +29,7 @@
     "Hoverable",
     "interruptible",
     "logform",
+    "Metar",
     "mongoimport",
     "mongosh",
     "nextjs",
