@@ -1,11 +1,5 @@
-import mongoose, {
-  Schema,
-  Model,
-  Types,
-  model,
-  HydratedDocument,
-} from "mongoose";
-import mongooseLeanVirtuals, { VirtualsForModel } from "mongoose-lean-virtuals";
+import mongoose, { Schema, Types, model, HydratedDocument } from "mongoose";
+import mongooseLeanVirtuals from "mongoose-lean-virtuals";
 
 export enum VatsimFlightStatus {
   UNKNOWN = "UNKNOWN",
