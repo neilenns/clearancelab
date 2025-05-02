@@ -54,7 +54,11 @@
   ],
   "debug.internalConsoleOptions": "neverOpen",
   "eslint.useFlatConfig": true,
-  "eslint.workingDirectories": ["apps/*", "packages/*"],
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
   "explorer.fileNesting.enabled": true,
   "fileNestingUpdater.promptOnAutoUpdate": false,
   "files.exclude": {
