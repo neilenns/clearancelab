@@ -1,7 +1,6 @@
 import js from "@eslint/js";
 import pluginNext from "@next/eslint-plugin-next";
 import eslintConfigPrettier from "eslint-config-prettier";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import turboPlugin from "eslint-plugin-turbo";
@@ -25,7 +24,6 @@ export default [
   js.configs.recommended,
   eslintConfigPrettier,
   eslintPluginUnicorn.configs.recommended,
-  eslintPluginPrettierRecommended,
   ...tseslint.configs.recommended,
   {
     ...pluginReact.configs.flat.recommended,

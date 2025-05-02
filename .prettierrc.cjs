@@ -4,7 +4,7 @@ module.exports = {
   singleQuote: false,
   trailingComma: "all",
   arrowParens: "always",
-  printWidth: 100,
+  printWidth: 80,
   tabWidth: 2,
   useTabs: false,
   jsonRecursiveSort: true,

@@ -10,6 +10,7 @@ export type OnSubmitScenarioState = {
   message: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
+  id?: string;
   hasSubmitted: boolean;
 };
 
@@ -158,6 +159,7 @@ export const onSubmitScenario = async (
       success: true,
       hasSubmitted: true,
       message: `Scenario ${isEdit ? "updated" : "saved"}!`,
+      id: response._id?.toString(),
     };
   } catch (error) {
     console.error(error);
