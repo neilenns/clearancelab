@@ -115,7 +115,7 @@ const VatsimFlightPlanSchema = new Schema<
     virtuals: {
       equipmentType: {
         get() {
-          if (this.rawAircraftType == null) {
+          if (!this.rawAircraftType) {
             return;
           }
 
@@ -139,36 +139,40 @@ const VatsimFlightPlanSchema = new Schema<
         get() {
           let rawAircraftType = this.rawAircraftType;
 
-          if (rawAircraftType == null) {
-            return undefined;
+          if (!rawAircraftType) {
+            return;
           }
 
           if (rawAircraftType.startsWith("H/")) {
-            rawAircraftType = rawAircraftType.substring(2); // Strip off the leading "H/"
+            rawAircraftType = rawAircraftType.slice(2); // Strip off the leading "H/"
           }
 
           if (rawAircraftType.startsWith("J/")) {
-            rawAircraftType = rawAircraftType.substring(2); // Strip off the leading "J/"
+            rawAircraftType = rawAircraftType.slice(2); // Strip off the leading "J/"
           }
 
           const codeMatch = /^([A-Z0-9]+)(\/([A-Z]))?$/.exec(rawAircraftType);
-          if (codeMatch != null && codeMatch.length > 0) {
-            if (codeMatch.length > 3 && codeMatch[3]) {
-              return codeMatch[3];
-            }
+          if (
+            codeMatch &&
+            codeMatch.length > 0 &&
+            codeMatch.length > 3 &&
+            codeMatch[3]
+          ) {
+            return codeMatch[3];
           }
-          return undefined;
+
+          return;
         },
       },
       homeAirport: {
         get() {
           const parts = this.name?.split(" ");
 
-          if (parts == null || parts.length < 2) {
-            return undefined;
+          if (!parts || parts.length < 2) {
+            return;
           }
 
-          const candidate = parts[parts.length - 1].toUpperCase();
+          const candidate = parts.at(-1).toUpperCase();
           return /^[A-Z]{4}$/.test(candidate) ? candidate : undefined;
         },
       },
