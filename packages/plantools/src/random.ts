@@ -1,5 +1,6 @@
 import { FlowDirection, Scenario } from "@workspace/validators";
 
+// cSpell:disable
 const names: string[] = [
   "Alejandro", "Alex", "Amara", "Amari", "Amina", "Amir", "Anika", "Aoife",
   "Ari", "Arjun", "Ash", "Avery", "Bailey", "Benoît", "Blair", "Briar",
@@ -39,6 +40,7 @@ const airportCodes = [
   "ZBAA", "ZGGG", "ZKPY", "ZSPD",
 ];
 Object.freeze(airportCodes);
+// cSpell:enable
 
 function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
