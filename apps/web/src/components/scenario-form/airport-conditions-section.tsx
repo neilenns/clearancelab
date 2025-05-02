@@ -93,9 +93,7 @@ export function AirportConditionsSection() {
                 <FormItem>
                   <FormLabel>
                     {" "}
-                    <span className="invisible" aria-hidden="true">
-                      Spacer
-                    </span>
+                    <span className="invisible">Spacer</span>
                   </FormLabel>
                   <div className="mt-2">
                     <FormControl>

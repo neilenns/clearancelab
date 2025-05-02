@@ -31,7 +31,7 @@ const items = [
 
 export function AdminSidebar({ ...properties }) {
   return (
-    <aside>
+    <aside aria-label="Admin sidebar">
       <Sidebar {...properties}>
         <SidebarHeader>
           <h3>Admin</h3>
@@ -44,7 +44,7 @@ export function AdminSidebar({ ...properties }) {
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
                       <Link href={item.url}>
-                        <item.icon />
+                        <item.icon aria-hidden="true" />
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
@@ -60,7 +60,7 @@ export function AdminSidebar({ ...properties }) {
             <div className="ml-auto">
               <Button variant="outline" size="icon" asChild>
                 <a href="/auth/logout">
-                  <LogOut />
+                  <LogOut aria-hidden="true" />
                   <span className="sr-only">Log out</span>
                 </a>
               </Button>

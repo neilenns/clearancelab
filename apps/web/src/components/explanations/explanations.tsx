@@ -42,9 +42,7 @@ function ExplanationItem({ explanation }: ExplanationItemProperties) {
       </p>
       <p
         className="flex items-start gap-2"
-        aria-labelledby={`explanation-headline-${explanation.headline
-          .replaceAll(/\s+/g, "-")
-          .toLowerCase()}`}
+        aria-labelledby={`explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`}
       >
         {explanation.description}
       </p>

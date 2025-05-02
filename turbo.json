@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/turbo/schema.json",
   "globalPassThroughEnv": ["DEPLOY_ENV"],
+  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -28,6 +29,5 @@
     "lint": {
       "dependsOn": ["^lint"]
     }
-  },
-  "ui": "tui"
+  }
 }

@@ -188,7 +188,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(value === "" ? "" : Number.parseInt(value));
+                      field.onChange(value === "" ? "" : Number.parseInt(value, 10));
                     }}
                   />
                 </FormControl>
@@ -223,7 +223,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(value === "" ? "" : Number.parseInt(value));
+                      field.onChange(value === "" ? "" : Number.parseInt(value, 10));
                     }}
                   />
                 </FormControl>
@@ -301,7 +301,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(value === "" ? "" : Number.parseInt(value));
+                      field.onChange(value === "" ? "" : Number.parseInt(value, 10));
                     }}
                   />
                 </FormControl>

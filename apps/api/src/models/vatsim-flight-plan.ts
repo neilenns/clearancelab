@@ -155,7 +155,7 @@ const VatsimFlightPlanSchema = new Schema<
           }
 
           const codeMatch = /^([A-Z0-9]+)(\/([A-Z]))?$/.exec(rawAircraftType);
-          if (codeMatch && codeMatch.length > 0 && codeMatch.length > 3 && codeMatch[3]) {
+          if (codeMatch?.[3]) {
             return codeMatch[3];
           }
 

@@ -42,7 +42,7 @@ export const ScenarioForm = ({ defaultValues }: { defaultValues: ScenarioInput }
     toast.success(formState.message);
 
     // This seems really wrong to just directly set, but it seems to work.
-    formState.success = false;
+    formState.hasSubmitted = false;
 
     // Don't reset with new data if it was an edit of an existing scenario.
 
@@ -57,7 +57,7 @@ export const ScenarioForm = ({ defaultValues }: { defaultValues: ScenarioInput }
         // This extra form element is required to get the action attribute. Shadcn's Form
         // component does not expose it.
       }
-      <form action={formAction} autoComplete="off" aria-label="Scenario creation form" role="form">
+      <form action={formAction} autoComplete="off" aria-label="Scenario creation form">
         <fieldset disabled={isPending} className="space-y-4">
           <input type="hidden" name="_id" value={form.watch("_id")?.toString()} />
 

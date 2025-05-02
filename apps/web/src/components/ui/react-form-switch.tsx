@@ -2,13 +2,10 @@
 
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
+import { ControllerRenderProps } from "react-hook-form";
 
-interface FormSwitchProps<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> {
-  field: ControllerRenderProps<TFieldValues, TName>;
+interface FormSwitchProps {
+  field: ControllerRenderProps<any, any>;
   children?: React.ReactNode;
 }
 

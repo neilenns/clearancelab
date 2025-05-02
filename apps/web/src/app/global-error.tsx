@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
+export default function GlobalError({ error }: { error: Error }) {
   useEffect(() => {
     console.error("Global Error:", error);
   }, [error]);
@@ -23,15 +23,6 @@ export default function GlobalError({ error, reset }: { error: Error; reset: () 
             {error.stack}
           </pre>
         </div>
-
-        <button
-          onClick={() => {
-            reset();
-          }}
-          className="mt-6 bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Try again
-        </button>
       </body>
     </html>
   );
