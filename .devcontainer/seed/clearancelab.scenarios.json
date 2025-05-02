@@ -33,11 +33,11 @@
       "altitude": "Climb via SID except maintain 7000",
       "transponder": "6660"
     },
-    "problems": [
+    "explanations": [
       {
         "level": "warning",
-        "issue": "The equipment suffix '/X' is not valid for this aircraft type.",
-        "solution": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
+        "headline": "The equipment suffix '/X' is not valid for this aircraft type.",
+        "description": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
       }
     ]
   },
@@ -76,7 +76,7 @@
       "frequency": "124.35",
       "transponder": "6660"
     },
-    "problems": []
+    "explanations": []
   },
   {
     "_id": {
@@ -113,7 +113,7 @@
       "frequency": "124.35",
       "transponder": "2000"
     },
-    "problems": []
+    "explanations": []
   },
   {
     "_id": {
@@ -148,7 +148,7 @@
       "route": "the WHAMY5 departure, then as filed",
       "altitude": "Climb via SID except maintain 7000"
     },
-    "problems": []
+    "explanations": []
   },
   {
     "_id": {
@@ -185,7 +185,7 @@
       "altimeter": 30.02,
       "departureOnline": true
     },
-    "problems": []
+    "explanations": []
   },
   {
     "_id": {
@@ -215,16 +215,16 @@
       "altimeter": 30.02,
       "departureOnline": false
     },
-    "problems": [
+    "explanations": [
       {
         "level": "error",
-        "issue": "The route is nonsense.",
-        "solution": "Issue a full route clearance on the preferred route: CASCD3 CHISM JUDAH JUNEJ Q7 JAGWA BURGL IRNMN2."
+        "headline": "The route is nonsense.",
+        "description": "Issue a full route clearance on the preferred route: CASCD3 CHISM JUDAH JUNEJ Q7 JAGWA BURGL IRNMN2."
       },
       {
         "level": "warning",
-        "issue": "The equipment suffix '/S' is not appropriate for the A320.",
-        "solution": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
+        "headline": "The equipment suffix '/S' is not appropriate for the A320.",
+        "description": "Change the suffix to '/L' in the flight plan then clear the pilot as usual."
       }
     ]
   }

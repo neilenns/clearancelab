@@ -4,7 +4,7 @@ import "./airport-info.js"; // Import the AirportInfo model to use for populatio
 import { AirportInfoData } from "./airport-info.js";
 import { Plan, PlanSchema } from "./plan.js";
 import { Craft, CraftSchema } from "./craft.js";
-import { Problem, ProblemSchema } from "./problem.js";
+import { Explanation, ExplanationSchema } from "./explanations.js";
 import {
   AirportConditions,
   AirportConditionsSchema,
@@ -20,7 +20,7 @@ export interface Scenario {
   destAirportInfo?: AirportInfoData;
   isValid: boolean;
   plan: Plan;
-  problems: Problem[];
+  explanations: Explanation[];
 }
 
 // Static method interface
@@ -37,9 +37,9 @@ const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
     craft: CraftSchema,
     isValid: { type: Boolean, default: true },
     plan: PlanSchema,
-    problems: {
+    explanations: {
       type: [
-        ProblemSchema,
+        ExplanationSchema,
       ],
       default: [],
     },

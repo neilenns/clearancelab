@@ -123,7 +123,7 @@ export function getRandomScenario(): Scenario {
       altimeter: getRandomAltimeter(),
       departureOnline: false,
     },
-    problems: [],
+    explanations: [],
   };
 }
 

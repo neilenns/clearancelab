@@ -1,4 +1,4 @@
-import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import {
   Card,
   CardContent,
@@ -27,42 +27,28 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
 
-export function ProblemsSection() {
+export function ExplanationsSection() {
   const { control } = useFormContext<ScenarioInput>();
-  const isValid = useWatch({ control, name: "isValid" });
 
   const { fields, append, remove } = useFieldArray({
-    name: "problems",
+    name: "explanations",
     control,
   });
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Problems</CardTitle>
+        <CardTitle id="explanations-section-title">Explanations</CardTitle>
         <CardDescription>
-          {!isValid ? (
-            <span>
-              The list of problems with the filed flight plan, and the
-              associated solutions.
-            </span>
-          ) : (
-            <span>
-              To provide problems details, turn off the flight plan{" "}
-              <b>Is valid?</b> option.
-            </span>
-          )}
+          A list of explanations for the filed flight plan, describing any
+          issues or offering tips to the student.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <fieldset
-          disabled={isValid}
           className="space-y-4"
-          aria-describedby="problems-section-description"
+          aria-describedby="explanations-section-title"
         >
-          <legend id="problems-section-description" className="sr-only">
-            Problems with the flight plan
-          </legend>
           <div className="grid grid-cols-[auto_1fr_1fr_auto] items-start mb-4 gap-2">
             {fields.map((field, index) => (
               <div key={field.id} className="contents">
@@ -70,11 +56,11 @@ export function ProblemsSection() {
                   <FormField
                     control={control}
                     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                    name={`problems.${index}.level`}
+                    name={`explanations.${index}.level`}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel
-                          htmlFor={`problem-level-${index.toString()}`}
+                          htmlFor={`explanation-level-${index.toString()}`}
                           className={cn(index !== 0 && "sr-only")}
                         >
                           Level
@@ -94,7 +80,8 @@ export function ProblemsSection() {
                             <div>
                               <input
                                 type="hidden"
-                                id={`problem-level-${index.toString()}`}
+                                aria-hidden="true"
+                                id={`explanation-level-${index.toString()}`}
                                 name={field.name}
                                 value={field.value}
                               />
@@ -104,6 +91,7 @@ export function ProblemsSection() {
                             </div>
                           </FormControl>
                           <SelectContent>
+                            <SelectItem value="tip">Tip</SelectItem>
                             <SelectItem value="info">Info</SelectItem>
                             <SelectItem value="warning">Warning</SelectItem>
                             <SelectItem value="error">Error</SelectItem>
@@ -118,16 +106,16 @@ export function ProblemsSection() {
                   <FormField
                     control={control}
                     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                    name={`problems.${index}.issue`}
+                    name={`explanations.${index}.headline`}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className={cn(index !== 0 && "sr-only")}>
-                          Issue
+                          Headline
                         </FormLabel>
                         <FormDescription
                           className={cn(index !== 0 && "sr-only")}
                         >
-                          Description of the issue.
+                          Headline for the explanation box.
                         </FormDescription>
                         <FormControl>
                           <Input {...field} />
@@ -141,16 +129,16 @@ export function ProblemsSection() {
                   <FormField
                     control={control}
                     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                    name={`problems.${index}.solution`}
+                    name={`explanations.${index}.description`}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className={cn(index !== 0 && "sr-only")}>
-                          Solution
+                          Description
                         </FormLabel>
                         <FormDescription
                           className={cn(index !== 0 && "sr-only")}
                         >
-                          Steps to resolve the issue with the pilot.
+                          Detailed description of the tip or issue.
                         </FormDescription>
                         <FormControl>
                           <Input {...field} />
@@ -178,10 +166,10 @@ export function ProblemsSection() {
                         onClick={() => {
                           remove(index);
                         }}
-                        aria-label="Delete problem"
+                        aria-label="Delete explanation"
                       >
                         <Trash2 />
-                        <span className="sr-only">Delete problem</span>
+                        <span className="sr-only">Delete explanation</span>
                       </Button>
                     </FormControl>
                     <FormMessage />
@@ -196,10 +184,10 @@ export function ProblemsSection() {
             size="sm"
             className="mt-2"
             onClick={() => {
-              append({ issue: "", level: "error", solution: "" });
+              append({ headline: "", level: "error", description: "" });
             }}
           >
-            Add problem
+            Add explanation
           </Button>
         </fieldset>
       </CardContent>

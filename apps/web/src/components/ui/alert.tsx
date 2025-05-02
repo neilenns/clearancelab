@@ -12,6 +12,7 @@ const alertVariants = cva(
         error: "[&>svg]:text-[var(--color-alert-error)]",
         info: "[&>svg]:text-[var(--color-alert-info)]",
         ok: "[&>svg]:text-[var(--color-alert-ok)]",
+        tip: "[&>svg]:text-[var(--color-alert-tip)]",
         warning: "[&>svg]:text-[var(--color-alert-warning)]",
       },
     },
