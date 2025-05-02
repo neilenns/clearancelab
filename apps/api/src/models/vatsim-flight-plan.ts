@@ -1,4 +1,5 @@
-import mongoose, { Schema, Model, Types } from "mongoose";
+import mongoose, { Schema, Model, Types, model } from "mongoose";
+import mongooseLeanVirtuals, { VirtualsForModel } from "mongoose-lean-virtuals";
 
 export enum VatsimFlightStatus {
   UNKNOWN = "UNKNOWN",
@@ -39,18 +40,37 @@ export interface VatsimFlightPlan {
   revision: number;
   vnasPlanRevision?: number;
   flightPlanRevision: number;
-  equipmentType?: string; // Virtual field
-  equipmentSuffix?: string; // Virtual field
+}
+
+export interface VatsimFlightPlanVirtuals {
+  equipmentType?: string;
+  equipmentSuffix?: string;
+  homeAirport?: string;
 }
 
 // Static method interface
-export interface VatsimFlightPlanModelType extends Model<VatsimFlightPlan> {
-  findByCallsign(callsign: string): Promise<VatsimFlightPlan | null>;
+export interface VatsimFlightPlanStaticMethods extends Model<VatsimFlightPlan> {
+  findByCallsign(
+    callsign: string,
+  ): Promise<
+    (VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>) | null
+  >;
 }
+
+type VatsimFlightPlanModelType = mongoose.Model<
+  VatsimFlightPlan,
+  unknown,
+  unknown,
+  VatsimFlightPlanVirtuals
+>;
 
 const VatsimFlightPlanSchema = new Schema<
   VatsimFlightPlan,
-  VatsimFlightPlanModelType
+  VatsimFlightPlanModelType,
+  unknown,
+  unknown,
+  VatsimFlightPlanVirtuals,
+  VatsimFlightPlanStaticMethods
 >(
   {
     cid: { type: Number, required: true },
@@ -92,60 +112,80 @@ const VatsimFlightPlanSchema = new Schema<
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
+    virtuals: {
+      equipmentType: {
+        get() {
+          if (this.rawAircraftType == null) {
+            return;
+          }
+
+          // Match everything before an optional second slash.
+          const parts = this.rawAircraftType.split("/");
+          // This is the case for ASA234/L
+          if (parts.length == 2) {
+            return parts[0];
+          }
+
+          // This is the case for H/DAL42/L
+          if (parts.length > 2) {
+            return parts.slice(0, 2).join("/");
+          }
+
+          // This is the case for DAL42
+          return this.rawAircraftType;
+        },
+      },
+      equipmentSuffix: {
+        get() {
+          let rawAircraftType = this.rawAircraftType;
+
+          if (rawAircraftType == null) {
+            return undefined;
+          }
+
+          if (rawAircraftType.startsWith("H/")) {
+            rawAircraftType = rawAircraftType.substring(2); // Strip off the leading "H/"
+          }
+
+          if (rawAircraftType.startsWith("J/")) {
+            rawAircraftType = rawAircraftType.substring(2); // Strip off the leading "J/"
+          }
+
+          const codeMatch = /^([A-Z0-9]+)(\/([A-Z]))?$/.exec(rawAircraftType);
+          if (codeMatch != null && codeMatch.length > 0) {
+            if (codeMatch.length > 3 && codeMatch[3]) {
+              return codeMatch[3];
+            }
+          }
+          return undefined;
+        },
+      },
+      homeAirport: {
+        get() {
+          const parts = this.name?.split(" ");
+
+          if (parts == null || parts.length < 2) {
+            return undefined;
+          }
+
+          const candidate = parts[parts.length - 1].toUpperCase();
+          return /^[A-Z]{4}$/.test(candidate) ? candidate : undefined;
+        },
+      },
+    },
+  },
 );
 
-VatsimFlightPlanSchema.virtual("equipmentType").get(function () {
-  if (this.rawAircraftType == null) {
-    return;
-  }
-
-  // Match everything before an optional second slash.
-  const parts = this.rawAircraftType.split("/");
-  // This is the case for ASA234/L
-  if (parts.length == 2) {
-    return parts[0];
-  }
-
-  // This is the case for H/DAL42/L
-  if (parts.length > 2) {
-    return parts.slice(0, 2).join("/");
-  }
-
-  // This is the case for DAL42
-  return this.rawAircraftType;
-});
-
-VatsimFlightPlanSchema.virtual("equipmentSuffix").get(function () {
-  let rawAircraftType = this.rawAircraftType;
-
-  if (rawAircraftType == null) {
-    return;
-  }
-
-  if (rawAircraftType.startsWith("H/")) {
-    rawAircraftType = rawAircraftType.substring(2); // Strip off the leading "H/"
-  }
-
-  if (rawAircraftType.startsWith("J/")) {
-    rawAircraftType = rawAircraftType.substring(2); // Strip off the leading "J/"
-  }
-
-  const codeMatch = /^([A-Z0-9]+)(\/([A-Z]))?$/.exec(rawAircraftType);
-  if (codeMatch != null && codeMatch.length > 0) {
-    if (codeMatch.length > 2 && codeMatch[3].length > 0) {
-      return codeMatch[3];
-    }
-  }
-
-  return null;
-});
+VatsimFlightPlanSchema.plugin(mongooseLeanVirtuals);
 
 VatsimFlightPlanSchema.statics.findByCallsign = function (callsign) {
-  return this.findOne({ callsign });
+  return this.findOne({ callsign }).lean<
+    VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>
+  >({ virtuals: true });
 };
 
-export const VatsimFlightPlanModel = mongoose.model<
-  VatsimFlightPlan,
-  VatsimFlightPlanModelType
->("vatsimflightplan", VatsimFlightPlanSchema);
+export const VatsimFlightPlanModel = model<
+  VatsimFlightPlan & VirtualsForModel<VatsimFlightPlanModelType>,
+  VatsimFlightPlanStaticMethods,
+  unknown
+>("vatsimflightplans", VatsimFlightPlanSchema);

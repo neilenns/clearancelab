@@ -16,6 +16,11 @@ export default async function Page({ params }: { params: Params }) {
     return <NotFound id={id} />;
   }
 
+  // Older scenarios may not have a home airport. If there isn't one defined set it to the empty
+  // string to ensure there aren't errors from React about going from uncontrolled to controlled
+  // when a value is set.
+  scenario.plan.homeAirport ??= "";
+
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Edit Scenario</h1>

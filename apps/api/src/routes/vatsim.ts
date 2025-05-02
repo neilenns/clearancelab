@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { verifyApiKey } from "../middleware/apikey.js";
-import { VatsimFlightPlanModel } from "../models/vatsim-flight-plan.js";
 import { Plan } from "@workspace/validators";
 import {
   getRandomBcn,
@@ -8,6 +7,7 @@ import {
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
+import { VatsimFlightPlanModel } from "../models/vatsim-flight-plan.js";
 
 const router = Router();
 
@@ -39,6 +39,7 @@ router.get(
         spd: flightPlan.groundspeed,
         typ: flightPlan.equipmentType,
         eq: flightPlan.equipmentSuffix,
+        homeAirport: flightPlan.homeAirport,
         vatsimId: getRandomVatsimId(),
       } as Plan;
 
@@ -46,7 +47,7 @@ router.get(
     } catch (err) {
       next(err); // Pass to centralized error handler
     }
-  }
+  },
 );
 
 export default router;

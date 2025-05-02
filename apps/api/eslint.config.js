@@ -3,7 +3,12 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "eslint.config.js", "tsup.config.js"],
+    ignores: [
+      "dist/**",
+      "eslint.config.js",
+      "tsup.config.js",
+      "prettier.config.js",
+    ],
   },
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
@@ -26,5 +31,5 @@ export default tseslint.config(
         },
       ],
     },
-  }
+  },
 );

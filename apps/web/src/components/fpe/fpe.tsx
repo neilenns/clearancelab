@@ -29,7 +29,7 @@ const FPE = forwardRef<HTMLDivElement, FPEProps>(({ scenario }, ref) => {
       <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[0.9375rem] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
         {plan && (
           <div className="fpe-title text-xs ml-[2px] mb-[2px]">
-            {plan.aid} - {plan.pilotName} ({plan.vatsimId})
+            {plan.aid} - {plan.pilotName} {plan.homeAirport} ({plan.vatsimId})
           </div>
         )}
         <div className="fpe-close text-right">&times;</div>

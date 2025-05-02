@@ -27,6 +27,14 @@ export function PlanSectionSkeleton() {
           <div className="col-span-2">
             <Skeleton className="h-8" />
           </div>
+
+          <div className="col-span-2">
+            <Skeleton className="h-8" />
+          </div>
+
+          <div className="col-span-2">
+            <Skeleton className="h-8" />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 gap-2 items-start mb-4">
