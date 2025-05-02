@@ -1,6 +1,6 @@
 import express from "express";
 import helmet from "helmet";
-import errorHandler from "./errorHandler.js";
+import errorHandler from "./error-handler.js";
 import { requestLogger } from "./logging.js";
 
 export default function applyMiddleware(app: express.Express) {

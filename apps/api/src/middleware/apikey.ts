@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
 import rateLimit from "express-rate-limit";
 import { ApiKeyModel } from "../models/api-key.js";
-import { ENV } from "../lib/env.js";
+import { ENV } from "../lib/environment.js";
 
 const apiKeyLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -11,9 +11,9 @@ const apiKeyLimiter = rateLimit({
 
 // Verifies that a valid api key was provided in the web request.
 export const verifyApiKeyRaw = async function (
-  req: Request,
-  res: Response,
-  next: NextFunction
+  request: Request,
+  response: Response,
+  next: NextFunction,
 ): Promise<void> {
   try {
     // Don't validate API keys in development
@@ -23,31 +23,35 @@ export const verifyApiKeyRaw = async function (
     }
 
     // Get the API key from the request headers
-    const apiKey = req.headers["x-api-key"] ?? req.query["x-api-key"];
+    const apiKey = request.headers["x-api-key"] ?? request.query["x-api-key"];
 
     if (typeof apiKey !== "string") {
-      res.status(401).json({ error: "Unauthorized - Invalid API key format" });
+      response
+        .status(401)
+        .json({ error: "Unauthorized - Invalid API key format" });
       return;
     }
 
-    const apiKeyDoc = await ApiKeyModel.findOne({
+    const apiKeyDocument = await ApiKeyModel.findOne({
       _id: apiKey,
       isActive: true,
     });
 
-    if (apiKeyDoc == null) {
+    if (!apiKeyDocument) {
       console.error(
-        `Invalid API key attempt: ${apiKey.slice(0, 3)}...${apiKey.slice(-3)}`
+        `Invalid API key attempt: ${apiKey.slice(0, 3)}...${apiKey.slice(-3)}`,
       );
-      res.status(401).json({ error: "Unauthorized - Invalid API key" });
+      response.status(401).json({ error: "Unauthorized - Invalid API key" });
       return;
     }
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
     return;
   }
 
   next();
 };
 
-export const verifyApiKey = [apiKeyLimiter, verifyApiKeyRaw];
+export const verifyApiKey = [
+  apiKeyLimiter, verifyApiKeyRaw,
+];

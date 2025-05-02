@@ -14,8 +14,8 @@ export const AirportConditionsSchema = new Schema<AirportConditions>({
     required: true,
     validate: {
       validator: (v: number) => v >= 28 && v <= 31,
-      message: (props: { value: number }) =>
-        `${props.value.toString()} is not a valid altimeter setting.`,
+      message: (properties: { value: number }) =>
+        `${properties.value.toString()} is not a valid altimeter setting.`,
     },
   },
   departureOnline: { type: Boolean, default: false },

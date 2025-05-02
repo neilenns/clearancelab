@@ -37,12 +37,17 @@ const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
     craft: CraftSchema,
     isValid: { type: Boolean, default: true },
     plan: PlanSchema,
-    problems: { type: [ProblemSchema], default: [] },
+    problems: {
+      type: [
+        ProblemSchema,
+      ],
+      default: [],
+    },
   },
   {
     collection: "scenarios",
     timestamps: true,
-  }
+  },
 );
 
 // Add a virtual field for departure airport information
@@ -67,9 +72,9 @@ ScenarioSchema.pre("save", function (next) {
   // of how clearances are spoken.
   if (this.craft?.route?.toLowerCase().startsWith("the ")) {
     const originalRoute = this.craft.route;
-    this.craft.route = this.craft.route.substring(4);
+    this.craft.route = this.craft.route.slice(4);
     logger.debug(
-      `Normalized route from "${originalRoute}" to "${this.craft.route}"`
+      `Normalized route from "${originalRoute}" to "${this.craft.route}"`,
     );
   }
 
@@ -78,7 +83,7 @@ ScenarioSchema.pre("save", function (next) {
 
 // Static methods
 ScenarioSchema.statics.findScenarioById = function (
-  id: string
+  id: string,
 ): Promise<Scenario | null> {
   try {
     return (
@@ -91,21 +96,19 @@ ScenarioSchema.statics.findScenarioById = function (
         .exec()
     );
   } catch (error) {
-    const err = error instanceof Error ? error : new Error(String(error));
-
-    logger.error(`Error finding scenario with ID ${id}:`, err);
-    return Promise.reject(err);
+    logger.error(`Error finding scenario with ID ${id}:`, error);
+    throw error;
   }
 };
 
 ScenarioSchema.statics.findAll = async function (
-  summary: boolean
+  summary: boolean,
 ): Promise<Partial<Scenario>[]> {
   try {
     if (summary) {
       const results = await this.find({})
         .select(
-          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt"
+          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt",
         )
         .lean()
         .exec();
@@ -121,15 +124,13 @@ ScenarioSchema.statics.findAll = async function (
       .lean({ virtuals: true })
       .exec();
   } catch (error) {
-    const err = error instanceof Error ? error : new Error(String(error));
-
-    logger.error(`Error finding all scenarios:`, err);
-    return Promise.reject(err);
+    logger.error(`Error finding all scenarios:`, error);
+    throw error;
   }
 };
 
 // Export model
 export const ScenarioModel = model<Scenario, ScenarioModelType>(
   "Scenario",
-  ScenarioSchema
+  ScenarioSchema,
 );

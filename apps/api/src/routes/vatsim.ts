@@ -15,14 +15,14 @@ const router = Router();
 router.get(
   "/flightplan/:callsign",
   verifyApiKey,
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (request: Request, response: Response, next: NextFunction) => {
     try {
-      const { callsign } = req.params;
+      const { callsign } = request.params;
 
       const flightPlan = await VatsimFlightPlanModel.findByCallsign(callsign);
 
       if (!flightPlan) {
-        res.status(404).json({ error: "Flight plan not found" });
+        response.status(404).json({ error: "Flight plan not found" });
         return;
       }
 
@@ -43,9 +43,9 @@ router.get(
         vatsimId: getRandomVatsimId(),
       } as Plan;
 
-      res.json(returnedFlightPlan);
-    } catch (err) {
-      next(err); // Pass to centralized error handler
+      response.json(returnedFlightPlan);
+    } catch (error) {
+      next(error); // Pass to centralized error handler
     }
   },
 );
