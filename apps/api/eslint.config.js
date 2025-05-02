@@ -2,11 +2,15 @@ import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import eslintConfigPrettier from "eslint-config-prettier";
+import eslintPluginSecurity from "eslint-plugin-security";
 
 export default tseslint.config(
   {
     ignores: [
-      "dist/**", "eslint.config.js", "tsup.config.js", "prettier.config.js",
+      "dist/**",
+      "eslint.config.js",
+      "tsup.config.js",
+      "prettier.config.js",
     ],
   },
   eslintConfigPrettier,
@@ -14,6 +18,7 @@ export default tseslint.config(
   eslintPluginUnicorn.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
+  eslintPluginSecurity.configs.recommended,
   {
     languageOptions: {
       parserOptions: {
@@ -25,11 +30,12 @@ export default tseslint.config(
   {
     rules: {
       "@typescript-eslint/no-unused-vars": [
-        "error", {
+        "error",
+        {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
         },
       ],
     },
-  },
+  }
 );

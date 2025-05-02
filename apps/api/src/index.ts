@@ -20,7 +20,7 @@ let healthServer: http.Server | undefined;
 // Graceful shutdown handling
 function setupGracefulShutdown(
   mainServer: http.Server | https.Server | undefined,
-  healthServer: http.Server | undefined,
+  healthServer: http.Server | undefined
 ) {
   const shutdown = () => {
     logger.info("Shutting down server...");
@@ -31,7 +31,7 @@ function setupGracefulShutdown(
       mainServer?.close(() => {
         logger.info("Server closed");
         disconnectFromDatabase().catch((error: unknown) =>
-          logger.error("Error during DB disconnect", error),
+          logger.error("Error during DB disconnect", error)
         );
 
         throw new Error("Server closed");
@@ -41,7 +41,7 @@ function setupGracefulShutdown(
     mainServer?.close(() => {
       logger.info("Server closed");
       disconnectFromDatabase().catch((error: unknown) =>
-        logger.error("Error during DB disconnect", error),
+        logger.error("Error during DB disconnect", error)
       );
 
       throw new Error("Server closed");
@@ -72,7 +72,7 @@ function startHealthServer() {
       .setTimeout(5000)
       .listen(healthPort, () => {
         logger.info(
-          `🌐 HTTP healthcheck listening on http://localhost:${healthPort.toString()}`,
+          `🌐 HTTP healthcheck listening on http://localhost:${healthPort.toString()}`
         );
       });
   } catch (error) {
@@ -96,7 +96,9 @@ async function startServer() {
 
     if (keyPath && certPath) {
       const sslOptions = {
+        // eslint-disable-next-line security/detect-non-literal-fs-filename
         key: fs.readFileSync(path.resolve(keyPath)),
+        // eslint-disable-next-line security/detect-non-literal-fs-filename
         cert: fs.readFileSync(path.resolve(certPath)),
       };
 
@@ -104,13 +106,13 @@ async function startServer() {
         .createServer(sslOptions, app as RequestListener)
         .listen(port, () => {
           logger.info(
-            `🔒 HTTPS server listening on https://localhost:${port.toString()}`,
+            `🔒 HTTPS server listening on https://localhost:${port.toString()}`
           );
         });
     } else {
       server = http.createServer(app as RequestListener).listen(port, () => {
         logger.info(
-          `🌐 HTTP server listening on http://localhost:${port.toString()}`,
+          `🌐 HTTP server listening on http://localhost:${port.toString()}`
         );
       });
     }
