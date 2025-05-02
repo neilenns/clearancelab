@@ -10,7 +10,7 @@
         "kind": "test",
         "isDefault": true
       },
-      "problemMatcher": ["$eslint-stylish"],
+      "problemMatcher": ["$eslint-stylish"]
     }
   ]
 }
