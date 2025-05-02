@@ -39,14 +39,14 @@ export function Explanations({ scenario }: ExplanationsProperties) {
 function ExplanationItem({ explanation }: ExplanationItemProps) {
   return (
     <CalloutBox level={explanation.level}>
-      <h3
+      <p
         className="flex items-start gap-2 font-bold"
         id={`explanation-headline-${explanation.headline
           .replace(/\s+/g, "-")
           .toLowerCase()}`}
       >
         {explanation.headline}
-      </h3>
+      </p>
       <p
         className="flex items-start gap-2"
         aria-labelledby={`explanation-headline-${explanation.headline
