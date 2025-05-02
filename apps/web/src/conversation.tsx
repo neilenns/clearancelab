@@ -23,8 +23,7 @@ export function Conversation({
               "justify-end": !isPilot,
             })}
           >
-            <div
-              role="article"
+            <article
               aria-label={`Message from ${
                 isPilot ? pilotCallsign : controllerName
               }`}
@@ -42,7 +41,7 @@ export function Conversation({
                 {isPilot ? pilotCallsign : controllerName}
               </div>
               {message.content}
-            </div>
+            </article>
           </div>
         );
       })}

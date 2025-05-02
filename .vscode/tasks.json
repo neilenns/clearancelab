@@ -4,8 +4,8 @@
     {
       "label": "Lint everything",
       "type": "shell",
-      "command": "pnpx",
-      "args": ["turbo", "lint", "--log-prefix=none", "--ui=stream"],
+      "command": "${workspaceFolder}/node_modules/.bin/turbo",
+      "args": ["lint", "--log-prefix=none", "--ui=stream"],
       "group": {
         "kind": "test",
         "isDefault": true

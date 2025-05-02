@@ -11,7 +11,7 @@ import eslintPluginUnicorn from "eslint-plugin-unicorn";
 /**
  * A custom ESLint configuration for libraries that use Next.js.
  *
- * @type {import("eslint").Linter.Config}
+ * @type {import("eslint").FlatConfig[]}
  * */
 export default [
   {
@@ -41,7 +41,7 @@ export default [
       turbo: turboPlugin,
     },
     rules: {
-      "turbo/no-undeclared-env-vars": "warn",
+      "turbo/no-undeclared-env-vars": "error",
     },
   },
   {
