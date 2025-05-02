@@ -42,15 +42,32 @@ const airportCodes = [
 Object.freeze(airportCodes);
 // cSpell:enable
 
+/**
+ * Generates a random integer between the specified min and max values, inclusive.
+ * @param min The minimum value.
+ * @param max The maximum value.
+ * @returns A random integer between min and max.
+ */
 function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/**
+ * Generates a random number between the specified min and max values, biased towards the max value.
+ * @param min The minimum value.
+ * @param max The maximum value.
+ * @param biasStrength The strength of the bias towards the max value.
+ * @returns A biased random number between min and max.
+ */
 function biasedRandom(min: number, max: number, biasStrength: number): number {
   const r = Math.random() ** (1 / biasStrength); // skewed toward 1
   return min + (max - min) * r;
 }
 
+/**
+ * Generates a random altimeter setting between 28.00 and 31.00 inches of mercury.
+ * @returns A random altimeter setting.
+ */
 export function getRandomAltimeter(): number {
   const LOWEST_PRESSURE = 28;
   const HIGHEST_PRESSURE = 31;
@@ -60,11 +77,20 @@ export function getRandomAltimeter(): number {
   );
 }
 
+/**
+ * Generates a random airport code from a predefined list of airport codes.
+ * @returns A random airport code.
+ */
 export function getRandomAirportCode(): string {
   const index = getRandomInt(0, airportCodes.length - 1);
   return airportCodes[index];
 }
 
+/**
+ * Generates a scenario with random values populated in the aid, bcn, cid, homeAirport, pilotName,
+ * vatsimId, and altimeter fields.
+ * @returns A random scenario
+ */
 export function getRandomScenario(): Scenario {
   return {
     plan: {
@@ -100,6 +126,7 @@ export function getRandomScenario(): Scenario {
     problems: [],
   };
 }
+
 /**
  * Generates a random pilot name from a predefined list of gender-neutral names.
  * @returns A random pilot name
