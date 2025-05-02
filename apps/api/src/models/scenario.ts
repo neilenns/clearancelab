@@ -71,6 +71,13 @@ ScenarioSchema.pre("save", function (next) {
     logger.debug(`Normalized route from "${originalRoute}" to "${this.craft.route}"`);
   }
 
+  // Strip periods off some of the CRAFT properties.
+  if (this.craft) {
+    this.craft.altitude = this.craft.altitude?.replace(/\.$/, "");
+    this.craft.clearanceLimit = this.craft.clearanceLimit?.replace(/\.$/, "");
+    this.craft.route = this.craft.route?.replace(/\.$/, "");
+  }
+
   next();
 });
 
