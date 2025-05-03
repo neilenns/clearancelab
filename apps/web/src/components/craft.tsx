@@ -1,6 +1,7 @@
 import {
   capitalizeFirst,
   getFormattedClearanceLimit,
+  getTelephony,
 } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 
@@ -16,7 +17,7 @@ export function Craft({ scenario }: CraftProperties) {
   return (
     <section role="region" aria-label="Clearance information">
       <p className="space-x-1">
-        {craft?.telephony && <span key="telephony">{craft.telephony},</span>}
+        <span key="telephony">{getTelephony(scenario)},</span>
         {clearanceLimit && (
           <>
             <span>cleared to</span>

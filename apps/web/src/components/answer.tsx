@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { getFormattedClearanceLimit } from "@workspace/plantools";
+import { getFormattedClearanceLimit, getTelephony } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import { AnimatePresence, motion } from "framer-motion";
 import { Info } from "lucide-react";
@@ -21,15 +21,13 @@ interface AnswerProperties {
 }
 
 export function Answer({ scenario }: AnswerProperties) {
-  const { plan, canClear, craft } = scenario;
+  const { canClear } = scenario;
   const [isOpen, setIsOpen] = useState(false);
 
   const messages = [
     {
       alignment: "left",
-      content: `Portland Ground, ${
-        craft?.telephony ?? plan.aid
-      }, IFR to ${getFormattedClearanceLimit(scenario)}.`,
+      content: `Portland Ground, ${getTelephony(scenario)}, IFR to ${getFormattedClearanceLimit(scenario)}.`,
     },
     {
       alignment: "right",
