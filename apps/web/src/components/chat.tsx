@@ -12,8 +12,6 @@ export interface ChatMessage {
 
 export interface ChatProperties {
   messages: ChatMessage[];
-  pilotCallsign?: string;
-  controllerName?: string;
 }
 
 export function Chat({ messages }: ChatProperties) {
@@ -21,17 +19,20 @@ export function Chat({ messages }: ChatProperties) {
     <>
       <Card>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-4" role="log" aria-label="Conversation">
             {messages.map((message, index) => {
               const isRight = message.alignment === "right";
 
               return (
-                <div
+                <article
                   key={index}
                   className={cn(
                     "flex items-start gap-2",
                     isRight ? "justify-end" : "justify-start",
                   )}
+                  aria-label={`message from ${
+                    isRight ? "controller" : "pilot"
+                  }`}
                 >
                   {isRight && message.info}
                   <div
@@ -45,7 +46,7 @@ export function Chat({ messages }: ChatProperties) {
                     {message.content}
                   </div>
                   {!isRight && message.info}
-                </div>
+                </article>
               );
             })}
           </div>

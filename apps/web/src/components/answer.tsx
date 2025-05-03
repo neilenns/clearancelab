@@ -38,14 +38,14 @@ export function Answer({ scenario }: AnswerProperties) {
       alignment: "right",
       content: <Craft scenario={scenario} />,
       info: (
-        <Popover>
+        <Popover aria-label="Additional information">
           <PopoverTrigger asChild>
             <Button className="self-center" variant="ghost" size="icon">
-              <Info aria-label="Additional information" />
+              <Info aria-label="Display additional information" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-120" side="top">
-            <Table>
+            <Table aria-label="Craft clearance details">
               <TableBody>
                 <TableRow key="C">
                   <TableCell>C</TableCell>
@@ -92,13 +92,7 @@ export function Answer({ scenario }: AnswerProperties) {
         <CollapsibleContent id="answer-content" className="px-3 pb-3">
           <div>
             <Explanations scenario={scenario} />
-            {canClear && (
-              <Chat
-                messages={messages}
-                pilotCallsign={plan.aid}
-                controllerName={craft?.controllerName ?? "Portland Ground"}
-              />
-            )}
+            {canClear && <Chat messages={messages} />}
           </div>
         </CollapsibleContent>
       </Collapsible>

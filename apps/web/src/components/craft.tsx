@@ -1,4 +1,3 @@
-import { TooltipProvider } from "@/components/ui/tooltip";
 import {
   capitalizeFirst,
   getFormattedClearanceLimit,
@@ -15,21 +14,20 @@ export function Craft({ scenario }: CraftProperties) {
   const departure = craft?.frequency ?? "offline";
 
   return (
-    <TooltipProvider>
-      <div role="region" aria-label="Clearance information">
+    <section role="region" aria-label="Clearance information">
+      <p className="space-x-1">
         {craft?.telephony && <span key="telephony">{craft.telephony},</span>}
-        &nbsp;
         {clearanceLimit && (
-          <span>
-            cleared to&nbsp;
-            {getFormattedClearanceLimit(scenario)}&nbsp;
-          </span>
+          <>
+            <span>cleared to</span>
+            <span>{getFormattedClearanceLimit(scenario)}</span>
+          </>
         )}
-        {craft?.route && <span>via the {craft.route}.</span>}&nbsp;
+        {craft?.route && <span>via the {craft.route}.</span>}
         {craft?.altitude && <span>{capitalizeFirst(craft.altitude)}.</span>}
-        &nbsp; Departure is {departure}.&nbsp;
+        <span>Departure is {departure}.</span>
         {scenario.plan.bcn && <span>Squawk {scenario.plan.bcn}.</span>}
-      </div>
-    </TooltipProvider>
+      </p>
+    </section>
   );
 }
