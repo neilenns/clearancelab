@@ -1,11 +1,22 @@
 "use client";
-import { Craft } from "@/components/craft/craft";
+import { Chat, ChatMessage } from "@/components/chat";
+import { Craft } from "@/components/craft";
 import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Conversation } from "@/conversation";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { getFormattedClearanceLimit } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, Info } from "lucide-react";
 import { useState } from "react";
 
 interface AnswerProperties {
@@ -15,6 +26,54 @@ interface AnswerProperties {
 export function Answer({ scenario }: AnswerProperties) {
   const { plan, canClear, craft } = scenario;
   const [isOpen, setIsOpen] = useState(false);
+
+  const messages = [
+    {
+      alignment: "left",
+      content: `Portland Ground, ${
+        craft?.telephony ?? plan.aid
+      }, IFR to ${getFormattedClearanceLimit(scenario)}.`,
+    },
+    {
+      alignment: "right",
+      content: <Craft scenario={scenario} />,
+      info: (
+        <Popover aria-label="Additional information">
+          <PopoverTrigger asChild>
+            <Button className="self-center" variant="ghost" size="icon">
+              <Info aria-label="Display additional information" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-120" side="top">
+            <Table aria-label="Craft clearance details">
+              <TableBody>
+                <TableRow key="C">
+                  <TableCell>C</TableCell>
+                  <TableCell>{getFormattedClearanceLimit(scenario)}</TableCell>
+                </TableRow>
+                <TableRow key="R">
+                  <TableCell>R</TableCell>
+                  <TableCell>{scenario.craft?.route}</TableCell>
+                </TableRow>
+                <TableRow key="A">
+                  <TableCell>A</TableCell>
+                  <TableCell>{scenario.craft?.altitude}</TableCell>
+                </TableRow>
+                <TableRow key="F">
+                  <TableCell>F</TableCell>
+                  <TableCell>{scenario.craft?.frequency}</TableCell>
+                </TableRow>
+                <TableRow key="T">
+                  <TableCell>T</TableCell>
+                  <TableCell>{scenario.plan.bcn}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </PopoverContent>
+        </Popover>
+      ),
+    },
+  ] as ChatMessage[];
 
   return (
     <div className="w-[800px] bg-[var(--muted)]">
@@ -33,24 +92,7 @@ export function Answer({ scenario }: AnswerProperties) {
         <CollapsibleContent id="answer-content" className="px-3 pb-3">
           <div>
             <Explanations scenario={scenario} />
-            {canClear && (
-              <Conversation
-                pilotCallsign={plan.aid}
-                controllerName={craft?.controllerName ?? "Portland Ground"}
-                messages={[
-                  {
-                    from: "pilot",
-                    content: `Portland Ground, ${
-                      craft?.telephony ?? plan.aid
-                    }, IFR to ${plan.dest ?? ""}.`,
-                  },
-                  {
-                    from: "controller",
-                    content: <Craft scenario={scenario} />,
-                  },
-                ]}
-              />
-            )}
+            {canClear && <Chat messages={messages} />}
           </div>
         </CollapsibleContent>
       </Collapsible>

@@ -12,7 +12,7 @@
     "craft": {
       "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
-      "route": "the CASCD3 departure, then as filed",
+      "route": "CASCD4 departure, then as filed",
       "telephony": "Alaska 1160"
     },
     "explanations": [
@@ -33,8 +33,8 @@
       "eq": "X",
       "homeAirport": "KPDX",
       "pilotName": "Jordan",
-      "raw": "ASA1160  B738M/X  0000  6660  KPDX - KLAX  370 CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-      "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+      "raw": "ASA1160  B738M/X  0000  6660  KPDX - KLAX  370 CASCD4 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+      "rte": "CASCD4 PAWLI RUFUS RALEY OAL BASIC COKTL1",
       "spd": 225,
       "typ": "B738M",
       "vatsimId": 1914093
@@ -54,7 +54,7 @@
       "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
       "frequency": "124.35",
-      "route": "the CASCD3 departure, then as filed",
+      "route": "CASCD4 departure, then as filed",
       "telephony": "Alaska 17"
     },
     "explanations": [],
@@ -70,7 +70,7 @@
       "homeAirport": "KPDX",
       "pilotName": "Quinn",
       "raw": "ASA17  B739/L  0000  0755  KPDX - KLAS  330 CASCD2 PAWLI RUFUS RALEY OAL BASIC COKTL1",
-      "rte": "CASCD3 PAWLI RUFUS RALEY OAL BASIC COKTL1",
+      "rte": "CASCD4 PAWLI RUFUS RALEY OAL BASIC COKTL1",
       "spd": 225,
       "typ": "B739",
       "vatsimId": 1531877
@@ -90,7 +90,7 @@
       "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
       "frequency": "124.35",
-      "route": "the LAVAA6 departure, Yakima transition, then as filed",
+      "route": "LAVAA7 departure, Yakima transition, then as filed",
       "telephony": "Alaska 223"
     },
     "explanations": [],
@@ -106,7 +106,7 @@
       "homeAirport": "KPDX",
       "pilotName": "Dakota",
       "raw": "ASA223  A320/L  0000  2000  KPDX - CYEG  350 LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
-      "rte": "LAVAA6 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+      "rte": "LAVAA7 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
       "spd": 200,
       "typ": "A320",
       "vatsimId": 1400467
@@ -125,7 +125,7 @@
     "craft": {
       "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
-      "route": "the WHAMY5 departure, then as filed",
+      "route": "WHAMY5 departure, then as filed",
       "telephony": "N357JK Heavy"
     },
     "explanations": [],
@@ -161,7 +161,7 @@
       "altitude": "Climb via SID except maintain 6000",
       "controllerName": "Portland Ground",
       "frequency": "124.35",
-      "route": "the PTLD2 departure, then as filed",
+      "route": "PTLD2 departure, then as filed",
       "telephony": "Alaska 498"
     },
     "explanations": [],
@@ -196,7 +196,7 @@
     "canClear": false,
     "explanations": [
       {
-        "description": "Issue a full route clearance on the preferred route: CASCD3 CHISM JUDAH JUNEJ Q7 JAGWA BURGL IRNMN2.",
+        "description": "Issue a full route clearance on the preferred route: CASCD4 CHISM JUDAH JUNEJ Q7 JAGWA BURGL IRNMN2.",
         "headline": "The route is nonsense.",
         "level": "error"
       },
