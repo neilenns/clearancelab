@@ -2,14 +2,12 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utilities";
-import { Info } from "lucide-react";
 import React from "react";
-import { Button } from "./ui/button";
 
 export interface ChatMessage {
-  from: "controller" | "pilot";
+  alignment: "left" | "right";
   content: string | React.ReactNode;
-  onInfoClick?: () => void;
+  info?: React.ReactNode;
 }
 
 export interface ChatProperties {
@@ -25,38 +23,28 @@ export function Chat({ messages }: ChatProperties) {
         <CardContent>
           <div className="space-y-4">
             {messages.map((message, index) => {
-              const isController = message.from === "controller";
+              const isRight = message.alignment === "right";
 
               return (
                 <div
                   key={index}
                   className={cn(
                     "flex items-start gap-2",
-                    isController ? "justify-end" : "justify-start",
+                    isRight ? "justify-end" : "justify-start",
                   )}
                 >
-                  {isController && message.onInfoClick && (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={message.onInfoClick}
-                    >
-                      <Info
-                        className="self-center"
-                        aria-label="Controller info"
-                      />
-                    </Button>
-                  )}
+                  {isRight && message.info}
                   <div
                     className={cn(
                       "w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
-                      isController
+                      isRight
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted",
                     )}
                   >
                     {message.content}
                   </div>
+                  {!isRight && message.info}
                 </div>
               );
             })}

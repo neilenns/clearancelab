@@ -1,6 +1,6 @@
 "use client";
 import { Chat, ChatMessage } from "@/components/chat";
-import { Craft } from "@/components/craft/craft";
+import { Craft } from "@/components/craft";
 import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,8 +8,15 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { getFormattedClearanceLimit } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, Info } from "lucide-react";
 import { useState } from "react";
 
 interface AnswerProperties {
@@ -22,14 +29,49 @@ export function Answer({ scenario }: AnswerProperties) {
 
   const messages = [
     {
-      from: "pilot",
+      alignment: "left",
       content: `Portland Ground, ${
         craft?.telephony ?? plan.aid
       }, IFR to ${plan.dest ?? ""}.`,
     },
     {
-      from: "controller",
+      alignment: "right",
       content: <Craft scenario={scenario} />,
+      info: (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button className="self-center" variant="ghost" size="icon">
+              <Info aria-label="Additional information" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-120" side="top">
+            <Table>
+              <TableBody>
+                <TableRow key="C">
+                  <TableCell>C</TableCell>
+                  <TableCell>{getFormattedClearanceLimit(scenario)}</TableCell>
+                </TableRow>
+                <TableRow key="R">
+                  <TableCell>R</TableCell>
+                  <TableCell>{scenario.craft?.route}</TableCell>
+                </TableRow>
+                <TableRow key="A">
+                  <TableCell>A</TableCell>
+                  <TableCell>{scenario.craft?.altitude}</TableCell>
+                </TableRow>
+                <TableRow key="F">
+                  <TableCell>F</TableCell>
+                  <TableCell>{scenario.craft?.frequency}</TableCell>
+                </TableRow>
+                <TableRow key="T">
+                  <TableCell>T</TableCell>
+                  <TableCell>{scenario.plan.bcn}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </PopoverContent>
+        </Popover>
+      ),
     },
   ] as ChatMessage[];
 
