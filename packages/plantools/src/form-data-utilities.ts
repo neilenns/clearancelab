@@ -1,17 +1,34 @@
 /* eslint-disable security/detect-object-injection */
+
+/**
+ * Converts a value to a boolean.
+ * @param value The value to convert
+ * @returns The converted boolean value
+ */
 export const convertToBoolean = (value: unknown) => {
   return value === "true" || value === true;
 };
 
+/**
++ * Asserts that a value is a non-null object
++ * @param value - The value to check
++ * @throws Error if the value is not an object or is null
++ */
 export const assertObject = (
   value: unknown,
 ): asserts value is Record<string, unknown> => {
   if (typeof value !== "object" || value === null) {
-    throw new Error("Expected an object");
+    throw new Error(
+      `Expected an object, but received ${value === null ? "null" : typeof value}`,
+    );
   }
 };
 
-// Convert string values to numbers with validation
+/**
+ * Converts a string value to a number, if possible
+ * @param value - The value to convert
+ * @returns The converted number or undefined if conversion is not possible
+ */
 export const convertToNumber = (value: unknown): number | undefined => {
   if (value === "") {
     return undefined;
@@ -25,6 +42,11 @@ export const convertToNumber = (value: unknown): number | undefined => {
   return convertedValue;
 };
 
+/**
+ * Takes a FormData-flattened object and converts it to a nested object.
+ * @param data The object to flatten
+ * @returns The nested object
+ */
 export const unflatten = (
   data: Record<string, unknown>,
 ): Record<string, unknown> => {
