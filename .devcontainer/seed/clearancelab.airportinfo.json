@@ -2,6 +2,21 @@
   {
     "__v": 0,
     "_id": {
+      "$oid": "6815d6d98665576c4fd90d40"
+    },
+    "airportCode": "RCKH",
+    "city": "Kaohsiung City",
+    "countryCode": "TW",
+    "iataCode": "KHH",
+    "icaoCode": "RCKH",
+    "latitude": 22.5769444,
+    "longitude": 120.3502778,
+    "name": "Kaohsiung International",
+    "timezone": "Asia/Taipei"
+  },
+  {
+    "__v": 0,
+    "_id": {
       "$oid": "6800beda6868240804868cd5"
     },
     "airportCode": "KLAS",
