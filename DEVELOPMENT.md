@@ -80,6 +80,14 @@ The API server also needs two Auth0 variables set to validate secured endpoints.
 | `AUTH0_DOMAIN`   | Domain of the Auth0 Clearance Lab application.  |
 | `AUTH0_AUDIENCE` | URL for the API created in the Auth0 dashboard. |
 
+There are additional security-related variables to configure CORS and rate-limiting:
+
+| Variable                       | Description                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| `API_RATE_LIMIT_MAX`           | Maximum number of requests per window. Default 100.                             |
+| `API_RATE_LIMIT_MINUTE_WINDOW` | Time window for rate limiting in minutes. Default 5.                            |
+| `WHITELISTED_DOMAINS`          | List of domains that are allowed via CORS. Separate multiple domains with `\|`. |
+
 The web app also needs several Auth0 variables set to validate secured endpoints. These are not currently set automatically, and you'll have to ask for the values from the project maintainers.
 
 | Variable              | Description                                                                                         | Required |
@@ -160,3 +168,7 @@ All jobs leverage a TurboRepo remote cache and prune to only run when dependent 
 Deployments to the `dev` environment are triggered manually by running the [`Deploy - dev`](.github/workflows/deploy-dev.yaml) workflow in GitHub. Deployments to the `prod` environment are triggered by the [`Deploy - prod`](.github/workflows/deploy-prod.yaml) workflow.
 
 The only part that requires manual deployment is updating the Docker instance running the API server Docker image.
+
+```
+
+```
