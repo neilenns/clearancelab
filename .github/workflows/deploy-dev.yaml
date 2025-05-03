@@ -58,3 +58,7 @@ jobs:
           cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           deploy_env: ${{ vars.DEPLOY_ENV }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          turbo_api: ${{ vars.TURBO_API }}
+          turbo_team: ${{ vars.TURBO_TEAM }}
+          turbo_token: ${{ secrets.TURBO_TOKEN }}
