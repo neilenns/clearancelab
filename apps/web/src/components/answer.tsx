@@ -1,9 +1,13 @@
 "use client";
+import { Chat, ChatMessage } from "@/components/chat";
 import { Craft } from "@/components/craft/craft";
 import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Conversation } from "@/conversation";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Scenario } from "@workspace/validators";
 import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
@@ -15,6 +19,19 @@ interface AnswerProperties {
 export function Answer({ scenario }: AnswerProperties) {
   const { plan, canClear, craft } = scenario;
   const [isOpen, setIsOpen] = useState(false);
+
+  const messages = [
+    {
+      from: "pilot",
+      content: `Portland Ground, ${
+        craft?.telephony ?? plan.aid
+      }, IFR to ${plan.dest ?? ""}.`,
+    },
+    {
+      from: "controller",
+      content: <Craft scenario={scenario} />,
+    },
+  ] as ChatMessage[];
 
   return (
     <div className="w-[800px] bg-[var(--muted)]">
@@ -34,21 +51,10 @@ export function Answer({ scenario }: AnswerProperties) {
           <div>
             <Explanations scenario={scenario} />
             {canClear && (
-              <Conversation
+              <Chat
+                messages={messages}
                 pilotCallsign={plan.aid}
                 controllerName={craft?.controllerName ?? "Portland Ground"}
-                messages={[
-                  {
-                    from: "pilot",
-                    content: `Portland Ground, ${
-                      craft?.telephony ?? plan.aid
-                    }, IFR to ${plan.dest ?? ""}.`,
-                  },
-                  {
-                    from: "controller",
-                    content: <Craft scenario={scenario} />,
-                  },
-                ]}
               />
             )}
           </div>
