@@ -14,6 +14,8 @@ import {
 import { Scenario } from "@workspace/validators";
 import { WandSparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { useCallback } from "react";
+import { useKey } from "react-use";
 import { ScenarioItem } from "./scenario-item";
 
 // Extend the props from the base Sidebar and add scenarios
@@ -26,21 +28,33 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
   const selectedId = parameters.id as string;
   const router = useRouter();
 
-  const onClickHandler = () => {
+  const onSurprise = useCallback(() => {
+    const active = document.activeElement;
+    const isTyping =
+      active?.tagName === "INPUT" ||
+      active?.tagName === "TEXTAREA" ||
+      (active instanceof HTMLElement && active.isContentEditable);
+
+    if (isTyping) {
+      return;
+    }
+
     const randomIndex = Math.floor(Math.random() * scenarios.length);
     const randomScenario = scenarios[randomIndex];
 
     if (randomScenario._id) {
       router.replace(`/lab/${randomScenario._id}`);
     }
-  };
+  }, [scenarios, router]);
+
+  useKey("s", onSurprise);
 
   return (
     <aside>
       <Sidebar {...properties}>
         <SidebarHeader>
           <h3>Scenarios</h3>
-          <Button onClick={onClickHandler}>
+          <Button onClick={onSurprise}>
             <WandSparkles />
             Surprise me!
           </Button>
