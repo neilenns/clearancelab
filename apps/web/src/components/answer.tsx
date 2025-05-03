@@ -15,6 +15,7 @@ import { Scenario } from "@workspace/validators";
 import { AnimatePresence, motion } from "framer-motion";
 import { Info } from "lucide-react";
 import { useState } from "react";
+import { useKey } from "react-use";
 
 interface AnswerProperties {
   scenario: Scenario;
@@ -71,6 +72,10 @@ export function Answer({ scenario }: AnswerProperties) {
       ),
     },
   ] as ChatMessage[];
+
+  useKey("a", () => {
+    setIsOpen(true);
+  });
 
   return (
     <Card
