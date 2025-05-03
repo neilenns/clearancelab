@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   FormControl,
   FormDescription,
@@ -9,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
+import { Textarea } from "@/components/ui/textarea";
 import {
   getRandomAirportCode,
   getRandomBcn,
@@ -34,7 +41,8 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
       <CardHeader>
         <CardTitle>Flight plan</CardTitle>
         <CardDescription>
-          Enter the flight plan details. The flight plan does not have to be valid.
+          Enter the flight plan details. The flight plan does not have to be
+          valid.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -129,7 +137,9 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
             />
           </div>
 
-          <div className="self-end">{!isEditMode && <VatsimImportDialog />}</div>
+          <div className="self-end">
+            {!isEditMode && <VatsimImportDialog />}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(4,_1fr)_35px_repeat(4,_1fr)] gap-2 items-start mb-4">
@@ -188,7 +198,9 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(value === "" ? "" : Number.parseInt(value, 10));
+                      field.onChange(
+                        value === "" ? "" : Number.parseInt(value, 10),
+                      );
                     }}
                   />
                 </FormControl>
@@ -223,7 +235,9 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(value === "" ? "" : Number.parseInt(value, 10));
+                      field.onChange(
+                        value === "" ? "" : Number.parseInt(value, 10),
+                      );
                     }}
                   />
                 </FormControl>
@@ -301,7 +315,9 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     {...field}
                     onChange={(event) => {
                       const value = event.target.value;
-                      field.onChange(value === "" ? "" : Number.parseInt(value, 10));
+                      field.onChange(
+                        value === "" ? "" : Number.parseInt(value, 10),
+                      );
                     }}
                   />
                 </FormControl>
@@ -325,38 +341,36 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
           />
         </div>
 
-        <div className="flex gap-2 mb-4">
-          <div className="w-1/2">
-            <FormField
-              control={control}
-              name="plan.rte"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>RTE</FormLabel>
-                  <FormControl>
-                    <Input id="rte" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+        <div className="mb-2">
+          <FormField
+            control={control}
+            name="plan.rte"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>RTE</FormLabel>
+                <FormControl>
+                  <Textarea id="rte" className="min-h-10" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
-          <div className="w-1/2">
-            <FormField
-              control={control}
-              name="plan.rmk"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>RMK</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+        <div className="mb-2">
+          <FormField
+            control={control}
+            name="plan.rmk"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>RMK</FormLabel>
+                <FormControl>
+                  <Textarea id="rmk" className="min-h-10" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-2 items-start mb-4">
