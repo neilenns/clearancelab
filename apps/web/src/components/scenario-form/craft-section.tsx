@@ -64,7 +64,7 @@ export function CraftSection() {
                       The way to say the flight&apos;s callsign.
                     </FormDescription>
                     <FormControl>
-                      <Input id="telephony" placeholder="" {...field} />
+                      <Input id="telephony" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -82,11 +82,7 @@ export function CraftSection() {
                       Overrides the destination airport as the clearance limit.
                     </FormDescription>
                     <FormControl>
-                      <Input
-                        id="clearanceLimit"
-                        placeholder="Battleground VOR"
-                        {...field}
-                      />
+                      <Input id="clearanceLimit" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -105,11 +101,7 @@ export function CraftSection() {
                       required.
                     </FormDescription>
                     <FormControl>
-                      <Input
-                        id="route"
-                        placeholder="Portland 2 departure, then as filed"
-                        {...field}
-                      />
+                      <Input id="route" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -127,11 +119,7 @@ export function CraftSection() {
                       Initial climb altitude for the clearance.
                     </FormDescription>
                     <FormControl>
-                      <Input
-                        id="altitude"
-                        placeholder="maintain 6,000"
-                        {...field}
-                      />
+                      <Input id="altitude" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -152,11 +140,7 @@ export function CraftSection() {
                         : "Enable departure online to set a departure frequency."}
                     </FormDescription>
                     <FormControl>
-                      <Input
-                        id="frequency"
-                        placeholder={departureOnline ? "124.350" : "offline"}
-                        {...field}
-                      />
+                      <Input id="frequency" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

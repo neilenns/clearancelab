@@ -8,9 +8,9 @@ export enum FlowDirection {
 }
 
 export const AirportConditionsSchema = z.object({
-  flow: z.nativeEnum(FlowDirection),
-  altimeter: z.coerce.number().gte(28).lte(31),
-  departureOnline: z.boolean().default(false),
+  flow: z.nativeEnum(FlowDirection).optional(),
+  altimeter: z.coerce.number().gte(28).lte(31).optional(),
+  departureOnline: z.boolean().default(false).optional(),
 });
 
 export type AirportConditions = z.infer<typeof AirportConditionsSchema>;

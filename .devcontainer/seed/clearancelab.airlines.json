@@ -1,0 +1,16 @@
+[
+  {
+    "_id": {
+      "$oid": "65dc977cb85d24a79c57e735"
+    },
+    "airlineCode": "GTI",
+    "telephony": "GIANT"
+  },
+  {
+    "_id": {
+      "$oid": "65dc977cb85d24a79c57e50c"
+    },
+    "airlineCode": "DAL",
+    "telephony": "DELTA"
+  }
+]

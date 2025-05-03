@@ -3,10 +3,14 @@ import {
   getRandomCid,
   getRandomName,
   getRandomVatsimId,
+  getWeightClass,
+  splitCallsign,
 } from "@workspace/plantools";
-import { Plan } from "@workspace/validators";
+import { Scenario } from "@workspace/validators";
+import * as changeCase from "change-case";
 import { NextFunction, Request, Response, Router } from "express";
 import { verifyApiKey } from "../middleware/apikey.js";
+import { AirlineModel } from "../models/airlines.js";
 import { VatsimFlightPlanModel } from "../models/vatsim-flight-plan.js";
 
 const router = Router();
@@ -26,25 +30,52 @@ router.get(
         return;
       }
 
-      const returnedFlightPlan = {
-        aid: flightPlan.callsign,
-        alt: flightPlan.cruiseAltitude,
-        bcn: getRandomBcn(),
-        cid: getRandomCid(),
-        dep: flightPlan.departure,
-        dest: flightPlan.arrival,
-        pilotName: getRandomName(),
-        rmk: flightPlan.remarks,
-        rte: flightPlan.route,
-        spd: flightPlan.groundspeed,
-        typ: flightPlan.equipmentType,
-        eq: flightPlan.equipmentSuffix,
-        homeAirport: flightPlan.homeAirport,
-        vatsimId: getRandomVatsimId(),
-        altimeter: flightPlan.metar?.altimeter,
-      } as Plan;
+      // Calculate the telephony string.
+      const callsignParts = splitCallsign(flightPlan.callsign);
+      const weightClass = getWeightClass(flightPlan.equipmentType ?? "");
 
-      response.json(returnedFlightPlan);
+      const airline = callsignParts
+        ? await AirlineModel.findByAirlineCode(callsignParts.airlineCode)
+        : undefined;
+
+      const telephony = [
+        airline?.telephony && changeCase.capitalCase(airline.telephony), // The telephony name, if found, in capital case
+        callsignParts?.flightNumber, // The flight number, if found
+        weightClass, // The weight class, if found
+        !airline?.telephony && flightPlan.callsign, // Include callsign only if telephony is not found
+      ]
+        .filter(Boolean) // Removes any falsy values like null, undefined, or empty strings
+        .join(" ");
+
+      const returnedScenario: Scenario = {
+        plan: {
+          aid: flightPlan.callsign,
+          alt: flightPlan.cruiseAltitude,
+          bcn: getRandomBcn(),
+          cid: getRandomCid(),
+          dep: flightPlan.departure,
+          dest: flightPlan.arrival,
+          pilotName: getRandomName(),
+          rmk: flightPlan.remarks,
+          rte: flightPlan.route,
+          spd: flightPlan.groundspeed,
+          typ: flightPlan.equipmentType,
+          eq: flightPlan.equipmentSuffix,
+          homeAirport: flightPlan.homeAirport,
+          vatsimId: getRandomVatsimId(),
+        },
+        airportConditions: {
+          altimeter: flightPlan.metar?.altimeter,
+        },
+        craft: {
+          telephony,
+        },
+        isValid: false,
+        canClear: false,
+        explanations: [],
+      };
+
+      response.json(returnedScenario);
     } catch (error) {
       next(error); // Pass to centralized error handler
     }
