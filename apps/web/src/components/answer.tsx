@@ -56,7 +56,9 @@ export function Answer({ scenario }: AnswerProperties) {
                 </TableRow>
                 <TableRow key="F">
                   <TableCell>F</TableCell>
-                  <TableCell>{scenario.craft?.frequency}</TableCell>
+                  <TableCell>
+                    {scenario.craft?.frequency ?? "offline"}
+                  </TableCell>
                 </TableRow>
                 <TableRow key="T">
                   <TableCell>T</TableCell>
