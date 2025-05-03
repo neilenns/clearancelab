@@ -1,8 +1,12 @@
 "use server";
 
 import { apiFetch, postJson, putJson } from "@/lib/api";
-import { convertToBoolean, convertToNumber, unflatten } from "@workspace/plantools";
-import { Plan, Scenario, ScenarioSchema } from "@workspace/validators";
+import {
+  convertToBoolean,
+  convertToNumber,
+  unflatten,
+} from "@workspace/plantools";
+import { Scenario, ScenarioSchema } from "@workspace/validators";
 import { revalidatePath } from "next/cache";
 
 export type OnSubmitScenarioState = {
@@ -17,20 +21,24 @@ export type OnSubmitScenarioState = {
 export type FetchPlanByCallsignState =
   | {
       success: true;
-      plan: Plan;
+      scenario: Scenario;
     }
   | {
       success: false;
       message: string;
     };
 
-function assertObject(value: unknown): asserts value is Record<string, unknown> {
+function assertObject(
+  value: unknown,
+): asserts value is Record<string, unknown> {
   if (typeof value !== "object" || value === null) {
     throw new Error("Expected an object");
   }
 }
 
-export async function fetchPlanByCallsign(callsign: string): Promise<FetchPlanByCallsignState> {
+export async function fetchPlanByCallsign(
+  callsign: string,
+): Promise<FetchPlanByCallsignState> {
   const requestedCallsign = callsign.toUpperCase().trim();
 
   if (!requestedCallsign) {
@@ -40,9 +48,11 @@ export async function fetchPlanByCallsign(callsign: string): Promise<FetchPlanBy
     };
   }
 
-  const plan = await apiFetch<Plan>(`/vatsim/flightplan/${requestedCallsign}`);
+  const scenario = await apiFetch<Scenario>(
+    `/vatsim/flightplan/${requestedCallsign}`,
+  );
 
-  if (!plan) {
+  if (!scenario) {
     return {
       success: false,
       message: `No flight plan found for ${requestedCallsign}.`,
@@ -51,7 +61,7 @@ export async function fetchPlanByCallsign(callsign: string): Promise<FetchPlanBy
 
   return {
     success: true,
-    plan,
+    scenario: scenario,
   };
 }
 
@@ -95,7 +105,9 @@ export const onSubmitScenario = async (
   formData.plan.cid = convertToNumber(formData.plan.cid);
   formData.plan.spd = convertToNumber(formData.plan.spd);
   formData.plan.vatsimId = convertToNumber(formData.plan.vatsimId);
-  formData.airportConditions.altimeter = convertToNumber(formData.airportConditions.altimeter);
+  formData.airportConditions.altimeter = convertToNumber(
+    formData.airportConditions.altimeter,
+  );
 
   const toParse = {
     ...formData,

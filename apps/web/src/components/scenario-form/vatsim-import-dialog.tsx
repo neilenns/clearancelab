@@ -47,25 +47,28 @@ export function VatsimImportDialog() {
       resetDialog();
       setOpen(false);
 
+      const { plan, airportConditions, craft } = result.scenario;
+
       // Populate the fields with the values from the VATSIM flight plan.
       // This happens after the dialog is closed to make it feel more responsive.
-      setValue("plan.aid", result.plan.aid);
-      setValue("plan.alt", result.plan.alt);
-      setValue("plan.bcn", result.plan.bcn);
-      setValue("plan.cid", result.plan.cid);
-      setValue("plan.dep", result.plan.dep);
-      setValue("plan.dest", result.plan.dest);
-      setValue("plan.eq", result.plan.eq);
-      setValue("plan.rmk", result.plan.rmk);
-      setValue("plan.rte", result.plan.rte);
-      setValue("plan.spd", result.plan.spd);
-      setValue("plan.typ", result.plan.typ);
-      setValue("plan.vatsimId", result.plan.vatsimId);
-      setValue("plan.pilotName", result.plan.pilotName);
+      setValue("plan.aid", plan.aid);
+      setValue("plan.alt", plan.alt);
+      setValue("plan.bcn", plan.bcn);
+      setValue("plan.cid", plan.cid);
+      setValue("plan.dep", plan.dep);
+      setValue("plan.dest", plan.dest);
+      setValue("plan.eq", plan.eq);
+      setValue("plan.rmk", plan.rmk);
+      setValue("plan.rte", plan.rte);
+      setValue("plan.spd", plan.spd);
+      setValue("plan.typ", plan.typ);
+      setValue("plan.vatsimId", plan.vatsimId);
+      setValue("plan.pilotName", plan.pilotName);
       setValue(
         "airportConditions.altimeter",
-        result.plan.altimeter ?? getRandomAltimeter(),
+        airportConditions.altimeter ?? getRandomAltimeter(),
       );
+      setValue("craft.telephony", craft?.telephony ?? "");
     });
   }
 
@@ -81,7 +84,6 @@ export function VatsimImportDialog() {
     >
       <DialogTrigger asChild>
         <Button
-          variant="outline"
           onClick={() => {
             setOpen(true);
           }}
