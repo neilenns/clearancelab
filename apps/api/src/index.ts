@@ -1,9 +1,11 @@
+import cors from "cors";
 import express from "express";
 import fs from "node:fs";
 import http, { RequestListener } from "node:http";
 import https from "node:https";
 import path from "node:path";
 import { connectToDatabase, disconnectFromDatabase } from "./db/connect.js";
+import { corsOptions, setWhitelist } from "./lib/cors.js";
 import { ENV } from "./lib/environment.js";
 import { logger } from "./lib/logger.js";
 import applyMiddleware from "./middleware/index.js";
@@ -16,6 +18,8 @@ const port = ENV.PORT;
 const healthPort = ENV.HEALTH_PORT;
 let server: http.Server | https.Server | undefined;
 let healthServer: http.Server | undefined;
+
+setWhitelist(ENV.WHITELISTED_DOMAINS);
 
 // Graceful shutdown handling
 function setupGracefulShutdown(
@@ -65,13 +69,19 @@ function startHealthServer() {
   try {
     // Configuration
     healthApp.set("trust proxy", ENV.TRUST_PROXY);
+
+    // Security
+    app.use(cors(corsOptions));
+
     healthApp.use("/health", healthRoutes);
 
     healthServer = http
       .createServer(healthApp as RequestListener)
       .setTimeout(5000)
       .listen(healthPort, () => {
-        logger.info(`🌐 HTTP healthcheck listening on http://localhost:${healthPort.toString()}`);
+        logger.info(
+          `🌐 HTTP healthcheck listening on http://localhost:${healthPort.toString()}`,
+        );
       });
   } catch (error) {
     logger.error("Error starting server:", error);
@@ -86,6 +96,10 @@ async function startServer() {
     // Configuration
     app.set("trust proxy", ENV.TRUST_PROXY);
 
+    // Security
+    app.use(cors(corsOptions));
+
+    // Middleware and routes
     applyMiddleware(app);
     addRoutes(app);
 
@@ -100,12 +114,18 @@ async function startServer() {
         cert: fs.readFileSync(path.resolve(certPath)),
       };
 
-      server = https.createServer(sslOptions, app as RequestListener).listen(port, () => {
-        logger.info(`🔒 HTTPS server listening on https://localhost:${port.toString()}`);
-      });
+      server = https
+        .createServer(sslOptions, app as RequestListener)
+        .listen(port, () => {
+          logger.info(
+            `🔒 HTTPS server listening on https://localhost:${port.toString()}`,
+          );
+        });
     } else {
       server = http.createServer(app as RequestListener).listen(port, () => {
-        logger.info(`🌐 HTTP server listening on http://localhost:${port.toString()}`);
+        logger.info(
+          `🌐 HTTP server listening on http://localhost:${port.toString()}`,
+        );
       });
     }
   } catch (error) {
