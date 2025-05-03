@@ -1,6 +1,7 @@
 "use server";
 
 import { apiFetch } from "@/lib/api";
+import { auth0 } from "@/lib/auth0";
 import { Scenario } from "@workspace/validators";
 import ClientSection from "./client-section";
 import NotFound from "./not-found";
@@ -17,10 +18,11 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
   const scenario = await apiFetch<Scenario>(`/scenarios/${id}`);
+  const session = await auth0.getSession();
 
   if (!scenario) {
     return <NotFound id={id} />;
   }
 
-  return <ClientSection scenario={scenario} />;
+  return <ClientSection scenario={scenario} canEdit={session !== null} />;
 }
