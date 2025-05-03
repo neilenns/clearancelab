@@ -34,21 +34,20 @@ router.get(
       const callsignParts = splitCallsign(flightPlan.callsign);
       const weightClass = getWeightClass(flightPlan.equipmentType ?? "");
 
-      const airlines = callsignParts
+      const airline = callsignParts
         ? await AirlineModel.findByAirlineCode(callsignParts.airlineCode)
         : undefined;
 
       const telephony = [
-        airlines?.[0]?.telephony &&
-          changeCase.capitalCase(airlines[0].telephony), // The telephony name, if found, in capital case
+        airline?.telephony && changeCase.capitalCase(airline.telephony), // The telephony name, if found, in capital case
         callsignParts?.flightNumber, // The flight number, if found
         weightClass, // The weight class, if found
-        !airlines?.[0]?.telephony && flightPlan.callsign, // Include callsign only if telephony is not found
+        !airline?.telephony && flightPlan.callsign, // Include callsign only if telephony is not found
       ]
         .filter(Boolean) // Removes any falsy values like null, undefined, or empty strings
         .join(" ");
 
-      const returnedScenario = {
+      const returnedScenario: Scenario = {
         plan: {
           aid: flightPlan.callsign,
           alt: flightPlan.cruiseAltitude,
@@ -71,7 +70,10 @@ router.get(
         craft: {
           telephony,
         },
-      } as Scenario;
+        isValid: false,
+        canClear: false,
+        explanations: [],
+      };
 
       response.json(returnedScenario);
     } catch (error) {

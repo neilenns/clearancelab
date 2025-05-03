@@ -3,6 +3,14 @@ export const convertToBoolean = (value: unknown) => {
   return value === "true" || value === true;
 };
 
+export const assertObject = (
+  value: unknown,
+): asserts value is Record<string, unknown> => {
+  if (typeof value !== "object" || value === null) {
+    throw new Error("Expected an object");
+  }
+};
+
 // Convert string values to numbers with validation
 export const convertToNumber = (value: unknown): number | undefined => {
   if (value === "") {
@@ -17,7 +25,9 @@ export const convertToNumber = (value: unknown): number | undefined => {
   return convertedValue;
 };
 
-export const unflatten = (data: Record<string, unknown>): Record<string, unknown> => {
+export const unflatten = (
+  data: Record<string, unknown>,
+): Record<string, unknown> => {
   const result: Record<string, unknown> = {};
 
   for (const [flatKey, value] of Object.entries(data)) {

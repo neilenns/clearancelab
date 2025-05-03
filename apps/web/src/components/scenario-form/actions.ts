@@ -2,6 +2,7 @@
 
 import { apiFetch, postJson, putJson } from "@/lib/api";
 import {
+  assertObject,
   convertToBoolean,
   convertToNumber,
   unflatten,
@@ -28,14 +29,6 @@ export type FetchPlanByCallsignState =
       message: string;
     };
 
-function assertObject(
-  value: unknown,
-): asserts value is Record<string, unknown> {
-  if (typeof value !== "object" || value === null) {
-    throw new Error("Expected an object");
-  }
-}
-
 export async function fetchPlanByCallsign(
   callsign: string,
 ): Promise<FetchPlanByCallsignState> {
@@ -48,9 +41,19 @@ export async function fetchPlanByCallsign(
     };
   }
 
-  const scenario = await apiFetch<Scenario>(
-    `/vatsim/flightplan/${requestedCallsign}`,
-  );
+  let scenario: Scenario | undefined;
+
+  try {
+    scenario = await apiFetch<Scenario>(
+      `/vatsim/flightplan/${requestedCallsign}`,
+    );
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: "Unable to fetch flight plan.",
+    };
+  }
 
   if (!scenario) {
     return {

@@ -10,7 +10,7 @@ export interface Airline {
 // so you have to extend the interface with the static methods. See
 // https://mongoosejs.com/docs/typescript/statics-and-methods.html.
 interface AirlineModelType extends mongoose.Model<Airline> {
-  findByAirlineCode(callsign: string): Promise<Airline[] | null>;
+  findByAirlineCode(callsign: string): Promise<Airline | null>;
 }
 
 const AirlineSchema = new Schema<Airline, AirlineModelType>(
@@ -25,8 +25,8 @@ const AirlineSchema = new Schema<Airline, AirlineModelType>(
 
 AirlineSchema.statics.findByAirlineCode = async function (
   airlineCode: string,
-): Promise<Airline[]> {
-  return await this.find({ airlineCode });
+): Promise<Airline | null> {
+  return await this.findOne({ airlineCode }).lean();
 };
 
 export const AirlineModel = mongoose.model<Airline, AirlineModelType>(
