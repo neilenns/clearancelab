@@ -168,7 +168,3 @@ All jobs leverage a TurboRepo remote cache and prune to only run when dependent 
 Deployments to the `dev` environment are triggered manually by running the [`Deploy - dev`](.github/workflows/deploy-dev.yaml) workflow in GitHub. Deployments to the `prod` environment are triggered by the [`Deploy - prod`](.github/workflows/deploy-prod.yaml) workflow.
 
 The only part that requires manual deployment is updating the Docker instance running the API server Docker image.
-
-```
-
-```
