@@ -349,7 +349,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>RTE</FormLabel>
                 <FormControl>
-                  <Textarea className="min-h-10" {...field} />
+                  <Textarea id="rte" className="min-h-10" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -365,7 +365,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>RMK</FormLabel>
                 <FormControl>
-                  <Textarea className="min-h-10" {...field} />
+                  <Textarea id="rmk" className="min-h-10" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
