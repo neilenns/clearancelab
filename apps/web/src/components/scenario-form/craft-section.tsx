@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   FormControl,
   FormDescription,
@@ -14,7 +20,10 @@ import { useFormContext, useWatch } from "react-hook-form";
 export function CraftSection() {
   const { control } = useFormContext<ScenarioInput>();
   const canClear = useWatch({ control, name: "canClear" });
-  const departureOnline = useWatch({ control, name: "airportConditions.departureOnline" });
+  const departureOnline = useWatch({
+    control,
+    name: "airportConditions.departureOnline",
+  });
 
   return (
     <Card>
@@ -22,10 +31,14 @@ export function CraftSection() {
         <CardTitle>CRAFT details</CardTitle>
         <CardDescription>
           {canClear ? (
-            <span>Provides custom values for the CRAFT clearance when shown to the student.</span>
+            <span>
+              Provides custom values for the CRAFT clearance when shown to the
+              student.
+            </span>
           ) : (
             <span>
-              To provide CRAFT details, turn on the flight plan <b>Can clear?</b> option.
+              To provide CRAFT details, turn on the flight plan{" "}
+              <b>Can clear?</b> option.
             </span>
           )}
         </CardDescription>
@@ -43,6 +56,24 @@ export function CraftSection() {
             <div>
               <FormField
                 control={control}
+                name="craft.telephony"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Telephony</FormLabel>
+                    <FormDescription>
+                      The way to say the flight&apos;s callsign.
+                    </FormDescription>
+                    <FormControl>
+                      <Input id="telephony" placeholder="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div>
+              <FormField
+                control={control}
                 name="craft.clearanceLimit"
                 render={({ field }) => (
                   <FormItem>
@@ -51,7 +82,11 @@ export function CraftSection() {
                       Overrides the destination airport as the clearance limit.
                     </FormDescription>
                     <FormControl>
-                      <Input id="clearanceLimit" placeholder="Battleground VOR" {...field} />
+                      <Input
+                        id="clearanceLimit"
+                        placeholder="Battleground VOR"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -66,7 +101,8 @@ export function CraftSection() {
                   <FormItem>
                     <FormLabel>Route</FormLabel>
                     <FormDescription>
-                      Route for the clearance. &quot;via the&quot; is not required.
+                      Route for the clearance. &quot;via the&quot; is not
+                      required.
                     </FormDescription>
                     <FormControl>
                       <Input
@@ -87,9 +123,15 @@ export function CraftSection() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Altitude</FormLabel>
-                    <FormDescription>Initial climb altitude for the clearance.</FormDescription>
+                    <FormDescription>
+                      Initial climb altitude for the clearance.
+                    </FormDescription>
                     <FormControl>
-                      <Input id="altitude" placeholder="maintain 6,000" {...field} />
+                      <Input
+                        id="altitude"
+                        placeholder="maintain 6,000"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
