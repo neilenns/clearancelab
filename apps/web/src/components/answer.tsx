@@ -32,7 +32,7 @@ export function Answer({ scenario }: AnswerProperties) {
       alignment: "left",
       content: `Portland Ground, ${
         craft?.telephony ?? plan.aid
-      }, IFR to ${plan.dest ?? ""}.`,
+      }, IFR to ${getFormattedClearanceLimit(scenario)}.`,
     },
     {
       alignment: "right",
