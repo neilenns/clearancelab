@@ -1,7 +1,9 @@
 import { z } from "zod";
 
 const environmentSchema = z.object({
-  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+  NODE_ENV: z
+    .enum(["development", "production", "test"])
+    .default("development"),
   API_BASE_URL: z
     .string()
     .url({
@@ -20,15 +22,21 @@ const environmentSchema = z.object({
   AUTH0_AUDIENCE: z.string(),
   AUTH0_CLIENT_SECRET: z.string(), // To generate this use `openssl rand -hex 32`
   AUTH0_CLIENT_ID: z.string(),
-  AUTH0_DOMAIN: z.string(),
+  AUTH0_DOMAIN: z
+    .string()
+    .url({ message: "AUTH0_DOMAIN must be a valid URL." }),
   AUTH0_SECRET: z.string(),
-  APP_BASE_URL: z.string().url({ message: "APP_BASE_URL must be a valid URL." }),
+  APP_BASE_URL: z
+    .string()
+    .url({ message: "APP_BASE_URL must be a valid URL." }),
 });
 
 const result = environmentSchema.safeParse(process.env);
 if (!result.success) {
   console.error("Environment validation failed:", result.error.format());
-  throw new Error("Environment validation failed. Please check your environment variables.");
+  throw new Error(
+    "Environment validation failed. Please check your environment variables.",
+  );
 }
 
 export const ENV = result.data;

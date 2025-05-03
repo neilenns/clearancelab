@@ -7,13 +7,17 @@ config({
 
 const environmentSchema = z.object({
   AUTH0_AUDIENCE: z.string(),
-  AUTH0_DOMAIN: z.string(),
+  AUTH0_DOMAIN: z
+    .string()
+    .url({ message: "AUTH0_DOMAIN must be a valid URL." }),
   LOG_LEVEL: z.enum(["error", "warn", "info", "debug"]).default("info"),
   MONGO_DB_CONNECTION_STRING: z
     .string()
     .url({ message: "Invalid MongoDB connection string format" }),
   MONGO_DB_NAME: z.string().default("plan-verifier"),
-  NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+  NODE_ENV: z
+    .enum(["development", "test", "production"])
+    .default("development"),
   PORT: z.coerce.number().default(4503),
   HEALTH_PORT: z.coerce.number().default(4504),
   SSL_PRIVATE_KEY_PATH: z.string().default(""),
