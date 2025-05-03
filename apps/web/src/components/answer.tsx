@@ -73,7 +73,11 @@ export function Answer({ scenario }: AnswerProperties) {
   ] as ChatMessage[];
 
   return (
-    <Card className="relative py-2 w-[800px] overflow-hidden">
+    <Card
+      className="relative py-2 w-[800px] overflow-hidden"
+      role="region"
+      aria-label="Answer section"
+    >
       <CardContent className="px-2">
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -85,7 +89,7 @@ export function Answer({ scenario }: AnswerProperties) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="px-2 py-2 gap-0">
+              <div id="answer-content" className="px-2 py-2 gap-0">
                 <Explanations scenario={scenario} />
                 {canClear && <Chat messages={messages} />}
               </div>
@@ -100,6 +104,8 @@ export function Answer({ scenario }: AnswerProperties) {
               className="flex justify-center px-4 py-4"
             >
               <Button
+                aria-expanded={isOpen}
+                aria-controls="answer-content"
                 onClick={() => {
                   setIsOpen(true);
                 }}
