@@ -96,13 +96,22 @@ const FPE = ({ scenario }: FPEProperties) => {
           Amend
         </button>
 
-        <FPEBox aria-labelledby="fpe-aid-label" className="fpe-aid-box border-none">
+        <FPEBox
+          aria-labelledby="fpe-aid-label"
+          className="fpe-aid-box border-none"
+        >
           {plan?.aid}
         </FPEBox>
-        <FPEBox aria-labelledby="fpe-aid-label" className="fpe-cruiseid-box border-none">
+        <FPEBox
+          aria-labelledby="fpe-aid-label"
+          className="fpe-cruiseid-box border-none"
+        >
           {plan?.cid}
         </FPEBox>
-        <FPEBox aria-labelledby="fpe-bcn-label" className="fpe-bcn-box border-none">
+        <FPEBox
+          aria-labelledby="fpe-bcn-label"
+          className="fpe-bcn-box border-none"
+        >
           {plan?.bcn}
         </FPEBox>
         <FPEInput
@@ -172,8 +181,8 @@ const FPE = ({ scenario }: FPEProperties) => {
           <span className="font-semibold text-[var(--color-fpe-conditions-label-foreground)]">
             Conditions:
           </span>{" "}
-          Flow: {changeCase.sentenceCase(airportConditions.flow)}. Altimeter:{" "}
-          {airportConditions.altimeter.toFixed(2)}. Departure{" "}
+          Flow: {changeCase.sentenceCase(airportConditions.flow ?? "")}.
+          Altimeter: {airportConditions.altimeter?.toFixed(2)}. Departure{" "}
           {airportConditions.departureOnline ? "online" : "offline"}.
         </div>
       )}
