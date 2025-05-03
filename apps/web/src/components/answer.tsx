@@ -3,11 +3,7 @@ import { Chat, ChatMessage } from "@/components/chat";
 import { Craft } from "@/components/craft";
 import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Popover,
   PopoverContent,
@@ -16,7 +12,8 @@ import {
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { getFormattedClearanceLimit } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
-import { ChevronsUpDown, Info } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Info } from "lucide-react";
 import { useState } from "react";
 
 interface AnswerProperties {
@@ -76,26 +73,49 @@ export function Answer({ scenario }: AnswerProperties) {
   ] as ChatMessage[];
 
   return (
-    <div className="w-[800px] bg-[var(--muted)]">
-      <Collapsible
-        open={isOpen}
-        onOpenChange={setIsOpen}
-        aria-expanded={isOpen}
-        aria-controls="answer-content"
-      >
-        <CollapsibleTrigger className="mb-1 mt-1" asChild>
-          <Button variant="ghost">
-            {isOpen ? "Hide answer" : "Show answer"}
-            <ChevronsUpDown className="h-4 w-4" />
-          </Button>
-        </CollapsibleTrigger>
-        <CollapsibleContent id="answer-content" className="px-3 pb-3">
-          <div>
-            <Explanations scenario={scenario} />
-            {canClear && <Chat messages={messages} />}
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
-    </div>
+    <Card
+      className="relative py-2 w-[800px] overflow-hidden"
+      role="region"
+      aria-label="Answer section"
+    >
+      <CardContent className="px-2">
+        <AnimatePresence mode="wait">
+          {isOpen ? (
+            <motion.div
+              key="answer"
+              layout
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div id="answer-content" className="px-2 py-2 gap-0">
+                <Explanations scenario={scenario} />
+                {canClear && <Chat messages={messages} />}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="button"
+              layout
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1 }}
+              className="flex justify-center px-4 py-4"
+            >
+              <Button
+                aria-expanded={isOpen}
+                aria-controls="answer-content"
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                Show answer
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </CardContent>
+    </Card>
   );
 }
