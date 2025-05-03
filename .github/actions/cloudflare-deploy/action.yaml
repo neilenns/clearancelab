@@ -35,6 +35,15 @@ inputs:
   deploy_env:
     required: true
     description: "The environment to deploy to (e.g., production, staging)"
+  turbo_token:
+    required: true
+    description: "Turborepo token for remote cache authentication"
+  turbo_api:
+    required: true
+    description: "API endpoint for Turborepo remote cache"
+  turbo_team:
+    required: true
+    description: "Team name for Turborepo remote cache"
 
 runs:
   using: "composite"
@@ -88,3 +97,6 @@ runs:
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
         DEPLOY_ENV: ${{ inputs.deploy_env }}
+        TURBO_API: ${{ inputs.turbo_api }}
+        TURBO_TEAM: ${{ inputs.turbo_team }}
+        TURBO_TOKEN: ${{ inputs.turbo_token }}
