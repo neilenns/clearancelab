@@ -33,3 +33,12 @@ export const getFormattedClearanceLimit = (scenario: Scenario) => {
  */
 export const capitalizeFirst = (value: string) =>
   value.charAt(0).toUpperCase() + value.slice(1);
+
+/**
+ * Returns the telephony information for the flight.
+ * @param scenario The scenario object containing information about the flight
+ * @returns The CRAFT telephony, or the flight callsign if not available
+ */
+export const getTelephony = (scenario: Scenario) => {
+  return scenario.craft?.telephony ?? scenario.plan.aid;
+};
