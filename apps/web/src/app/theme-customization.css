@@ -1,10 +1,6 @@
 :root {
   --font-sans: var(--font-peridot-pe-variable);
   --font-mono: var(--font-geist-mono);
-  --color-chat-pilot: oklch(0.965 0.025 196.69);
-  --color-chat-pilot-foreground: oklch(0.384 0.1 206.94);
-  --color-chat-controller: oklch(0.9763 0.032 142.98);
-  --color-chat-controller-foreground: oklch(0.4173 0.143 148.34);
   --color-fpe: oklch(0.2 0 0 / 1);
   --color-fpe-border: var(--color-border);
   --color-fpe-foreground: var(--color-white);
@@ -26,10 +22,6 @@
 }
 
 .dark {
-  --color-chat-pilot: oklch(0.4 0.12 196.69); /* example darker shade */
-  --color-chat-pilot-foreground: oklch(0.9 0.025 206.94); /* lighter text */
-  --color-chat-controller: oklch(0.36 0.07 142.98);
-  --color-chat-controller-foreground: oklch(0.93 0.02 148.34);
   --color-alert-error: var(--color-red-700);
   --color-alert-info: var(--color-blue-700);
   --color-alert-ok: var(--color-blue-700);
