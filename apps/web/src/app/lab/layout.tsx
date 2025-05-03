@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/app-sidebar/app-sidebar";
+import { LabSidebar } from "@/components/app-sidebar/lab-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { apiFetch } from "@/lib/api";
 import { Scenario } from "@workspace/validators";
@@ -35,11 +35,12 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const scenarios = (await apiFetch<Scenario[]>("/scenarios/?summary=true")) ?? [];
+  const scenarios =
+    (await apiFetch<Scenario[]>("/scenarios/?summary=true")) ?? [];
 
   return (
     <SidebarProvider>
-      <AppSidebar scenarios={scenarios} />
+      <LabSidebar scenarios={scenarios} />
       <SidebarInset>{children}</SidebarInset>
     </SidebarProvider>
   );
