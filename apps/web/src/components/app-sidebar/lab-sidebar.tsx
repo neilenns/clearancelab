@@ -39,6 +39,10 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
       return;
     }
 
+    if (scenarios.length === 0) {
+      return;
+    }
+
     const randomIndex = Math.floor(Math.random() * scenarios.length);
     const randomScenario = scenarios[randomIndex];
 
@@ -50,11 +54,11 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
   useKey("s", onSurprise);
 
   return (
-    <aside>
+    <aside aria-label="Scenarios">
       <Sidebar {...properties}>
         <SidebarHeader>
           <h3>Scenarios</h3>
-          <Button onClick={onSurprise}>
+          <Button onClick={onSurprise} aria-label="Select a random scenario">
             <WandSparkles />
             Surprise me!
           </Button>
