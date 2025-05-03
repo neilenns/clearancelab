@@ -6,6 +6,8 @@ config({
 });
 
 const environmentSchema = z.object({
+  API_RATE_LIMIT_MAX: z.coerce.number().default(100),
+  API_RATE_LIMIT_MINUTE_WINDOW: z.coerce.number().default(5),
   AUTH0_AUDIENCE: z.string(),
   AUTH0_DOMAIN: z
     .string()
