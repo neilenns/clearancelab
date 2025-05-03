@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import helmet from "helmet";
 import fs from "node:fs";
 import http, { RequestListener } from "node:http";
 import https from "node:https";
@@ -9,6 +10,7 @@ import { corsOptions, setWhitelist } from "./lib/cors.js";
 import { ENV } from "./lib/environment.js";
 import { logger } from "./lib/logger.js";
 import applyMiddleware from "./middleware/index.js";
+import { rateLimiter } from "./middleware/rate-limit.js";
 import healthRoutes from "./routes/health.js";
 import addRoutes from "./routes/index.js";
 
@@ -72,6 +74,8 @@ function startHealthServer() {
 
     // Security
     app.use(cors(corsOptions));
+    app.use(helmet());
+    app.use(rateLimiter);
 
     healthApp.use("/health", healthRoutes);
 
@@ -98,6 +102,8 @@ async function startServer() {
 
     // Security
     app.use(cors(corsOptions));
+    app.use(helmet());
+    app.use(rateLimiter);
 
     // Middleware and routes
     applyMiddleware(app);
