@@ -112,7 +112,6 @@ export function getRandomScenario(): Scenario {
       clearanceLimit: "",
       route: "",
       altitude: "",
-      frequency: "",
       telephony: "",
     },
     airportConditions: {

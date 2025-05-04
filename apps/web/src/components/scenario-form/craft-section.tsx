@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { ScenarioInput } from "@workspace/validators";
 import { useFormContext, useWatch } from "react-hook-form";
+import { NumberInput } from "../number-input";
 
 export function CraftSection() {
   const { control } = useFormContext<ScenarioInput>();
@@ -140,7 +141,14 @@ export function CraftSection() {
                         : "Enable departure online to set a departure frequency."}
                     </FormDescription>
                     <FormControl>
-                      <Input id="frequency" {...field} />
+                      <NumberInput
+                        className="w-30"
+                        id="frequency"
+                        fixedDecimalScale={true}
+                        decimalScale={3}
+                        aria-label="Departure frequency"
+                        {...field}
+                      ></NumberInput>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

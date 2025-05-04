@@ -114,3 +114,20 @@ export const getSkyVectorUrl = (plan: Plan | undefined) => {
 
   return `https://skyvector.com/?fpl=${encodeURIComponent(flightPlanString)}`;
 };
+
+/**
+ * Returns the formatted departure frequency for the flight.
+ * @param scenario The scenario object containing information about the flight
+ * @returns The formatted departure frequency as a string, or "offline" if not available
+ */
+export const getFormattedDepartureFrequency = (scenario: Scenario) => {
+  const { craft } = scenario;
+
+  if (!scenario.airportConditions.departureOnline) {
+    return "offline";
+  }
+
+  const departure = craft?.frequency ?? "offline";
+
+  return typeof departure === "number" ? departure.toFixed(3) : departure;
+};

@@ -84,6 +84,7 @@ export const onSubmitScenario = async (
   const formData = unflatten(Object.fromEntries(payload));
   assertObject(formData.airportConditions);
   assertObject(formData.plan);
+  assertObject(formData.craft);
 
   // Fix up the ID. If it is an empty string, set it to undefined.
   if (formData._id === "") {
@@ -111,6 +112,7 @@ export const onSubmitScenario = async (
   formData.airportConditions.altimeter = convertToNumber(
     formData.airportConditions.altimeter,
   );
+  formData.craft.frequency = convertToNumber(formData.craft.frequency);
 
   const toParse = {
     ...formData,
