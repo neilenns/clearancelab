@@ -1,6 +1,6 @@
 "use server";
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
-import { apiFetch } from "@/lib/api";
+import { getJson } from "@/lib/api";
 import { ScenarioInput } from "@workspace/validators";
 import { Suspense } from "react";
 import Loading from "./loading";
@@ -10,7 +10,7 @@ type Parameters = Promise<{ id: string }>;
 
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
-  const response = await apiFetch<ScenarioInput>(`/scenarios/${id}`);
+  const response = await getJson<ScenarioInput>(`/scenarios/${id}`);
   const scenario = response?.data;
 
   if (!scenario) {

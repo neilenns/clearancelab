@@ -1,6 +1,6 @@
 "use server";
 
-import { apiFetch } from "@/lib/api";
+import { getJson } from "@/lib/api";
 import { Scenario } from "@workspace/validators";
 
 interface FetchScenariosOptions {
@@ -10,7 +10,7 @@ interface FetchScenariosOptions {
 export const fetchScenarios = async ({
   summary = false,
 }: FetchScenariosOptions = {}): Promise<Scenario[]> => {
-  const response = await apiFetch<Scenario[]>(`/scenarios/?summary=${summary}`);
+  const response = await getJson<Scenario[]>(`/scenarios/?summary=${summary}`);
   const scenarios = response?.data ?? [];
 
   return scenarios;

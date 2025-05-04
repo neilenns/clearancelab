@@ -1,6 +1,6 @@
 "use server";
 
-import { apiDelete, apiFetch, ApiResponse, postJson, putJson } from "@/lib/api";
+import { apiDelete, ApiResponse, getJson, postJson, putJson } from "@/lib/api";
 import {
   assertObject,
   convertToBoolean,
@@ -44,7 +44,7 @@ export async function fetchPlanByCallsign(
   let scenario: ApiResponse<Scenario>;
 
   try {
-    scenario = await apiFetch<Scenario>(
+    scenario = await getJson<Scenario>(
       `/vatsim/flightplan/${requestedCallsign}`,
     );
   } catch (error) {

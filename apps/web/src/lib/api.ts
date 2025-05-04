@@ -71,7 +71,7 @@ async function apiRequest<T = unknown>(
   };
 }
 
-export async function apiFetch<T>(
+export async function getJson<T>(
   path: string,
   options: ApiRequestOptions = {},
 ): Promise<ApiResponse<T>> {
