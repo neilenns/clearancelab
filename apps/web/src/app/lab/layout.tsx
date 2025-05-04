@@ -1,4 +1,4 @@
-import { fetchScenarios } from "@/api/fetch-scenarios";
+import { fetchScenarios } from "@/api/scenarios/fetch-scenarios";
 import { LabSidebar } from "@/components/app-sidebar/lab-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";

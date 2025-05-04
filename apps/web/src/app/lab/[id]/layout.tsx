@@ -2,7 +2,7 @@
 // Solution comes from: https://stackoverflow.com/a/79182354/9206264
 // The fetching of data to pass to the page is based off this:
 // https://medium.com/@kishorjena/solving-server-to-client-data-flow-in-next-js-handling-index-and-non-index-pages-62d9194537cc
-import { fetchScenarioById } from "@/api/fetch-scenario-by-id";
+import { fetchScenarioById } from "@/api/scenarios/fetch-scenario-by-id";
 import { Scenario } from "@workspace/validators";
 import { Metadata } from "next";
 

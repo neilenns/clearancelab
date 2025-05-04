@@ -1,7 +1,7 @@
 "use server";
 
-import { fetchScenarioById } from "@/api/fetch-scenario-by-id";
-import { fetchScenarios } from "@/api/fetch-scenarios";
+import { fetchScenarioById } from "@/api/scenarios/fetch-scenario-by-id";
+import { fetchScenarios } from "@/api/scenarios/fetch-scenarios";
 import { getAuth0Client } from "@/lib/auth0";
 import { ENV } from "@/lib/environment";
 import { Scenario } from "@workspace/validators";
