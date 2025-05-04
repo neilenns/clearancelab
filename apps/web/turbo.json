@@ -14,7 +14,9 @@
         "AUTH0_SCOPE",
         "AUTH0_SECRET",
         "MONGO_DB_CONNECTION_STRING",
-        "MONGO_DB_NAME"
+        "MONGO_DB_NAME",
+        "NODE_ENV",
+        "DISABLE_AUTH"
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
@@ -30,7 +32,9 @@
         "AUTH0_SCOPE",
         "AUTH0_SECRET",
         "CLOUDFLARE_ACCOUNT_ID",
-        "CLOUDFLARE_API_TOKEN"
+        "CLOUDFLARE_API_TOKEN",
+        "NODE_ENV",
+        "DISABLE_AUTH"
       ]
     },
     "ci": {
@@ -45,7 +49,9 @@
         "AUTH0_SCOPE",
         "AUTH0_SECRET",
         "MONGO_DB_CONNECTION_STRING",
-        "MONGO_DB_NAME"
+        "MONGO_DB_NAME",
+        "NODE_ENV",
+        "DISABLE_AUTH"
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
@@ -59,7 +65,9 @@
         "AUTH0_CLIENT_SECRET",
         "AUTH0_DOMAIN",
         "AUTH0_SCOPE",
-        "AUTH0_SECRET"
+        "AUTH0_SECRET",
+        "NODE_ENV",
+        "DISABLE_AUTH"
       ]
     }
   }

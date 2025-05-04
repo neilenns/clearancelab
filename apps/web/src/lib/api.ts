@@ -19,7 +19,9 @@ async function apiRequest<T>(
     ...(apiKey ? { "x-api-key": apiKey } : {}),
   };
 
-  if (options.withAuthToken) {
+  const disableAuth = ENV.DISABLE_AUTH && ENV.NODE_ENV === "development";
+
+  if (options.withAuthToken && !disableAuth) {
     try {
       const token = await auth0.getAccessToken();
       headers.Authorization = `Bearer ${token.token}`;

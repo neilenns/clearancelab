@@ -3,9 +3,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth0 } from "@/lib/auth0";
 import { SessionData } from "@auth0/nextjs-auth0/types";
 
+const disableAuth =
+  process.env.NODE_ENV === "development" && process.env.DISABLE_AUTH === "true";
+
 // This method of protecting routes comes from https://github.com/auth0/nextjs-auth0/blob/main/EXAMPLES.md#middleware
 export async function middleware(request: NextRequest) {
   let authorizationResponse: NextResponse;
+
+  if (disableAuth) {
+    return NextResponse.next();
+  }
 
   try {
     authorizationResponse = await auth0.middleware(request);
