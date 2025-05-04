@@ -91,7 +91,7 @@ const FPE = ({ scenario }: FPEProperties) => {
           {skyVectorUrl && flightAwareUrl ? (
             <TooltipProvider aria-label="Additional information">
               <Tooltip>
-                <TooltipTrigger className="underline decoration-[var(--color-fpe-foreground)] decoration-dotted decoration-[2px] underline-offset-[4px] cursor-help">
+                <TooltipTrigger className="underline decoration-[var(--color-fpe-foreground)] decoration-dotted decoration-[2px] underline-offset-[4px] cursor-pointer">
                   RTE
                 </TooltipTrigger>
                 <TooltipContent
