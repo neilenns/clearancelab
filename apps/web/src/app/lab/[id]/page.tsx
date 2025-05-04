@@ -1,7 +1,8 @@
 "use server";
 
 import { apiFetch } from "@/lib/api";
-import { auth0 } from "@/lib/auth0";
+import { getAuth0Client } from "@/lib/auth0";
+import { ENV } from "@/lib/environment";
 import { Scenario } from "@workspace/validators";
 import ClientSection from "./client-section";
 import NotFound from "./not-found";
@@ -18,11 +19,19 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
   const scenario = await apiFetch<Scenario>(`/scenarios/${id}`);
-  const session = await auth0.getSession();
+  const session = ENV.AUTH_DISABLED
+    ? undefined
+    : await getAuth0Client().getSession();
 
   if (!scenario) {
     return <NotFound id={id} />;
   }
 
-  return <ClientSection scenario={scenario} canEdit={session !== null} />;
+  return (
+    <ClientSection
+      aria-label="Scenario viewer"
+      scenario={scenario}
+      canEdit={Boolean(session) || ENV.AUTH_DISABLED}
+    />
+  );
 }

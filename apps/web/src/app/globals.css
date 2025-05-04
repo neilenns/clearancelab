@@ -3,7 +3,7 @@
 @import "tw-animate-css";
 @plugin 'tailwind-scrollbar';
 
-@custom-variant dark &:is(.dark *);
+@custom-variant dark (&:is(.dark *));
 
 :root {
   --background: oklch(0.98 0 286.38);
