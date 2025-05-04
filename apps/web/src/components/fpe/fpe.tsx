@@ -1,7 +1,15 @@
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utilities";
+import { getFlightAwareUrl, getSkyVectorUrl } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import * as changeCase from "change-case";
 import { useCallback, useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 import { FPEBox } from "./fpe-box";
 import { FPEInput } from "./fpe-input";
 import { FPELabel } from "./fpe-label";
@@ -12,6 +20,7 @@ interface FPEProperties {
   scenario?: Scenario | undefined;
 }
 
+// The dotted underline under RTE comes from https://notchtools.com/css-underline-generator
 const FPE = ({ scenario }: FPEProperties) => {
   const { plan, airportConditions } = scenario ?? {};
   const [isDirty, setIsDirty] = useState(false);
@@ -23,6 +32,9 @@ const FPE = ({ scenario }: FPEProperties) => {
   const handleAmend = useCallback(() => {
     setIsDirty(false);
   }, []);
+
+  const skyVectorUrl = getSkyVectorUrl(plan);
+  const flightAwareUrl = getFlightAwareUrl(plan);
 
   return (
     <div className="w-[800px] mt-2 mb-2">
@@ -76,7 +88,50 @@ const FPE = ({ scenario }: FPEProperties) => {
           ALT
         </FPELabel>
         <FPELabel id="fpe-rte-label" className="fpe-rte-label text-right py-1">
-          RTE
+          {skyVectorUrl && flightAwareUrl ? (
+            <TooltipProvider aria-label="Additional information">
+              <Tooltip>
+                <TooltipTrigger className="underline decoration-[var(--color-fpe-foreground)] decoration-dotted decoration-[2px] underline-offset-[4px] cursor-pointer">
+                  RTE
+                </TooltipTrigger>
+                <TooltipContent
+                  className="bg-popover fill-[var(--color-popover)]"
+                  side="right"
+                >
+                  {skyVectorUrl && (
+                    <p>
+                      <Button variant="link">
+                        <a
+                          href={skyVectorUrl ?? ""}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label="View flight plan on SkyVector, opens in new tab"
+                        >
+                          View on SkyVector
+                        </a>
+                      </Button>
+                    </p>
+                  )}
+                  {flightAwareUrl && (
+                    <p>
+                      <Button variant="link">
+                        <a
+                          href={flightAwareUrl ?? ""}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label="View flight plan on FlightAware, opens in new tab"
+                        >
+                          View on FlightAware
+                        </a>
+                      </Button>
+                    </p>
+                  )}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ) : (
+            "RTE"
+          )}
         </FPELabel>
         <FPELabel id="fpe-rmk-label" className="fpe-rmk-label text-right py-1">
           RMK
