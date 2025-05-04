@@ -115,7 +115,7 @@ ScenarioSchema.statics.findAll = async function (
         .select(
           "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt",
         )
-        .sort({ "plan.dep": 1, "plan.dest": 1, "plan.callsign": 1 })
+        .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
         .lean()
         .exec();
 
@@ -123,7 +123,7 @@ ScenarioSchema.statics.findAll = async function (
     }
 
     return await this.find({})
-      .sort({ "plan.dep": 1, "plan.dest": 1, "plan.callsign": 1 })
+      .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
       // I have no idea why this is including all the matched scenarios in a matchedScenarios
       // field. Force exclude them so I can move on to other things.
       .populate("depAirportInfo", "-matchedScenarios") // Populate the departure airport info
