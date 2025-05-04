@@ -51,6 +51,9 @@ export async function middleware(request: NextRequest) {
     );
   }
 
+  // This ensures the access token is refreshed and available to server actions.
+  await getAuth0Client().getAccessToken(request, authorizationResponse);
+
   // The headers from the auth middleware should always be returned
   return authorizationResponse;
 }
