@@ -8,7 +8,7 @@ interface ApiRequestOptions {
 export type ApiResponse<T> =
   | {
       status: number;
-      data: T;
+      data: T | undefined;
     }
   | undefined;
 
@@ -56,9 +56,17 @@ async function apiRequest<T = unknown>(
     throw new Error(`API error ${response.status.toString()}: ${message}`);
   }
 
-  if (response.status === 204) return;
+  const isJson = response.headers
+    .get("content-type")
+    ?.includes("application/json");
+
+  const data =
+    isJson && response.status !== 204
+      ? ((await response.json()) as T)
+      : undefined;
+
   return {
-    data: (await response.json()) as T,
+    data,
     status: response.status,
   };
 }

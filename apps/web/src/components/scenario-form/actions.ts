@@ -9,7 +9,6 @@ import {
 } from "@workspace/plantools";
 import { Scenario, ScenarioSchema } from "@workspace/validators";
 import { revalidatePath } from "next/cache";
-import { toast } from "sonner";
 
 export type OnSubmitScenarioState = {
   success: boolean;
@@ -56,7 +55,7 @@ export async function fetchPlanByCallsign(
     };
   }
 
-  if (!scenario) {
+  if (!scenario || !scenario.data) {
     return {
       success: false,
       message: `No flight plan found for ${requestedCallsign}.`,
@@ -69,17 +68,16 @@ export async function fetchPlanByCallsign(
   };
 }
 
-export const onDeleteScenario = async (id: string): Promise<void> => {
-  console.log(`Deleting scenario with id: ${id}`);
-
+export const onDeleteScenario = async (id: string): Promise<boolean> => {
   const result = await apiDelete(`/scenarios/${id}`);
+  const success = result?.status === 204;
 
-  if (result?.status !== 204) {
-    toast.error(`Unable to delete scenario`);
-    return;
+  if (success) {
+    revalidatePath(`/lab/${id}`);
+    revalidatePath("/lab");
   }
 
-  console.log(`Delete result: ${result}`);
+  return success;
 };
 
 // A lot of how this works comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
@@ -179,7 +177,7 @@ export const onSubmitScenario = async (
       };
     }
 
-    if (response.data._id) {
+    if (response.data?._id) {
       const cachePath = `/lab/${response.data._id.toString()}`;
 
       revalidatePath(cachePath);
@@ -190,7 +188,7 @@ export const onSubmitScenario = async (
       success: true,
       hasSubmitted: true,
       message: `Scenario ${isEdit ? "updated" : "saved"}!`,
-      id: response.data._id?.toString(),
+      id: response.data?._id?.toString(),
     };
   } catch (error) {
     console.error(error);

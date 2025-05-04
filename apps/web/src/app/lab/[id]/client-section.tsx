@@ -17,6 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Scenario } from "@workspace/validators";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; // App Router
+import { toast } from "sonner";
 
 interface ClientSectionProperties {
   scenario: Scenario;
@@ -27,13 +29,21 @@ export default function ClientSection({
   scenario,
   canEdit,
 }: ClientSectionProperties) {
+  const router = useRouter();
+
   const deleteScenario = async () => {
     if (!scenario._id) {
       console.error("Scenario ID is missing");
       return;
     }
 
-    await onDeleteScenario(scenario._id);
+    const result = await onDeleteScenario(scenario._id);
+
+    if (result) {
+      router.replace("/lab");
+    } else {
+      toast.error("Unable to delete scenario.");
+    }
   };
 
   return (
