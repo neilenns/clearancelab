@@ -10,8 +10,8 @@ type Parameters = Promise<{ id: string }>;
 
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
-  const result = await apiFetch<ScenarioInput>(`/scenarios/${id}`);
-  const scenario = result?.data;
+  const response = await apiFetch<ScenarioInput>(`/scenarios/${id}`);
+  const scenario = response?.data;
 
   if (!scenario) {
     return <NotFound id={id} />;
