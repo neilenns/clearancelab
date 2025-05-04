@@ -94,6 +94,9 @@ export async function putJson<T>(
   return apiRequest<T>("PUT", path, body, options);
 }
 
-export async function apiDelete(path: string): Promise<ApiResponse<void>> {
-  return apiRequest<void>("DELETE", path);
+export async function apiDelete(
+  path: string,
+  options: ApiRequestOptions = {},
+): Promise<ApiResponse<void>> {
+  return apiRequest<void>("DELETE", path, undefined, options);
 }

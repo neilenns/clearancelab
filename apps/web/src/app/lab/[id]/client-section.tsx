@@ -61,14 +61,18 @@ export default function ClientSection({
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently the
+                  This action cannot be undone. This will permanently delete the
                   scenario.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction asChild>
-                  <Button onClick={deleteScenario} variant="destructive">
+                  <Button
+                    onClick={deleteScenario}
+                    variant="destructive"
+                    aria-label="Delete scenario"
+                  >
                     Delete
                   </Button>
                 </AlertDialogAction>

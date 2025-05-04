@@ -69,7 +69,7 @@ export async function fetchPlanByCallsign(
 }
 
 export const onDeleteScenario = async (id: string): Promise<boolean> => {
-  const result = await apiDelete(`/scenarios/${id}`);
+  const result = await apiDelete(`/scenarios/${id}`, { withAuthToken: true });
   const success = result?.status === 204;
 
   if (success) {
