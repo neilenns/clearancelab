@@ -73,7 +73,7 @@ Default values for local development are set in the [`devcontainer.json`](.devco
 | `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
 | `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
 | `DISABLE_AUTH`               | Disables authentication for local development.          | `true`                   |
-| `NODE_ENV`                   | Environment for the API server.                         | `development`            |
+| `NODE_ENV`                   | Node.js runtime environment for all services.           | `development`            |
 
 Auth0 is disabled by default for local development. If you want to test authentication, set the `DISABLE_AUTH` variable to `false`. This will enable Auth0 and require the following variables to be set:
 
@@ -109,7 +109,7 @@ To speed builds, the following environment variables can be set to enable TurboR
 | `TURBO_TOKEN` | Token to grant access to the remote cache. |
 
 > [!IMPORTANT]
-> If new environment variables are added to the code, they must be added to the dependency list in [`turbo.json`](./turbo.json) or the relevant `turbo.json` file for the project. Otherwise, they will not be available to the tasks when run.
+> If you add new environment variables in the code, also add them to the dependency list in the root [`turbo.json`](./turbo.json), or to the project-specific `turbo.json`. Otherwise, those variables will not be available when tasks run.
 
 ### Production
 

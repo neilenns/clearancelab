@@ -29,6 +29,7 @@ export default async function Page({ params }: { params: Parameters }) {
 
   return (
     <ClientSection
+      aria-label="Scenario viewer"
       scenario={scenario}
       canEdit={Boolean(session) || ENV.AUTH_DISABLED}
     />

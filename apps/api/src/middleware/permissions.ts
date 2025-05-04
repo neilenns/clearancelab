@@ -19,6 +19,7 @@ export const verifyUser = async (
     // Disable auth in development mode
     if (ENV.DISABLE_AUTH && ENV.NODE_ENV === "development") {
       next();
+      return;
     }
 
     await middleware(request, response, (error?: unknown) => {

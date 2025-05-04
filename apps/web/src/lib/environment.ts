@@ -20,7 +20,10 @@ const environmentSchema = z
         }
         return value;
       }),
-    AUTH0_AUDIENCE: z.string().optional(),
+    AUTH0_AUDIENCE: z
+      .string()
+      .url({ message: "AUTH0_AUDIENCE must be a valid URL." })
+      .optional(),
     AUTH0_CLIENT_SECRET: z.string().optional(), // To generate this use `openssl rand -hex 32`
     AUTH0_CLIENT_ID: z.string().optional(),
     AUTH0_DOMAIN: z
@@ -43,40 +46,20 @@ const environmentSchema = z
     }
 
     if (!environment.DISABLE_AUTH) {
-      if (!environment.AUTH0_DOMAIN) {
-        context.addIssue({
-          path: ["AUTH0_DOMAIN"],
-          code: z.ZodIssueCode.custom,
-          message: "AUTH0_DOMAIN is required when DISABLE_AUTH is false",
-        });
-      }
-      if (!environment.AUTH0_AUDIENCE) {
-        context.addIssue({
-          path: ["AUTH0_AUDIENCE"],
-          code: z.ZodIssueCode.custom,
-          message: "AUTH0_AUDIENCE is required when DISABLE_AUTH is false",
-        });
-      }
-      if (!environment.AUTH0_CLIENT_ID) {
-        context.addIssue({
-          path: ["AUTH0_CLIENT_ID"],
-          code: z.ZodIssueCode.custom,
-          message: "AUTH0_CLIENT_ID is required when DISABLE_AUTH is false",
-        });
-      }
-      if (!environment.AUTH0_CLIENT_SECRET) {
-        context.addIssue({
-          path: ["AUTH0_CLIENT_SECRET"],
-          code: z.ZodIssueCode.custom,
-          message: "AUTH0_CLIENT_SECRET is required when DISABLE_AUTH is false",
-        });
-      }
-      if (!environment.AUTH0_SECRET) {
-        context.addIssue({
-          path: ["AUTH0_SECRET"],
-          code: z.ZodIssueCode.custom,
-          message: "AUTH0_SECRET is required when DISABLE_AUTH is false",
-        });
+      for (const key of [
+        "AUTH0_DOMAIN",
+        "AUTH0_AUDIENCE",
+        "AUTH0_CLIENT_ID",
+        "AUTH0_CLIENT_SECRET",
+        "AUTH0_SECRET",
+      ] as const) {
+        if (!environment[key]) {
+          context.addIssue({
+            path: [key],
+            code: z.ZodIssueCode.custom,
+            message: `${key} is required when DISABLE_AUTH is false`,
+          });
+        }
       }
     }
   });

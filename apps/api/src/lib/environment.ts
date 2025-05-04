@@ -9,7 +9,10 @@ const environmentSchema = z
   .object({
     API_RATE_LIMIT_MAX: z.coerce.number().default(100),
     API_RATE_LIMIT_MINUTE_WINDOW: z.coerce.number().default(5),
-    AUTH0_AUDIENCE: z.string().optional(),
+    AUTH0_AUDIENCE: z
+      .string()
+      .url({ message: "AUTH0_AUDIENCE must be a valid URL." })
+      .optional(),
     AUTH0_DOMAIN: z
       .string()
       .url({ message: "AUTH0_DOMAIN must be a valid URL." })
@@ -41,19 +44,15 @@ const environmentSchema = z
     }
 
     if (!environment.DISABLE_AUTH) {
-      if (!environment.AUTH0_DOMAIN) {
-        context.addIssue({
-          path: ["AUTH0_DOMAIN"],
-          code: z.ZodIssueCode.custom,
-          message: "AUTH0_DOMAIN is required when DISABLE_AUTH is false",
-        });
-      }
-      if (!environment.AUTH0_AUDIENCE) {
-        context.addIssue({
-          path: ["AUTH0_AUDIENCE"],
-          code: z.ZodIssueCode.custom,
-          message: "AUTH0_AUDIENCE is required when DISABLE_AUTH is false",
-        });
+      for (const key of ["AUTH0_DOMAIN", "AUTH0_AUDIENCE"] as const) {
+        // eslint-disable-next-line security/detect-object-injection
+        if (!environment[key]) {
+          context.addIssue({
+            path: [key],
+            code: z.ZodIssueCode.custom,
+            message: `${key} is required when DISABLE_AUTH is false`,
+          });
+        }
       }
     }
   });
