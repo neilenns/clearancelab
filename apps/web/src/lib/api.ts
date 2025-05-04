@@ -1,4 +1,4 @@
-import { auth0 } from "@/lib/auth0";
+import { getAuth0Client } from "@/lib/auth0";
 import { ENV } from "./environment";
 
 interface ApiRequestOptions {
@@ -23,7 +23,7 @@ async function apiRequest<T>(
 
   if (options.withAuthToken && !disableAuth) {
     try {
-      const token = await auth0.getAccessToken();
+      const token = await getAuth0Client().getAccessToken();
       headers.Authorization = `Bearer ${token.token}`;
     } catch (error) {
       console.error("Failed to request auth token", error);

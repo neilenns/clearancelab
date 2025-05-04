@@ -72,8 +72,10 @@ Default values for local development are set in the [`devcontainer.json`](.devco
 | `MONGO_DB_CONNECTION_STRING` | URI to the local MongoDB instance.                      | `mongodb://db:27017/`    |
 | `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
 | `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
+| `DISABLE_AUTH`               | Disables authentication for local development.          | `true`                   |
+| `NODE_ENV`                   | Environment for the API server.                         | `development`            |
 
-The API server also needs two Auth0 variables set to validate secured endpoints. These are not currently set automatically, and you'll have to ask for the values from the project maintainers.
+Auth0 is disabled by default for local development. If you want to test authentication, set the `DISABLE_AUTH` variable to `false`. This will enable Auth0 and require the following variables to be set:
 
 | Variable         | Description                                     |
 | ---------------- | ----------------------------------------------- |
@@ -88,15 +90,15 @@ There are additional security-related variables to configure CORS and rate-limit
 | `API_RATE_LIMIT_MINUTE_WINDOW` | Time window for rate limiting in minutes. Default 5.                            |
 | `WHITELISTED_DOMAINS`          | List of domains that are allowed via CORS. Separate multiple domains with `\|`. |
 
-The web app also needs several Auth0 variables set to validate secured endpoints. These are not currently set automatically, and you'll have to ask for the values from the project maintainers.
+The web app also needs several Auth0 variables set to validate secured endpoints. These are only required if you want to test authentication locally (when `DISABLE_AUTH` is set to `false`):
 
-| Variable              | Description                                                                                         | Required |
-| --------------------- | --------------------------------------------------------------------------------------------------- | -------- |
-| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                     | ✅       |
-| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                | ✅       |
-| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                       | ✅       |
-| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. This must be a valid URI and start with https://. | ✅       |
-| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                  | ✅       |
+| Variable              | Description                                                                                         |
+| --------------------- | --------------------------------------------------------------------------------------------------- |
+| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                     |
+| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                |
+| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                       |
+| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. This must be a valid URI and start with https://. |
+| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                  |
 
 To speed builds, the following environment variables can be set to enable TurboRepo remote caching:
 
@@ -107,7 +109,7 @@ To speed builds, the following environment variables can be set to enable TurboR
 | `TURBO_TOKEN` | Token to grant access to the remote cache. |
 
 > [!IMPORTANT]
-> If new environment variables are added to the code, they must be added to the dependency list in [`turbo.json`](./turbo.json). Otherwise, they will not be available to the tasks when run.
+> If new environment variables are added to the code, they must be added to the dependency list in [`turbo.json`](./turbo.json) or the relevant `turbo.json` file for the project. Otherwise, they will not be available to the tasks when run.
 
 ### Production
 

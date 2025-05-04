@@ -89,4 +89,8 @@ if (!result.success) {
   );
 }
 
-export const ENV = result.data;
+export const ENV = {
+  ...result.data,
+  AUTH_DISABLED:
+    result.data.DISABLE_AUTH && result.data.NODE_ENV === "development",
+};
