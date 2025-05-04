@@ -1,6 +1,6 @@
 "use server";
 
-import { apiDelete, ApiResponse, postJson, putJson } from "@/lib/api";
+import { ApiResponse, postJson, putJson } from "@/lib/api";
 import {
   assertObject,
   convertToBoolean,
@@ -17,18 +17,6 @@ export type OnSubmitScenarioState = {
   errors?: Record<string, string[]>;
   id?: string;
   hasSubmitted: boolean;
-};
-
-export const onDeleteScenario = async (id: string): Promise<boolean> => {
-  const result = await apiDelete(`/scenarios/${id}`, { withAuthToken: true });
-  const success = result?.status === 204;
-
-  if (success) {
-    revalidatePath(`/lab/${id}`);
-    revalidatePath("/lab");
-  }
-
-  return success;
 };
 
 // A lot of how this works comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.

@@ -1,8 +1,8 @@
 "use client";
 
+import { deleteScenario } from "@/api/scenarios/delete-scenario";
 import { Answer } from "@/components/answer";
 import FPE from "@/components/fpe/fpe";
-import { onDeleteScenario } from "@/components/scenario-form/actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -31,13 +31,13 @@ export default function ClientSection({
 }: ClientSectionProperties) {
   const router = useRouter();
 
-  const deleteScenario = async () => {
+  const onDeleteScenario = async () => {
     if (!scenario._id) {
       console.error("Scenario ID is missing");
       return;
     }
 
-    const result = await onDeleteScenario(scenario._id);
+    const result = await deleteScenario(scenario._id);
 
     if (result) {
       router.replace("/lab");
@@ -69,7 +69,7 @@ export default function ClientSection({
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction asChild>
                   <Button
-                    onClick={deleteScenario}
+                    onClick={onDeleteScenario}
                     variant="destructive"
                     aria-label="Delete scenario"
                   >
