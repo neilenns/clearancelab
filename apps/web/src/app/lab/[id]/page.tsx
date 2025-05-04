@@ -1,7 +1,7 @@
 "use server";
 
+import { fetchScenarioById } from "@/api/fetch-scenario-by-id";
 import { fetchScenarios } from "@/api/fetch-scenarios";
-import { getJson } from "@/lib/api";
 import { getAuth0Client } from "@/lib/auth0";
 import { ENV } from "@/lib/environment";
 import { Scenario } from "@workspace/validators";
@@ -20,8 +20,7 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
-  const response = await getJson<Scenario>(`/scenarios/${id}`);
-  const scenario = response?.data;
+  const scenario = await fetchScenarioById<Scenario>(id);
 
   if (!scenario) {
     return <NotFound id={id} />;

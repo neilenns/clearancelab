@@ -3,6 +3,7 @@
 // The fetching of data to pass to the page is based off this:
 // https://medium.com/@kishorjena/solving-server-to-client-data-flow-in-next-js-handling-index-and-non-index-pages-62d9194537cc
 import { fetchScenarioById } from "@/api/fetch-scenario-by-id";
+import { Scenario } from "@workspace/validators";
 import { Metadata } from "next";
 
 type Parameters = Promise<{ id: string }>;
@@ -13,7 +14,7 @@ export async function generateMetadata({
   params: Parameters;
 }): Promise<Metadata | undefined> {
   const { id } = await params;
-  const scenario = await fetchScenarioById(id);
+  const scenario = await fetchScenarioById<Scenario>(id);
 
   if (!scenario) {
     return;
