@@ -52,7 +52,7 @@
     "craft": {
       "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
-      "frequency": "124.35",
+      "frequency": 124.35,
       "route": "CASCD4 departure, then as filed",
       "telephony": "Alaska 17"
     },
@@ -87,7 +87,7 @@
     "craft": {
       "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
-      "frequency": "124.35",
+      "frequency": 124.35,
       "route": "LAVAA7 departure, Yakima transition, then as filed",
       "telephony": "Alaska 223"
     },
@@ -156,7 +156,7 @@
     "craft": {
       "altitude": "Climb via SID except maintain 6000",
       "controllerName": "Portland Ground",
-      "frequency": "124.35",
+      "frequency": 124.35,
       "route": "PTLD2 departure, then as filed",
       "telephony": "Alaska 498"
     },
@@ -239,7 +239,6 @@
       },
       "altitude": "climb via SID except maintain 9,000",
       "clearanceLimit": "",
-      "frequency": "",
       "route": "BANGR9, ARRIE transition, then as filed."
     },
     "createdAt": {
