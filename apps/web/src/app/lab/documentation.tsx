@@ -75,7 +75,7 @@ export function Documentation() {
       aria-labelledby="documentation-title"
       className="[&>p]:leading-7 [&>p:not(:first-child)]:mt-6"
     >
-      <h1 id="documentation-title">Welcome to Scenario Lab</h1>
+      <h1 id="documentation-title">Welcome to Clearance Lab</h1>
 
       <p>
         This site helps you learn how to evaluate flight plans for correctness,
