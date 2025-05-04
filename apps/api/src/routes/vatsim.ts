@@ -1,4 +1,5 @@
 import {
+  convertToNumber,
   getRandomBcn,
   getRandomCid,
   getRandomName,
@@ -51,7 +52,7 @@ router.get(
         plan: {
           aid: flightPlan.callsign,
           alt: flightPlan.cruiseAltitude,
-          bcn: getRandomBcn(),
+          bcn: convertToNumber(flightPlan.squawk) ?? getRandomBcn(),
           cid: getRandomCid(),
           dep: flightPlan.departure,
           dest: flightPlan.arrival,

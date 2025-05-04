@@ -167,7 +167,7 @@ const FPE = ({ scenario }: FPEProperties) => {
           aria-labelledby="fpe-bcn-label"
           className="fpe-bcn-box border-none"
         >
-          {plan?.bcn}
+          {plan?.bcn?.toString().padStart(4, "0")}
         </FPEBox>
         <FPEInput
           aria-labelledby="fpe-typ-label"

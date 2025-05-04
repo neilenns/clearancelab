@@ -27,7 +27,9 @@ export function Craft({ scenario }: CraftProperties) {
         {craft?.route && <span>via the {craft.route}.</span>}
         {craft?.altitude && <span>{capitalizeFirst(craft.altitude)}.</span>}
         <span>Departure is {getFormattedDepartureFrequency(scenario)}.</span>
-        {scenario.plan.bcn && <span>Squawk {scenario.plan.bcn}.</span>}
+        {scenario.plan.bcn && (
+          <span>Squawk {scenario.plan.bcn.toString().padStart(4, "0")}.</span>
+        )}
       </p>
     </section>
   );
