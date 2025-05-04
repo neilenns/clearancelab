@@ -105,6 +105,7 @@ const FPE = ({ scenario }: FPEProperties) => {
                           href={skyVectorUrl ?? ""}
                           target="_blank"
                           rel="noreferrer"
+                          aria-label="View flight plan on SkyVector, opens in new tab"
                         >
                           View on SkyVector
                         </a>
@@ -118,6 +119,7 @@ const FPE = ({ scenario }: FPEProperties) => {
                           href={flightAwareUrl ?? ""}
                           target="_blank"
                           rel="noreferrer"
+                          aria-label="View flight plan on FlightAware, opens in new tab"
                         >
                           View on FlightAware
                         </a>
