@@ -14,11 +14,13 @@ export async function generateMetadata({
   params: Parameters;
 }): Promise<Metadata | undefined> {
   const { id } = await params;
-  const scenario = await apiFetch<Scenario>(`/scenarios/${id}`);
+  const response = await apiFetch<Scenario>(`/scenarios/${id}`);
 
-  if (!scenario) {
+  if (!response) {
     return;
   }
+
+  const scenario = response.data;
 
   const title = `${scenario.plan.aid} | Clearance Lab`;
   const description = `Practice flight plan for ${scenario.plan.aid}.`;

@@ -12,8 +12,13 @@ type Parameters = Promise<{ id: string }>;
 // This is the name that next.js uses for the function, it cannot be renamed.
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export async function generateStaticParams() {
-  const scenarios = (await apiFetch<Scenario[]>("/scenarios/")) ?? [];
-  return scenarios.map((scenario) => ({ id: scenario._id }));
+  const scenarios = await apiFetch<Scenario[]>("/scenarios/");
+
+  if (!scenarios) {
+    return [];
+  }
+
+  return scenarios.data.map((scenario) => ({ id: scenario._id }));
 }
 
 export default async function Page({ params }: { params: Parameters }) {
@@ -30,7 +35,7 @@ export default async function Page({ params }: { params: Parameters }) {
   return (
     <ClientSection
       aria-label="Scenario viewer"
-      scenario={scenario}
+      scenario={scenario.data}
       canEdit={Boolean(session) || ENV.AUTH_DISABLED}
     />
   );
