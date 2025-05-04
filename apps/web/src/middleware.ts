@@ -51,6 +51,14 @@ export async function middleware(request: NextRequest) {
     );
   }
 
+  // This ensures the access token is refreshed and available to server actions.
+  // https://github.com/auth0/nextjs-auth0/issues/1520#issuecomment-1778965382
+  try {
+    await getAuth0Client().getAccessToken(request, authorizationResponse);
+  } catch (error) {
+    console.error("Error refreshing access token:", error);
+  }
+
   // The headers from the auth middleware should always be returned
   return authorizationResponse;
 }
