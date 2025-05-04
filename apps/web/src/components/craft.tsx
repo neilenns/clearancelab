@@ -1,6 +1,7 @@
 import {
   capitalizeFirst,
   getFormattedClearanceLimit,
+  getFormattedDepartureFrequency,
   getTelephony,
 } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
@@ -12,7 +13,6 @@ interface CraftProperties {
 export function Craft({ scenario }: CraftProperties) {
   const { destAirportInfo, craft } = scenario;
   const clearanceLimit = destAirportInfo?.name ?? craft?.clearanceLimit;
-  const departure = craft?.frequency ?? "offline";
 
   return (
     <section role="region" aria-label="Clearance information">
@@ -26,7 +26,7 @@ export function Craft({ scenario }: CraftProperties) {
         )}
         {craft?.route && <span>via the {craft.route}.</span>}
         {craft?.altitude && <span>{capitalizeFirst(craft.altitude)}.</span>}
-        <span>Departure is {departure}.</span>
+        <span>Departure is {getFormattedDepartureFrequency(scenario)}.</span>
         {scenario.plan.bcn && <span>Squawk {scenario.plan.bcn}.</span>}
       </p>
     </section>
