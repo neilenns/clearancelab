@@ -20,6 +20,7 @@ interface FPEProperties {
   scenario?: Scenario | undefined;
 }
 
+// The dotted underline under RTE comes from https://notchtools.com/css-underline-generator
 const FPE = ({ scenario }: FPEProperties) => {
   const { plan, airportConditions } = scenario ?? {};
   const [isDirty, setIsDirty] = useState(false);
@@ -90,7 +91,7 @@ const FPE = ({ scenario }: FPEProperties) => {
           {skyVectorUrl && flightAwareUrl ? (
             <TooltipProvider aria-label="Additional information">
               <Tooltip>
-                <TooltipTrigger className="underline underline-dotted cursor-help">
+                <TooltipTrigger className="underline decoration-[var(--color-fpe-foreground)] decoration-dotted decoration-[2px] underline-offset-[4px] cursor-help">
                   RTE
                 </TooltipTrigger>
                 <TooltipContent
