@@ -20,7 +20,7 @@ import { useKey } from "react-use";
 
 interface AnswerProperties {
   scenario: Scenario;
-  className: string;
+  className?: string;
 }
 
 export function Answer({ scenario, className }: AnswerProperties) {
