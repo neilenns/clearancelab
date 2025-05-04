@@ -1,6 +1,6 @@
 "use server";
+import { fetchScenarioById } from "@/api/fetch-scenario-by-id";
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
-import { getJson } from "@/lib/api";
 import { ScenarioInput } from "@workspace/validators";
 import { Suspense } from "react";
 import Loading from "./loading";
@@ -10,8 +10,7 @@ type Parameters = Promise<{ id: string }>;
 
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
-  const response = await getJson<ScenarioInput>(`/scenarios/${id}`);
-  const scenario = response?.data;
+  const scenario = await fetchScenarioById<ScenarioInput>(id);
 
   if (!scenario) {
     return <NotFound id={id} />;
