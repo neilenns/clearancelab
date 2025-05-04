@@ -1,6 +1,6 @@
 "use server";
 
-import { apiDelete, ApiResponse, getJson, postJson, putJson } from "@/lib/api";
+import { apiDelete, ApiResponse, postJson, putJson } from "@/lib/api";
 import {
   assertObject,
   convertToBoolean,
@@ -18,55 +18,6 @@ export type OnSubmitScenarioState = {
   id?: string;
   hasSubmitted: boolean;
 };
-
-export type FetchPlanByCallsignState =
-  | {
-      success: true;
-      scenario: Scenario;
-    }
-  | {
-      success: false;
-      message: string;
-    };
-
-export async function fetchPlanByCallsign(
-  callsign: string,
-): Promise<FetchPlanByCallsignState> {
-  const requestedCallsign = callsign.toUpperCase().trim();
-
-  if (!requestedCallsign) {
-    return {
-      success: false,
-      message: "Please enter a callsign.",
-    };
-  }
-
-  let scenario: ApiResponse<Scenario>;
-
-  try {
-    scenario = await getJson<Scenario>(
-      `/vatsim/flightplan/${requestedCallsign}`,
-    );
-  } catch (error) {
-    console.error(error);
-    return {
-      success: false,
-      message: "Unable to fetch flight plan.",
-    };
-  }
-
-  if (!scenario || !scenario.data) {
-    return {
-      success: false,
-      message: `No flight plan found for ${requestedCallsign}.`,
-    };
-  }
-
-  return {
-    success: true,
-    scenario: scenario.data,
-  };
-}
 
 export const onDeleteScenario = async (id: string): Promise<boolean> => {
   const result = await apiDelete(`/scenarios/${id}`, { withAuthToken: true });
