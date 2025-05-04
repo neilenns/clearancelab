@@ -1,4 +1,4 @@
-import { Scenario } from "@workspace/validators";
+import { Plan, Scenario } from "@workspace/validators";
 
 const AirlineCodeRegexPattern = /\b([A-Za-z]{3})([A-Za-z\d]+)\b/;
 
@@ -73,4 +73,44 @@ export const getWeightClass = (equipmentType: string) => {
   if (equipmentType.startsWith("S/")) {
     return "Super";
   }
+};
+
+/**
+ * Returns the FlightAware URL for the flight based on departure and destination.
+ * @param scenario The scenario object containing information about the flight
+ * @returns The FlightAware URL as a string
+ */
+export const getFlightAwareUrl = (plan: Plan | undefined) => {
+  if (!plan) {
+    return;
+  }
+
+  const { dep, dest } = plan;
+
+  if (!dep || !dest) {
+    return;
+  }
+
+  return `https://flightaware.com/analysis/route.rvt?origin=${dep}&destination=${dest}`;
+};
+
+/**
+ * Returns the SkyVector URL for the flight based on departure, route, and destination.
+ * @param scenario The scenario object containing information about the flight
+ * @returns The SkyVector URL as a string
+ */
+export const getSkyVectorUrl = (plan: Plan | undefined) => {
+  if (!plan) {
+    return;
+  }
+
+  const { dep, dest, rte } = plan;
+
+  if (!dep || !dest || !rte) {
+    return;
+  }
+
+  const flightPlanString = `${dep} ${rte} ${dest}`;
+
+  return `https://skyvector.com/?fpl=${encodeURIComponent(flightPlanString)}`;
 };
