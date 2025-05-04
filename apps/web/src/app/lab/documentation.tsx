@@ -71,8 +71,11 @@ const scenario: Scenario = {
 
 export function Documentation() {
   return (
-    <div className="[&>p]:leading-7 [&>p:not(:first-child)]:mt-6">
-      <h1>Welcome to Scenario Lab</h1>
+    <section
+      aria-labelledby="documentation-title"
+      className="[&>p]:leading-7 [&>p:not(:first-child)]:mt-6"
+    >
+      <h1 id="documentation-title">Welcome to Scenario Lab</h1>
 
       <p>
         This site helps you learn how to evaluate flight plans for correctness,
@@ -116,7 +119,7 @@ export function Documentation() {
         correct clearance phrasing. To view each component of the CRAFT
         clearance use the{" "}
         <span className="inline-block align-text-bottom">
-          <Info className="w-4 h-4" />
+          <Info className="w-4 h-4" aria-label="Additional information" />
         </span>{" "}
         button next to the clearance.
       </p>
@@ -136,6 +139,6 @@ export function Documentation() {
         </kbd>{" "}
         key to show the answer.
       </p>
-    </div>
+    </section>
   );
 }
