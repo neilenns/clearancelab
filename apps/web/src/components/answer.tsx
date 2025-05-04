@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utilities";
 import { getFormattedClearanceLimit, getTelephony } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import { AnimatePresence, motion } from "framer-motion";
@@ -19,9 +20,10 @@ import { useKey } from "react-use";
 
 interface AnswerProperties {
   scenario: Scenario;
+  className: string;
 }
 
-export function Answer({ scenario }: AnswerProperties) {
+export function Answer({ scenario, className }: AnswerProperties) {
   const { canClear } = scenario;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -79,7 +81,7 @@ export function Answer({ scenario }: AnswerProperties) {
 
   return (
     <Card
-      className="relative py-2 w-[800px] overflow-hidden"
+      className={cn("relative py-2 w-[800px] overflow-hidden", className)}
       role="region"
       aria-label="Answer section"
     >
