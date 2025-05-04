@@ -146,6 +146,7 @@ export function CraftSection() {
                         id="frequency"
                         fixedDecimalScale={true}
                         decimalScale={3}
+                        aria-label="Departure frequency"
                         {...field}
                       ></NumberInput>
                     </FormControl>

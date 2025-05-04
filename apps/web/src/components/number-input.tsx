@@ -104,12 +104,20 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProperties>(
       if (value !== undefined) {
         if (value < min) {
           setValue(min);
-          (reference as React.RefObject<HTMLInputElement>).current!.value =
-            String(min);
+          const inputElement = (
+            combinedReference as React.RefObject<HTMLInputElement>
+          ).current;
+          if (inputElement) {
+            inputElement.value = String(min);
+          }
         } else if (value > max) {
           setValue(max);
-          (reference as React.RefObject<HTMLInputElement>).current!.value =
-            String(max);
+          const inputElement = (
+            combinedReference as React.RefObject<HTMLInputElement>
+          ).current;
+          if (inputElement) {
+            inputElement.value = String(max);
+          }
         }
       }
     };
@@ -133,6 +141,9 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProperties>(
           placeholder={placeholder}
           className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none relative"
           getInputRef={combinedReference} // Use combined ref
+          aria-valuemin={min === -Infinity ? undefined : min}
+          aria-valuemax={max === Infinity ? undefined : max}
+          aria-valuenow={value ?? undefined}
           {...properties}
         />
       </div>
