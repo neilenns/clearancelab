@@ -20,7 +20,7 @@ export type OnSubmitScenarioState = {
 };
 
 // A lot of how this works comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
-export const onSubmitScenario = async (
+export const addOrUpdateScenario = async (
   _previousState: OnSubmitScenarioState,
   payload: FormData,
 ): Promise<OnSubmitScenarioState> => {
