@@ -1,6 +1,6 @@
 "use server";
 
-import { apiFetch, postJson, putJson } from "@/lib/api";
+import { apiDelete, apiFetch, ApiResponse, postJson, putJson } from "@/lib/api";
 import {
   assertObject,
   convertToBoolean,
@@ -41,7 +41,7 @@ export async function fetchPlanByCallsign(
     };
   }
 
-  let scenario: Scenario | undefined;
+  let scenario: ApiResponse<Scenario>;
 
   try {
     scenario = await apiFetch<Scenario>(
@@ -55,7 +55,7 @@ export async function fetchPlanByCallsign(
     };
   }
 
-  if (!scenario) {
+  if (!scenario || !scenario.data) {
     return {
       success: false,
       message: `No flight plan found for ${requestedCallsign}.`,
@@ -64,9 +64,21 @@ export async function fetchPlanByCallsign(
 
   return {
     success: true,
-    scenario: scenario,
+    scenario: scenario.data,
   };
 }
+
+export const onDeleteScenario = async (id: string): Promise<boolean> => {
+  const result = await apiDelete(`/scenarios/${id}`, { withAuthToken: true });
+  const success = result?.status === 204;
+
+  if (success) {
+    revalidatePath(`/lab/${id}`);
+    revalidatePath("/lab");
+  }
+
+  return success;
+};
 
 // A lot of how this works comes from https://dev.to/emmanuel_xs/how-to-use-react-hook-form-with-useactionstate-hook-in-nextjs15-1hja.
 export const onSubmitScenario = async (
@@ -142,7 +154,7 @@ export const onSubmitScenario = async (
   const isEdit = Boolean(scenario.data._id);
 
   try {
-    let response: Scenario | undefined = undefined;
+    let response: ApiResponse<Scenario> = undefined;
     if (scenario.data._id) {
       console.debug(`Updating scenario ${scenario.data._id.toString()}`);
       response = await putJson<Scenario>(
@@ -165,8 +177,8 @@ export const onSubmitScenario = async (
       };
     }
 
-    if (response._id) {
-      const cachePath = `/lab/${response._id.toString()}`;
+    if (response.data?._id) {
+      const cachePath = `/lab/${response.data._id.toString()}`;
 
       revalidatePath(cachePath);
       revalidatePath("/lab");
@@ -176,7 +188,7 @@ export const onSubmitScenario = async (
       success: true,
       hasSubmitted: true,
       message: `Scenario ${isEdit ? "updated" : "saved"}!`,
-      id: response._id?.toString(),
+      id: response.data?._id?.toString(),
     };
   } catch (error) {
     console.error(error);

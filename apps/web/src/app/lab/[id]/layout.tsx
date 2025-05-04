@@ -14,7 +14,8 @@ export async function generateMetadata({
   params: Parameters;
 }): Promise<Metadata | undefined> {
   const { id } = await params;
-  const scenario = await apiFetch<Scenario>(`/scenarios/${id}`);
+  const response = await apiFetch<Scenario>(`/scenarios/${id}`);
+  const scenario = response?.data;
 
   if (!scenario) {
     return;
