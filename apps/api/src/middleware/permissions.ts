@@ -18,6 +18,7 @@ export const verifyUser = async (
   try {
     // Disable auth in development mode
     if (ENV.DISABLE_AUTH && ENV.NODE_ENV === "development") {
+      log.warn("DISABLE_AUTH is true, authentication is disabled.");
       next();
       return;
     }
