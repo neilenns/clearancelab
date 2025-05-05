@@ -55,7 +55,6 @@ router.get(
   },
 );
 
-// This must be before the /:id route.
 router.get(
   "/summary",
   verifyApiKey,
@@ -86,36 +85,6 @@ router.get(
 
       response.json(scenariosResponse);
       return;
-    }
-  },
-);
-
-// This must be after the /summary route.
-router.get(
-  "/:id",
-  verifyApiKey,
-  async (request: Request, response: Response, next: NextFunction) => {
-    try {
-      const { id } = request.params;
-      const isValid = mongoose.isValidObjectId(id);
-
-      if (!isValid) {
-        response
-          .status(404)
-          .json({ error: `${id} is not a valid scenario ID.` });
-        return;
-      }
-
-      const scenario = await ScenarioModel.findScenarioById(id);
-
-      if (!scenario) {
-        response.status(404).json({ error: "Scenario not found" });
-        return;
-      }
-
-      response.json(scenario);
-    } catch (error) {
-      next(error); // Pass to centralized error handler
     }
   },
 );
