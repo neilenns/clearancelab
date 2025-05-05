@@ -36,9 +36,10 @@ export function VatsimImportDialog() {
     }
 
     startTransition(async () => {
-      const scenario = await fetchPlanByCallsign(callsign.toUpperCase());
+      const result = await fetchPlanByCallsign(callsign.toUpperCase());
 
-      if (!scenario) {
+      if (!result.success) {
+        console.error("Error fetching VATSIM flight plan:", result.error);
         setErrorContent(
           "Unable to find a flight plan for the provided callsign.",
         );
@@ -49,7 +50,7 @@ export function VatsimImportDialog() {
       resetDialog();
       setOpen(false);
 
-      const { plan, airportConditions, craft } = scenario;
+      const { plan, airportConditions, craft } = result.data;
 
       // Populate the fields with the values from the VATSIM flight plan.
       // This happens after the dialog is closed to make it feel more responsive.

@@ -3,22 +3,36 @@
 import { getJson } from "@/lib/api";
 import { fetchScenariosResponseSchema, Scenario } from "@workspace/validators";
 
+type FetchPlanByCallsignResponse =
+  | {
+      success: true;
+      data: Scenario;
+    }
+  | {
+      success: false;
+      error: string;
+    };
+
 export async function fetchPlanByCallsign(
   callsign: string,
-): Promise<Scenario | undefined> {
+): Promise<FetchPlanByCallsignResponse> {
   const requestedCallsign = callsign.toUpperCase().trim();
 
   if (!requestedCallsign) {
-    return;
+    return {
+      success: false,
+      error: "No callsign provided",
+    };
   }
 
   try {
     const response = await getJson(`/vatsim/flightplan/${requestedCallsign}`);
 
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch VATSIM flight plan: ${response.statusText}`,
-      );
+      return {
+        success: false,
+        error: "Failed to fetch flight plan",
+      };
     }
 
     const data = await response.json();
@@ -29,12 +43,21 @@ export async function fetchPlanByCallsign(
       !parsedData.data ||
       parsedData.data.length === 0
     ) {
-      return;
+      return {
+        success: false,
+        error: "No flight plan found",
+      };
     }
 
-    return parsedData.data[0];
+    return {
+      success: true,
+      data: parsedData.data[0],
+    };
   } catch (error) {
     console.error("Error fetching VATSIM flight plan:", error);
-    return;
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error occurred",
+    };
   }
 }
