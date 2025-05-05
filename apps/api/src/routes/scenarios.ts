@@ -40,6 +40,7 @@ router.get("/", verifyApiKey, async (request: Request, response: Response) => {
   }
 });
 
+// This must be before the /:id route.
 router.get(
   "/summary",
   verifyApiKey,
@@ -71,7 +72,7 @@ router.get(
   },
 );
 
-// Add a route to look up a scenario by ID
+// This must be after the /summary route.
 router.get(
   "/:id",
   verifyApiKey,

@@ -1,5 +1,5 @@
 "use server";
-import { fetchScenarioById } from "@/api/scenarios/fetch-scenario-by-id";
+import { fetchScenarioById } from "@/api/scenarios/fetch-scenarios-by-ids";
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
 import { ScenarioInput } from "@workspace/validators";
 import { Suspense } from "react";
