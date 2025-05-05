@@ -3,23 +3,30 @@
 import { getJson } from "@/lib/api";
 import { fetchScenariosResponseSchema, Scenario } from "@workspace/validators";
 
+export interface fetchScenariosByIdsOptions {
+  batchSize?: number;
+}
+
 /**
  * Fetches a list of scenarios by IDs.
- * @param id The IDs of the scenario to fetch.
+ * @param scenarioIds The IDs of the scenario to fetch.
  * @returns The fetched scenarios.
  */
-export const fetchScenariosByIds = async (scenarioIds: string[]) => {
+export const fetchScenariosByIds = async (
+  scenarioIds: string[],
+  options?: { batchSize?: number },
+) => {
   if (!scenarioIds || scenarioIds.length === 0) {
     return [];
   }
 
   // This method of fetching in batches comes from
   // https://github.com/jacksonkasi1/tnks-data-table/blob/main/src/api/user/fetch-users-by-ids.ts
-  const BATCH_SIZE = 50;
+  const batchSize = options?.batchSize ?? 50;
   const results: Scenario[] = [];
 
-  for (let index = 0; index < scenarioIds.length; index += BATCH_SIZE) {
-    const batchIds = scenarioIds.slice(index, index + BATCH_SIZE);
+  for (let index = 0; index < scenarioIds.length; index += batchSize) {
+    const batchIds = scenarioIds.slice(index, index + batchSize);
 
     try {
       // Build parameter string with multiple IDs
@@ -46,14 +53,14 @@ export const fetchScenariosByIds = async (scenarioIds: string[]) => {
       }
 
       // Add the batch results to our collection
-      // Filter to ensure we only include users that were requested
+      // Filter to ensure we only include scenarios that were requested
       const validScenarios = parsedData.data.filter((scenario) =>
         batchIds.includes(scenario._id ?? ""),
       );
 
       results.push(...validScenarios);
     } catch (error) {
-      console.error(`Error fetching batch of users:`, error);
+      console.error(`Error fetching batch of scenarios:`, error);
       // Continue with the next batch even if this one failed
     }
   }
@@ -74,7 +81,7 @@ export const fetchScenariosByIds = async (scenarioIds: string[]) => {
 
   if (missingIds.length > 0) {
     console.warn(
-      `Failed to fetch data for ${missingIds.length} users: ${missingIds.join(", ")}`,
+      `Failed to fetch data for ${missingIds.length} scenarios: ${missingIds.join(", ")}`,
     );
   }
 
