@@ -65,7 +65,7 @@ The MongoDB VS Code extension is installed automatically and includes a connecti
 
 ### Local development
 
-Default values for local development are set in the [`devcontainer.json`](.devcontainer/devcontainer.json) file:
+Default values for local development are set in the [`devcontainer.env`](.devcontainer/devcontainer.env) file:
 
 | Variable                     | Description                                             | Value                    |
 | ---------------------------- | ------------------------------------------------------- | ------------------------ |
@@ -73,7 +73,9 @@ Default values for local development are set in the [`devcontainer.json`](.devco
 | `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
 | `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
 
-Auth0 is enabled by default. To disable it, set the `DISABLE_AUTH` variable to `true`. For Auth0 to work on the API server, the following variables must be set:
+Auth0 is disabled by default. To enable it, create a file called `devcontainer.env.override` in the `./devcontainer/` folder and set the `DISABLE_AUTH` variable to `false`. When adding a .override file, you must reopen the devcontainer for the changes to take effect.
+
+For Auth0 to work on the API server, the following variables must be set, either via a `.env.local` file in the `apps/api` folder or in the `devcontainer.env.override` file:
 
 | Variable         | Description                                     |
 | ---------------- | ----------------------------------------------- |
@@ -88,7 +90,7 @@ There are additional security-related variables to configure CORS and rate-limit
 | `API_RATE_LIMIT_MINUTE_WINDOW` | Time window for rate limiting in minutes. Default 5.                            |
 | `WHITELISTED_DOMAINS`          | List of domains that are allowed via CORS. Separate multiple domains with `\|`. |
 
-The web app also needs several Auth0 variables set to validate secured endpoints. These are only required if you want to test authentication locally (when `DISABLE_AUTH` is set to `false`):
+The web app also needs several Auth0 variables set to validate secured endpoints. These are only required if you want to test authentication locally (when `DISABLE_AUTH` is set to `false`). These can be set in the `devcontainer.env.override` file or in a `.env.local` file in the `apps/web` folder.
 
 | Variable              | Description                                                                                         |
 | --------------------- | --------------------------------------------------------------------------------------------------- |
