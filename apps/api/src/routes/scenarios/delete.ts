@@ -20,7 +20,7 @@ router.delete(
       };
 
       console.error(`Invalid scenario ID ${id}`);
-      response.status(404).json(deleteResponse);
+      response.status(400).json(deleteResponse);
       return;
     }
 
@@ -42,7 +42,7 @@ router.delete(
         success: true,
       };
 
-      response.status(204).json(deleteResponse);
+      response.status(200).json(deleteResponse);
     } catch (error) {
       const deleteResponse: DeleteScenarioResponse = {
         success: false,
@@ -51,7 +51,6 @@ router.delete(
 
       console.error("Error deleting scenario:", error);
       response.status(500).json(deleteResponse);
-      return;
     }
   },
 );

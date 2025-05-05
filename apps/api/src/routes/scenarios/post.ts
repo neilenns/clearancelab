@@ -22,7 +22,6 @@ router.post(
       };
 
       response.status(400).json(postResponse);
-
       return;
     }
 
@@ -39,16 +38,15 @@ router.post(
       };
 
       response.status(201).json(postResponse);
-      return;
     } catch (error) {
       console.error("Error creating scenario:", error);
 
       const postResponse: AddOrUpdateScenarioResponse = {
         success: false,
+        message: "Error creating scenario",
       };
 
       response.status(500).json(postResponse);
-      return;
     }
   },
 );

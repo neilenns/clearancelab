@@ -16,10 +16,10 @@ router.get(
   "/",
   verifyApiKey,
   async (request: QueryParameters, response: Response) => {
-    try {
-      const ids = request.query.id;
-      const idList = Array.isArray(ids) ? ids : ids ? [ids] : [];
+    const ids = request.query.id;
+    const idList = Array.isArray(ids) ? ids : ids ? [ids] : [];
 
+    try {
       const scenarios = await ScenarioModel.findScenarios(idList);
 
       const scenarioResponse: ScenarioResponse = {
@@ -31,17 +31,18 @@ router.get(
       };
 
       response.json(scenarioResponse);
-
-      return;
     } catch (error) {
-      console.error("Error fetching scenarios:", error);
+      console.error(
+        `Error fetching scenarios (ids: ${idList.join(", ")}):`,
+        error,
+      );
 
       const scenariosResponse: ScenarioResponse = {
         success: false,
+        message: "Error fetching scenarios",
       };
 
       response.status(500).json(scenariosResponse);
-      return;
     }
   },
 );

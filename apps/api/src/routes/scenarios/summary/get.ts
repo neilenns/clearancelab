@@ -1,7 +1,4 @@
-import {
-  ScenarioResponse,
-  ScenarioSummaryResponse,
-} from "@workspace/validators";
+import { ScenarioSummaryResponse } from "@workspace/validators";
 import { Request, Response, Router } from "express";
 import { verifyApiKey } from "../../../middleware/apikey.js";
 import { ScenarioModel } from "../../../models/scenario.js";
@@ -19,10 +16,10 @@ router.get(
   "/",
   verifyApiKey,
   async (request: QueryParameters, response: Response) => {
-    try {
-      const ids = request.query.id;
-      const idList = Array.isArray(ids) ? ids : ids ? [ids] : [];
+    const ids = request.query.id;
+    const idList = Array.isArray(ids) ? ids : ids ? [ids] : [];
 
+    try {
       const scenarios = await ScenarioModel.findSummary(idList);
 
       const scenarioResponse: ScenarioSummaryResponse = {
@@ -34,17 +31,17 @@ router.get(
       };
 
       response.json(scenarioResponse);
-
-      return;
     } catch (error) {
-      console.error("Error fetching scenarios:", error);
+      console.error(
+        `Error fetching scenarios (ids: ${idList.join(", ")}):`,
+        error,
+      );
 
-      const scenariosResponse: ScenarioResponse = {
+      const scenariosResponse: ScenarioSummaryResponse = {
         success: false,
       };
 
       response.status(500).json(scenariosResponse);
-      return;
     }
   },
 );

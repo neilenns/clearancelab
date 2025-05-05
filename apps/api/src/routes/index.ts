@@ -4,6 +4,7 @@ import express from "express";
 import defaultRoutes from "./default.js";
 import scenarioRoutes from "./scenarios/index.js";
 import vatsimRoutes from "./vatsim/index.js";
+
 /**
  * Registers all application routes with the Express application.
  * @param app Express application instance

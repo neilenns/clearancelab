@@ -70,10 +70,10 @@ router.put("/:id", verifyUser, async (request: Request, response: Response) => {
 
     const scenariosResponse: AddOrUpdateScenarioResponse = {
       success: false,
+      message: "Error updating scenario",
     };
 
     response.status(500).json(scenariosResponse);
-    return;
   }
 });
 
