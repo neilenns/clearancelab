@@ -10,9 +10,9 @@ import {
 import { Scenario, ScenarioResponse } from "@workspace/validators";
 import * as changeCase from "change-case";
 import { NextFunction, Request, Response, Router } from "express";
-import { verifyApiKey } from "../middleware/apikey.js";
-import { AirlineModel } from "../models/airlines.js";
-import { VatsimFlightPlanModel } from "../models/vatsim-flight-plan.js";
+import { verifyApiKey } from "../../middleware/apikey.js";
+import { AirlineModel } from "../../models/airlines.js";
+import { VatsimFlightPlanModel } from "../../models/vatsim-flight-plan.js";
 
 const router = Router();
 
