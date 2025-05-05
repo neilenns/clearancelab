@@ -73,7 +73,7 @@ Default values for local development are set in the [`devcontainer.env`](.devcon
 | `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
 | `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
 
-Auth0 is disabled by default. To enable it, create a file called `devcontainer.env.overrides` in the `./devcontainer/` folder and set the `DISABLE_AUTH` variable to `false`. When adding a .override file, you must reopen the devcontainer for the changes to take effect.
+Auth0 is disabled by default. To enable it, create a file called `devcontainer.env.overrides` in the `./devcontainer/` folder and set the `DISABLE_AUTH` variable to `false`. When adding a `devcontainer.env.overrides` file, you must reopen the devcontainer for the changes to take effect.
 
 For Auth0 to work on the API server, the following variables must be set, either via a `.env.local` file in the `apps/api` folder or in the `devcontainer.env.overrides` file:
 
