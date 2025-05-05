@@ -1,7 +1,10 @@
 import { ScenarioResponse } from "@workspace/validators";
 import { Request, Response, Router } from "express";
+import { logger } from "../../lib/logger.js";
 import { verifyApiKey } from "../../middleware/apikey.js";
 import { ScenarioModel } from "../../models/scenario.js";
+
+const log = logger.child({ service: "scenarios" });
 
 const router = Router();
 
@@ -32,10 +35,7 @@ router.get(
 
       response.json(scenarioResponse);
     } catch (error) {
-      console.error(
-        `Error fetching scenarios (ids: ${idList.join(", ")}):`,
-        error,
-      );
+      log.error(`Error fetching scenarios (ids: ${idList.join(", ")}):`, error);
 
       const scenariosResponse: ScenarioResponse = {
         success: false,

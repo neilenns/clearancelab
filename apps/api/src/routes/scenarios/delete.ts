@@ -1,8 +1,11 @@
 import { DeleteScenarioResponse } from "@workspace/validators";
 import { Request, Response, Router } from "express";
 import mongoose from "mongoose";
+import { logger } from "../../lib/logger.js";
 import { verifyUser } from "../../middleware/permissions.js";
 import { ScenarioModel } from "../../models/scenario.js";
+
+const log = logger.child({ service: "scenarios" });
 
 const router = Router();
 
@@ -19,7 +22,7 @@ router.delete(
         message: `Invalid scenario ID ${id}.`,
       };
 
-      console.error(`Invalid scenario ID ${id}`);
+      log.error(`Invalid scenario ID ${id}`);
       response.status(400).json(deleteResponse);
       return;
     }
@@ -33,7 +36,7 @@ router.delete(
           message: `Scenario with ID ${id} not found.`,
         };
 
-        console.error(`Scenario with ID ${id} not found, couldn't delete it.`);
+        log.error(`Scenario with ID ${id} not found, couldn't delete it.`);
         response.status(404).json(deleteResponse);
         return;
       }
@@ -49,7 +52,7 @@ router.delete(
         message: "An error occurred while trying to delete the scenario.",
       };
 
-      console.error("Error deleting scenario:", error);
+      log.error("Error deleting scenario:", error);
       response.status(500).json(deleteResponse);
     }
   },

@@ -4,8 +4,11 @@ import {
 } from "@workspace/validators";
 import { Request, Response, Router } from "express";
 import mongoose from "mongoose";
+import { logger } from "../../lib/logger.js";
 import { verifyUser } from "../../middleware/permissions.js";
 import { ScenarioModel } from "../../models/scenario.js";
+
+const log = logger.child({ service: "scenarios" });
 
 const router = Router();
 
@@ -66,7 +69,7 @@ router.put("/:id", verifyUser, async (request: Request, response: Response) => {
 
     response.json(putResponse);
   } catch (error) {
-    console.error("Error updating scenario:", error);
+    log.error("Error updating scenario:", error);
 
     const scenariosResponse: AddOrUpdateScenarioResponse = {
       success: false,

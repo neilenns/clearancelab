@@ -4,8 +4,11 @@ import {
   scenarioSchema,
 } from "@workspace/validators";
 import { Request, Response, Router } from "express";
+import { logger } from "../../lib/logger.js";
 import { verifyUser } from "../../middleware/permissions.js";
 import { ScenarioModel } from "../../models/scenario.js";
+
+const log = logger.child({ service: "scenarios" });
 
 const router = Router();
 
@@ -39,7 +42,7 @@ router.post(
 
       response.status(201).json(postResponse);
     } catch (error) {
-      console.error("Error creating scenario:", error);
+      log.error("Error creating scenario:", error);
 
       const postResponse: AddOrUpdateScenarioResponse = {
         success: false,
