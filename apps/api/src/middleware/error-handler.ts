@@ -1,5 +1,5 @@
+import { ENV } from "@lib/environment.js";
 import { ErrorRequestHandler } from "express";
-import { ENV } from "../lib/environment.js";
 
 const errorHandler: ErrorRequestHandler = (
   error: Error,

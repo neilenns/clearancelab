@@ -1,7 +1,6 @@
+import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { LabSidebar } from "@/components/app-sidebar/lab-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { apiFetch } from "@/lib/api";
-import { Scenario } from "@workspace/validators";
 import type { Metadata } from "next";
 
 const description = "Scenarios to practice your flight plan review skills.";
@@ -35,8 +34,8 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const response = await apiFetch<Scenario[]>("/scenarios/?summary=true");
-  const scenarios = response?.data ?? [];
+  const result = await fetchScenariosSummary();
+  const scenarios = result.success ? result.data : [];
 
   return (
     <SidebarProvider>

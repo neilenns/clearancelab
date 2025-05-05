@@ -11,7 +11,7 @@ import { ENV } from "./lib/environment.js";
 import { logger } from "./lib/logger.js";
 import applyMiddleware from "./middleware/index.js";
 import { rateLimiter } from "./middleware/rate-limit.js";
-import healthRoutes from "./routes/health.js";
+import healthRoutes from "./routes/health/index.js";
 import addRoutes from "./routes/index.js";
 
 const app = express();

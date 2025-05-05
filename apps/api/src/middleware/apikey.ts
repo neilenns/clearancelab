@@ -1,7 +1,10 @@
+import { ENV } from "@lib/environment.js";
+import { logger } from "@lib/logger.js";
+import { ApiKeyModel } from "@models/api-key.js";
 import { type NextFunction, type Request, type Response } from "express";
 import rateLimit from "express-rate-limit";
-import { ENV } from "../lib/environment.js";
-import { ApiKeyModel } from "../models/api-key.js";
+
+const log = logger.child({ service: "apikey" });
 
 const apiKeyLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -26,7 +29,9 @@ export const verifyApiKeyRaw = async function (
     const apiKey = request.headers["x-api-key"] ?? request.query["x-api-key"];
 
     if (typeof apiKey !== "string") {
-      response.status(401).json({ error: "Unauthorized - Invalid API key format" });
+      response
+        .status(401)
+        .json({ error: "Unauthorized - Invalid API key format" });
       return;
     }
 
@@ -36,7 +41,9 @@ export const verifyApiKeyRaw = async function (
     });
 
     if (!apiKeyDocument) {
-      console.error(`Invalid API key attempt: ${apiKey.slice(0, 3)}...${apiKey.slice(-3)}`);
+      log.error(
+        `Invalid API key attempt: ${apiKey.slice(0, 3)}...${apiKey.slice(-3)}`,
+      );
       response.status(401).json({ error: "Unauthorized - Invalid API key" });
       return;
     }

@@ -1,6 +1,26 @@
 {
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@db/*": [
+        "./src/db/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@middleware/*": [
+        "./src/middleware/*"
+      ],
+      "@models/*": [
+        "./src/models/*"
+      ],
+      "@routes/*": [
+        "./src/routes/*"
+      ]
+    }
   },
   "exclude": ["dist", "node_modules"],
   "extends": "@tsconfig/node22/tsconfig.json",

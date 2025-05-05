@@ -34,7 +34,9 @@ const environmentSchema = z
     APP_BASE_URL: z
       .string()
       .url({ message: "APP_BASE_URL must be a valid URL." }),
-    DISABLE_AUTH: z.coerce.boolean().default(false),
+    DISABLE_AUTH: z
+      .preprocess((value) => value === "true" || value === "1", z.boolean())
+      .default(false),
   })
   .superRefine((environment, context) => {
     if (environment.DISABLE_AUTH && environment.NODE_ENV === "production") {

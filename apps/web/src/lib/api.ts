@@ -5,19 +5,12 @@ interface ApiRequestOptions {
   withAuthToken?: boolean;
 }
 
-export type ApiResponse<T> =
-  | {
-      status: number;
-      data: T | undefined;
-    }
-  | undefined;
-
-async function apiRequest<T = unknown>(
+async function apiRequest(
   method: string,
   path: string,
-  body?: T,
+  body?: object,
   options: ApiRequestOptions = {},
-): Promise<ApiResponse<T>> {
+) {
   const baseUrl = ENV.API_BASE_URL;
   const apiKey = ENV.API_KEY;
 
@@ -45,7 +38,7 @@ async function apiRequest<T = unknown>(
 
   if (!response.ok) {
     if (response.status === 404) {
-      return;
+      throw new Error(`Resource not found: ${path}`);
     }
 
     if (response.status === 401) {
@@ -56,47 +49,29 @@ async function apiRequest<T = unknown>(
     throw new Error(`API error ${response.status.toString()}: ${message}`);
   }
 
-  const isJson = response.headers
-    .get("content-type")
-    ?.includes("application/json");
-
-  const data =
-    isJson && response.status !== 204
-      ? ((await response.json()) as T)
-      : undefined;
-
-  return {
-    data,
-    status: response.status,
-  };
+  return response;
 }
 
-export async function apiFetch<T>(
-  path: string,
-  options: ApiRequestOptions = {},
-): Promise<ApiResponse<T>> {
-  return apiRequest<T>("GET", path, undefined, options);
+export async function getJson(path: string, options: ApiRequestOptions = {}) {
+  return apiRequest("GET", path, undefined, options);
 }
 
-export async function postJson<T>(
+export async function postJson(
   path: string,
-  body: T,
+  body: object,
   options: ApiRequestOptions = {},
-): Promise<ApiResponse<T>> {
-  return apiRequest<T>("POST", path, body, options);
+) {
+  return apiRequest("POST", path, body, options);
 }
 
-export async function putJson<T>(
+export async function putJson(
   path: string,
-  body: T,
+  body: object,
   options: ApiRequestOptions = {},
-): Promise<ApiResponse<T>> {
-  return apiRequest<T>("PUT", path, body, options);
+) {
+  return apiRequest("PUT", path, body, options);
 }
 
-export async function apiDelete(
-  path: string,
-  options: ApiRequestOptions = {},
-): Promise<ApiResponse<void>> {
-  return apiRequest<void>("DELETE", path, undefined, options);
+export async function apiDelete(path: string, options: ApiRequestOptions = {}) {
+  return apiRequest("DELETE", path, undefined, options);
 }

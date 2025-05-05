@@ -1,3 +1,4 @@
+import { fetchPlanByCallsign } from "@/api/vatsim/fetch-plan-by-callsign";
 import { Input } from "@/components/ui/input";
 import { getRandomAltimeter } from "@workspace/plantools";
 import { AlertTriangleIcon, ImportIcon, Loader2 } from "lucide-react";
@@ -14,7 +15,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { fetchPlanByCallsign } from "./actions";
 
 export function VatsimImportDialog() {
   const [callsign, setCallsign] = useState("");
@@ -39,7 +39,10 @@ export function VatsimImportDialog() {
       const result = await fetchPlanByCallsign(callsign.toUpperCase());
 
       if (!result.success) {
-        setErrorContent(result.message);
+        console.error("Error fetching VATSIM flight plan:", result.error);
+        setErrorContent(
+          "Unable to find a flight plan for the provided callsign.",
+        );
         return;
       }
 
@@ -47,7 +50,7 @@ export function VatsimImportDialog() {
       resetDialog();
       setOpen(false);
 
-      const { plan, airportConditions, craft } = result.scenario;
+      const { plan, airportConditions, craft } = result.data;
 
       // Populate the fields with the values from the VATSIM flight plan.
       // This happens after the dialog is closed to make it feel more responsive.

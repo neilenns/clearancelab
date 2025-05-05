@@ -1,7 +1,7 @@
+import { ENV } from "@lib/environment.js";
+import { logger } from "@lib/logger.js";
 import { type NextFunction, type Request, type Response } from "express";
 import { auth } from "express-oauth2-jwt-bearer";
-import { ENV } from "../lib/environment.js";
-import { logger } from "../lib/logger.js";
 
 const log = logger.child({ service: "permissions" });
 

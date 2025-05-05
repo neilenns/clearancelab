@@ -1,28 +1,41 @@
 "use client";
 
+import { addOrUpdateScenario } from "@/api/scenarios/add-or-update-scenario";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getRandomScenario } from "@workspace/plantools";
-import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
+import { ScenarioInput, scenarioSchema } from "@workspace/validators";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { onSubmitScenario } from "./actions";
 import { AirportConditionsSection } from "./airport-conditions-section";
 import { CraftSection } from "./craft-section";
 import { ExplanationsSection } from "./explanations-section";
 import { PlanSection } from "./plan-section";
 
-export const ScenarioForm = ({ defaultValues }: { defaultValues: ScenarioInput }) => {
+export const ScenarioForm = ({
+  defaultValues,
+}: {
+  defaultValues: ScenarioInput;
+}) => {
   const isEditMode = Boolean(defaultValues._id);
-  const initialFormState = { success: false, message: "", hasSubmitted: false, id: undefined };
-  const [formState, formAction, isPending] = useActionState(onSubmitScenario, initialFormState);
+  const initialFormState = {
+    success: false,
+    message: "",
+    hasSubmitted: false,
+    id: undefined,
+  };
+
+  const [formState, formAction, isPending] = useActionState(
+    addOrUpdateScenario,
+    initialFormState,
+  );
 
   const form = useForm<ScenarioInput>({
-    resolver: zodResolver(ScenarioSchema),
+    resolver: zodResolver(scenarioSchema),
     mode: "onTouched",
     defaultValues,
   });
@@ -76,9 +89,17 @@ export const ScenarioForm = ({ defaultValues }: { defaultValues: ScenarioInput }
         // This extra form element is required to get the action attribute. Shadcn's Form
         // component does not expose it.
       }
-      <form action={formAction} autoComplete="off" aria-label="Scenario creation form">
+      <form
+        action={formAction}
+        autoComplete="off"
+        aria-label="Scenario creation form"
+      >
         <fieldset disabled={isPending} className="space-y-4">
-          <input type="hidden" name="_id" value={form.watch("_id")?.toString()} />
+          <input
+            type="hidden"
+            name="_id"
+            value={form.watch("_id")?.toString()}
+          />
 
           <PlanSection isEditMode={isEditMode} />
           <AirportConditionsSection />
@@ -88,7 +109,9 @@ export const ScenarioForm = ({ defaultValues }: { defaultValues: ScenarioInput }
           {isPending ? (
             <Button disabled className="w-[120px]">
               <Loader2 className="animate-spin" aria-hidden="true" />
-              <span className="sr-only">{isEditMode ? "Updating..." : "Saving..."}</span>
+              <span className="sr-only">
+                {isEditMode ? "Updating..." : "Saving..."}
+              </span>
               {isEditMode ? "Updating..." : "Saving..."}
             </Button>
           ) : (

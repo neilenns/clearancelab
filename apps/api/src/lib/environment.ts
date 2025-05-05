@@ -17,7 +17,9 @@ const environmentSchema = z
       .string()
       .url({ message: "AUTH0_DOMAIN must be a valid URL." })
       .optional(),
-    DISABLE_AUTH: z.coerce.boolean().default(false),
+    DISABLE_AUTH: z
+      .preprocess((value) => value === "true" || value === "1", z.boolean())
+      .default(false),
     LOG_LEVEL: z.enum(["error", "warn", "info", "debug"]).default("info"),
     MONGO_DB_CONNECTION_STRING: z
       .string()
@@ -59,6 +61,7 @@ const environmentSchema = z
 
 const result = environmentSchema.safeParse(process.env);
 if (!result.success) {
+  // Can't use logger.js here because it depends on ENV.
   console.error("Environment validation failed:", result.error.format());
   throw new Error("Environment validation failed");
 }

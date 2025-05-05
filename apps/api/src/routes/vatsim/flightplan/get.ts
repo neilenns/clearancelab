@@ -1,3 +1,6 @@
+import { verifyApiKey } from "@middleware/apikey.js";
+import { AirlineModel } from "@models/airlines.js";
+import { VatsimFlightPlanModel } from "@models/vatsim-flight-plan.js";
 import {
   convertToNumber,
   getRandomBcn,
@@ -7,18 +10,15 @@ import {
   getWeightClass,
   splitCallsign,
 } from "@workspace/plantools";
-import { Scenario } from "@workspace/validators";
+import { Scenario, ScenarioResponse } from "@workspace/validators";
 import * as changeCase from "change-case";
 import { NextFunction, Request, Response, Router } from "express";
-import { verifyApiKey } from "../middleware/apikey.js";
-import { AirlineModel } from "../models/airlines.js";
-import { VatsimFlightPlanModel } from "../models/vatsim-flight-plan.js";
 
 const router = Router();
 
 // Add a route to look up a flight plan by callsign.
 router.get(
-  "/flightplan/:callsign",
+  "/:callsign",
   verifyApiKey,
   async (request: Request, response: Response, next: NextFunction) => {
     try {
@@ -27,7 +27,12 @@ router.get(
       const flightPlan = await VatsimFlightPlanModel.findByCallsign(callsign);
 
       if (!flightPlan) {
-        response.status(404).json({ error: "Flight plan not found" });
+        const findResult: ScenarioResponse = {
+          success: false,
+          message: `Flight plan not found for callsign ${callsign}`,
+        };
+
+        response.status(404).json(findResult);
         return;
       }
 
@@ -76,7 +81,12 @@ router.get(
         explanations: [],
       };
 
-      response.json(returnedScenario);
+      const findResult: ScenarioResponse = {
+        success: true,
+        data: [returnedScenario],
+      };
+
+      response.json(findResult);
     } catch (error) {
       next(error); // Pass to centralized error handler
     }

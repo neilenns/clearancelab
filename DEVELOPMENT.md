@@ -72,10 +72,8 @@ Default values for local development are set in the [`devcontainer.json`](.devco
 | `MONGO_DB_CONNECTION_STRING` | URI to the local MongoDB instance.                      | `mongodb://db:27017/`    |
 | `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
 | `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
-| `DISABLE_AUTH`               | Disables authentication for local development.          | `true`                   |
-| `NODE_ENV`                   | Node.js runtime environment for all services.           | `development`            |
 
-Auth0 is disabled by default for local development. If you want to test authentication, set the `DISABLE_AUTH` variable to `false`. This will enable Auth0 and require the following variables to be set:
+Auth0 is enabled by default. To disable it, set the `DISABLE_AUTH` variable to `true`. For Auth0 to work on the API server, the following variables must be set:
 
 | Variable         | Description                                     |
 | ---------------- | ----------------------------------------------- |

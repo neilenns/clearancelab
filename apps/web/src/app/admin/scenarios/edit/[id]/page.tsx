@@ -1,7 +1,6 @@
 "use server";
+import { fetchScenariosByIds } from "@/api/scenarios/fetch-scenarios-by-ids";
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
-import { apiFetch } from "@/lib/api";
-import { ScenarioInput } from "@workspace/validators";
 import { Suspense } from "react";
 import Loading from "./loading";
 import NotFound from "./not-found";
@@ -10,12 +9,13 @@ type Parameters = Promise<{ id: string }>;
 
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
-  const response = await apiFetch<ScenarioInput>(`/scenarios/${id}`);
-  const scenario = response?.data;
+  const scenarios = await fetchScenariosByIds([id]);
 
-  if (!scenario) {
+  if (scenarios.length === 0) {
     return <NotFound id={id} />;
   }
+
+  const scenario = scenarios[0];
 
   // Older scenarios may not have a home airport. If there isn't one defined set it to the empty
   // string to ensure there aren't errors from React about going from uncontrolled to controlled
