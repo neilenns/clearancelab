@@ -28,6 +28,7 @@ export const ScenarioForm = ({
     hasSubmitted: false,
     id: undefined,
   };
+
   const [formState, formAction, isPending] = useActionState(
     addOrUpdateScenario,
     initialFormState,
