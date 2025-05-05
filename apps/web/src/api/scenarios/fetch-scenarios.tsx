@@ -2,8 +2,8 @@
 
 import { getJson } from "@/lib/api";
 import {
-  getScenarioListSchema,
-  getScenarioSummaryListSchema,
+  fetchScenariosResponseSchema,
+  fetchScenariosSummaryResponseSchema,
 } from "@workspace/validators";
 
 /**
@@ -18,7 +18,7 @@ export const fetchScenarios = async () => {
   }
 
   const data = await response.json();
-  return getScenarioListSchema.parse(data);
+  return fetchScenariosResponseSchema.parse(data);
 };
 
 /**
@@ -33,5 +33,5 @@ export const fetchScenariosSummary = async () => {
   }
 
   const data = await response.json();
-  return getScenarioSummaryListSchema.parse(data);
+  return fetchScenariosSummaryResponseSchema.parse(data);
 };

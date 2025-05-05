@@ -1,9 +1,9 @@
 import {
   Scenario,
   ScenarioErrorResponse,
-  ScenarioListResponse,
+  ScenarioResponse,
   scenarioSchema,
-  ScenarioSummaryListResponse,
+  ScenarioSummaryResponse,
 } from "@workspace/validators";
 import { NextFunction, Request, Response, Router } from "express";
 import mongoose from "mongoose";
@@ -17,7 +17,7 @@ router.get("/", verifyApiKey, async (request: Request, response: Response) => {
   try {
     const scenarios = await ScenarioModel.findAll();
 
-    const scenarioResponse: ScenarioListResponse = {
+    const scenarioResponse: ScenarioResponse = {
       success: true,
       data: scenarios.map((scenario) => ({
         ...scenario,
@@ -47,7 +47,7 @@ router.get(
     try {
       const scenarios = await ScenarioModel.findSummary();
 
-      const scenarioResponse: ScenarioSummaryListResponse = {
+      const scenarioResponse: ScenarioSummaryResponse = {
         success: true,
         data: scenarios.map((scenario) => ({
           ...scenario,
