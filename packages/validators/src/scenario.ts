@@ -13,8 +13,8 @@ export const scenarioSchema = z.object({
   canClear: z.boolean().default(true),
   airportConditions: AirportConditionsSchema,
   craft: CraftSchema.optional(),
-  depAirportInfo: AirportInfoSchema.optional(),
-  destAirportInfo: AirportInfoSchema.optional(),
+  depAirportInfo: AirportInfoSchema.optional().nullable(),
+  destAirportInfo: AirportInfoSchema.optional().nullable(),
   plan: PlanSchema,
   explanations: z.array(ExplanationSchema).default([]),
 });
