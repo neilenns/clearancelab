@@ -13,40 +13,57 @@ import { ScenarioModel } from "../models/scenario.js";
 
 const router = Router();
 
-router.get("/", verifyApiKey, async (request: Request, response: Response) => {
-  try {
-    const scenarios = await ScenarioModel.findAll();
+type SummaryRequest = Request<
+  unknown,
+  unknown,
+  unknown,
+  { id?: string | string[] }
+>;
 
-    const scenarioResponse: ScenarioResponse = {
-      success: true,
-      data: scenarios.map((scenario) => ({
-        ...scenario,
-        _id: scenario._id.toString(),
-      })),
-    };
+router.get(
+  "/",
+  verifyApiKey,
+  async (request: SummaryRequest, response: Response) => {
+    try {
+      const ids = request.query.id;
+      const idList = Array.isArray(ids) ? ids : ids ? [ids] : [];
 
-    response.json(scenarioResponse);
+      const scenarios = await ScenarioModel.findScenarios(idList);
 
-    return;
-  } catch (error) {
-    console.error("Error fetching scenarios:", error);
+      const scenarioResponse: ScenarioResponse = {
+        success: true,
+        data: scenarios.map((scenario) => ({
+          ...scenario,
+          _id: scenario._id.toString(),
+        })),
+      };
 
-    const scenariosResponse: ScenarioErrorResponse = {
-      success: false,
-    };
+      response.json(scenarioResponse);
 
-    response.json(scenariosResponse);
-    return;
-  }
-});
+      return;
+    } catch (error) {
+      console.error("Error fetching scenarios:", error);
+
+      const scenariosResponse: ScenarioErrorResponse = {
+        success: false,
+      };
+
+      response.json(scenariosResponse);
+      return;
+    }
+  },
+);
 
 // This must be before the /:id route.
 router.get(
   "/summary",
   verifyApiKey,
-  async (request: Request, response: Response) => {
+  async (request: SummaryRequest, response: Response) => {
     try {
-      const scenarios = await ScenarioModel.findSummary();
+      const ids = request.query.id;
+      const idList = Array.isArray(ids) ? ids : ids ? [ids] : [];
+
+      const scenarios = await ScenarioModel.findSummary(idList);
 
       const scenarioResponse: ScenarioSummaryResponse = {
         success: true,

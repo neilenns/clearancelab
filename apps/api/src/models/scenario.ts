@@ -1,4 +1,4 @@
-import { Model, Schema, Types, model } from "mongoose";
+import { Model, Schema, Types, isValidObjectId, model } from "mongoose";
 import { logger } from "../lib/logger.js";
 import {
   AirportConditions,
@@ -37,8 +37,8 @@ export interface ScenarioSummary {
 // Static method interface
 export interface ScenarioModelType extends Model<Scenario> {
   findScenarioById(id: string): Promise<Scenario | null>;
-  findAll(): Promise<Scenario[]>;
-  findSummary(): Promise<ScenarioSummary[]>;
+  findScenarios(scenarioIds: string[]): Promise<Scenario[]>;
+  findSummary(scenarioIds: string[]): Promise<ScenarioSummary[]>;
 }
 
 // Define schema
@@ -98,29 +98,20 @@ ScenarioSchema.pre("save", function (next) {
   next();
 });
 
-// Static methods
-ScenarioSchema.statics.findScenarioById = function (
-  id: string,
-): Promise<Scenario | null> {
+ScenarioSchema.statics.findScenarios = async function (
+  scenarioIds: string[],
+): Promise<Scenario[]> {
   try {
-    return (
-      this.findById(id)
-        // I have no idea why this is including all the matched scenarios in a matchedScenarios
-        // field. Force exclude them so I can move on to other things.
-        .populate("depAirportInfo", "-matchedScenarios") // Populate the departure airport info
-        .populate("destAirportInfo", "-matchedScenarios") // Populate the destination airport info
-        .lean()
-        .exec()
-    );
-  } catch (error) {
-    logger.error(`Error finding scenario with ID ${id}:`, error);
-    throw error;
-  }
-};
+    const query =
+      scenarioIds.length > 0
+        ? {
+            _id: {
+              $in: scenarioIds.filter((id) => isValidObjectId(id)),
+            },
+          }
+        : {};
 
-ScenarioSchema.statics.findAll = async function (): Promise<Scenario[]> {
-  try {
-    return await this.find({})
+    return await this.find(query)
       .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
       // I have no idea why this is including all the matched scenarios in a matchedScenarios
       // field. Force exclude them so I can move on to other things.
@@ -134,11 +125,20 @@ ScenarioSchema.statics.findAll = async function (): Promise<Scenario[]> {
   }
 };
 
-ScenarioSchema.statics.findSummary = async function (): Promise<
-  ScenarioSummary[]
-> {
+ScenarioSchema.statics.findSummary = async function (
+  scenarioIds: string[],
+): Promise<ScenarioSummary[]> {
   try {
-    const results = await this.find({})
+    const query =
+      scenarioIds.length > 0
+        ? {
+            _id: {
+              $in: scenarioIds.filter((id) => isValidObjectId(id)),
+            },
+          }
+        : {};
+
+    const results = await this.find(query)
       .select("isValid canClear plan.dep plan.dest plan.aid")
       .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
       .lean()
