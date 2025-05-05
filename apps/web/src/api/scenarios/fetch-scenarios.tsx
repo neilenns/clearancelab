@@ -14,7 +14,7 @@ export const fetchScenarios = async () => {
   const response = await getJson("/scenarios");
 
   if (!response.ok) {
-    throw new Error("Failed to fetch scenarios.");
+    throw new Error("Failed to fetch full scenario list.");
   }
 
   const data = await response.json();
@@ -29,7 +29,7 @@ export const fetchScenariosSummary = async () => {
   const response = await getJson(`/scenarios/summary`);
 
   if (!response.ok) {
-    throw new Error("Failed to fetch scenarios.");
+    throw new Error("Failed to fetch scenario summaries.");
   }
 
   const data = await response.json();

@@ -35,5 +35,5 @@ export const PlanSchema = new Schema<Plan>({
   rte: { type: String },
   spd: { type: Number },
   typ: { type: String },
-  vatsimId: { type: Number },
+  vatsimId: { type: Number, required: true },
 });

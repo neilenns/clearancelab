@@ -6,7 +6,7 @@ import {
   scenarioSchema,
   ScenarioSummaryResponse,
 } from "@workspace/validators";
-import { NextFunction, Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import mongoose from "mongoose";
 import { verifyApiKey } from "../middleware/apikey.js";
 import { verifyUser } from "../middleware/permissions.js";
@@ -49,7 +49,7 @@ router.get(
         success: false,
       };
 
-      response.json(scenariosResponse);
+      response.status(500).json(scenariosResponse);
       return;
     }
   },
@@ -83,7 +83,7 @@ router.get(
         success: false,
       };
 
-      response.json(scenariosResponse);
+      response.status(500).json(scenariosResponse);
       return;
     }
   },
@@ -92,11 +92,7 @@ router.get(
 router.post(
   "/",
   verifyUser,
-  async (
-    request: Request<unknown, unknown, Scenario>,
-    response: Response,
-    next: NextFunction,
-  ) => {
+  async (request: Request<unknown, unknown, Scenario>, response: Response) => {
     const result = scenarioSchema.safeParse(request.body);
 
     if (!result.success) {
@@ -123,67 +119,77 @@ router.post(
       response.status(201).json(scenarioResponse);
       return;
     } catch (error) {
-      next(error);
-    }
-  },
-);
+      console.error("Error updating scenario:", error);
 
-router.put(
-  "/:id",
-  verifyUser,
-  async (request: Request, response: Response, next: NextFunction) => {
-    const { id } = request.params;
-    const isValid = mongoose.isValidObjectId(id);
-
-    if (!isValid) {
-      response.status(404).json({ error: `${id} is not a valid scenario ID.` });
-      return;
-    }
-
-    const result = scenarioSchema.safeParse(request.body);
-
-    if (!result.success) {
-      response.status(400).json({
-        error: "Invalid scenario data",
-        details: result.error.format(),
-      });
-      return;
-    }
-
-    try {
-      const updatedScenario = await ScenarioModel.findByIdAndUpdate(
-        id,
-        result.data,
-        {
-          new: true,
-          runValidators: true,
-        },
-      );
-
-      if (!updatedScenario) {
-        response.status(404).json({ error: "Scenario not found" });
-        return;
-      }
-
-      const scenarioResponse: AddOrUpdateScenarioResponse = {
-        success: true,
-        data: {
-          ...updatedScenario.toObject(),
-          _id: updatedScenario._id.toString(),
-        },
+      const scenariosResponse: ScenarioErrorResponse = {
+        success: false,
       };
 
-      response.json(scenarioResponse);
-    } catch (error) {
-      next(error);
+      response.status(500).json(scenariosResponse);
+      return;
     }
   },
 );
+
+router.put("/:id", verifyUser, async (request: Request, response: Response) => {
+  const { id } = request.params;
+  const isValid = mongoose.isValidObjectId(id);
+
+  if (!isValid) {
+    response.status(404).json({ error: `${id} is not a valid scenario ID.` });
+    return;
+  }
+
+  const result = scenarioSchema.safeParse(request.body);
+
+  if (!result.success) {
+    response.status(400).json({
+      error: "Invalid scenario data",
+      details: result.error.format(),
+    });
+    return;
+  }
+
+  try {
+    const updatedScenario = await ScenarioModel.findByIdAndUpdate(
+      id,
+      result.data,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+
+    if (!updatedScenario) {
+      response.status(404).json({ error: "Scenario not found" });
+      return;
+    }
+
+    const scenarioResponse: AddOrUpdateScenarioResponse = {
+      success: true,
+      data: {
+        ...updatedScenario.toObject(),
+        _id: updatedScenario._id.toString(),
+      },
+    };
+
+    response.json(scenarioResponse);
+  } catch (error) {
+    console.error("Error creating scenario:", error);
+
+    const scenariosResponse: ScenarioErrorResponse = {
+      success: false,
+    };
+
+    response.status(500).json(scenariosResponse);
+    return;
+  }
+});
 
 router.delete(
   "/:id",
   verifyUser,
-  async (request: Request, response: Response, next: NextFunction) => {
+  async (request: Request, response: Response) => {
     const { id } = request.params;
     const isValid = mongoose.isValidObjectId(id);
 
@@ -198,9 +204,17 @@ router.delete(
         response.status(404).json({ error: "Scenario not found" });
         return;
       }
+
       response.status(204).send();
     } catch (error) {
-      next(error);
+      console.error("Error deleting scenario:", error);
+
+      const scenariosResponse: ScenarioErrorResponse = {
+        success: false,
+      };
+
+      response.status(500).json(scenariosResponse);
+      return;
     }
   },
 );

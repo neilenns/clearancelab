@@ -26,13 +26,20 @@ export const addScenario = async (
       withAuthToken: true,
     });
 
-    if (!response.ok) throw new Error("Failed to add scenario.");
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => "Unknown error");
+      throw new Error(
+        `Failed to add scenario: ${response.status} ${errorText}`,
+      );
+    }
 
     const json = await response.json();
     const parsedResponse = addOrUpdateScenarioResponseSchema.safeParse(json);
 
     if (!parsedResponse.success) {
-      throw new Error("Invalid server response format.");
+      throw new Error(
+        `Invalid server response format: ${JSON.stringify(parsedResponse.error)}`,
+      );
     }
 
     revalidateAfterSave(parsedResponse.data.data?._id);
