@@ -30,8 +30,10 @@ export const addScenario = async (
 
     const json = await response.json();
     const parsedResponse = addOrUpdateScenarioResponseSchema.safeParse(json);
-    if (!parsedResponse.success)
+
+    if (!parsedResponse.success) {
       throw new Error("Invalid server response format.");
+    }
 
     revalidateAfterSave(parsedResponse.data.data?._id);
 

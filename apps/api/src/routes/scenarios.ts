@@ -141,10 +141,17 @@ router.post(
 
     try {
       const newScenario = new ScenarioModel(result.data);
-      const saved = await newScenario.save();
+      const savedScenario = await newScenario.save();
 
-      response.status(201).json(saved);
+      const scenarioResponse: AddOrUpdateScenarioResponse = {
+        success: true,
+        data: {
+          ...savedScenario.toObject(),
+          _id: savedScenario._id.toString(),
+        },
+      };
 
+      response.status(201).json(scenarioResponse);
       return;
     } catch (error) {
       next(error);
