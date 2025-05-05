@@ -5,9 +5,11 @@ services:
       - ../..:/workspaces:cached
       - pnpm-store-devcontainer:/pnpm-store
     env_file: 
-      - devcontainer.env
-      - devcontainer.env.override
-      
+      - path: devcontainer.env
+        required: true
+      - path: devcontainer.env.overrides
+        required: false
+
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
