@@ -34,6 +34,9 @@ export function transformFormData(payload: FormData): TransformResult {
   }
 
   const formData = unflatten(Object.fromEntries(payload));
+  formData.airportConditions ??= {};
+  formData.plan ??= {};
+  formData.craft ??= {};
 
   assertObject(formData.airportConditions);
   assertObject(formData.plan);
