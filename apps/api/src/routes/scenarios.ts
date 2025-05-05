@@ -1,4 +1,5 @@
 import {
+  AddOrUpdateScenarioResponse,
   Scenario,
   ScenarioErrorResponse,
   ScenarioResponse,
@@ -188,7 +189,15 @@ router.put(
         return;
       }
 
-      response.json(updatedScenario);
+      const scenarioResponse: AddOrUpdateScenarioResponse = {
+        success: true,
+        data: {
+          ...updatedScenario.toObject(),
+          _id: updatedScenario._id.toString(),
+        },
+      };
+
+      response.json(scenarioResponse);
     } catch (error) {
       next(error);
     }

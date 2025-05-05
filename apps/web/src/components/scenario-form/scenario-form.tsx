@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getRandomScenario } from "@workspace/plantools";
-import { ScenarioInput, ScenarioSchema } from "@workspace/validators";
+import { ScenarioInput, scenarioSchema } from "@workspace/validators";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useActionState, useEffect } from "react";
@@ -34,7 +34,7 @@ export const ScenarioForm = ({
   );
 
   const form = useForm<ScenarioInput>({
-    resolver: zodResolver(ScenarioSchema),
+    resolver: zodResolver(scenarioSchema),
     mode: "onTouched",
     defaultValues,
   });

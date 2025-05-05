@@ -1,13 +1,16 @@
 "use server";
 
-import { ApiResponse, postJson, putJson } from "@/lib/api";
+import { postJson, putJson } from "@/lib/api";
 import {
   assertObject,
   convertToBoolean,
   convertToNumber,
   unflatten,
 } from "@workspace/plantools";
-import { Scenario, ScenarioSchema } from "@workspace/validators";
+import {
+  addOrUpdateScenarioResponseSchema,
+  scenarioSchema,
+} from "@workspace/validators";
 import { revalidatePath } from "next/cache";
 
 export type OnSubmitScenarioState = {
@@ -33,6 +36,7 @@ export const addOrUpdateScenario = async (
   }
 
   const formData = unflatten(Object.fromEntries(payload));
+
   assertObject(formData.airportConditions);
   assertObject(formData.plan);
   assertObject(formData.craft);
@@ -69,10 +73,10 @@ export const addOrUpdateScenario = async (
     ...formData,
     explanations: explanationsArray,
   };
-  const scenario = ScenarioSchema.safeParse(toParse);
+  const scenarioData = scenarioSchema.safeParse(toParse);
 
-  if (!scenario.success) {
-    const errors = scenario.error.flatten().fieldErrors;
+  if (!scenarioData.success) {
+    const errors = scenarioData.error.flatten().fieldErrors;
     const fields: Record<string, string> = {};
 
     for (const key of Object.keys(formData)) {
@@ -90,25 +94,38 @@ export const addOrUpdateScenario = async (
     };
   }
 
-  const isEdit = Boolean(scenario.data._id);
+  const isEdit = Boolean(scenarioData.data._id);
 
   try {
-    let response: ApiResponse<Scenario> = undefined;
-    if (scenario.data._id) {
-      console.debug(`Updating scenario ${scenario.data._id.toString()}`);
-      response = await putJson<Scenario>(
-        `/scenarios/${scenario.data._id.toString()}`,
-        scenario.data,
+    let response;
+
+    if (scenarioData.data._id) {
+      console.debug(`Updating scenario ${scenarioData.data._id.toString()}`);
+      response = await putJson(
+        `/scenarios/${scenarioData.data._id.toString()}`,
+        scenarioData.data,
         { withAuthToken: true },
       );
     } else {
       console.debug("Saving new scenario");
-      response = await postJson<Scenario>("/scenarios", scenario.data, {
+      response = await postJson("/scenarios", scenarioData.data, {
         withAuthToken: true,
       });
     }
 
-    if (!response) {
+    if (!response.ok) {
+      throw new Error("Failed to add or update scenario.");
+    }
+
+    const data = await response.json();
+    const scenarioResponse = addOrUpdateScenarioResponseSchema.safeParse(data);
+
+    if (!scenarioResponse.success || !scenarioResponse.data) {
+      console.error(
+        `Failed to add or update scenario: ${JSON.stringify(
+          scenarioResponse.error.flatten(),
+        )}`,
+      );
       return {
         success: false,
         hasSubmitted: true,
@@ -116,8 +133,10 @@ export const addOrUpdateScenario = async (
       };
     }
 
-    if (response.data?._id) {
-      const cachePath = `/lab/${response.data._id.toString()}`;
+    const updatedScenario = scenarioResponse.data.data;
+
+    if (updatedScenario) {
+      const cachePath = `/lab/${updatedScenario._id}`;
 
       revalidatePath(cachePath);
       revalidatePath("/lab");
@@ -127,7 +146,7 @@ export const addOrUpdateScenario = async (
       success: true,
       hasSubmitted: true,
       message: `Scenario ${isEdit ? "updated" : "saved"}!`,
-      id: response.data?._id?.toString(),
+      id: updatedScenario?._id,
     };
   } catch (error) {
     console.error(error);
