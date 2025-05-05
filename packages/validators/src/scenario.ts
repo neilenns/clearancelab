@@ -41,10 +41,22 @@ export const addOrUpdateScenarioResponseSchema = z.union([
   genericErrorResponseSchema,
 ]);
 
+export const deleteSuccessResponseSchema = z.object({
+  success: z.literal(true),
+});
+
+export const deleteScenarioResponseSchema = z.union([
+  deleteSuccessResponseSchema,
+  genericErrorResponseSchema,
+]);
+
 // TypeScript types
 export type Scenario = z.infer<typeof scenarioSchema>;
 export type ScenarioInput = z.input<typeof scenarioSchema>;
 export type ScenarioResponse = z.infer<typeof fetchScenariosResponseSchema>;
 export type AddOrUpdateScenarioResponse = z.infer<
   typeof addOrUpdateScenarioResponseSchema
+>;
+export type DeleteScenarioResponse = z.infer<
+  typeof deleteScenarioResponseSchema
 >;
