@@ -9,6 +9,10 @@ inputs:
     required: false
     default: "false"
     description: "Tag the image as latest"
+  tag_latest_dev:
+    required: false
+    default: "false"
+    description: "Tag the image as latest-dev"
   push:
     required: false
     default: "true"
@@ -73,5 +77,6 @@ runs:
           PNPM_STORE=/pnpm-store
         tags: |
           ${{ inputs.tag_latest == 'true' && format('ghcr.io/{0}-api:latest', github.repository) || '' }}
+          ${{ inputs.tag_latest_dev == 'true' && format('ghcr.io/{0}-api:latest-dev', github.repository) || '' }}
           ghcr.io/${{ github.repository }}-api:${{ inputs.version }}
           ghcr.io/${{ github.repository }}-api:cache

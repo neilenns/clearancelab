@@ -25,7 +25,7 @@ jobs:
         with:
           version: ${{ env.VERSION }}
           push: true
-          tag_latest: false
+          tag_latest_dev: true
           turbo_token: ${{ secrets.TURBO_TOKEN }}
           turbo_api: ${{ vars.TURBO_API }}
           turbo_team: ${{ vars.TURBO_TEAM }}
