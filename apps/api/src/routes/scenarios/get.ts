@@ -1,8 +1,8 @@
+import { logger } from "@lib/logger.js";
+import { verifyApiKey } from "@middleware/apikey.js";
+import { ScenarioModel } from "@models/scenario.js";
 import { ScenarioResponse } from "@workspace/validators";
 import { Request, Response, Router } from "express";
-import { logger } from "../../lib/logger.js";
-import { verifyApiKey } from "../../middleware/apikey.js";
-import { ScenarioModel } from "../../models/scenario.js";
 
 const log = logger.child({ service: "scenarios" });
 

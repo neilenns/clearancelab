@@ -1,5 +1,5 @@
+import { logger } from "@lib/logger.js";
 import { Model, Schema, Types, isValidObjectId, model } from "mongoose";
-import { logger } from "../lib/logger.js";
 import {
   AirportConditions,
   AirportConditionsSchema,

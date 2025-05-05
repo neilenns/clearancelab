@@ -1,12 +1,12 @@
+import { logger } from "@lib/logger.js";
+import { verifyUser } from "@middleware/permissions.js";
+import { ScenarioModel } from "@models/scenario.js";
 import {
   AddOrUpdateScenarioResponse,
   Scenario,
   scenarioSchema,
 } from "@workspace/validators";
 import { Request, Response, Router } from "express";
-import { logger } from "../../lib/logger.js";
-import { verifyUser } from "../../middleware/permissions.js";
-import { ScenarioModel } from "../../models/scenario.js";
 
 const log = logger.child({ service: "scenarios" });
 

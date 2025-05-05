@@ -1,8 +1,8 @@
+import { ENV } from "@lib/environment.js";
+import { logger } from "@lib/logger.js";
+import { ApiKeyModel } from "@models/api-key.js";
 import { type NextFunction, type Request, type Response } from "express";
 import rateLimit from "express-rate-limit";
-import { ENV } from "../lib/environment.js";
-import { logger } from "../lib/logger.js";
-import { ApiKeyModel } from "../models/api-key.js";
 
 const log = logger.child({ service: "apikey" });
 

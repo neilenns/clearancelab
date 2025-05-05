@@ -1,5 +1,5 @@
+import { logger } from "@lib/logger.js";
 import expressWinston from "express-winston";
-import { logger } from "../lib/logger.js";
 
 // Request logger middleware
 export const requestLogger = expressWinston.logger({

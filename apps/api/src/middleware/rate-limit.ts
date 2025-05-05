@@ -1,5 +1,5 @@
+import { ENV } from "@lib/environment.js";
 import rateLimit from "express-rate-limit";
-import { ENV } from "../lib/environment.js";
 
 export const rateLimiter = rateLimit({
   windowMs: ENV.API_RATE_LIMIT_MINUTE_WINDOW * 60 * 1000, // 5 minute default

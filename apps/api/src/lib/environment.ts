@@ -1,8 +1,5 @@
 import { config } from "@dotenvx/dotenvx";
 import z from "zod";
-import { logger } from "./logger.js";
-
-const log = logger.child({ service: "environment" });
 
 config({
   ignore: ["MISSING_ENV_FILE"],
@@ -64,7 +61,8 @@ const environmentSchema = z
 
 const result = environmentSchema.safeParse(process.env);
 if (!result.success) {
-  log.error("Environment validation failed:", result.error.format());
+  // Can't use logger.js here because it depends on ENV.
+  console.error("Environment validation failed:", result.error.format());
   throw new Error("Environment validation failed");
 }
 
