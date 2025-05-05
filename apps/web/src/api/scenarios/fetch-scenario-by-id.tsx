@@ -12,7 +12,7 @@ export const fetchScenarioById = async <T,>(
   id: string,
 ): Promise<T | undefined> => {
   const response = await getJson<T>(`/scenarios/${id}`);
-  const scenarios = response?.data;
+  const scenario = response?.data;
 
-  return scenarios;
+  return scenario;
 };

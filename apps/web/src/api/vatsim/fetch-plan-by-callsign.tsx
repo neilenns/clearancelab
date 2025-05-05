@@ -34,7 +34,10 @@ export async function fetchPlanByCallsign(
     console.error(error);
     return {
       success: false,
-      message: "Unable to fetch flight plan.",
+      message:
+        error instanceof Error
+          ? `Error fetching flight plan: ${error.message}`
+          : "Unable to fetch flight plan.",
     };
   }
 
