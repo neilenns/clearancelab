@@ -1,7 +1,7 @@
 "use server";
 
 import { fetchScenarioById } from "@/api/scenarios/fetch-scenario-by-id";
-import { fetchScenarios } from "@/api/scenarios/fetch-scenarios";
+import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { getAuth0Client } from "@/lib/auth0";
 import { ENV } from "@/lib/environment";
 import { Scenario } from "@workspace/validators";
@@ -13,7 +13,7 @@ type Parameters = Promise<{ id: string }>;
 // This is the name that next.js uses for the function, it cannot be renamed.
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export async function generateStaticParams() {
-  const response = await fetchScenarios({ summary: true });
+  const response = await fetchScenariosSummary();
   const scenarios = response.success ? response.data : [];
 
   return scenarios.map((scenario) => ({ id: scenario._id }));
