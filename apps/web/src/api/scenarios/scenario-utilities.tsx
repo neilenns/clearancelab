@@ -34,6 +34,9 @@ export function transformFormData(payload: FormData): TransformResult {
   }
 
   const formData = unflatten(Object.fromEntries(payload));
+
+  // Handle the case where formData didn't include these properties For example,
+  // when canClear is false, craft isn't included.
   formData.airportConditions ??= {};
   formData.plan ??= {};
   formData.craft ??= {};
