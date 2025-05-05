@@ -15,7 +15,7 @@ export interface Plan {
   rte?: string;
   spd?: number;
   typ?: string;
-  vatsimId?: number;
+  vatsimId: number;
 }
 
 export const PlanSchema = new Schema<Plan>({

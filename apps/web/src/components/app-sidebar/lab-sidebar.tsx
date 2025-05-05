@@ -11,7 +11,7 @@ import {
   SidebarHeader,
   SidebarMenu,
 } from "@/components/ui/sidebar";
-import { Scenario } from "@workspace/validators";
+import { ScenarioSummary } from "@workspace/validators";
 import { WandSparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
@@ -20,7 +20,7 @@ import { ScenarioItem } from "./scenario-item";
 
 // Extend the props from the base Sidebar and add scenarios
 interface LabSidebarProperties extends React.ComponentProps<typeof Sidebar> {
-  scenarios: Scenario[];
+  scenarios: ScenarioSummary[];
 }
 
 export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {

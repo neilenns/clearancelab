@@ -23,10 +23,22 @@ export interface Scenario {
   explanations: Explanation[];
 }
 
+export interface ScenarioSummary {
+  _id: Types.ObjectId;
+  isValid: boolean;
+  canClear: boolean;
+  plan: {
+    dep?: string;
+    dest?: string;
+    aid: string;
+  };
+}
+
 // Static method interface
 export interface ScenarioModelType extends Model<Scenario> {
   findScenarioById(id: string): Promise<Scenario | null>;
-  findAll(summary: boolean): Promise<Partial<Scenario>[]>;
+  findAll(): Promise<Scenario[]>;
+  findSummary(): Promise<ScenarioSummary[]>;
 }
 
 // Define schema
@@ -106,22 +118,8 @@ ScenarioSchema.statics.findScenarioById = function (
   }
 };
 
-ScenarioSchema.statics.findAll = async function (
-  summary: boolean,
-): Promise<Partial<Scenario>[]> {
+ScenarioSchema.statics.findAll = async function (): Promise<Scenario[]> {
   try {
-    if (summary) {
-      const results = await this.find({})
-        .select(
-          "isValid canClear plan.dep plan.dest plan.aid createdAt updatedAt",
-        )
-        .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
-        .lean()
-        .exec();
-
-      return results;
-    }
-
     return await this.find({})
       .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
       // I have no idea why this is including all the matched scenarios in a matchedScenarios
@@ -132,6 +130,23 @@ ScenarioSchema.statics.findAll = async function (
       .exec();
   } catch (error) {
     logger.error(`Error finding all scenarios:`, error);
+    throw error;
+  }
+};
+
+ScenarioSchema.statics.findSummary = async function (): Promise<
+  ScenarioSummary[]
+> {
+  try {
+    const results = await this.find({})
+      .select("isValid canClear plan.dep plan.dest plan.aid")
+      .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
+      .lean()
+      .exec();
+
+    return results;
+  } catch (error) {
+    logger.error(`Error finding scenario summaries:`, error);
     throw error;
   }
 };

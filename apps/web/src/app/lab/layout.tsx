@@ -1,4 +1,4 @@
-import { fetchScenarios } from "@/api/scenarios/fetch-scenarios";
+import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { LabSidebar } from "@/components/app-sidebar/lab-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
@@ -34,7 +34,8 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const scenarios = await fetchScenarios({ summary: true });
+  const result = await fetchScenariosSummary();
+  const scenarios = result.success ? result.data : [];
 
   return (
     <SidebarProvider>

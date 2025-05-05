@@ -1,4 +1,10 @@
-import { Scenario, ScenarioSchema } from "@workspace/validators";
+import {
+  Scenario,
+  ScenarioErrorResponse,
+  ScenarioListResponse,
+  scenarioSchema,
+  ScenarioSummaryListResponse,
+} from "@workspace/validators";
 import { NextFunction, Request, Response, Router } from "express";
 import mongoose from "mongoose";
 import { verifyApiKey } from "../middleware/apikey.js";
@@ -7,25 +13,60 @@ import { ScenarioModel } from "../models/scenario.js";
 
 const router = Router();
 
-interface ScenarioQuery {
-  summary?: string;
-}
+router.get("/", verifyApiKey, async (request: Request, response: Response) => {
+  try {
+    const scenarios = await ScenarioModel.findAll();
+
+    const scenarioResponse: ScenarioListResponse = {
+      success: true,
+      data: scenarios.map((scenario) => ({
+        ...scenario,
+        _id: scenario._id.toString(),
+      })),
+    };
+
+    response.json(scenarioResponse);
+
+    return;
+  } catch (error) {
+    console.error("Error fetching scenarios:", error);
+
+    const scenariosResponse: ScenarioErrorResponse = {
+      success: false,
+    };
+
+    response.json(scenariosResponse);
+    return;
+  }
+});
 
 router.get(
-  "/",
+  "/summary",
   verifyApiKey,
-  async (
-    request: Request<unknown, unknown, unknown, ScenarioQuery>,
-    response: Response,
-    next: NextFunction,
-  ) => {
+  async (request: Request, response: Response) => {
     try {
-      const summary = request.query.summary === "true";
-      const scenarios = await ScenarioModel.findAll(summary);
+      const scenarios = await ScenarioModel.findSummary();
 
-      response.json(scenarios);
+      const scenarioResponse: ScenarioSummaryListResponse = {
+        success: true,
+        data: scenarios.map((scenario) => ({
+          ...scenario,
+          _id: scenario._id.toString(),
+        })),
+      };
+
+      response.json(scenarioResponse);
+
+      return;
     } catch (error) {
-      next(error);
+      console.error("Error fetching scenarios:", error);
+
+      const scenariosResponse: ScenarioErrorResponse = {
+        success: false,
+      };
+
+      response.json(scenariosResponse);
+      return;
     }
   },
 );
@@ -68,7 +109,7 @@ router.post(
     response: Response,
     next: NextFunction,
   ) => {
-    const result = ScenarioSchema.safeParse(request.body);
+    const result = scenarioSchema.safeParse(request.body);
 
     if (!result.success) {
       response.status(400).json({
@@ -104,7 +145,7 @@ router.put(
       return;
     }
 
-    const result = ScenarioSchema.safeParse(request.body);
+    const result = scenarioSchema.safeParse(request.body);
 
     if (!result.success) {
       response.status(400).json({

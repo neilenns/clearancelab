@@ -1,10 +1,10 @@
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Scenario } from "@workspace/validators";
+import { ScenarioSummary } from "@workspace/validators";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 interface ScenarioItemProperties {
-  scenario: Scenario;
+  scenario: ScenarioSummary;
   selected: boolean;
 }
 

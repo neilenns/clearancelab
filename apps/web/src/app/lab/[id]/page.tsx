@@ -13,7 +13,8 @@ type Parameters = Promise<{ id: string }>;
 // This is the name that next.js uses for the function, it cannot be renamed.
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export async function generateStaticParams() {
-  const scenarios = await fetchScenarios({ summary: true });
+  const response = await fetchScenarios({ summary: true });
+  const scenarios = response.success ? response.data : [];
 
   return scenarios.map((scenario) => ({ id: scenario._id }));
 }
