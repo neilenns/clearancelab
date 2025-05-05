@@ -7,7 +7,7 @@ import {
   getWeightClass,
   splitCallsign,
 } from "@workspace/plantools";
-import { Scenario } from "@workspace/validators";
+import { Scenario, ScenarioResponse } from "@workspace/validators";
 import * as changeCase from "change-case";
 import { NextFunction, Request, Response, Router } from "express";
 import { verifyApiKey } from "../middleware/apikey.js";
@@ -27,7 +27,12 @@ router.get(
       const flightPlan = await VatsimFlightPlanModel.findByCallsign(callsign);
 
       if (!flightPlan) {
-        response.status(404).json({ error: "Flight plan not found" });
+        const findResult: ScenarioResponse = {
+          success: false,
+          message: `Flight plan not found for callsign ${callsign}`,
+        };
+
+        response.status(404).json(findResult);
         return;
       }
 
@@ -76,7 +81,12 @@ router.get(
         explanations: [],
       };
 
-      response.json(returnedScenario);
+      const findResult: ScenarioResponse = {
+        success: true,
+        data: [returnedScenario],
+      };
+
+      response.json(findResult);
     } catch (error) {
       next(error); // Pass to centralized error handler
     }

@@ -2,7 +2,6 @@ import {
   AddOrUpdateScenarioResponse,
   DeleteScenarioResponse,
   Scenario,
-  ScenarioErrorResponse,
   ScenarioResponse,
   scenarioSchema,
   ScenarioSummaryResponse,
@@ -46,7 +45,7 @@ router.get(
     } catch (error) {
       console.error("Error fetching scenarios:", error);
 
-      const scenariosResponse: ScenarioErrorResponse = {
+      const scenariosResponse: ScenarioResponse = {
         success: false,
       };
 
@@ -80,7 +79,7 @@ router.get(
     } catch (error) {
       console.error("Error fetching scenarios:", error);
 
-      const scenariosResponse: ScenarioErrorResponse = {
+      const scenariosResponse: ScenarioResponse = {
         success: false,
       };
 
@@ -97,10 +96,12 @@ router.post(
     const result = scenarioSchema.safeParse(request.body);
 
     if (!result.success) {
-      response.status(400).json({
-        error: "Invalid scenario data",
-        details: result.error.format(),
-      });
+      const postResponse: AddOrUpdateScenarioResponse = {
+        success: false,
+        message: "Invalid scenario data",
+      };
+
+      response.status(400).json(postResponse);
 
       return;
     }
@@ -109,7 +110,7 @@ router.post(
       const newScenario = new ScenarioModel(result.data);
       const savedScenario = await newScenario.save();
 
-      const scenarioResponse: AddOrUpdateScenarioResponse = {
+      const postResponse: AddOrUpdateScenarioResponse = {
         success: true,
         data: {
           ...savedScenario.toObject(),
@@ -117,16 +118,16 @@ router.post(
         },
       };
 
-      response.status(201).json(scenarioResponse);
+      response.status(201).json(postResponse);
       return;
     } catch (error) {
-      console.error("Error updating scenario:", error);
+      console.error("Error creating scenario:", error);
 
-      const scenariosResponse: ScenarioErrorResponse = {
+      const postResponse: AddOrUpdateScenarioResponse = {
         success: false,
       };
 
-      response.status(500).json(scenariosResponse);
+      response.status(500).json(postResponse);
       return;
     }
   },
@@ -137,17 +138,25 @@ router.put("/:id", verifyUser, async (request: Request, response: Response) => {
   const isValid = mongoose.isValidObjectId(id);
 
   if (!isValid) {
-    response.status(404).json({ error: `${id} is not a valid scenario ID.` });
+    const putResponse: AddOrUpdateScenarioResponse = {
+      success: false,
+      message: `Invalid scenario ID ${id}.`,
+    };
+
+    response.status(404).json(putResponse);
     return;
   }
 
   const result = scenarioSchema.safeParse(request.body);
 
   if (!result.success) {
-    response.status(400).json({
-      error: "Invalid scenario data",
-      details: result.error.format(),
-    });
+    const details = result.error.format();
+    const putResponse: AddOrUpdateScenarioResponse = {
+      success: false,
+      message: `Invalid scenario data: ${JSON.stringify(details)}.`,
+    };
+
+    response.status(400).json(putResponse);
     return;
   }
 
@@ -162,11 +171,16 @@ router.put("/:id", verifyUser, async (request: Request, response: Response) => {
     );
 
     if (!updatedScenario) {
-      response.status(404).json({ error: "Scenario not found" });
+      const putResponse: AddOrUpdateScenarioResponse = {
+        success: false,
+        message: `Scenario with ID ${id} not found.`,
+      };
+
+      response.status(404).json(putResponse);
       return;
     }
 
-    const scenarioResponse: AddOrUpdateScenarioResponse = {
+    const putResponse: AddOrUpdateScenarioResponse = {
       success: true,
       data: {
         ...updatedScenario.toObject(),
@@ -174,11 +188,11 @@ router.put("/:id", verifyUser, async (request: Request, response: Response) => {
       },
     };
 
-    response.json(scenarioResponse);
+    response.json(putResponse);
   } catch (error) {
-    console.error("Error creating scenario:", error);
+    console.error("Error updating scenario:", error);
 
-    const scenariosResponse: ScenarioErrorResponse = {
+    const scenariosResponse: AddOrUpdateScenarioResponse = {
       success: false,
     };
 

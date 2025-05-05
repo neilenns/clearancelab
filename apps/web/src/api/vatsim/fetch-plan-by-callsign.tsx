@@ -1,55 +1,40 @@
 "use server";
 
-import { ApiResponse, getJson } from "@/lib/api";
-import { Scenario } from "@workspace/validators";
-export type FetchPlanByCallsignState =
-  | {
-      success: true;
-      scenario: Scenario;
-    }
-  | {
-      success: false;
-      message: string;
-    };
+import { getJson } from "@/lib/api";
+import { fetchScenariosResponseSchema, Scenario } from "@workspace/validators";
 
 export async function fetchPlanByCallsign(
   callsign: string,
-): Promise<FetchPlanByCallsignState> {
+): Promise<Scenario | undefined> {
   const requestedCallsign = callsign.toUpperCase().trim();
 
   if (!requestedCallsign) {
-    return {
-      success: false,
-      message: "Please enter a callsign.",
-    };
+    return;
   }
-
-  let scenario: ApiResponse<Scenario>;
 
   try {
-    scenario = await getJson<Scenario>(
-      `/vatsim/flightplan/${requestedCallsign}`,
-    );
+    const response = await getJson(`/vatsim/flightplan/${requestedCallsign}`);
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch VATSIM flight plan: ${response.statusText}`,
+      );
+    }
+
+    const data = await response.json();
+    const parsedData = fetchScenariosResponseSchema.parse(data);
+
+    if (
+      !parsedData.success ||
+      !parsedData.data ||
+      parsedData.data.length === 0
+    ) {
+      return;
+    }
+
+    return parsedData.data[0];
   } catch (error) {
-    console.error(error);
-    return {
-      success: false,
-      message:
-        error instanceof Error
-          ? `Error fetching flight plan: ${error.message}`
-          : "Unable to fetch flight plan.",
-    };
+    console.error("Error fetching VATSIM flight plan:", error);
+    return;
   }
-
-  if (!scenario || !scenario.data) {
-    return {
-      success: false,
-      message: `No flight plan found for ${requestedCallsign}.`,
-    };
-  }
-
-  return {
-    success: true,
-    scenario: scenario.data,
-  };
 }
