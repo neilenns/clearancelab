@@ -14,6 +14,7 @@ export async function middleware(request: NextRequest) {
 
   // Check for disabled authentication in development environment.
   if (authDisabled) {
+    console.warn("DISABLE_AUTH is true, authentication is disabled.");
     return NextResponse.next();
   }
 
@@ -42,7 +43,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!session) {
-    // user is not authenticated, redirect to login page
+    // The user isn't authenticated so redirect to the login page
     return NextResponse.redirect(
       new URL(
         `/auth/login?returnTo=${encodeURIComponent(request.nextUrl.pathname)}`,
@@ -57,6 +58,13 @@ export async function middleware(request: NextRequest) {
     await getAuth0Client().getAccessToken(request, authorizationResponse);
   } catch (error) {
     console.error("Error refreshing access token:", error);
+    // Failed to refresh the access token so redirect to login page.
+    return NextResponse.redirect(
+      new URL(
+        `/auth/login?returnTo=${encodeURIComponent(request.nextUrl.pathname)}`,
+        request.nextUrl.origin,
+      ),
+    );
   }
 
   // The headers from the auth middleware should always be returned
