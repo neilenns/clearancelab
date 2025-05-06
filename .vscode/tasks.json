@@ -10,6 +10,16 @@
       "label": "Lint everything",
       "problemMatcher": ["$eslint-stylish"],
       "type": "shell"
+    },
+    {
+      "command": "./.devcontainer/seed/init.sh",
+      "group": {
+        "isDefault": false,
+        "kind": "build"
+      },
+      "label": "Re-initialize the database",
+      "problemMatcher": [],
+      "type": "shell"
     }
   ],
   "version": "2.0.0"

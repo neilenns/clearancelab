@@ -1,23 +1,14 @@
 "use client";
 
-import { deleteScenario } from "@/api/scenarios/delete-scenario";
 import { Answer } from "@/components/answer";
+import { ConfirmDeleteDialog } from "@/components/confirm-delete-dialog";
 import FPE from "@/components/fpe/fpe";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { Scenario } from "@workspace/validators";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // App Router
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 interface ClientSectionProperties {
@@ -29,21 +20,21 @@ export default function ClientSection({
   scenario,
   canEdit,
 }: ClientSectionProperties) {
+  const deleteScenario = useDeleteScenario();
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const router = useRouter();
 
-  const onDeleteScenario = async () => {
-    if (!scenario._id) {
-      console.error("Scenario ID is missing");
-      return;
-    }
-
-    const result = await deleteScenario(scenario._id);
-
-    if (result) {
-      router.replace("/lab");
-    } else {
-      toast.error("Unable to delete scenario.");
-    }
+  const deleteScenarioHandler = async () => {
+    toast.promise(deleteScenario(scenario._id), {
+      loading: "Deleting scenario...",
+      success: () => {
+        router.replace("/lab");
+        return "Scenario deleted successfully";
+      },
+      error: () => {
+        return "Error deleting scenario";
+      },
+    });
   };
 
   return (
@@ -53,32 +44,17 @@ export default function ClientSection({
           <Button asChild>
             <Link href={`/admin/scenarios/edit/${scenario._id}`}>Edit</Link>
           </Button>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="destructive">Delete</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the
-                  scenario.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction asChild>
-                  <Button
-                    onClick={onDeleteScenario}
-                    variant="destructive"
-                    aria-label="Delete scenario"
-                  >
-                    Delete
-                  </Button>
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <Button
+            variant="destructive"
+            onClick={() => setIsDeleteDialogOpen(true)}
+          >
+            Delete
+          </Button>
+          <ConfirmDeleteDialog
+            onConfirm={deleteScenarioHandler}
+            isDialogOpen={isDeleteDialogOpen}
+            setIsDialogOpen={setIsDeleteDialogOpen}
+          />
         </div>
       )}
       <FPE scenario={scenario} />

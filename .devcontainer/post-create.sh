@@ -29,7 +29,6 @@ pnpm --silent add -g @devcontainers/cli
 pnpm --silent install --frozen-lockfile
 
 ### Database setup
-echo "📦 Seeding database..."
 "${SCRIPT_DIR}/seed/init.sh"
 
 ### Aliases

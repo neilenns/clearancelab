@@ -4,6 +4,7 @@ import { getJson } from "@/lib/api";
 import {
   fetchScenariosResponseSchema,
   fetchScenariosSummaryResponseSchema,
+  ScenarioResponse,
 } from "@workspace/validators";
 
 /**
@@ -14,7 +15,13 @@ export const fetchScenarios = async () => {
   const response = await getJson("/scenarios");
 
   if (!response.ok) {
-    throw new Error("Failed to fetch full scenario list.");
+    console.error("Failed to fetch scenarios:", response.statusText);
+    const fetchResponse: ScenarioResponse = {
+      success: false,
+      message: "Failed to fetch scenarios.",
+    };
+
+    return fetchResponse;
   }
 
   const data = await response.json();

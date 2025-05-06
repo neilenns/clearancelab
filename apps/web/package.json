@@ -31,6 +31,7 @@
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-switch": "^1.2.2",
     "@radix-ui/react-tooltip": "^1.2.0",
+    "@tanstack/react-table": "^8.21.3",
     "@workspace/plantools": "workspace:*",
     "@workspace/validators": "workspace:*",
     "change-case": "^5.4.4",
