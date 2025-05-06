@@ -1,5 +1,6 @@
 "use client";
 
+import { YesNoIcon } from "@/components/yes-no-icon";
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
 import { RowActions } from "./row-actions";
@@ -49,6 +50,36 @@ const columns = [
     ),
     cell: (info) => (
       <div className="text-left whitespace-normal">{info.getValue()}</div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  }),
+  columnHelper.accessor("isValid", {
+    id: "isValid",
+    header: () => (
+      <div className="text-left uppercase" aria-sort="none">
+        Is valid
+      </div>
+    ),
+    cell: (info) => (
+      <div className="flex justify-center items-center">
+        <YesNoIcon value={info.getValue()} />
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  }),
+  columnHelper.accessor("canClear", {
+    id: "canClear",
+    header: () => (
+      <div className="text-left uppercase" aria-sort="none">
+        Can clear
+      </div>
+    ),
+    cell: (info) => (
+      <div className="flex justify-center items-center">
+        <YesNoIcon value={info.getValue()} />
+      </div>
     ),
     enableSorting: false,
     enableHiding: false,

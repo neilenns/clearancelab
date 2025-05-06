@@ -20,6 +20,17 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
+  const copyLinkHandler = () => {
+    if (scenarioId) {
+      navigator.clipboard.writeText(
+        `${globalThis.location.origin}/lab/${scenarioId}`,
+      );
+      toast.success("Link copied to clipboard");
+    } else {
+      toast.error("Scenario ID is not available");
+    }
+  };
+
   const deleteScenarioHandler = async () => {
     toast.promise(deleteScenario(scenarioId), {
       loading: "Deleting scenario...",
@@ -42,6 +53,9 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={copyLinkHandler} aria-label="Copy scenario link to clipboard">
+            Copy link
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <Link
               href={`/admin/scenarios/edit/${scenarioId}`}
