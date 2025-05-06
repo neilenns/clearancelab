@@ -13,7 +13,6 @@ import {
 
 type ConfirmDeleteDialogProperties = {
   onConfirm: () => void;
-  trigger?: React.ReactNode;
   title?: string;
   description?: string;
   isDialogOpen: boolean;
@@ -36,15 +35,12 @@ export const ConfirmDeleteDialog = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <button
-              type="button"
-              onClick={onConfirm}
-              className="bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60"
-              aria-label="Confirm delete"
-            >
-              Delete
-            </button>
+          <AlertDialogAction
+            variant="destructive"
+            onClick={onConfirm}
+            aria-label="Confirm delete"
+          >
+            Delete
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
