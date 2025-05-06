@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({
     );
 
   return (
-    <div className="w-full overflow-x-auto space-y-2">
+    <div className="w-full space-y-2">
       <div className="flex flex-row space-x-2">
         <div>
           <Select
@@ -113,7 +113,7 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="font-bold uppercase">
                       {header.isPlaceholder
                         ? undefined
                         : flexRender(

@@ -12,28 +12,28 @@ export function getScenarioColumns(): ColumnDef<Scenario>[] {
   return [
     columnHelper.accessor("plan.aid", {
       id: "plan.aid",
-      header: () => <div className="uppercase">Callsign</div>,
+      header: () => <div>Callsign</div>,
       cell: (info) => <div>{info.getValue()}</div>,
       enableSorting: false,
       enableHiding: false,
     }),
     columnHelper.accessor("plan.dep", {
       id: "plan.dep",
-      header: () => <div className="uppercase">Departure</div>,
-      cell: (info) => <div>{info.getValue()}</div>,
+      header: () => <div className="text-center">Departure</div>,
+      cell: (info) => <div className="text-center">{info.getValue()}</div>,
       enableSorting: false,
       enableHiding: false,
     }),
     columnHelper.accessor("plan.dest", {
       id: "plan.dest",
-      header: () => <div className="uppercase">Arrival</div>,
-      cell: (info) => <div>{info.getValue()}</div>,
+      header: () => <div className="text-center">Arrival</div>,
+      cell: (info) => <div className="text-center">{info.getValue()}</div>,
       enableSorting: false,
       enableHiding: false,
     }),
     columnHelper.accessor("plan.rte", {
       id: "plan.rte",
-      header: () => <div className="text-left uppercase">Route</div>,
+      header: () => <div className="text-left">Route</div>,
       cell: (info) => (
         <div className="text-left whitespace-normal">{info.getValue()}</div>
       ),
@@ -42,7 +42,7 @@ export function getScenarioColumns(): ColumnDef<Scenario>[] {
     }),
     columnHelper.accessor("isValid", {
       id: "isValid",
-      header: () => <div className="text-center uppercase">Is valid</div>,
+      header: () => <div className="text-center">Is valid</div>,
       cell: (info) => (
         <div className="flex justify-center items-center">
           <YesNoIcon value={info.getValue()} />
@@ -58,7 +58,7 @@ export function getScenarioColumns(): ColumnDef<Scenario>[] {
     }),
     columnHelper.accessor("canClear", {
       id: "canClear",
-      header: () => <div className="text-center uppercase">Can clear</div>,
+      header: () => <div className="text-center">Can clear</div>,
       cell: (info) => (
         <div className="flex justify-center items-center">
           <YesNoIcon value={info.getValue()} />
