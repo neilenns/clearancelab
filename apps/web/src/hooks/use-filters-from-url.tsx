@@ -4,7 +4,7 @@ import type { ColumnFilter } from "@tanstack/react-table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export function useBooleanFiltersFromUrl<T extends string>(filterKeys: T[]) {
+export function useFiltersFromUrl<T extends string>(filterKeys: T[]) {
   const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
   const [filterValues, setFilterValues] = useState<Record<T, string>>(
     {} as Record<T, string>,
