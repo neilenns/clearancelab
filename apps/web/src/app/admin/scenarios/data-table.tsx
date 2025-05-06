@@ -61,8 +61,14 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="w-full space-y-2">
-      <div className="flex flex-row space-x-2">
-        <div>
+      <div className="flex flex-row justify-end space-x-2">
+        <div className="flex flex-col space-y-1">
+          <label
+            htmlFor="filter-can-clear"
+            className="text-sm font-medium text-muted-foreground"
+          >
+            Can clear
+          </label>
           <Select
             value={filterValues.canClear}
             onValueChange={(value) => {
@@ -73,7 +79,10 @@ export function DataTable<TData, TValue>({
                 ?.setFilterValue(value === "all" ? undefined : value);
             }}
           >
-            <SelectTrigger aria-label="Filter can clear">
+            <SelectTrigger
+              aria-label="Filter can clear column"
+              className="w-30"
+            >
               <SelectValue placeholder="Filter can clear" />
             </SelectTrigger>
             <SelectContent>
@@ -83,7 +92,13 @@ export function DataTable<TData, TValue>({
             </SelectContent>
           </Select>
         </div>
-        <div>
+        <div className="flex flex-col space-y-1">
+          <label
+            htmlFor="filter-can-clear"
+            className="text-sm font-medium text-muted-foreground"
+          >
+            Is valid
+          </label>
           <Select
             value={filterValues.isValid}
             onValueChange={(value) => {
@@ -94,7 +109,7 @@ export function DataTable<TData, TValue>({
                 ?.setFilterValue(value === "all" ? undefined : value);
             }}
           >
-            <SelectTrigger aria-label="Filter is valid">
+            <SelectTrigger aria-label="Filter is valid column" className="w-30">
               <SelectValue placeholder="Filter is valid" />
             </SelectTrigger>
             <SelectContent>
