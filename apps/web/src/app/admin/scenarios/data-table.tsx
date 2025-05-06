@@ -67,6 +67,33 @@ export function DataTable<TData, TValue>({
             htmlFor="filter-can-clear"
             className="text-sm font-medium text-muted-foreground"
           >
+            Is valid
+          </label>
+          <Select
+            value={filterValues.isValid}
+            onValueChange={(value) => {
+              updateFilter("isValid", value);
+
+              table
+                .getColumn("isValid")
+                ?.setFilterValue(value === "all" ? undefined : value);
+            }}
+          >
+            <SelectTrigger aria-label="Filter is valid column" className="w-30">
+              <SelectValue placeholder="Filter is valid" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="true">Yes</SelectItem>
+              <SelectItem value="false">No</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex flex-col space-y-1">
+          <label
+            htmlFor="filter-can-clear"
+            className="text-sm font-medium text-muted-foreground"
+          >
             Can clear
           </label>
           <Select
@@ -84,33 +111,6 @@ export function DataTable<TData, TValue>({
               className="w-30"
             >
               <SelectValue placeholder="Filter can clear" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="true">Yes</SelectItem>
-              <SelectItem value="false">No</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex flex-col space-y-1">
-          <label
-            htmlFor="filter-can-clear"
-            className="text-sm font-medium text-muted-foreground"
-          >
-            Is valid
-          </label>
-          <Select
-            value={filterValues.isValid}
-            onValueChange={(value) => {
-              updateFilter("isValid", value);
-
-              table
-                .getColumn("isValid")
-                ?.setFilterValue(value === "all" ? undefined : value);
-            }}
-          >
-            <SelectTrigger aria-label="Filter is valid column" className="w-30">
-              <SelectValue placeholder="Filter is valid" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All</SelectItem>
