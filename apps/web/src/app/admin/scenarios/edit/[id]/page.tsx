@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: Parameters }) {
 
   return (
     <div>
-      <SiteHeader title="Edit scenario" />
+      <SiteHeader />
       <main className="p-4">
         <Suspense fallback={<Loading />}>
           <ScenarioForm defaultValues={scenario} />
