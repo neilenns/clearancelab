@@ -67,8 +67,8 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ))
           ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+            <TableRow aria-live="polite">
+              <TableCell colSpan={columns.length} className="h-24 text-center" role="status">
                 No results.
               </TableCell>
             </TableRow>
