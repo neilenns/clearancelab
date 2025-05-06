@@ -4,50 +4,37 @@ import type { ColumnFilter } from "@tanstack/react-table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const FILTER_KEYS = ["isValid", "canClear"] as const;
-type FilterKey = (typeof FILTER_KEYS)[number];
-
-type FilterValues = {
-  [K in FilterKey]: string;
-};
-
-export function useColumnFiltersFromUrl() {
-  const [isReady, setIsReady] = useState(false);
-
+export function useBooleanFiltersFromUrl<T extends string>(filterKeys: T[]) {
   const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
-  const [filterValues, setFilterValues] = useState<FilterValues>({
-    isValid: "all",
-    canClear: "all",
-  });
+  const [filterValues, setFilterValues] = useState<Record<T, string>>(
+    {} as Record<T, string>,
+  );
+  const [isReady, setIsReady] = useState(false);
 
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // Load from URL on first render
   useEffect(() => {
     const filters: ColumnFilter[] = [];
-    const values: Partial<FilterValues> = {};
+    const values = {} as Record<T, string>;
 
-    for (const key of FILTER_KEYS) {
-      const value = searchParams.get(key);
-      values[key] = value ?? "all";
-
-      if (value && value !== "all") {
+    for (const key of filterKeys) {
+      const value = searchParams.get(key) ?? "all";
+      values[key] = value;
+      if (value !== "all") {
         filters.push({ id: key, value });
       }
     }
 
     setColumnFilters(filters);
-    setFilterValues((prev) => ({ ...prev, ...values }));
+    setFilterValues(values);
     setIsReady(true);
-  }, []);
+  }, [filterKeys.join(",")]); // safe enough since it's static
 
-  // Update both URL and state
-  function updateFilter(id: FilterKey, rawValue: string) {
+  function updateFilter(id: T, rawValue: string) {
     const value = rawValue === "all" ? undefined : rawValue;
 
     const params = new URLSearchParams(searchParams.toString());
-
     if (value === undefined) {
       params.delete(id);
     } else {
@@ -55,11 +42,8 @@ export function useColumnFiltersFromUrl() {
     }
 
     router.replace(`?${params.toString()}`);
-
-    // Update filter values
     setFilterValues((prev) => ({ ...prev, [id]: rawValue }));
 
-    // Update table filters
     setColumnFilters((prev) => {
       const updated = prev.filter((f) => f.id !== id);
       return value ? [...updated, { id, value }] : updated;
@@ -69,8 +53,8 @@ export function useColumnFiltersFromUrl() {
   return {
     columnFilters,
     setColumnFilters,
-    filterValues,
     updateFilter,
+    filterValues,
     isReady,
   };
 }

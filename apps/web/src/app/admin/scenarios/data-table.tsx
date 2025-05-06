@@ -24,7 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useColumnFiltersFromUrl } from "@/hooks/use-custom-filters-from-url";
+import { useBooleanFiltersFromUrl } from "@/hooks/use-boolean-filters-from-url";
 
 interface DataTableProperties<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -41,7 +41,7 @@ export function DataTable<TData, TValue>({
     updateFilter,
     filterValues,
     isReady,
-  } = useColumnFiltersFromUrl();
+  } = useBooleanFiltersFromUrl(["isValid", "canClear"]);
 
   const table = useReactTable({
     data,
