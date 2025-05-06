@@ -53,10 +53,13 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={copyLinkHandler} aria-label="Copy scenario link to clipboard">
+          <DropdownMenuItem
+            onClick={copyLinkHandler}
+            aria-label="Copy scenario link to clipboard"
+          >
             Copy link
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link
               href={`/admin/scenarios/edit/${scenarioId}`}
               aria-label="Edit scenario"
