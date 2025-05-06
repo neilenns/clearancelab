@@ -1,5 +1,7 @@
+"use client";
+
 import { Scenario } from "@workspace/validators";
-import { defaultColumns } from "./columns";
+import { getScenarioColumns } from "./columns";
 import { DataTable } from "./data-table";
 
 interface ClientSectionProperties {
@@ -9,7 +11,7 @@ interface ClientSectionProperties {
 export default function ClientSection({ scenarios }: ClientSectionProperties) {
   return (
     <div>
-      <DataTable columns={defaultColumns} data={scenarios} />
+      <DataTable columns={getScenarioColumns()} data={scenarios} />
     </div>
   );
 }
