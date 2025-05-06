@@ -42,7 +42,7 @@ export function getScenarioColumns(): ColumnDef<Scenario>[] {
     }),
     columnHelper.accessor("isValid", {
       id: "isValid",
-      header: () => <div className="text-left uppercase">Is valid</div>,
+      header: () => <div className="text-center uppercase">Is valid</div>,
       cell: (info) => (
         <div className="flex justify-center items-center">
           <YesNoIcon value={info.getValue()} />
@@ -58,7 +58,7 @@ export function getScenarioColumns(): ColumnDef<Scenario>[] {
     }),
     columnHelper.accessor("canClear", {
       id: "canClear",
-      header: () => <div className="text-left uppercase">Can clear</div>,
+      header: () => <div className="text-center uppercase">Can clear</div>,
       cell: (info) => (
         <div className="flex justify-center items-center">
           <YesNoIcon value={info.getValue()} />
