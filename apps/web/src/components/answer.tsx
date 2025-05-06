@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { cn } from "@/lib/utilities";
+import { cn } from "@/lib/utils";
 import { getFormattedClearanceLimit, getTelephony } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import { AnimatePresence, motion } from "framer-motion";

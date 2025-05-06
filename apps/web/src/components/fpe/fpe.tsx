@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utilities";
+import { cn } from "@/lib/utils";
 import { getFlightAwareUrl, getSkyVectorUrl } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import * as changeCase from "change-case";
