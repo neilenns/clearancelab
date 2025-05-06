@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { CirclePlusIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 
 const friendlyNames: Record<string, string> = {
   admin: "Admin",
@@ -24,40 +25,51 @@ const isLikelyId = (segment: string) => /^[a-f\d]{24}$/i.test(segment); // Mongo
 export function SiteHeader() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
-  const showNewButton = pathname === "/admin/scenarios";
-
   const lastIsId = isLikelyId(segments.at(-1) ?? "");
   const slicedSegments = lastIsId ? segments.slice(0, -1) : segments;
 
-  const breadcrumbElements: React.ReactNode[] = [];
+  const showNewButton = pathname === "/admin/scenarios";
 
-  for (const [index, segment] of slicedSegments.entries()) {
-    const href = "/" + slicedSegments.slice(0, index + 1).join("/");
-    const isLast = index === slicedSegments.length - 1;
-    const label = friendlyNames[segment] ?? segment.replaceAll("-", " ");
-
-    breadcrumbElements.push(
-      <BreadcrumbItem key={href}>
-        {isLast ? (
-          <BreadcrumbLink aria-current="page">{label}</BreadcrumbLink>
-        ) : (
-          <BreadcrumbLink asChild>
-            <Link href={href}>{label}</Link>
-          </BreadcrumbLink>
-        )}
-      </BreadcrumbItem>,
+  const pageName = useMemo(() => {
+    return (
+      friendlyNames[slicedSegments.at(-1) ?? ""] ??
+      (slicedSegments.at(-1) ?? "").replaceAll("-", " ")
     );
+  }, [slicedSegments]);
 
-    if (!isLast) {
-      breadcrumbElements.push(<BreadcrumbSeparator key={`${href}-sep`} />);
+  const breadcrumbElements = useMemo(() => {
+    const elements: React.ReactNode[] = [];
+
+    for (const [index, segment] of slicedSegments.entries()) {
+      const href = "/" + slicedSegments.slice(0, index + 1).join("/");
+      const isLast = index === slicedSegments.length - 1;
+      const label = friendlyNames[segment] ?? segment.replaceAll("-", " ");
+
+      elements.push(
+        <BreadcrumbItem key={href}>
+          {isLast ? (
+            <BreadcrumbLink aria-current="page">{label}</BreadcrumbLink>
+          ) : (
+            <BreadcrumbLink asChild>
+              <Link href={href}>{label}</Link>
+            </BreadcrumbLink>
+          )}
+        </BreadcrumbItem>,
+      );
+
+      if (!isLast) {
+        elements.push(<BreadcrumbSeparator key={`${href}-sep`} />);
+      }
     }
-  }
+
+    return elements;
+  }, [slicedSegments]);
 
   return (
     <header
       className="flex h-12 shrink-0 items-center justify-between border-b px-4"
       role="banner"
-      aria-label={`${friendlyNames[segments.at(-1) ?? ""]} page header`}
+      aria-label={`${pageName} page header`}
     >
       <Breadcrumb>
         <BreadcrumbList>{breadcrumbElements}</BreadcrumbList>
