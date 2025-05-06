@@ -1,8 +1,7 @@
 "use server";
 import { fetchScenarios } from "@/api/scenarios/fetch-scenarios";
 import { SiteHeader } from "@/components/site-header";
-import { defaultColumns } from "./columns";
-import { DataTable } from "./data-table";
+import ClientSection from "./client-section";
 
 export default async function Page() {
   const result = await fetchScenarios();
@@ -15,7 +14,7 @@ export default async function Page() {
         className="flex h-full flex-col items-center justify-center text-center px-4 py-4"
         aria-label="Scenarios management"
       >
-        <DataTable columns={defaultColumns} data={scenarios} />
+        <ClientSection scenarios={scenarios} />
       </main>
     </div>
   );
