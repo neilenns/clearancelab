@@ -98,6 +98,7 @@ export function DataTable<TData, TValue>({
             Can clear
           </label>
           <Select
+            id="filter-can-clear"
             value={filterValues.canClear}
             onValueChange={(value) => {
               updateFilter("canClear", value);
