@@ -53,7 +53,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={copyLinkHandler}>
+          <DropdownMenuItem onClick={copyLinkHandler} aria-label="Copy scenario link to clipboard">
             Copy link
           </DropdownMenuItem>
           <DropdownMenuItem>
