@@ -37,7 +37,6 @@ const columns = [
       return (
         <RowActions
           scenarioId={scenario._id}
-          onDelete={() => console.log("Delete", scenario._id)}
         />
       );
     },
