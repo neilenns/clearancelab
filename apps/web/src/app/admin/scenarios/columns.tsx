@@ -15,7 +15,7 @@ const columns = [
     enableHiding: false,
   }),
   columnHelper.accessor("plan.dest", {
-    id: "plan.arr",
+    id: "plan.dest",
     header: "Arrival",
     cell: (info) => <div className="text-left">{info.getValue()}</div>,
     enableSorting: true,
