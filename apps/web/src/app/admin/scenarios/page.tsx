@@ -11,7 +11,7 @@ export default async function Page() {
     <div>
       <SiteHeader />
       <main
-        className="flex h-full flex-col items-center justify-center text-center px-4 py-4"
+        className="flex h-full flex-col justify-center px-4 py-4"
         aria-label="Scenarios management"
       >
         <ClientSection scenarios={scenarios} />
