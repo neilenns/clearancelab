@@ -10,8 +10,11 @@ export default async function Page() {
 
   return (
     <div>
-      <SiteHeader title="Scenarios" />
-      <main className="flex h-full flex-col items-center justify-center text-center px-4 py-4">
+      <SiteHeader />
+      <main
+        className="flex h-full flex-col items-center justify-center text-center px-4 py-4"
+        aria-label="Scenarios management"
+      >
         <DataTable columns={defaultColumns} data={scenarios} />
       </main>
     </div>

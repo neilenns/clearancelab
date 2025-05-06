@@ -7,7 +7,7 @@ const defaultValues = getRandomScenario();
 export default function NewScenarioPage() {
   return (
     <div>
-      <SiteHeader title="New scenario" />
+      <SiteHeader />
       <main className="p-4">
         <ScenarioForm defaultValues={defaultValues} />
       </main>

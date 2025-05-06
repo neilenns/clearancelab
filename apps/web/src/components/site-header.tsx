@@ -54,7 +54,11 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="flex h-12 shrink-0 items-center justify-between border-b px-4">
+    <header
+      className="flex h-12 shrink-0 items-center justify-between border-b px-4"
+      role="banner"
+      aria-label={`${friendlyNames[segments.at(-1) ?? ""]} page header`}
+    >
       <Breadcrumb>
         <BreadcrumbList>{breadcrumbElements}</BreadcrumbList>
       </Breadcrumb>
