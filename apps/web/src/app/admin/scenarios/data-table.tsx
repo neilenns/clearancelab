@@ -45,9 +45,11 @@ export function DataTable({ data }: DataTableProperties) {
 
   if (!isReady)
     return (
-      <Spinner size="medium">
-        <span>Loading scenarios...</span>
-      </Spinner>
+      <div aria-busy="true">
+        <Spinner size="medium">
+          <span>Loading scenarios...</span>
+        </Spinner>
+      </div>
     );
 
   return (

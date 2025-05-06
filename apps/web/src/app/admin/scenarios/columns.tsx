@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { YesNoIcon } from "@/components/yes-no-icon";
+import { cn } from "@/lib/utils";
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
 import { FunnelIcon } from "lucide-react";
@@ -34,13 +35,26 @@ function ColumnFilter<T extends "isValid" | "canClear">({
       <Popover>
         <PopoverTrigger asChild>
           <button aria-label={`Filter ${label.toLowerCase()}`}>
-            <FunnelIcon className="h-4 w-4 text-muted-foreground" />
+            <FunnelIcon
+              className={cn(
+                "h-4 w-4",
+                currentValue === "all"
+                  ? "text-muted-foreground fill-none"
+                  : "text-primary fill-primary",
+              )}
+            />
           </button>
         </PopoverTrigger>
-        <PopoverContent className="w-[150px] p-2 space-y-1">
+        <PopoverContent
+          className="w-[150px] p-2 space-y-1"
+          role="dialog"
+          aria-label={`${label} filter options`}
+        >
           {options.map((option) => (
             <button
               key={option.value}
+              role="menuitem"
+              aria-selected={currentValue === option.value}
               onClick={() => update(columnKey, option.value)}
               className={`w-full text-left px-2 py-1 rounded hover:bg-muted ${
                 currentValue === option.value ? "bg-muted" : ""
