@@ -1,13 +1,16 @@
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
+import { SiteHeader } from "@/components/site-header";
 import { getRandomScenario } from "@workspace/plantools";
 
 const defaultValues = getRandomScenario();
 
 export default function NewScenarioPage() {
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">New Scenario</h1>
-      <ScenarioForm defaultValues={defaultValues} />
+    <div>
+      <SiteHeader title="New scenario" />
+      <main className="p-4">
+        <ScenarioForm defaultValues={defaultValues} />
+      </main>
     </div>
   );
 }
