@@ -1,20 +1,12 @@
 "use client";
 
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import {
   Table,
@@ -25,16 +17,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useFiltersFromUrl } from "@/hooks/use-filters-from-url";
+import { Scenario } from "@workspace/validators";
+import { useScenarioColumns } from "./columns";
 
-interface DataTableProperties<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface DataTableProperties {
+  data: Scenario[];
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProperties<TData, TValue>) {
+export function DataTable({ data }: DataTableProperties) {
   const {
     columnFilters,
     setColumnFilters,
@@ -42,6 +32,7 @@ export function DataTable<TData, TValue>({
     filterValues,
     isReady,
   } = useFiltersFromUrl(["isValid", "canClear"]);
+  const columns = useScenarioColumns({ filterValues, updateFilter });
 
   const table = useReactTable({
     data,
@@ -61,63 +52,6 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="w-full space-y-2">
-      <div className="flex flex-row justify-end space-x-2">
-        <div className="flex flex-col space-y-1">
-          <label
-            htmlFor="filter-is-valid"
-            className="text-sm font-medium text-muted-foreground"
-          >
-            Is valid
-          </label>
-          <Select
-            value={filterValues.isValid}
-            onValueChange={(value) => {
-              updateFilter("isValid", value);
-
-              table
-                .getColumn("isValid")
-                ?.setFilterValue(value === "all" ? undefined : value);
-            }}
-          >
-            <SelectTrigger id="filter-is-valid" className="w-30">
-              <SelectValue placeholder="Filter is valid" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="true">Yes</SelectItem>
-              <SelectItem value="false">No</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex flex-col space-y-1">
-          <label
-            htmlFor="filter-can-clear"
-            className="text-sm font-medium text-muted-foreground"
-          >
-            Can clear
-          </label>
-          <Select
-            value={filterValues.canClear}
-            onValueChange={(value) => {
-              updateFilter("canClear", value);
-
-              table
-                .getColumn("canClear")
-                ?.setFilterValue(value === "all" ? undefined : value);
-            }}
-          >
-            <SelectTrigger id="filter-can-clear" className="w-30">
-              <SelectValue placeholder="Filter can clear" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="true">Yes</SelectItem>
-              <SelectItem value="false">No</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
       <div className="w-full overflow-hidden rounded-md border">
         <Table aria-label="Scenarios data table">
           <TableHeader>
