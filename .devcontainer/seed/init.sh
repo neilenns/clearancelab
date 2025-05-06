@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+echo "📦 Seeding database..."
+
 # Initialize the database
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
