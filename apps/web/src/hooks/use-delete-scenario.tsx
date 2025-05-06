@@ -1,32 +1,18 @@
 "use client";
 
 import { deleteScenario } from "@/api/scenarios/delete-scenario";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-
-type Options = {
-  redirect?: boolean;
-};
 
 export const useDeleteScenario = () => {
-  const router = useRouter();
-
-  return async (scenarioId: string | undefined, options: Options = {}) => {
+  return async (scenarioId: string | undefined) => {
     if (!scenarioId) {
       console.error("Scenario ID is missing");
       return;
     }
 
-    const result = await deleteScenario(scenarioId);
-
-    if (result) {
-      if (options.redirect) {
-        router.replace("/lab");
-      } else {
-        toast.success("Scenario deleted successfully.");
-      }
-    } else {
-      toast.error("Unable to delete scenario.");
+    try {
+      const result = await deleteScenario(scenarioId);
+    } catch (error) {
+      console.error(`Failed to delete scenario: ${error}`);
     }
   };
 };

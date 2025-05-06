@@ -10,6 +10,7 @@ import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type RowActionsProperties = {
   scenarioId?: string;
@@ -18,6 +19,18 @@ type RowActionsProperties = {
 export const RowActions = ({ scenarioId }: RowActionsProperties) => {
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+  const deleteScenarioHandler = async () => {
+    toast.promise(deleteScenario(scenarioId), {
+      loading: "Deleting scenario...",
+      success: () => {
+        return "Scenario deleted successfully";
+      },
+      error: () => {
+        return "Error deleting scenario";
+      },
+    });
+  };
 
   return (
     <div>
@@ -29,7 +42,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem>
             <Link
               href={`/admin/scenarios/edit/${scenarioId}`}
               aria-label="Edit scenario"
@@ -49,7 +62,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
         aria-label="Delete scenario"
         isDialogOpen={isDeleteDialogOpen}
         setIsDialogOpen={setIsDeleteDialogOpen}
-        onConfirm={() => deleteScenario(scenarioId, { redirect: false })}
+        onConfirm={deleteScenarioHandler}
       />
     </div>
   );

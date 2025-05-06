@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { Scenario } from "@workspace/validators";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface ClientSectionProperties {
   scenario: Scenario;
@@ -18,8 +20,22 @@ export default function ClientSection({
   scenario,
   canEdit,
 }: ClientSectionProperties) {
-  const onDelete = useDeleteScenario();
+  const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const router = useRouter();
+
+  const deleteScenarioHandler = async () => {
+    toast.promise(deleteScenario(scenario._id), {
+      loading: "Deleting scenario...",
+      success: () => {
+        router.replace("/lab");
+        return "Scenario deleted successfully";
+      },
+      error: () => {
+        return "Error deleting scenario";
+      },
+    });
+  };
 
   return (
     <main className="p-6 overflow-y-auto">
@@ -35,7 +51,7 @@ export default function ClientSection({
             Delete
           </Button>
           <ConfirmDeleteDialog
-            onConfirm={() => onDelete(scenario._id)}
+            onConfirm={deleteScenarioHandler}
             isDialogOpen={isDeleteDialogOpen}
             setIsDialogOpen={setIsDeleteDialogOpen}
           />
