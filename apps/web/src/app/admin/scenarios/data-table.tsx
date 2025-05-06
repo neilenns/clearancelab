@@ -64,12 +64,13 @@ export function DataTable<TData, TValue>({
       <div className="flex flex-row justify-end space-x-2">
         <div className="flex flex-col space-y-1">
           <label
-            htmlFor="filter-can-clear"
+            htmlFor="filter-is-valid"
             className="text-sm font-medium text-muted-foreground"
           >
             Is valid
           </label>
           <Select
+            id="filter-is-valid"
             value={filterValues.isValid}
             onValueChange={(value) => {
               updateFilter("isValid", value);
