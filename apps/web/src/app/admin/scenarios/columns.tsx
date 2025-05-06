@@ -2,6 +2,7 @@
 
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
+import { Ban, CircleCheckBig } from "lucide-react";
 import { RowActions } from "./row-actions";
 
 const columnHelper = createColumnHelper<Scenario>();
@@ -49,6 +50,56 @@ const columns = [
     ),
     cell: (info) => (
       <div className="text-left whitespace-normal">{info.getValue()}</div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  }),
+  columnHelper.accessor("isValid", {
+    id: "isValid",
+    header: () => (
+      <div className="text-left uppercase" aria-sort="none">
+        Is valid
+      </div>
+    ),
+    cell: (info) => (
+      <div className="flex justify-center items-center">
+        {info.getValue() ? (
+          <CircleCheckBig
+            className="h-4 w-4 text-[var(--color-alert-ok)]"
+            aria-label="Yes"
+          />
+        ) : (
+          <Ban
+            className="h-4 w-4 text-[var(--color-alert-error)]"
+            aria-label="No"
+          />
+        )}
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  }),
+  columnHelper.accessor("canClear", {
+    id: "canClear",
+    header: () => (
+      <div className="text-left uppercase" aria-sort="none">
+        Can clear
+      </div>
+    ),
+    cell: (info) => (
+      <div className="flex justify-center items-center">
+        {info.getValue() ? (
+          <CircleCheckBig
+            className="h-4 w-4 text-[var(--color-alert-ok)]"
+            aria-label="Yes"
+          />
+        ) : (
+          <Ban
+            className="h-4 w-4 text-[var(--color-alert-error)]"
+            aria-label="No"
+          />
+        )}
+      </div>
     ),
     enableSorting: false,
     enableHiding: false,
