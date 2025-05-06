@@ -10,7 +10,7 @@ interface ClientSectionProperties {
 
 export default function ClientSection({ scenarios }: ClientSectionProperties) {
   return (
-    <div>
+    <div aria-label="Scenarios table container">
       <DataTable columns={getScenarioColumns()} data={scenarios} />
     </div>
   );
