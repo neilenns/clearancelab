@@ -9,21 +9,33 @@ const columnHelper = createColumnHelper<Scenario>();
 const columns = [
   columnHelper.accessor("plan.aid", {
     id: "plan.aid",
-    header: () => <div aria-sort="none">Callsign</div>,
+    header: () => (
+      <div aria-sort="none" className="uppercase">
+        Callsign
+      </div>
+    ),
     cell: (info) => <div>{info.getValue()}</div>,
     enableSorting: false,
     enableHiding: false,
   }),
   columnHelper.accessor("plan.dep", {
     id: "plan.dep",
-    header: () => <div aria-sort="none">Departure</div>,
+    header: () => (
+      <div aria-sort="none" className="uppercase">
+        Departure
+      </div>
+    ),
     cell: (info) => <div>{info.getValue()}</div>,
     enableSorting: false,
     enableHiding: false,
   }),
   columnHelper.accessor("plan.dest", {
     id: "plan.dest",
-    header: () => <div aria-sort="none">Arrival</div>,
+    header: () => (
+      <div aria-sort="none" className="uppercase">
+        Arrival
+      </div>
+    ),
     cell: (info) => <div>{info.getValue()}</div>,
     enableSorting: false,
     enableHiding: false,
@@ -31,7 +43,7 @@ const columns = [
   columnHelper.accessor("plan.rte", {
     id: "plan.rte",
     header: () => (
-      <div className="text-left" aria-sort="none">
+      <div className="text-left uppercase" aria-sort="none">
         Route
       </div>
     ),

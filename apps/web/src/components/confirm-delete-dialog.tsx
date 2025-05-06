@@ -9,33 +9,26 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
 
 type ConfirmDeleteDialogProperties = {
   onConfirm: () => void;
   trigger?: React.ReactNode;
   title?: string;
   description?: string;
+  isDialogOpen: boolean;
+  setIsDialogOpen: (isOpen: boolean) => void;
 };
 
 export const ConfirmDeleteDialog = ({
   onConfirm,
-  trigger,
   title = "Are you absolutely sure?",
   description = "This action cannot be undone. This will permanently delete the item.",
+  isDialogOpen,
+  setIsDialogOpen,
 }: ConfirmDeleteDialogProperties) => {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        {trigger ?? (
-          <Button variant="destructive" size="icon" aria-label="Delete">
-            <Trash className="h-4 w-4" />
-          </Button>
-        )}
-      </AlertDialogTrigger>
+    <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
