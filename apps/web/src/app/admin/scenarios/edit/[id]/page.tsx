@@ -23,8 +23,8 @@ export default async function Page({ params }: { params: Parameters }) {
   scenario.plan.homeAirport ??= "";
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Edit Scenario</h1>
+    <div>
+      <h1 className="text-xl font-bold">Edit Scenario</h1>
       <Suspense fallback={<Loading />}>
         <ScenarioForm defaultValues={scenario} />
       </Suspense>

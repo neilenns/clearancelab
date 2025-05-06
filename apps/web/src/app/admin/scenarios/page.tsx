@@ -8,7 +8,7 @@ export default async function Page() {
   const scenarios = result.success ? result.data : [];
 
   return (
-    <main className="flex h-full flex-col items-center justify-center text-center px-4 py-16">
+    <main className="flex h-full flex-col items-center justify-center text-center px-4">
       <h1>Scenario manager</h1>
       <DataTable columns={defaultColumns} data={scenarios} />
     </main>

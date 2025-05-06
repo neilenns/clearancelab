@@ -29,7 +29,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link
               href={`/admin/scenarios/edit/${scenarioId}`}
               aria-label="Edit scenario"

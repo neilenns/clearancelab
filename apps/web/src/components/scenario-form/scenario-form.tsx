@@ -54,7 +54,7 @@ export const ScenarioForm = ({
     }
 
     const message = (
-      <div>
+      <div className="py-4">
         Scenario {isEditMode ? "updated" : "saved"}!
         {formState.id && (
           <>
