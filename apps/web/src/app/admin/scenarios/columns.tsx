@@ -14,7 +14,6 @@ export function getScenarioColumns(): ColumnDef<Scenario>[] {
       id: "plan.aid",
       header: () => <div className="uppercase">Callsign</div>,
       cell: (info) => <div>{info.getValue()}</div>,
-      minSize: 100,
       enableSorting: false,
       enableHiding: false,
     }),
@@ -51,6 +50,11 @@ export function getScenarioColumns(): ColumnDef<Scenario>[] {
       ),
       enableSorting: false,
       enableHiding: false,
+      enableColumnFilter: true,
+      filterFn: (row, columnId, filterValue) => {
+        if (filterValue === undefined) return true;
+        return row.getValue(columnId) === (filterValue === "true");
+      },
     }),
     columnHelper.accessor("canClear", {
       id: "canClear",
@@ -62,6 +66,11 @@ export function getScenarioColumns(): ColumnDef<Scenario>[] {
       ),
       enableSorting: false,
       enableHiding: false,
+      enableColumnFilter: true,
+      filterFn: (row, columnId, filterValue) => {
+        if (filterValue === undefined) return true;
+        return row.getValue(columnId) === (filterValue === "true");
+      },
     }),
     columnHelper.display({
       id: "actions",
