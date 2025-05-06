@@ -70,7 +70,6 @@ export function DataTable<TData, TValue>({
             Is valid
           </label>
           <Select
-            id="filter-is-valid"
             value={filterValues.isValid}
             onValueChange={(value) => {
               updateFilter("isValid", value);
@@ -80,7 +79,7 @@ export function DataTable<TData, TValue>({
                 ?.setFilterValue(value === "all" ? undefined : value);
             }}
           >
-            <SelectTrigger aria-label="Filter is valid column" className="w-30">
+            <SelectTrigger id="filter-is-valid" className="w-30">
               <SelectValue placeholder="Filter is valid" />
             </SelectTrigger>
             <SelectContent>
@@ -98,7 +97,6 @@ export function DataTable<TData, TValue>({
             Can clear
           </label>
           <Select
-            id="filter-can-clear"
             value={filterValues.canClear}
             onValueChange={(value) => {
               updateFilter("canClear", value);
@@ -108,10 +106,7 @@ export function DataTable<TData, TValue>({
                 ?.setFilterValue(value === "all" ? undefined : value);
             }}
           >
-            <SelectTrigger
-              aria-label="Filter can clear column"
-              className="w-30"
-            >
+            <SelectTrigger id="filter-can-clear" className="w-30">
               <SelectValue placeholder="Filter can clear" />
             </SelectTrigger>
             <SelectContent>
