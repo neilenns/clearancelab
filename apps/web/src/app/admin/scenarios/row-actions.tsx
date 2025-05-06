@@ -22,6 +22,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
         </Button>
       </Link>
       <ConfirmDeleteDialog
+        aria-label="Delete scenario"
         onConfirm={() => deleteScenario(scenarioId, { redirect: false })}
       />
     </div>

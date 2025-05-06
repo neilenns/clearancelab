@@ -20,8 +20,10 @@ export const useDeleteScenario = () => {
     const result = await deleteScenario(scenarioId);
 
     if (result) {
-      if (options.redirect !== false) {
+      if (options.redirect) {
         router.replace("/lab");
+      } else {
+        toast.success("Scenario deleted successfully.");
       }
     } else {
       toast.error("Unable to delete scenario.");

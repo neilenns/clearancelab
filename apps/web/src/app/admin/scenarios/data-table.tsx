@@ -58,6 +58,7 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                aria-selected={row.getIsSelected()}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
@@ -68,7 +69,11 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow aria-live="polite">
-              <TableCell colSpan={columns.length} className="h-24 text-center" role="status">
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center"
+                role="status"
+              >
                 No results.
               </TableCell>
             </TableRow>
