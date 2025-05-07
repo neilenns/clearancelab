@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { YesNoIcon } from "@/components/yes-no-icon";
+import { cn } from "@/lib/utils";
 import {
   ColumnDef,
   createColumnHelper,
@@ -28,6 +29,10 @@ declare module "@tanstack/react-table" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
     filterVariant?: "boolean";
+    columnHeaderJustification?:
+      | "justify-start"
+      | "justify-center"
+      | "justify-end";
   }
 }
 
@@ -52,12 +57,18 @@ export function DataTable({ data }: DataTableProperties) {
           header: () => <div className="text-center">Departure</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           enableColumnFilter: false,
+          meta: {
+            columnHeaderJustification: "justify-center",
+          },
         }),
         columnHelper.accessor("plan.dest", {
           id: "plan.dest",
           header: () => <div className="text-center">Arrival</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           enableColumnFilter: false,
+          meta: {
+            columnHeaderJustification: "justify-center",
+          },
         }),
         columnHelper.accessor("plan.rte", {
           id: "plan.rte",
@@ -69,7 +80,7 @@ export function DataTable({ data }: DataTableProperties) {
         }),
         columnHelper.accessor("isValid", {
           id: "isValid",
-          header: () => <div className="text-center">Is valid</div>,
+          header: () => <span>Is valid</span>,
           cell: (info) => (
             <div className="flex justify-center items-center">
               <YesNoIcon value={info.getValue()} />
@@ -77,11 +88,12 @@ export function DataTable({ data }: DataTableProperties) {
           ),
           meta: {
             filterVariant: "boolean",
+            columnHeaderJustification: "justify-center",
           },
         }),
         columnHelper.accessor("canClear", {
           id: "canClear",
-          header: () => <div className="text-center">Can clear</div>,
+          header: () => <span>Can clear</span>,
           cell: (info) => (
             <div className="flex justify-center items-center">
               <YesNoIcon value={info.getValue()} />
@@ -89,6 +101,7 @@ export function DataTable({ data }: DataTableProperties) {
           ),
           meta: {
             filterVariant: "boolean",
+            columnHeaderJustification: "justify-center",
           },
         }),
         columnHelper.display({
@@ -114,19 +127,23 @@ export function DataTable({ data }: DataTableProperties) {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-transparent">
                 {headerGroup.headers.map((header) => {
+                  const alignment =
+                    header.column.columnDef.meta?.columnHeaderJustification ??
+                    "justify-left";
+
                   return (
                     <TableHead key={header.id} className="font-bold uppercase">
-                      {header.isPlaceholder
-                        ? undefined
-                        : flexRender(
+                      {header.isPlaceholder ? undefined : (
+                        <div className={cn("flex space-x-2", alignment)}>
+                          {flexRender(
                             header.column.columnDef.header,
                             header.getContext(),
                           )}
-                      {header.column.getCanFilter() ? (
-                        <div>
-                          <Filter column={header.column} />
+                          {header.column.getCanFilter() && (
+                            <Filter column={header.column} />
+                          )}
                         </div>
-                      ) : undefined}
+                      )}
                     </TableHead>
                   );
                 })}
