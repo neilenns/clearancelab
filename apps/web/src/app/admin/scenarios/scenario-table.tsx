@@ -43,7 +43,7 @@ export function ScenarioTable({ data }: DataTableProperties) {
                 {headerGroup.headers.map((header) => {
                   const alignment =
                     header.column.columnDef.meta?.columnHeaderJustification ??
-                    "justify-left";
+                    "justify-start";
 
                   return (
                     <TableHead key={header.id} className="font-bold uppercase">

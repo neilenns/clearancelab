@@ -15,22 +15,21 @@ declare module "@tanstack/react-table" {
       | "justify-end";
   }
 }
+const columnHelper = createColumnHelper<Scenario>();
 
 export function useScenarioColumns() {
-  const columnHelper = createColumnHelper<Scenario>();
-
   const columns = useMemo<ColumnDef<Scenario, unknown>[]>(
     () =>
       [
         columnHelper.accessor("plan.aid", {
           id: "plan.aid",
-          header: () => <div>Callsign</div>,
+          header: () => <div aria-label="Callsign column">Callsign</div>,
           cell: (info) => <div>{info.getValue()}</div>,
           enableColumnFilter: false,
         }),
         columnHelper.accessor("plan.dep", {
           id: "plan.dep",
-          header: () => <div className="text-center">Departure</div>,
+          header: () => <div aria-label="Departure column">Departure</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           enableColumnFilter: false,
           meta: {
@@ -39,7 +38,7 @@ export function useScenarioColumns() {
         }),
         columnHelper.accessor("plan.dest", {
           id: "plan.dest",
-          header: () => <div className="text-center">Arrival</div>,
+          header: () => <div aria-label="Arrival column">Arrival</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           enableColumnFilter: false,
           meta: {
@@ -48,7 +47,7 @@ export function useScenarioColumns() {
         }),
         columnHelper.accessor("plan.rte", {
           id: "plan.rte",
-          header: () => <div className="text-left">Route</div>,
+          header: () => <div aria-label="Route column">Route</div>,
           cell: (info) => (
             <div className="text-left whitespace-normal">{info.getValue()}</div>
           ),
@@ -56,7 +55,7 @@ export function useScenarioColumns() {
         }),
         columnHelper.accessor("isValid", {
           id: "isValid",
-          header: () => <span>Is valid</span>,
+          header: () => <span aria-label="Is valid column">Is valid</span>,
           cell: (info) => (
             <div className="flex justify-center items-center">
               <YesNoIcon value={info.getValue()} />
@@ -69,7 +68,7 @@ export function useScenarioColumns() {
         }),
         columnHelper.accessor("canClear", {
           id: "canClear",
-          header: () => <span>Can clear</span>,
+          header: () => <span aria-label="Can clear column">Can clear</span>,
           cell: (info) => (
             <div className="flex justify-center items-center">
               <YesNoIcon value={info.getValue()} />
@@ -85,7 +84,7 @@ export function useScenarioColumns() {
           cell: ({ row }) => <RowActions scenarioId={row.original._id} />,
         }),
       ] as ColumnDef<Scenario, unknown>[],
-    [columnHelper],
+    [],
   );
 
   return columns;

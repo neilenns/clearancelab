@@ -9,37 +9,44 @@ import { useState } from "react";
 import { FilterProperties } from "./filter";
 
 const booleanFilterOptions = [
-  { label: "All", value: "" },
+  { label: "All", value: undefined },
   { label: "Yes", value: true },
   { label: "No", value: false },
 ];
 
 export const BooleanFilter = ({ column }: FilterProperties) => {
   const [isPopoverOpen, setPopoverOpen] = useState(false);
-  // Handle no filter value being selected, which is "undefined" but not something that
-  // can be put as a value for a filter. This allows comparing the filter value to
-  // the empty string for "All" to set highlighting appropriately.
-  const columnFilterValue = column.getFilterValue() ?? "";
+  const columnFilterValue = column.getFilterValue();
 
   return (
     <div className="flex items-center justify-center space-x-1">
       <Popover open={isPopoverOpen} onOpenChange={setPopoverOpen}>
         <PopoverTrigger asChild>
-          <button onClick={() => setPopoverOpen((previous) => !previous)}>
+          <button
+            id={`filter-button-${column.id}`}
+            aria-label={`Toggle ${column.columnDef.header} filter`}
+            aria-haspopup="menu"
+            aria-expanded={isPopoverOpen}
+            onClick={() => setPopoverOpen((previous) => !previous)}
+          >
             <FunnelIcon
               className={cn(
                 "h-4 w-4",
-                columnFilterValue === ""
+                columnFilterValue === undefined
                   ? "text-muted-foreground fill-none"
                   : "text-primary fill-primary",
               )}
             />
           </button>
         </PopoverTrigger>
-        <PopoverContent className="w-[150px] p-2 space-y-1" role="dialog">
+        <PopoverContent
+          className="w-[150px] p-2 space-y-1"
+          role="menu"
+          aria-labelledby={`filter-button-${column.id}`}
+        >
           {booleanFilterOptions.map((option) => (
             <button
-              key={option.value.toString()}
+              key={option.label}
               role="menuitem"
               onClick={() => {
                 column.setFilterValue(option.value);
