@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-
-import { Spinner } from "@/components/ui/spinner";
+import { Filter } from "@/components/data-table/filters/filter";
 import {
   Table,
   TableBody,
@@ -16,41 +9,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useFiltersFromUrl } from "@/hooks/use-filters-from-url";
+import { cn } from "@/lib/utils";
+import {
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
-import { useScenarioColumns } from "./columns";
+import { useScenarioColumns } from "./use-scenario-columns";
 
 interface DataTableProperties {
   data: Scenario[];
 }
 
-export function DataTable({ data }: DataTableProperties) {
-  const {
-    columnFilters,
-    setColumnFilters,
-    updateFilter,
-    filterValues,
-    isReady,
-  } = useFiltersFromUrl(["isValid", "canClear"]);
-  const columns = useScenarioColumns({ filterValues, updateFilter });
+export function ScenarioTable({ data }: DataTableProperties) {
+  const columns = useScenarioColumns();
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    state: { columnFilters },
-    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(), //client-side filtering
   });
-
-  if (!isReady)
-    return (
-      <div aria-busy="true">
-        <Spinner size="medium">
-          <span>Loading scenarios...</span>
-        </Spinner>
-      </div>
-    );
 
   return (
     <div className="w-full space-y-2">
@@ -60,14 +41,23 @@ export function DataTable({ data }: DataTableProperties) {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-transparent">
                 {headerGroup.headers.map((header) => {
+                  const alignment =
+                    header.column.columnDef.meta?.columnHeaderJustification ??
+                    "justify-start";
+
                   return (
                     <TableHead key={header.id} className="font-bold uppercase">
-                      {header.isPlaceholder
-                        ? undefined
-                        : flexRender(
+                      {header.isPlaceholder ? undefined : (
+                        <div className={cn("flex space-x-2", alignment)}>
+                          {flexRender(
                             header.column.columnDef.header,
                             header.getContext(),
                           )}
+                          {header.column.getCanFilter() && (
+                            <Filter column={header.column} />
+                          )}
+                        </div>
+                      )}
                     </TableHead>
                   );
                 })}
