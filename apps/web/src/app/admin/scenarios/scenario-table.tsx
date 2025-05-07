@@ -31,6 +31,9 @@ export function ScenarioTable({ data }: DataTableProperties) {
   const columns = useScenarioColumns();
 
   // From https://github.com/taro-28/tanstack-table-search-params?tab=readme-ov-file
+  // The encoder and decoder is custom and uses JSON because the default method doesn't seem to
+  // work with string parameters. The encoder/decoder below comes from
+  // https://github.com/taro-28/tanstack-table-search-params/blob/main/examples/next-pages-router/src/pages/custom-encoder-decoder.tsx
   const stateAndOnChanges = useTableSearchParams(
     {
       query: useSearchParams(),
