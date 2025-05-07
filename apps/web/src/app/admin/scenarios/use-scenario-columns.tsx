@@ -8,7 +8,7 @@ declare module "@tanstack/react-table" {
   //allows us to define custom properties for our columns
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: "boolean" | "text";
+    filterVariant?: "boolean" | "text" | "combo-box";
     columnHeaderJustification?:
       | "justify-start"
       | "justify-center"
@@ -35,20 +35,20 @@ export function useScenarioColumns() {
           id: "plan.dep",
           header: () => <div aria-label="Departure column">Departure</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
-          enableColumnFilter: false,
           meta: {
             columnHeaderJustification: "justify-center",
             width: "w-[100px]",
+            filterVariant: "combo-box",
           },
         }),
         columnHelper.accessor("plan.dest", {
           id: "plan.dest",
           header: () => <div aria-label="Arrival column">Arrival</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
-          enableColumnFilter: false,
           meta: {
             columnHeaderJustification: "justify-center",
             width: "w-[100px]",
+            filterVariant: "combo-box",
           },
         }),
         columnHelper.accessor("plan.rte", {
