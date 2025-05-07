@@ -16,7 +16,10 @@ const booleanFilterOptions = [
 
 export const BooleanFilter = ({ column }: FilterProperties) => {
   const [isPopoverOpen, setPopoverOpen] = useState(false);
-  const columnFilterValue = column.getFilterValue();
+  // Handle no filter value being selected, which is "undefined" but not something that
+  // can be put as a value for a filter. This allows comparing the filter value to
+  // the empty string for "All" to set highlighting appropriately.
+  const columnFilterValue = column.getFilterValue() ?? "";
 
   return (
     <div className="flex items-center justify-center space-x-1">
@@ -26,7 +29,7 @@ export const BooleanFilter = ({ column }: FilterProperties) => {
             <FunnelIcon
               className={cn(
                 "h-4 w-4",
-                columnFilterValue === undefined
+                columnFilterValue === ""
                   ? "text-muted-foreground fill-none"
                   : "text-primary fill-primary",
               )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { Scenario } from "@workspace/validators";
-import { DataTable } from "./data-table";
+import { ScenarioTable } from "./scenario-table";
 
 interface ClientSectionProperties {
   scenarios: Scenario[];
@@ -10,7 +10,7 @@ interface ClientSectionProperties {
 export default function ClientSection({ scenarios }: ClientSectionProperties) {
   return (
     <div aria-label="Scenarios table container">
-      <DataTable data={scenarios} />
+      <ScenarioTable data={scenarios} />
     </div>
   );
 }
