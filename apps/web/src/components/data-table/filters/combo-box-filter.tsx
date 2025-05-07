@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { FunnelIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { FilterProperties } from "./filter";
 import { FilterCommandItem } from "./filter-command-item";
 
@@ -20,10 +20,13 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
   const columnFilterValue = column.getFilterValue();
   const [open, setOpen] = useState(false);
 
-  const onSelect = (value: string | undefined) => {
-    column.setFilterValue(value);
-    setOpen(false);
-  };
+  const onSelect = useCallback(
+    (value: string | undefined) => {
+      column.setFilterValue(value);
+      setOpen(false);
+    },
+    [column],
+  );
 
   const sortedUniqueValues = useMemo(
     () => [...column.getFacetedUniqueValues().keys()].sort().slice(0, 5000),
