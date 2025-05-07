@@ -17,6 +17,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTableSearchParams } from "tanstack-table-search-params";
 import { useScenarioColumns } from "./use-scenario-columns";
 
 interface DataTableProperties {
@@ -24,9 +26,18 @@ interface DataTableProperties {
 }
 
 export function ScenarioTable({ data }: DataTableProperties) {
+  const router = useRouter();
   const columns = useScenarioColumns();
 
+  // From https://github.com/taro-28/tanstack-table-search-params?tab=readme-ov-file
+  const stateAndOnChanges = useTableSearchParams({
+    query: useSearchParams(),
+    pathname: usePathname(),
+    replace: router.replace,
+  });
+
   const table = useReactTable({
+    ...stateAndOnChanges,
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
