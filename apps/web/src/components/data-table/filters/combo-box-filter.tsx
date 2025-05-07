@@ -30,13 +30,15 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
     [column],
   );
 
+  const filterLabel = column.columnDef.meta?.filterLabel;
+
   return (
     <div className="flex items-center justify-center space-x-1">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <button
             id={`filter-button-${column.id}`}
-            aria-labelledby={`filter-button-${column.id}`}
+            aria-label={`Filter ${filterLabel}`}
             aria-haspopup="dialog"
             aria-expanded={open}
           >
@@ -58,7 +60,7 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
           <Command>
             <CommandInput />
             <CommandList>
-              <CommandEmpty>No airport found.</CommandEmpty>
+              <CommandEmpty>No {filterLabel} options found.</CommandEmpty>
               <CommandGroup>
                 <FilterCommandItem
                   key={"all"}

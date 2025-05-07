@@ -14,6 +14,7 @@ declare module "@tanstack/react-table" {
       | "justify-center"
       | "justify-end";
     width?: string;
+    filterLabel?: string;
   }
 }
 const columnHelper = createColumnHelper<Scenario>();
@@ -29,6 +30,7 @@ export function useScenarioColumns() {
           meta: {
             width: "w-[100px]",
             filterVariant: "text",
+            filterLabel: "callsign",
           },
         }),
         columnHelper.accessor("plan.dep", {
@@ -39,6 +41,7 @@ export function useScenarioColumns() {
             columnHeaderJustification: "justify-center",
             width: "w-[100px]",
             filterVariant: "combo-box",
+            filterLabel: "departure",
           },
         }),
         columnHelper.accessor("plan.dest", {
@@ -49,6 +52,7 @@ export function useScenarioColumns() {
             columnHeaderJustification: "justify-center",
             width: "w-[100px]",
             filterVariant: "combo-box",
+            filterLabel: "arrival",
           },
         }),
         columnHelper.accessor("plan.rte", {
@@ -71,6 +75,7 @@ export function useScenarioColumns() {
             filterVariant: "boolean",
             columnHeaderJustification: "justify-center",
             width: "w-[100px]",
+            filterLabel: "is valid",
           },
         }),
         columnHelper.accessor("canClear", {
@@ -85,6 +90,7 @@ export function useScenarioColumns() {
             filterVariant: "boolean",
             columnHeaderJustification: "justify-center",
             width: "w-[120px]",
+            filterLabel: "can clear",
           },
         }),
         columnHelper.display({
