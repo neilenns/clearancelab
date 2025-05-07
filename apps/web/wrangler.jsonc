@@ -45,7 +45,7 @@
       "route": "clearancelab-dev.badcasserole.com/*",
       "vars": {
         "API_BASE_URL": "https://clearancelab-backend-dev.badcasserole.com",
-        "AUTH0_DOMAIN": "https://dev-q5itijfspt3smgyw.us.auth0.com",
+        "AUTH0_DOMAIN": "dev-q5itijfspt3smgyw.us.auth0.com",
         "AUTH0_CLIENT_ID": "gNF8uPUI7CFt7xfZNavjebXgtKnfXM3Z",
         "APP_BASE_URL": "https://clearancelab-dev.badcasserole.com",
         "AUTH0_AUDIENCE": "https://planverifier.badcasserole.com:4001/",
@@ -88,7 +88,7 @@
       "route": "clearancelab.badcasserole.com/*",
       "vars": {
         "API_BASE_URL": "https://clearancelab-backend.badcasserole.com",
-        "AUTH0_DOMAIN": "https://vatsim-edct.us.auth0.com/",
+        "AUTH0_DOMAIN": "vatsim-edct.us.auth0.com",
         "AUTH0_CLIENT_ID": "HW1L8KjMG1ezy4NXxlAeNheIByjOUXcx",
         "APP_BASE_URL": "https://clearancelab.badcasserole.com",
         "AUTH0_AUDIENCE": "https://clearancelab-backend.badcasserole.com/",
