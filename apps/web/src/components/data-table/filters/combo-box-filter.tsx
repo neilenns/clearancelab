@@ -34,9 +34,14 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
     [column],
   );
 
+  // Get the faceted unique values from the column
+  const facetedValuesMap = column.getFacetedUniqueValues();
+
   const sortedUniqueValues = useMemo(
-    () => [...column.getFacetedUniqueValues().keys()].sort().slice(0, 5000),
-    [column],
+    // Use the keys from the facetedValuesMap
+    () => [...facetedValuesMap.keys()].sort().slice(0, 5000),
+    // Depend on the facetedValuesMap instance
+    [facetedValuesMap],
   );
 
   const filterLabel = column.columnDef.meta?.filterLabel;
@@ -54,9 +59,9 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
             <FunnelIcon
               className={cn(
                 "h-4 w-4",
-                columnFilterValue === undefined
-                  ? "text-muted-foreground fill-none"
-                  : "text-primary fill-primary",
+                column.getIsFiltered()
+                  ? "text-primary fill-primary"
+                  : "text-muted-foreground fill-none",
               )}
             />
           </button>
