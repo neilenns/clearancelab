@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  ColumnDef,
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  RowData,
-  useReactTable,
-} from "@tanstack/react-table";
-
+import { Filter } from "@/components/data-table/filters/filter";
 import {
   Table,
   TableBody,
@@ -19,9 +10,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { YesNoIcon } from "@/components/yes-no-icon";
+import {
+  ColumnDef,
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  RowData,
+  useReactTable,
+} from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
 import { useMemo } from "react";
-import { Filter } from "./filter";
 import { RowActions } from "./row-actions";
 
 declare module "@tanstack/react-table" {
