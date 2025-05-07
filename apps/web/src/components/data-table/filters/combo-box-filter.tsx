@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { FunnelIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { FilterProperties } from "./filter";
 import { FilterCommandItem } from "./filter-command-item";
 
@@ -20,14 +20,28 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
   const columnFilterValue = column.getFilterValue();
   const [open, setOpen] = useState(false);
 
-  const onSelect = (value: string | undefined) => {
-    column.setFilterValue(value);
-    setOpen(false);
-  };
+  const onSelect = useCallback(
+    (value: string | undefined) => {
+      // If the value is an empty string (our convention for "All"),
+      // set the filter to undefined to clear it.
+      if (value === "") {
+        column.setFilterValue(undefined);
+      } else {
+        column.setFilterValue(value);
+      }
+      setOpen(false);
+    },
+    [column],
+  );
+
+  // Get the faceted unique values from the column
+  const facetedValuesMap = column.getFacetedUniqueValues();
 
   const sortedUniqueValues = useMemo(
-    () => [...column.getFacetedUniqueValues().keys()].sort().slice(0, 5000),
-    [column],
+    // Use the keys from the facetedValuesMap
+    () => [...facetedValuesMap.keys()].sort().slice(0, 5000),
+    // Depend on the facetedValuesMap instance
+    [facetedValuesMap],
   );
 
   const filterLabel = column.columnDef.meta?.filterLabel;
@@ -45,9 +59,9 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
             <FunnelIcon
               className={cn(
                 "h-4 w-4",
-                columnFilterValue === undefined
-                  ? "text-muted-foreground fill-none"
-                  : "text-primary fill-primary",
+                column.getIsFiltered()
+                  ? "text-primary fill-primary"
+                  : "text-muted-foreground fill-none",
               )}
             />
           </button>
@@ -64,8 +78,12 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
               <CommandGroup>
                 <FilterCommandItem
                   key={"all"}
-                  value={undefined}
-                  columnFilterValue={columnFilterValue}
+                  value={""}
+                  // If the actual columnFilterValue is undefined, pass "" to this item
+                  // so it appears selected. Otherwise, pass the actual filter value.
+                  columnFilterValue={
+                    columnFilterValue === undefined ? "" : columnFilterValue
+                  }
                   onSelect={onSelect}
                 >
                   All

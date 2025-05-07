@@ -29,9 +29,9 @@ export const BooleanFilter = ({ column }: FilterProperties) => {
             <FunnelIcon
               className={cn(
                 "h-4 w-4",
-                columnFilterValue === undefined
-                  ? "text-muted-foreground fill-none"
-                  : "text-primary fill-primary",
+                column.getIsFiltered()
+                  ? "text-primary fill-primary"
+                  : "text-muted-foreground fill-none",
               )}
             />
           </button>
