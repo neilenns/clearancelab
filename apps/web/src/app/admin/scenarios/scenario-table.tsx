@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import {
   flexRender,
   getCoreRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -30,11 +31,43 @@ export function ScenarioTable({ data }: DataTableProperties) {
   const columns = useScenarioColumns();
 
   // From https://github.com/taro-28/tanstack-table-search-params?tab=readme-ov-file
-  const stateAndOnChanges = useTableSearchParams({
-    query: useSearchParams(),
-    pathname: usePathname(),
-    replace: router.replace,
-  });
+  // The encoder and decoder is custom and uses JSON because the default method doesn't seem to
+  // work with string parameters. The encoder/decoder below comes from
+  // https://github.com/taro-28/tanstack-table-search-params/blob/main/examples/next-pages-router/src/pages/custom-encoder-decoder.tsx
+  const stateAndOnChanges = useTableSearchParams(
+    {
+      query: useSearchParams(),
+      pathname: usePathname(),
+      replace: router.replace,
+    },
+    {
+      encoders: {
+        globalFilter: (globalFilter) => ({
+          globalFilter: JSON.stringify(globalFilter),
+        }),
+        columnFilters: (columnFilters) =>
+          Object.fromEntries(
+            columnFilters.map(({ id, value }) => [
+              `columnFilters.${id}`,
+              JSON.stringify(value),
+            ]),
+          ),
+      },
+      decoders: {
+        globalFilter: (query) =>
+          query["globalFilter"]
+            ? JSON.parse(query["globalFilter"] as string)
+            : (query["globalFilter"] ?? ""),
+        columnFilters: (query) =>
+          Object.entries(query)
+            .filter(([key]) => key.startsWith("columnFilters."))
+            .map(([key, value]) => ({
+              id: key.replace("columnFilters.", ""),
+              value: JSON.parse(value as string),
+            })),
+      },
+    },
+  );
 
   const table = useReactTable({
     ...stateAndOnChanges,
@@ -42,6 +75,7 @@ export function ScenarioTable({ data }: DataTableProperties) {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client-side filtering
+    getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select filter/autocomplete
   });
 
   return (
