@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import {
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
   useReactTable,
@@ -75,6 +76,7 @@ export function ScenarioTable({ data }: DataTableProperties) {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client-side filtering
+    getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select filter/autocomplete
   });
 
