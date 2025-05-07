@@ -42,7 +42,11 @@ export const capitalizeFirst = (value: string) =>
  * @returns The CRAFT telephony, or the flight callsign if not available
  */
 export const getTelephony = (scenario: Scenario) => {
-  return scenario.craft?.telephony ?? scenario.plan.aid;
+  // Using || here is intentional to get a falsy check on empty strings.
+  // Using ?? won't work since empty strings aren't null or undefined.
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+  const result = scenario.craft?.telephony?.trim() || scenario.plan.aid;
+  return result;
 };
 
 /**
