@@ -21,7 +21,8 @@
         "nize.oklch-preview",
         "starbist.oklchanger",
         "vk-l.nanoid-generator",
-        "github.vscode-github-actions"
+        "github.vscode-github-actions",
+        "ms-vscode-remote.remote-containers"
       ]
     }
   },

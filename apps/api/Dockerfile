@@ -42,6 +42,9 @@ ENV PORT=${PORT}
 ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
+ARG VERSION=dev
+ENV VERSION=${VERSION}
+
 # Copy pnpm files and install the packages
 COPY --from=prune /app/out/json/ .
 RUN --mount=type=cache,target=${PNPM_HOME} echo "pnpm store before install: $(ls -la ${PNPM_HOME})"

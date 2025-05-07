@@ -11,6 +11,7 @@
     "nize.oklch-preview",
     "starbist.oklchanger",
     "jacano.vscode-pnpm",
-    "github.vscode-github-actions"
+    "github.vscode-github-actions",
+    "ms-vscode-remote.remote-containers"
   ]
 }
