@@ -22,7 +22,13 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
 
   const onSelect = useCallback(
     (value: string | undefined) => {
-      column.setFilterValue(value);
+      // If the value is an empty string (our convention for "All"),
+      // set the filter to undefined to clear it.
+      if (value === "") {
+        column.setFilterValue(undefined);
+      } else {
+        column.setFilterValue(value);
+      }
       setOpen(false);
     },
     [column],
@@ -67,8 +73,12 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
               <CommandGroup>
                 <FilterCommandItem
                   key={"all"}
-                  value={undefined}
-                  columnFilterValue={columnFilterValue}
+                  value={""}
+                  // If the actual columnFilterValue is undefined, pass "" to this item
+                  // so it appears selected. Otherwise, pass the actual filter value.
+                  columnFilterValue={
+                    columnFilterValue === undefined ? "" : columnFilterValue
+                  }
                   onSelect={onSelect}
                 >
                   All
