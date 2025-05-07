@@ -28,7 +28,10 @@ const environmentSchema = z
     AUTH0_CLIENT_ID: z.string().optional(),
     AUTH0_DOMAIN: z
       .string()
-      .url({ message: "AUTH0_DOMAIN must be a valid URL." })
+      .refine((value) => !value.startsWith("https://"), {
+        message:
+          "AUTH0_DOMAIN should not be an URL. Use the value exactly as shown in the Auth0 dashboard.",
+      })
       .optional(),
     AUTH0_SECRET: z.string().optional(),
     APP_BASE_URL: z
