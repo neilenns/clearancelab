@@ -50,6 +50,8 @@ export const TextFilter = ({ column }: FilterProperties) => {
           placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
           className="border focus-visible:ring-[1px]"
           list={column.id + "list"}
+          aria-label={`Filter by ${column.columnDef.header}`}
+          role="searchbox"
         />
       </PopoverContent>
     </Popover>

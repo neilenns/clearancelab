@@ -28,6 +28,7 @@ export function DebouncedInput({
   return (
     <Input
       {...properties}
+      aria-label={properties.placeholder || "Text input"}
       value={value}
       onChange={(event) => setValue(event.target.value)}
     />
