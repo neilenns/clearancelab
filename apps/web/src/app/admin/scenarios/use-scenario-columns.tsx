@@ -8,7 +8,7 @@ declare module "@tanstack/react-table" {
   //allows us to define custom properties for our columns
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: "boolean";
+    filterVariant?: "boolean" | "text";
     columnHeaderJustification?:
       | "justify-start"
       | "justify-center"
@@ -26,9 +26,9 @@ export function useScenarioColumns() {
           id: "plan.aid",
           header: () => <div aria-label="Callsign column">Callsign</div>,
           cell: (info) => <div>{info.getValue()}</div>,
-          enableColumnFilter: false,
           meta: {
             width: "w-[100px]",
+            filterVariant: "text",
           },
         }),
         columnHelper.accessor("plan.dep", {
