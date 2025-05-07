@@ -8,12 +8,13 @@ declare module "@tanstack/react-table" {
   //allows us to define custom properties for our columns
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: "boolean" | "text";
+    filterVariant?: "boolean" | "text" | "combo-box";
     columnHeaderJustification?:
       | "justify-start"
       | "justify-center"
       | "justify-end";
     width?: string;
+    filterLabel?: string;
   }
 }
 const columnHelper = createColumnHelper<Scenario>();
@@ -29,26 +30,29 @@ export function useScenarioColumns() {
           meta: {
             width: "w-[100px]",
             filterVariant: "text",
+            filterLabel: "callsign",
           },
         }),
         columnHelper.accessor("plan.dep", {
           id: "plan.dep",
           header: () => <div aria-label="Departure column">Departure</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
-          enableColumnFilter: false,
           meta: {
             columnHeaderJustification: "justify-center",
             width: "w-[100px]",
+            filterVariant: "combo-box",
+            filterLabel: "departure",
           },
         }),
         columnHelper.accessor("plan.dest", {
           id: "plan.dest",
           header: () => <div aria-label="Arrival column">Arrival</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
-          enableColumnFilter: false,
           meta: {
             columnHeaderJustification: "justify-center",
             width: "w-[100px]",
+            filterVariant: "combo-box",
+            filterLabel: "arrival",
           },
         }),
         columnHelper.accessor("plan.rte", {
@@ -71,6 +75,7 @@ export function useScenarioColumns() {
             filterVariant: "boolean",
             columnHeaderJustification: "justify-center",
             width: "w-[100px]",
+            filterLabel: "is valid",
           },
         }),
         columnHelper.accessor("canClear", {
@@ -85,6 +90,7 @@ export function useScenarioColumns() {
             filterVariant: "boolean",
             columnHeaderJustification: "justify-center",
             width: "w-[120px]",
+            filterLabel: "can clear",
           },
         }),
         columnHelper.display({

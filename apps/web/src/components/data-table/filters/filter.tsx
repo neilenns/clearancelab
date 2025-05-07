@@ -1,6 +1,7 @@
 import { BooleanFilter } from "@/components/data-table/filters/boolean-filter";
 import { Column } from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
+import { ComboBoxFilter } from "./combo-box-filter";
 import { TextFilter } from "./text-filter";
 
 export interface FilterProperties {
@@ -15,5 +16,9 @@ export function Filter({ column }: FilterProperties) {
   }
   if (filterVariant === "text") {
     return <TextFilter column={column} />;
+  }
+
+  if (filterVariant === "combo-box") {
+    return <ComboBoxFilter column={column} />;
   }
 }
