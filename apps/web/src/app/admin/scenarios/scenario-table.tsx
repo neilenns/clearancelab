@@ -44,9 +44,13 @@ export function ScenarioTable({ data }: DataTableProperties) {
                   const alignment =
                     header.column.columnDef.meta?.columnHeaderJustification ??
                     "justify-start";
+                  const width = header.column.columnDef.meta?.width;
 
                   return (
-                    <TableHead key={header.id} className="font-bold uppercase">
+                    <TableHead
+                      key={header.id}
+                      className={cn("font-bold uppercase", width)}
+                    >
                       {header.isPlaceholder ? undefined : (
                         <div className={cn("flex space-x-2", alignment)}>
                           {flexRender(

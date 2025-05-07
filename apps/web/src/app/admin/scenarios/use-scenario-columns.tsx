@@ -13,6 +13,7 @@ declare module "@tanstack/react-table" {
       | "justify-start"
       | "justify-center"
       | "justify-end";
+    width?: string;
   }
 }
 const columnHelper = createColumnHelper<Scenario>();
@@ -26,6 +27,9 @@ export function useScenarioColumns() {
           header: () => <div aria-label="Callsign column">Callsign</div>,
           cell: (info) => <div>{info.getValue()}</div>,
           enableColumnFilter: false,
+          meta: {
+            width: "w-[100px]",
+          },
         }),
         columnHelper.accessor("plan.dep", {
           id: "plan.dep",
@@ -34,6 +38,7 @@ export function useScenarioColumns() {
           enableColumnFilter: false,
           meta: {
             columnHeaderJustification: "justify-center",
+            width: "w-[100px]",
           },
         }),
         columnHelper.accessor("plan.dest", {
@@ -43,6 +48,7 @@ export function useScenarioColumns() {
           enableColumnFilter: false,
           meta: {
             columnHeaderJustification: "justify-center",
+            width: "w-[100px]",
           },
         }),
         columnHelper.accessor("plan.rte", {
@@ -64,6 +70,7 @@ export function useScenarioColumns() {
           meta: {
             filterVariant: "boolean",
             columnHeaderJustification: "justify-center",
+            width: "w-[100px]",
           },
         }),
         columnHelper.accessor("canClear", {
@@ -77,11 +84,15 @@ export function useScenarioColumns() {
           meta: {
             filterVariant: "boolean",
             columnHeaderJustification: "justify-center",
+            width: "w-[120px]",
           },
         }),
         columnHelper.display({
           id: "actions",
           cell: ({ row }) => <RowActions scenarioId={row.original._id} />,
+          meta: {
+            width: "w-[60px]",
+          },
         }),
       ] as ColumnDef<Scenario, unknown>[],
     [],
