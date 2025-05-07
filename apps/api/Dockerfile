@@ -42,6 +42,9 @@ ENV PORT=${PORT}
 ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
 
+ARG VERSION=dev
+ENV VERSION=${VERSION}
+
 # Copy pnpm files and install the packages
 COPY --from=prune /app/out/json/ .
 RUN --mount=type=cache,target=${PNPM_HOME} echo "pnpm store before install: $(ls -la ${PNPM_HOME})"
@@ -60,9 +63,14 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Set up the health check
+ARG PORT=4503
+ENV PORT=${PORT}
+
 ARG HEALTH_PORT=4504
 ENV HEALTH_PORT=${HEALTH_PORT}
+
+ARG VERSION=dev
+ENV VERSION=${VERSION}
 
 RUN apk --no-cache add curl
 HEALTHCHECK --interval=30s --timeout=5s CMD [ "sh", "-c", "curl -f http://localhost:$HEALTH_PORT/health || exit 1" ]
