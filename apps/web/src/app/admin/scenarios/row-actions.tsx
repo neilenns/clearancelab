@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { MoreHorizontal } from "lucide-react";
+import { ExternalLinkIcon, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -45,9 +45,19 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
 
   return (
     <div>
+      <Button variant="ghost" size="icon" asChild>
+        <Link
+          href={`/lab/${scenarioId}`}
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label="View scenario"
+        >
+          <ExternalLinkIcon />
+        </Link>
+      </Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
+          <Button variant="ghost" size="icon">
             <span className="sr-only">Open menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
