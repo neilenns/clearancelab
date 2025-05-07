@@ -1,9 +1,12 @@
 "use client";
 
 import {
+  ColumnDef,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
+  RowData,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -17,66 +20,91 @@ import {
 } from "@/components/ui/table";
 import { YesNoIcon } from "@/components/yes-no-icon";
 import { Scenario } from "@workspace/validators";
+import { useMemo } from "react";
+import { Filter } from "./filter";
 import { RowActions } from "./row-actions";
+
+declare module "@tanstack/react-table" {
+  //allows us to define custom properties for our columns
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    filterVariant?: "boolean";
+  }
+}
 
 interface DataTableProperties {
   data: Scenario[];
 }
 
-const columnHelper = createColumnHelper<Scenario>();
-
-export const columns = [
-  columnHelper.accessor("plan.aid", {
-    id: "plan.aid",
-    header: () => <div>Callsign</div>,
-    cell: (info) => <div>{info.getValue()}</div>,
-  }),
-  columnHelper.accessor("plan.dep", {
-    id: "plan.dep",
-    header: () => <div className="text-center">Departure</div>,
-    cell: (info) => <div className="text-center">{info.getValue()}</div>,
-  }),
-  columnHelper.accessor("plan.dest", {
-    id: "plan.dest",
-    header: () => <div className="text-center">Arrival</div>,
-    cell: (info) => <div className="text-center">{info.getValue()}</div>,
-  }),
-  columnHelper.accessor("plan.rte", {
-    id: "plan.rte",
-    header: () => <div className="text-left">Route</div>,
-    cell: (info) => (
-      <div className="text-left whitespace-normal">{info.getValue()}</div>
-    ),
-  }),
-  columnHelper.accessor("isValid", {
-    id: "isValid",
-    header: () => <div className="text-center">Is valid</div>,
-    cell: (info) => (
-      <div className="flex justify-center items-center">
-        <YesNoIcon value={info.getValue()} />
-      </div>
-    ),
-  }),
-  columnHelper.accessor("canClear", {
-    id: "canClear",
-    header: () => <div className="text-center">Can clear</div>,
-    cell: (info) => (
-      <div className="flex justify-center items-center">
-        <YesNoIcon value={info.getValue()} />
-      </div>
-    ),
-  }),
-  columnHelper.display({
-    id: "actions",
-    cell: ({ row }) => <RowActions scenarioId={row.original._id} />,
-  }),
-];
-
 export function DataTable({ data }: DataTableProperties) {
+  const columnHelper = createColumnHelper<Scenario>();
+
+  const columns = useMemo<ColumnDef<Scenario, unknown>[]>(
+    () =>
+      [
+        columnHelper.accessor("plan.aid", {
+          id: "plan.aid",
+          header: () => <div>Callsign</div>,
+          cell: (info) => <div>{info.getValue()}</div>,
+          enableColumnFilter: false,
+        }),
+        columnHelper.accessor("plan.dep", {
+          id: "plan.dep",
+          header: () => <div className="text-center">Departure</div>,
+          cell: (info) => <div className="text-center">{info.getValue()}</div>,
+          enableColumnFilter: false,
+        }),
+        columnHelper.accessor("plan.dest", {
+          id: "plan.dest",
+          header: () => <div className="text-center">Arrival</div>,
+          cell: (info) => <div className="text-center">{info.getValue()}</div>,
+          enableColumnFilter: false,
+        }),
+        columnHelper.accessor("plan.rte", {
+          id: "plan.rte",
+          header: () => <div className="text-left">Route</div>,
+          cell: (info) => (
+            <div className="text-left whitespace-normal">{info.getValue()}</div>
+          ),
+          enableColumnFilter: false,
+        }),
+        columnHelper.accessor("isValid", {
+          id: "isValid",
+          header: () => <div className="text-center">Is valid</div>,
+          cell: (info) => (
+            <div className="flex justify-center items-center">
+              <YesNoIcon value={info.getValue()} />
+            </div>
+          ),
+          meta: {
+            filterVariant: "boolean",
+          },
+        }),
+        columnHelper.accessor("canClear", {
+          id: "canClear",
+          header: () => <div className="text-center">Can clear</div>,
+          cell: (info) => (
+            <div className="flex justify-center items-center">
+              <YesNoIcon value={info.getValue()} />
+            </div>
+          ),
+          meta: {
+            filterVariant: "boolean",
+          },
+        }),
+        columnHelper.display({
+          id: "actions",
+          cell: ({ row }) => <RowActions scenarioId={row.original._id} />,
+        }),
+      ] as ColumnDef<Scenario, unknown>[],
+    [columnHelper],
+  );
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(), //client-side filtering
   });
 
   return (
@@ -95,6 +123,11 @@ export function DataTable({ data }: DataTableProperties) {
                             header.column.columnDef.header,
                             header.getContext(),
                           )}
+                      {header.column.getCanFilter() ? (
+                        <div>
+                          <Filter column={header.column} />
+                        </div>
+                      ) : undefined}
                     </TableHead>
                   );
                 })}
