@@ -91,7 +91,7 @@ export function useScenarioColumns() {
           id: "actions",
           cell: ({ row }) => <RowActions scenarioId={row.original._id} />,
           meta: {
-            width: "w-[60px]",
+            width: "w-[88px]",
           },
         }),
       ] as ColumnDef<Scenario, unknown>[],
