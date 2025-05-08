@@ -11,6 +11,7 @@ export const scenarioSummarySchema = z.object({
     dep: z.string().optional(),
     dest: z.string().optional(),
     aid: z.string(),
+    rte: z.string().optional(),
   }),
 });
 

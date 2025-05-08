@@ -1,6 +1,6 @@
 import { YesNoIcon } from "@/components/yes-no-icon";
 import { ColumnDef, createColumnHelper, RowData } from "@tanstack/react-table";
-import { Scenario } from "@workspace/validators";
+import { ScenarioSummary } from "@workspace/validators";
 import { useMemo } from "react";
 import { RowActions } from "./row-actions";
 
@@ -17,10 +17,10 @@ declare module "@tanstack/react-table" {
     filterLabel?: string;
   }
 }
-const columnHelper = createColumnHelper<Scenario>();
+const columnHelper = createColumnHelper<ScenarioSummary>();
 
 export function useScenarioColumns() {
-  const columns = useMemo<ColumnDef<Scenario, unknown>[]>(
+  const columns = useMemo<ColumnDef<ScenarioSummary, unknown>[]>(
     () =>
       [
         columnHelper.accessor("plan.aid", {
@@ -100,7 +100,7 @@ export function useScenarioColumns() {
             width: "w-[88px]",
           },
         }),
-      ] as ColumnDef<Scenario, unknown>[],
+      ] as ColumnDef<ScenarioSummary, unknown>[],
     [],
   );
 

@@ -18,13 +18,13 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Scenario } from "@workspace/validators";
+import { ScenarioSummary } from "@workspace/validators";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTableSearchParams } from "tanstack-table-search-params";
 import { useScenarioColumns } from "./use-scenario-columns";
 
 interface DataTableProperties {
-  data: Scenario[];
+  data: ScenarioSummary[];
 }
 
 export function ScenarioTable({ data }: DataTableProperties) {
