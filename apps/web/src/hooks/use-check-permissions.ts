@@ -85,6 +85,7 @@ export function useCheckPermissions(
   const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
+    console.log("useCheckPermissions effect triggered");
     // This effect only runs if isAuthDisabled is false (due to the early return above)
     if (userIsLoading) {
       setIsLoading(true);
@@ -122,6 +123,7 @@ export function useCheckPermissions(
     setError(undefined);
 
     if (user) {
+      // Use direct user.permissions as indicated
       const userActualPermissions = (user.permissions as Permissions[]) || [];
 
       const newStatus = permissionsArray.reduce(
@@ -144,9 +146,6 @@ export function useCheckPermissions(
         ),
       );
     }
-    // permissionsArray is included in the dependency array.
-    // If the parent component passes a new array instance on every render,
-    // this effect will re-run. Memoize permissionsToVerify in the parent if it's dynamic.
   }, [user, userError, userIsLoading, permissionsArray]);
 
   return { permissionsStatus, isLoading, error };

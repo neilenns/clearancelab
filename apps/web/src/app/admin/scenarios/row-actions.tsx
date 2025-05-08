@@ -6,8 +6,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { useCheckPermissions } from "@/hooks/useCheckPermissions";
 import { Permissions } from "@workspace/validators";
 import { ExternalLinkIcon, MoreHorizontal } from "lucide-react";
 import Link from "next/link";

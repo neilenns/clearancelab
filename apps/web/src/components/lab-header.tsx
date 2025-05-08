@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { useCheckPermissions } from "@/hooks/useCheckPermissions";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Permissions, Scenario } from "@workspace/validators";
 import { LogIn, LogOut } from "lucide-react";
@@ -51,7 +51,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
       {scenario.plan.dep} - {scenario.plan.dest} ({scenario.plan.aid})
       <div className="space-x-2">
         {permissionsStatus[Permissions.EditScenarios] && (
-          <Button asChild>
+          <Button variant="outline" asChild>
             <Link
               href={`/admin/scenarios/edit/${scenario._id}`}
               aria-label="Edit scenario"
@@ -77,7 +77,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
           </>
         )}
         {!isLoading && user && (
-          <Button variant="outline" size="icon" asChild>
+          <Button variant="ghost" size="icon" asChild>
             <a href="/auth/logout">
               <LogOut aria-hidden="true" />
               <span className="sr-only">Log out</span>
@@ -85,7 +85,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
           </Button>
         )}
         {!isLoading && !user && (
-          <Button variant="outline" size="icon" asChild>
+          <Button variant="ghost" size="icon" asChild>
             <a href={`/auth/login?returnTo=${pathname}`}>
               <LogIn aria-hidden="true" />
               <span className="sr-only">Log in</span>
