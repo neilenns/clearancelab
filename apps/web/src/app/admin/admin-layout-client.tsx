@@ -24,7 +24,7 @@ export default function AdminLayoutClient({
         aria-label="Loading scenarios"
       >
         <div role="status">
-          <Spinner size="medium">
+          <Spinner size="medium" aria-live="polite">
             <span>Logging in...</span>
           </Spinner>
         </div>
