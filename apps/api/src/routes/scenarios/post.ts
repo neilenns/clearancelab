@@ -27,7 +27,7 @@ router.post(
     if (!result.success) {
       const postResponse: AddOrUpdateScenarioResponse = {
         success: false,
-        message: "Invalid scenario data",
+        message: `Invalid scenario data: ${JSON.stringify(result.error.format())}.`,
       };
 
       response.status(400).json(postResponse);

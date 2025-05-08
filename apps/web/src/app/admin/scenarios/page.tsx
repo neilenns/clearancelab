@@ -1,6 +1,6 @@
 "use server";
 import { fetchScenarios } from "@/api/scenarios/fetch-scenarios";
-import { SiteHeader } from "@/components/site-header";
+import { AdminHeader } from "@/components/admin-header";
 import ClientSection from "./client-section";
 
 export default async function Page() {
@@ -9,7 +9,7 @@ export default async function Page() {
 
   return (
     <div>
-      <SiteHeader />
+      <AdminHeader />
       <main
         className="flex h-full flex-col justify-center px-4 py-4"
         aria-label="Scenarios management"

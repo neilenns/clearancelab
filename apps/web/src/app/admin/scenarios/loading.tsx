@@ -1,12 +1,12 @@
 "use client";
 
-import { SiteHeader } from "@/components/site-header";
+import { AdminHeader } from "@/components/admin-header";
 import { Spinner } from "@/components/ui/spinner";
 
 export default function Loading() {
   return (
     <div>
-      <SiteHeader />
+      <AdminHeader />
       <main
         className="flex min-h-screen flex-col items-center justify-center text-center px-4 py-4"
         aria-label="Loading scenarios"

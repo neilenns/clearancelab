@@ -1,73 +1,22 @@
 "use client";
 
 import { Answer } from "@/components/answer";
-import { ConfirmDeleteDialog } from "@/components/confirm-delete-dialog";
 import FPE from "@/components/fpe/fpe";
-import { Button } from "@/components/ui/button";
-import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { useCheckPermissions } from "@/hooks/useCheckPermissions";
-import { Permissions, Scenario } from "@workspace/validators";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+import { LabHeader } from "@/components/lab-header";
+import { Scenario } from "@workspace/validators";
 
 interface ClientSectionProperties {
   scenario: Scenario;
 }
 
-const permissionsToVerify = [
-  Permissions.EditScenarios,
-  Permissions.DeleteScenarios,
-];
-
 export default function ClientSection({ scenario }: ClientSectionProperties) {
-  const deleteScenario = useDeleteScenario();
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const router = useRouter();
-  const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
-
-  const deleteScenarioHandler = async () => {
-    toast.promise(deleteScenario(scenario._id), {
-      loading: "Deleting scenario...",
-      success: () => {
-        router.replace("/lab");
-        return "Scenario deleted successfully";
-      },
-      error: () => {
-        return "Error deleting scenario";
-      },
-    });
-  };
-
   return (
-    <main className="p-6 overflow-y-auto">
-      <div className="space-x-2 mb-4">
-        {permissionsStatus[Permissions.EditScenarios] && (
-          <Button asChild>
-            <Link href={`/admin/scenarios/edit/${scenario._id}`}>Edit</Link>
-          </Button>
-        )}
-        {permissionsStatus[Permissions.DeleteScenarios] && (
-          <>
-            <Button
-              variant="destructive"
-              onClick={() => setIsDeleteDialogOpen(true)}
-              aria-label="Delete scenario"
-            >
-              Delete
-            </Button>
-            <ConfirmDeleteDialog
-              onConfirm={deleteScenarioHandler}
-              isDialogOpen={isDeleteDialogOpen}
-              setIsDialogOpen={setIsDeleteDialogOpen}
-            />
-          </>
-        )}
+    <main className="overflow-y-auto">
+      <LabHeader scenario={scenario} />
+      <div className="p-4">
+        <FPE scenario={scenario} />
+        <Answer scenario={scenario} />
       </div>
-
-      <FPE scenario={scenario} />
-      <Answer scenario={scenario} />
     </main>
   );
 }

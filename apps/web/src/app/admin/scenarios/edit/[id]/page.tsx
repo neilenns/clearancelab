@@ -1,7 +1,7 @@
 "use server";
 import { fetchScenariosByIds } from "@/api/scenarios/fetch-scenarios-by-ids";
+import { AdminHeader } from "@/components/admin-header";
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
-import { SiteHeader } from "@/components/site-header";
 import { Suspense } from "react";
 import Loading from "./loading";
 import NotFound from "./not-found";
@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: Parameters }) {
 
   return (
     <div>
-      <SiteHeader />
+      <AdminHeader />
       <main className="p-4" aria-label="Edit scenario form">
         <Suspense fallback={<Loading />}>
           <ScenarioForm defaultValues={scenario} />
