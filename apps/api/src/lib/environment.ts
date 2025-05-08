@@ -10,8 +10,8 @@ const environmentSchema = z
   .object({
     API_RATE_LIMIT_MAX: z.coerce.number().default(100),
     API_RATE_LIMIT_MINUTE_WINDOW: z.coerce.number().default(5),
-    AUTH0_AUDIENCE: auth0url, // Optional, but should be a valid URL
-    AUTH0_DOMAIN: auth0url, // Optional, but should be a valid URL
+    AUTH0_AUDIENCE: auth0url.optional(), // Optional, but should be a valid URL
+    AUTH0_DOMAIN: auth0url.optional(), // Optional, but should be a valid URL
     DISABLE_AUTH: z
       .preprocess((value) => value === "true" || value === "1", z.boolean())
       .default(false),

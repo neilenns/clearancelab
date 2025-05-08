@@ -48,7 +48,12 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
       <div className="space-x-2">
         {permissionsStatus[Permissions.EditScenarios] && (
           <Button asChild>
-            <Link href={`/admin/scenarios/edit/${scenario._id}`}>Edit</Link>
+            <Link
+              href={`/admin/scenarios/edit/${scenario._id}`}
+              aria-label="Edit scenario"
+            >
+              Edit
+            </Link>
           </Button>
         )}
         {permissionsStatus[Permissions.DeleteScenarios] && (

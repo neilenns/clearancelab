@@ -10,7 +10,12 @@ export const auth0url = z
     if (!/^https:\/\//i.test(url)) {
       url = `https://${url}`;
     }
-    return url.replace(/\/+$/, ""); // Strip trailing slashes
+
+    // Soooo picky, but Auth0 requires a trailing slash on the URL.
+    if (!url.endsWith("/")) {
+      url += "/";
+    }
+    return url;
   })
   .refine(
     (value) => {
@@ -24,5 +29,4 @@ export const auth0url = z
     {
       message: "Invalid URL",
     },
-  )
-  .optional();
+  );
