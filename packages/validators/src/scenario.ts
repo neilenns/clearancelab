@@ -4,7 +4,6 @@ import { AirportInfoSchema } from "./airport-info.js";
 import { CraftSchema } from "./craft.js";
 import { genericErrorResponseSchema } from "./error-response.js";
 import { ExplanationSchema } from "./explanations.js";
-import { paginationSchema } from "./pagination.js";
 import { PlanSchema } from "./plan.js";
 
 export const scenarioSchema = z.object({
@@ -22,7 +21,6 @@ export const scenarioSchema = z.object({
 export const scenarioListSuccessSchema = z.object({
   success: z.literal(true),
   data: z.array(scenarioSchema),
-  pagination: paginationSchema.optional(),
 });
 
 // Final schemas used per endpoint
