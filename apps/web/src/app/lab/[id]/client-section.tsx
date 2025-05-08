@@ -48,8 +48,6 @@ export default function ClientSection({
 
     setCanEdit(user.permissions.includes("edit:scenarios"));
     setCanDelete(user.permissions.includes("delete:scenarios"));
-
-    console.log("User:", user);
   }, [user, isLoading, error, disableAuth]);
 
   const deleteScenarioHandler = async () => {
