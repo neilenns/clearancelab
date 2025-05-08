@@ -7,7 +7,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { Permissions, Scenario } from "@workspace/validators";
 import { LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation"; // Added usePathname
 import { useState } from "react";
 import { toast } from "sonner";
 import { ConfirmDeleteDialog } from "./confirm-delete-dialog";
@@ -23,6 +23,7 @@ const permissionsToVerify = [
 
 export function LabHeader({ scenario }: LabHeaderProperties) {
   const router = useRouter();
+  const pathname = usePathname(); // Get current pathname
   const { user, isLoading } = useUser();
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -85,7 +86,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
         )}
         {!isLoading && !user && (
           <Button variant="outline" size="icon" asChild>
-            <a href="/auth/login">
+            <a href={`/auth/login?returnTo=${pathname}`}>
               <LogIn aria-hidden="true" />
               <span className="sr-only">Log in</span>
             </a>
