@@ -37,7 +37,8 @@ export const checkRequiredPermissions = (requiredPermissions: string[]) => {
       );
 
       if (!hasPermissions) {
-        response.status(500).json({ error: "Authorization failure" });
+-        response.status(500).json({ error: "Authorization failure" });
++        response.status(403).json({ error: "Forbidden – insufficient permissions" });
       }
 
       return hasPermissions;
