@@ -10,7 +10,7 @@ interface ClientSectionProperties {
 export default function ClientSection({ statistics }: ClientSectionProperties) {
   return (
     <div
-      className="flex flex-row space-x-2"
+      className="flex flex-wrap gap-2"
       aria-label="Plan statistics container"
     >
       <PieChart
