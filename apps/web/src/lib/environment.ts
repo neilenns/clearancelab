@@ -21,10 +21,7 @@ const environmentSchema = z
         }
         return value;
       }),
-    AUTH0_AUDIENCE: z
-      .string()
-      .url({ message: "AUTH0_AUDIENCE must be a valid URL." })
-      .optional(),
+    AUTH0_AUDIENCE: auth0url, // Optional, but should be a valid URL
     AUTH0_CLIENT_SECRET: z.string().optional(), // To generate this use `openssl rand -hex 32`
     AUTH0_CLIENT_ID: z.string().optional(),
     AUTH0_DOMAIN: auth0url, // Optional, but should be a valid URL
