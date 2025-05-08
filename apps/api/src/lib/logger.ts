@@ -9,7 +9,26 @@ const format =
         winston.format.timestamp(),
         winston.format.printf((info: TransformableInfo) => {
           const { timestamp, level, message } = info;
-          return `${timestamp?.toString() ?? ""} [${level.toUpperCase()}] ${message?.toString() ?? ""}`;
+          let logMessage = message;
+          const splat = info[Symbol.for("splat") as unknown as string];
+
+          if (typeof message === "object" && message !== null) {
+            logMessage = JSON.stringify(message);
+          }
+
+          if (Array.isArray(splat)) {
+            const splatMessages = splat
+              .map((item: unknown) => {
+                if (typeof item === "object" && item !== null) {
+                  return JSON.stringify(item);
+                }
+                return item;
+              })
+              .join(" ");
+            logMessage = `${logMessage as string} ${splatMessages}`;
+          }
+
+          return `${timestamp?.toString() ?? ""} [${level.toUpperCase()}] ${logMessage as string}`;
         }),
       );
 

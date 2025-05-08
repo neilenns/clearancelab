@@ -1,6 +1,8 @@
 import { AdminSidebar } from "@/components/admin-sidebar/admin-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { getAuth0Client } from "@/lib/auth0";
 import type { Metadata } from "next";
+import UnauthorizedPage from "./unauthorized";
 
 const description = "Administration tools for Clearance Lab";
 const title = "Admin | Clearance Lab";
@@ -28,11 +30,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Layout({
+export default async function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getAuth0Client().getSession();
+
+  if (!session?.user.permissions.includes("view:admin")) {
+    return <UnauthorizedPage />;
+  }
+
   return (
     <SidebarProvider>
       <AdminSidebar />

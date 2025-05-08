@@ -1,12 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
-
 import { SessionData } from "@auth0/nextjs-auth0/types";
+import { jwtDecode } from "jwt-decode";
+import { NextRequest, NextResponse } from "next/server";
 import { getAuth0Client } from "./lib/auth0";
 
 // This has to be done using process.env instead of the zod-parsed ENV as it
 // runs in a separate runtime just for middleware.
 const authDisabled =
   process.env.NODE_ENV === "development" && process.env.DISABLE_AUTH === "true";
+
+interface DecodedAccessToken {
+  permissions?: string[];
+}
 
 // This method of protecting routes comes from https://github.com/auth0/nextjs-auth0/blob/main/EXAMPLES.md#middleware
 export async function middleware(request: NextRequest) {
@@ -51,6 +55,18 @@ export async function middleware(request: NextRequest) {
       ),
     );
   }
+
+  const decodedToken = jwtDecode<DecodedAccessToken>(
+    session.tokenSet.accessToken,
+  );
+
+  await getAuth0Client().updateSession(request, authorizationResponse, {
+    ...session,
+    user: {
+      ...session.user,
+      permissions: decodedToken.permissions,
+    },
+  });
 
   // This ensures the access token is refreshed and available to server actions.
   // https://github.com/auth0/nextjs-auth0/issues/1520#issuecomment-1778965382

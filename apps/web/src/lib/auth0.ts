@@ -8,7 +8,7 @@ export const getAuth0Client = () => {
     auth0Client = new Auth0Client({
       authorizationParameters: {
         scope: "openid",
-        audience: ENV.AUTH0_AUDIENCE,
+        audience: `https://${ENV.AUTH0_AUDIENCE}`,
       },
     });
   }
