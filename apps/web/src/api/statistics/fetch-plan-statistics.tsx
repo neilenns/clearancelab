@@ -2,7 +2,7 @@
 
 import { getJson } from "@/lib/api";
 import {
-  PlanStatisticsResponse,
+  GenericErrorResponse,
   planStatisticsResponseSchema,
 } from "@workspace/validators";
 
@@ -14,7 +14,7 @@ export const fetchPlanStatistics = async () => {
 
     if (!response.ok) {
       console.error("Failed to fetch statistics:", response.statusText);
-      const fetchResponse: PlanStatisticsResponse = {
+      const fetchResponse: GenericErrorResponse = {
         success: false,
         message: "Failed to fetch plan statistics.",
       };
@@ -26,9 +26,10 @@ export const fetchPlanStatistics = async () => {
     return planStatisticsResponseSchema.parse(data);
   } catch (error) {
     console.error("Error fetching statistics:", error);
-    return {
+    const fetchResponse: GenericErrorResponse = {
       success: false,
       message: "Failed to fetch plan statistics.",
     };
+    return fetchResponse;
   }
 };

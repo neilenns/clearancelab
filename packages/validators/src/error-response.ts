@@ -5,3 +5,5 @@ export const genericErrorResponseSchema = z.object({
   data: z.undefined(),
   message: z.string().optional(),
 });
+
+export type GenericErrorResponse = z.infer<typeof genericErrorResponseSchema>;

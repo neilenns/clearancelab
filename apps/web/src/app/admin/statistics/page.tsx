@@ -5,7 +5,7 @@ import ClientSection from "./client-section";
 
 export default async function Page() {
   const result = await fetchPlanStatistics();
-  const statistics = result.success ? result.data : [];
+  const statistics = result.success ? result.data : undefined;
 
   return (
     <div>
