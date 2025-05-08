@@ -33,10 +33,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy image
-        uses: joelwmale/webhook-action@2.4.1
-        with:
-          url: ${{ vars.WATCHTOWER_WEBHOOK_URL }}
-          headers: '{"CF-Access-Client-Id": "${{ vars.CF_ACCESS_CLIENT_ID }}", "CF-Access-Client-Secret": "${{ secrets.CF_ACCESS_CLIENT_SECRET }}", "Authorization": "Bearer ${{ secrets.WATCHTOWER_API_KEY }}"}'
+        run: |
+          curl -X POST "${{ vars.WATCHTOWER_WEBHOOK_URL}}" \
+          -f --show-error \
+          -H "Authorization: Bearer ${{ vars.WATCHTOWER_API_KEY }}" \
+          -H "CF-Access-Client-Id: ${{ vars.CF_ACCESS_CLIENT_ID }}" \
+          -H "CF-Access-Client-Secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}"
 
   cloudflare:
     name: Deploy to Cloudflare

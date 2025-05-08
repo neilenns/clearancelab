@@ -33,7 +33,8 @@ jobs:
 
       - name: Deploy image
         run: |
-          curl -X GET "${{ vars.WATCHTOWER_WEBHOOK_URL}}" \
+          curl -X POST "${{ vars.WATCHTOWER_WEBHOOK_URL}}" \
+          -f --show-error \
           -H "Authorization: Bearer ${{ vars.WATCHTOWER_API_KEY }}" \
           -H "CF-Access-Client-Id: ${{ vars.CF_ACCESS_CLIENT_ID }}" \
           -H "CF-Access-Client-Secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}"
