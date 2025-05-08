@@ -32,7 +32,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy image
-        uses: joelwmale/webhook-action@master
+        uses: joelwmale/webhook-action@2.4.1
         with:
           url: ${{ vars.WATCHTOWER_WEBHOOK_URL }}
           headers: '{"CF-Access-Client-Id": "${{ vars.CF_ACCESS_CLIENT_ID }}", "CF-Access-Client-Secret": "${{ secrets.CF_ACCESS_CLIENT_SECRET }}", "Authorization": "Bearer ${{ secrets.WATCHTOWER_API_KEY }}"}'
