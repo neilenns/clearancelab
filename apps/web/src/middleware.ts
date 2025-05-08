@@ -56,10 +56,13 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  const decodedToken = jwtDecode<DecodedAccessToken>(
-    session.tokenSet.accessToken,
-  );
+  const accessToken = session.tokenSet.accessToken;
+  if (!accessToken) {
+    console.error("Missing access token in session");
+    return NextResponse.redirect(new URL("/", request.nextUrl.origin));
+  }
 
+  const decodedToken = jwtDecode<DecodedAccessToken>(accessToken);
   await getAuth0Client().updateSession(request, authorizationResponse, {
     ...session,
     user: {
