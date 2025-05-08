@@ -1,11 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { useCheckPermissions } from "@/hooks/useCheckPermissions";
+import { useUser } from "@auth0/nextjs-auth0";
 import { Permissions, Scenario } from "@workspace/validators";
+import { LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation"; // Added usePathname
 import { useState } from "react";
 import { toast } from "sonner";
 import { ConfirmDeleteDialog } from "./confirm-delete-dialog";
@@ -21,6 +23,8 @@ const permissionsToVerify = [
 
 export function LabHeader({ scenario }: LabHeaderProperties) {
   const router = useRouter();
+  const pathname = usePathname(); // Get current pathname
+  const { user, isLoading } = useUser();
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
@@ -47,7 +51,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
       {scenario.plan.dep} - {scenario.plan.dest} ({scenario.plan.aid})
       <div className="space-x-2">
         {permissionsStatus[Permissions.EditScenarios] && (
-          <Button asChild>
+          <Button variant="outline" asChild>
             <Link
               href={`/admin/scenarios/edit/${scenario._id}`}
               aria-label="Edit scenario"
@@ -71,6 +75,22 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
               setIsDialogOpen={setIsDeleteDialogOpen}
             />
           </>
+        )}
+        {!isLoading && user && (
+          <Button variant="ghost" size="icon" asChild>
+            <a href="/auth/logout">
+              <LogOut aria-hidden="true" />
+              <span className="sr-only">Log out</span>
+            </a>
+          </Button>
+        )}
+        {!isLoading && !user && (
+          <Button variant="ghost" size="icon" asChild>
+            <a href={`/auth/login?returnTo=${pathname}`}>
+              <LogIn aria-hidden="true" />
+              <span className="sr-only">Log in</span>
+            </a>
+          </Button>
         )}
       </div>
     </header>

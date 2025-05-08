@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { CirclePlusIcon } from "lucide-react";
+import { CirclePlusIcon, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
@@ -86,6 +86,14 @@ export function AdminHeader() {
           </Link>
         </Button>
       )}
+      <div className="ml-auto">
+        <Button variant="outline" size="icon" asChild>
+          <a href="/auth/logout">
+            <LogOut aria-hidden="true" />
+            <span className="sr-only">Log out</span>
+          </a>
+        </Button>
+      </div>
     </header>
   );
 }
