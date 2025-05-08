@@ -21,8 +21,8 @@ type AdditionalMetadata = {
   url: string;
 };
 
-type PieClickData<T> = {
-  payload: T & AdditionalMetadata;
+type PieClickData<Statistic> = {
+  payload: Statistic & AdditionalMetadata;
 };
 
 const palette = [
@@ -38,11 +38,11 @@ const palette = [
   "color-mix(in oklab, var(--primary) 4%, white 96%)",
 ];
 
-function addMetadataToData<T extends { item: string }>(
-  data: T[],
+function addMetadataToData(
+  data: Statistic[],
   palette: string[],
   baseUrl: string,
-): (T & AdditionalMetadata)[] {
+): (Statistic & AdditionalMetadata)[] {
   return data.map((entry, index) => ({
     ...entry,
     fill: palette[index % palette.length],
