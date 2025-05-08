@@ -169,4 +169,14 @@ All jobs leverage a TurboRepo remote cache and prune to only run when dependent 
 
 Deployments to the `dev` environment are triggered manually by running the [`Deploy - dev`](.github/workflows/deploy-dev.yaml) workflow in GitHub. Deployments to the `prod` environment are triggered by the [`Deploy - prod`](.github/workflows/deploy-prod.yaml) workflow.
 
-The only part that requires manual deployment is updating the Docker instance running the API server Docker image.
+After the Docker image builds a Watchtower webhook is called to deploy the image into either dev or prod. For this to work the following environment variables must be set in GitHub:
+
+| Variable                 | Description                       |
+| ------------------------ | --------------------------------- |
+| `WATCHTOWER_WEBHOOK_URL` | URL to the Watchtower webhook.    |
+| `CF_ACCESS_CLIENT_ID`    | Client ID for the Cloudflare API. |
+
+And the following secrets must be set in GitHub:
+
+| `WATCHTOWER_API_KEY` | API key for the Watchtower webhook. |
+| `CF_ACCESS_CLIENT_SECRET` | Client secret for the Cloudflare API. |
