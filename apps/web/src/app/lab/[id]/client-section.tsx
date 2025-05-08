@@ -50,7 +50,7 @@ export default function ClientSection({
     setCanDelete(user.permissions.includes("delete:scenarios"));
 
     console.log("User:", user);
-  }, [user, isLoading, error]);
+  }, [user, isLoading, error, disableAuth]);
 
   const deleteScenarioHandler = async () => {
     toast.promise(deleteScenario(scenario._id), {
