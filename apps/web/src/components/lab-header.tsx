@@ -3,7 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { useCheckPermissions } from "@/hooks/useCheckPermissions";
+import { useUser } from "@auth0/nextjs-auth0";
 import { Permissions, Scenario } from "@workspace/validators";
+import { LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -21,6 +23,7 @@ const permissionsToVerify = [
 
 export function LabHeader({ scenario }: LabHeaderProperties) {
   const router = useRouter();
+  const { user, isLoading } = useUser();
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
@@ -71,6 +74,22 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
               setIsDialogOpen={setIsDeleteDialogOpen}
             />
           </>
+        )}
+        {!isLoading && user && (
+          <Button variant="outline" size="icon" asChild>
+            <a href="/auth/logout">
+              <LogOut aria-hidden="true" />
+              <span className="sr-only">Log out</span>
+            </a>
+          </Button>
+        )}
+        {!isLoading && !user && (
+          <Button variant="outline" size="icon" asChild>
+            <a href="/auth/login">
+              <LogIn aria-hidden="true" />
+              <span className="sr-only">Log in</span>
+            </a>
+          </Button>
         )}
       </div>
     </header>

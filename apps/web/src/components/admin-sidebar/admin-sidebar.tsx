@@ -1,7 +1,6 @@
 "use client";
 
 import { ModeToggle } from "@/components/mode-toggle";
-import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Edit, Home, LogOut } from "lucide-react";
+import { Edit, Home } from "lucide-react";
 import Link from "next/link";
 
 const items = [
@@ -57,14 +56,6 @@ export function AdminSidebar({ ...properties }) {
         <SidebarFooter>
           <div className="flex items-center px-2">
             <ModeToggle />
-            <div className="ml-auto">
-              <Button variant="outline" size="icon" asChild>
-                <a href="/auth/logout">
-                  <LogOut aria-hidden="true" />
-                  <span className="sr-only">Log out</span>
-                </a>
-              </Button>
-            </div>
           </div>
         </SidebarFooter>
       </Sidebar>
