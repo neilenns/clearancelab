@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { genericErrorResponseSchema } from "./error-response";
-import { paginationSchema } from "./pagination";
 
 // Summary schema — includes only core fields
 export const scenarioSummarySchema = z.object({
@@ -17,7 +16,6 @@ export const scenarioSummarySchema = z.object({
 export const scenarioSummarySuccessSchema = z.object({
   success: z.literal(true),
   data: z.array(scenarioSummarySchema),
-  pagination: paginationSchema.optional(),
 });
 
 export const fetchScenariosSummaryResponseSchema = z.union([

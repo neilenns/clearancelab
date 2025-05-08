@@ -4,7 +4,7 @@ import { getJson } from "@/lib/api";
 import {
   fetchScenariosResponseSchema,
   fetchScenariosSummaryResponseSchema,
-  ScenarioResponse,
+  GenericErrorResponse,
 } from "@workspace/validators";
 
 /**
@@ -16,7 +16,7 @@ export const fetchScenarios = async () => {
 
   if (!response.ok) {
     console.error("Failed to fetch scenarios:", response.statusText);
-    const fetchResponse: ScenarioResponse = {
+    const fetchResponse: GenericErrorResponse = {
       success: false,
       message: "Failed to fetch scenarios.",
     };

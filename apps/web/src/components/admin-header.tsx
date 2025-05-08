@@ -18,6 +18,7 @@ const friendlyNames: Record<string, string> = {
   scenarios: "Scenarios",
   edit: "Edit",
   new: "New",
+  statistics: "Plan statistics",
 };
 
 const isLikelyId = (segment: string) => /^[a-f\d]{24}$/i.test(segment); // Mongo-style ObjectId
