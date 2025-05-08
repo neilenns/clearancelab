@@ -11,9 +11,11 @@ export default function Loading() {
         className="flex min-h-screen flex-col items-center justify-center text-center px-4 py-4"
         aria-label="Loading scenarios"
       >
-        <Spinner size="medium">
-          <span>Loading scenarios...</span>
-        </Spinner>
+        <div role="status" aria-live="polite">
+          <Spinner size="medium">
+            <span>Loading scenarios...</span>
+          </Spinner>
+        </div>
       </main>
     </div>
   );
