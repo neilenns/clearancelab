@@ -1,10 +1,5 @@
-import { AdminSidebar } from "@/components/admin-sidebar/admin-sidebar";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { getAuth0Client } from "@/lib/auth0";
-import { ENV } from "@/lib/environment";
-import { Permissions } from "@workspace/validators";
 import type { Metadata } from "next";
-import UnauthorizedPage from "./unauthorized";
+import AdminLayoutClient from "./admin-layout-client"; // Import the new client component
 
 const description = "Administration tools for Clearance Lab";
 const title = "Admin | Clearance Lab";
@@ -37,19 +32,6 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getAuth0Client().getSession();
-
-  if (
-    !ENV.DISABLE_AUTH &&
-    !session?.user.permissions.includes(Permissions.ViewAdmin)
-  ) {
-    return <UnauthorizedPage />;
-  }
-
-  return (
-    <SidebarProvider>
-      <AdminSidebar />
-      <SidebarInset>{children}</SidebarInset>
-    </SidebarProvider>
-  );
+  // Content is client-rendered so permissions can be checked via a hook.
+  return <AdminLayoutClient>{children}</AdminLayoutClient>;
 }
