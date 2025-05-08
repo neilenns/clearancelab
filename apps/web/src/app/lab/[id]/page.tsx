@@ -2,8 +2,6 @@
 
 import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { fetchScenariosByIds } from "@/api/scenarios/fetch-scenarios-by-ids";
-import { getAuth0Client } from "@/lib/auth0";
-import { ENV } from "@/lib/environment";
 import ClientSection from "./client-section";
 import NotFound from "./not-found";
 
@@ -28,15 +26,5 @@ export default async function Page({ params }: { params: Parameters }) {
 
   const scenario = scenarios[0];
 
-  const session = ENV.AUTH_DISABLED
-    ? undefined
-    : await getAuth0Client().getSession();
-
-  return (
-    <ClientSection
-      aria-label="Scenario viewer"
-      scenario={scenario}
-      canEdit={Boolean(session) || ENV.AUTH_DISABLED}
-    />
-  );
+  return <ClientSection aria-label="Scenario viewer" scenario={scenario} />;
 }

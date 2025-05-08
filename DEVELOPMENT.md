@@ -77,10 +77,10 @@ Auth0 is disabled by default. To enable it, create a file called `devcontainer.e
 
 For Auth0 to work on the API server, the following variables must be set, either via a `.env.local` file in the `apps/api` folder or in the `devcontainer.env.overrides` file:
 
-| Variable         | Description                                                                                                               |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `AUTH0_DOMAIN`   | Domain of the Auth0 Clearance Lab application. This is not a URL. Copy the value exactly as shown in the AUTH0 dashboard. |
-| `AUTH0_AUDIENCE` | URL for the API created in the Auth0 dashboard.                                                                           |
+| Variable         | Description                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `AUTH0_DOMAIN`   | Domain of the Auth0 Clearance Lab application. Copy the value exactly as shown in the AUTH0 dashboard. |
+| `AUTH0_AUDIENCE` | URL for the API created in the Auth0 dashboard.                                                        |
 
 There are additional security-related variables to configure CORS and rate-limiting:
 
@@ -90,15 +90,15 @@ There are additional security-related variables to configure CORS and rate-limit
 | `API_RATE_LIMIT_MINUTE_WINDOW` | Time window for rate limiting in minutes. Default 5.                            |
 | `WHITELISTED_DOMAINS`          | List of domains that are allowed via CORS. Separate multiple domains with `\|`. |
 
-The web app also needs several Auth0 variables set to validate secured endpoints. These are only required if you want to test authentication locally (when `DISABLE_AUTH` is set to `false`). These can be set in the `devcontainer.env.overrides` file or in a `.env.local` file in the `apps/web` folder.
+The web app also needs several Auth0 variables set to validate secured endpoints. These are only required if you want to test authentication locally (when `DISABLE_AUTH` is set to `false` and `NEXT_PUBLIC_DISABLE_AUTH` is set to `false`). These can be set in the `devcontainer.env.overrides` file or in a `.env.local` file in the `apps/web` folder.
 
-| Variable              | Description                                                                                                                  |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                                              |
-| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                                         |
-| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                                                |
-| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. This is not a URL. Copy the value exactly as shown in the AUTH0 dashboard. |
-| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                                           |
+| Variable              | Description                                                                                               |
+| --------------------- | --------------------------------------------------------------------------------------------------------- |
+| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                           |
+| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                      |
+| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                             |
+| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. Copy the value exactly as shown in the AUTH0 dashboard. |
+| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                        |
 
 To speed builds, the following environment variables can be set to enable TurboRepo remote caching:
 

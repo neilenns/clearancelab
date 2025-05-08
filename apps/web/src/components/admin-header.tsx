@@ -22,7 +22,7 @@ const friendlyNames: Record<string, string> = {
 
 const isLikelyId = (segment: string) => /^[a-f\d]{24}$/i.test(segment); // Mongo-style ObjectId
 
-export function SiteHeader() {
+export function AdminHeader() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
   const lastIsId = isLikelyId(segments.at(-1) ?? "");

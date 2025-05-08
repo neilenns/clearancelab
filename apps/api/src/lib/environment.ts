@@ -1,4 +1,5 @@
 import { config } from "@dotenvx/dotenvx";
+import { auth0url } from "@workspace/validators";
 import z from "zod";
 
 config({
@@ -9,17 +10,8 @@ const environmentSchema = z
   .object({
     API_RATE_LIMIT_MAX: z.coerce.number().default(100),
     API_RATE_LIMIT_MINUTE_WINDOW: z.coerce.number().default(5),
-    AUTH0_AUDIENCE: z
-      .string()
-      .url({ message: "AUTH0_AUDIENCE must be a valid URL." })
-      .optional(),
-    AUTH0_DOMAIN: z
-      .string()
-      .refine((value) => !value.startsWith("https://"), {
-        message:
-          "AUTH0_DOMAIN should not be an URL. Use the value exactly as shown in the Auth0 dashboard.",
-      })
-      .optional(),
+    AUTH0_AUDIENCE: auth0url.optional(), // Optional, but should be a valid URL
+    AUTH0_DOMAIN: auth0url.optional(), // Optional, but should be a valid URL
     DISABLE_AUTH: z
       .preprocess((value) => value === "true" || value === "1", z.boolean())
       .default(false),

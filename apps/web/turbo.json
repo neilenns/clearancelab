@@ -59,7 +59,9 @@
         "AUTH0_CLIENT_SECRET",
         "AUTH0_DOMAIN",
         "AUTH0_SCOPE",
-        "AUTH0_SECRET"
+        "AUTH0_SECRET",
+        "DISABLE_AUTH",
+        "NEXT_PUBLIC_DISABLE_AUTH"
       ]
     }
   }

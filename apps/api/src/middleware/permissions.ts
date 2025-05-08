@@ -1,28 +1,57 @@
 import { ENV } from "@lib/environment.js";
 import { logger } from "@lib/logger.js";
 import { type NextFunction, type Request, type Response } from "express";
-import { auth } from "express-oauth2-jwt-bearer";
+import { auth, claimCheck } from "express-oauth2-jwt-bearer";
 
 const log = logger.child({ service: "permissions" });
+
+export const checkRequiredPermissions = (
+  requiredPermissions: string | string[],
+) => {
+  if (ENV.DISABLE_AUTH && ENV.NODE_ENV === "development") {
+    log.warn(
+      "DISABLE_AUTH is true, skipping permission check for development.",
+    );
+    return (request: Request, response: Response, next: NextFunction) => {
+      next();
+    };
+  }
+
+  // Directly return the middleware created by claimCheck
+  return claimCheck((payload) => {
+    const permissions = (payload.permissions ?? []) as string[];
+    const requiredPermissionsArray = Array.isArray(requiredPermissions)
+      ? requiredPermissions
+      : [requiredPermissions];
+
+    const hasPermissions = requiredPermissionsArray.every(
+      (requiredPermission) => permissions.includes(requiredPermission),
+    );
+
+    return hasPermissions;
+  });
+};
 
 export const verifyUser = async (
   request: Request,
   response: Response,
   next: NextFunction,
 ) => {
+  if (ENV.DISABLE_AUTH && ENV.NODE_ENV === "development") {
+    log.warn("DISABLE_AUTH is true, authentication is disabled.");
+    next();
+    return;
+  }
+
   const middleware = auth({
     audience: ENV.AUTH0_AUDIENCE,
-    issuerBaseURL: ENV.AUTH0_DOMAIN,
+    // AUTH0_DOMAIN is always defined and a string, as enforced by Zod if DISABLE_AUTH is false.
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    issuerBaseURL: `https://${ENV.AUTH0_DOMAIN}`,
   });
 
   try {
     // Disable auth in development mode
-    if (ENV.DISABLE_AUTH && ENV.NODE_ENV === "development") {
-      log.warn("DISABLE_AUTH is true, authentication is disabled.");
-      next();
-      return;
-    }
-
     await middleware(request, response, (error?: unknown) => {
       if (error) {
         log.debug("Authorization error", error);
