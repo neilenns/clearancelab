@@ -35,7 +35,7 @@ jobs:
         uses: joelwmale/webhook-action@master
         with:
           url: ${{ vars.WATCHTOWER_WEBHOOK_URL }}
-          headers: '{"CF-Access-Client-Id": "${{ vars.CF_ACCESS_CLIENT_ID }}", "CF-Access-Client-Secret": "${{ secrets.CF_ACCESS_CLIENT_SECRET }}", "Authorization": "Bearer ${{ secrets.WATCHTOWER_TOKEN }}"}'
+          headers: '{"CF-Access-Client-Id": "${{ vars.CF_ACCESS_CLIENT_ID }}", "CF-Access-Client-Secret": "${{ secrets.CF_ACCESS_CLIENT_SECRET }}", "Authorization": "Bearer ${{ secrets.WATCHTOWER_API_KEY }}"}'
 
   cloudflare:
     name: Deploy to Cloudflare
