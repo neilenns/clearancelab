@@ -1,4 +1,5 @@
 import type { TransformableInfo } from "logform"; // logform is a Winston dep
+import { inspect } from "node:util";
 import winston from "winston";
 import { ENV } from "./environment.js";
 
@@ -13,16 +14,21 @@ const format =
           const splat = info[Symbol.for("splat") as unknown as string];
 
           if (typeof message === "object" && message !== null) {
-            logMessage = JSON.stringify(message);
+            logMessage = inspect(message, {
+              depth: undefined,
+              breakLength: Infinity,
+            });
           }
 
           if (Array.isArray(splat)) {
             const splatMessages = splat
               .map((item: unknown) => {
-                if (typeof item === "object" && item !== null) {
-                  return JSON.stringify(item);
-                }
-                return item;
+                return typeof item === "object" && item !== null
+                  ? inspect(item, {
+                      depth: undefined,
+                      breakLength: Infinity,
+                    })
+                  : item;
               })
               .join(" ");
             logMessage = `${logMessage as string} ${splatMessages}`;

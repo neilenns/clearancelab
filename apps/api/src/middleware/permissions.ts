@@ -13,38 +13,25 @@ export enum Permissions {
 }
 
 export const checkRequiredPermissions = (requiredPermissions: string[]) => {
-  return async (request: Request, response: Response, next: NextFunction) => {
-    if (ENV.DISABLE_AUTH && ENV.NODE_ENV === "development") {
-      log.warn("DISABLE_AUTH is true, authentication is disabled.");
+  if (ENV.DISABLE_AUTH && ENV.NODE_ENV === "development") {
+    log.warn(
+      "DISABLE_AUTH is true, skipping permission check for development.",
+    );
+    return (request: Request, response: Response, next: NextFunction) => {
       next();
-      return;
-    }
+    };
+  }
 
-    const permissionCheck = claimCheck((payload) => {
-      const permissions = (payload.permissions ?? []) as string[];
+  // Directly return the middleware created by claimCheck
+  return claimCheck((payload) => {
+    const permissions = (payload.permissions ?? []) as string[];
 
-      log.debug("Checking permissions", {
-        permissions,
-        requiredPermissions,
-        user: {
-          sub: payload.sub,
-          email: payload.email,
-        },
-      });
+    const hasPermissions = requiredPermissions.every((requiredPermission) =>
+      permissions.includes(requiredPermission),
+    );
 
-      const hasPermissions = requiredPermissions.every((requiredPermission) =>
-        permissions.includes(requiredPermission),
-      );
-
-      if (!hasPermissions) {
-        response.status(500).json({ error: "Authorization failure" });
-      }
-
-      return hasPermissions;
-    });
-
-    await permissionCheck(request, response, next);
-  };
+    return hasPermissions;
+  });
 };
 
 export const verifyUser = async (

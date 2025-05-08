@@ -14,7 +14,13 @@ import Link from "next/link";
 export default function UnauthorizedPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
-      <Card className="w-full max-w-md" role="alert">
+      <Card
+        className="w-full max-w-md"
+        role="alert"
+        aria-labelledby="unauthorized-title"
+        aria-describedby="unauthorized-description"
+      >
+        {" "}
         <CardHeader className="text-center">
           <div className="mx-auto bg-destructive/10 p-3 rounded-full w-fit mb-4">
             <ShieldAlert
@@ -29,7 +35,12 @@ export default function UnauthorizedPage() {
         </CardHeader>
         <CardFooter className="flex justify-center">
           <Button asChild>
-            <Link href="/">Return to homepage</Link>
+            <Link
+              href="/"
+              aria-label="Return to the homepage after being denied access"
+            >
+              Return to homepage
+            </Link>
           </Button>
         </CardFooter>
       </Card>

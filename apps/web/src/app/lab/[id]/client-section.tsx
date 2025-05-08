@@ -50,6 +50,7 @@ export default function ClientSection({ scenario }: ClientSectionProperties) {
             <Button
               variant="destructive"
               onClick={() => setIsDeleteDialogOpen(true)}
+              aria-label="Delete scenario"
             >
               Delete
             </Button>

@@ -87,6 +87,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
             <DropdownMenuItem
               className="destructive"
               onClick={() => setIsDeleteDialogOpen(true)}
+              aria-label="Delete scenario"
             >
               Delete
             </DropdownMenuItem>
