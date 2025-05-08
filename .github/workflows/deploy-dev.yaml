@@ -34,7 +34,7 @@ jobs:
       - name: Deploy image
         uses: sozo-design/curl@v1.0.2
         with:
-          args: '-X POST ${{ vars.WATCHTOWER_WEBHOOK_URL}} -H "Authorization: Bearer ${{ vars.WATCHTOWER_API_KEY }}" -H "CF-Access-Client-Id: ${{ vars.CF_ACCESS_CLIENT_ID }}" -H "CF-Access-Client-Secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}"'
+          args: -X GET "${{ vars.WATCHTOWER_WEBHOOK_URL}}" -H "Authorization: Bearer ${{ vars.WATCHTOWER_API_KEY }}" -H "CF-Access-Client-Id: ${{ vars.CF_ACCESS_CLIENT_ID }}" -H "CF-Access-Client-Secret: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}"
 
   cloudflare:
     name: Deploy to Cloudflare
