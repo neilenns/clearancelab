@@ -1,6 +1,7 @@
 import { AdminSidebar } from "@/components/admin-sidebar/admin-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getAuth0Client } from "@/lib/auth0";
+import { ENV } from "@/lib/environment";
 import type { Metadata } from "next";
 import UnauthorizedPage from "./unauthorized";
 
@@ -37,7 +38,7 @@ export default async function Layout({
 }>) {
   const session = await getAuth0Client().getSession();
 
-  if (!session?.user.permissions.includes("view:admin")) {
+  if (!ENV.DISABLE_AUTH && !session?.user.permissions.includes("view:admin")) {
     return <UnauthorizedPage />;
   }
 
