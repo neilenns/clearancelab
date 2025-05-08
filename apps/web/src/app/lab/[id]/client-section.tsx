@@ -6,7 +6,7 @@ import FPE from "@/components/fpe/fpe";
 import { Button } from "@/components/ui/button";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { useCheckPermissions } from "@/hooks/useCheckPermissions";
-import { Scenario } from "@workspace/validators";
+import { Permissions, Scenario } from "@workspace/validators";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -16,7 +16,10 @@ interface ClientSectionProperties {
   scenario: Scenario;
 }
 
-const permissionsToVerify = ["edit:scenarios", "delete:scenarios"];
+const permissionsToVerify = [
+  Permissions.EditScenarios,
+  Permissions.DeleteScenarios,
+];
 
 export default function ClientSection({ scenario }: ClientSectionProperties) {
   const deleteScenario = useDeleteScenario();
@@ -40,12 +43,12 @@ export default function ClientSection({ scenario }: ClientSectionProperties) {
   return (
     <main className="p-6 overflow-y-auto">
       <div className="space-x-2 mb-4">
-        {permissionsStatus["edit:scenarios"] && (
+        {permissionsStatus[Permissions.EditScenarios] && (
           <Button asChild>
             <Link href={`/admin/scenarios/edit/${scenario._id}`}>Edit</Link>
           </Button>
         )}
-        {permissionsStatus["delete:scenarios"] && (
+        {permissionsStatus[Permissions.DeleteScenarios] && (
           <>
             <Button
               variant="destructive"

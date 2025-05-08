@@ -4,6 +4,7 @@ export * from "./craft";
 export * from "./error-response";
 export * from "./explanations";
 export * from "./pagination";
+export * from "./permissions";
 export * from "./plan";
 export * from "./scenario";
 export * from "./scenario-summary";

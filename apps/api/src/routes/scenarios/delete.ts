@@ -1,11 +1,10 @@
 import { logger } from "@lib/logger.js";
 import {
   checkRequiredPermissions,
-  Permissions,
   verifyUser,
 } from "@middleware/permissions.js";
 import { ScenarioModel } from "@models/scenario.js";
-import { DeleteScenarioResponse } from "@workspace/validators";
+import { DeleteScenarioResponse, Permissions } from "@workspace/validators";
 import { Request, Response, Router } from "express";
 import mongoose from "mongoose";
 
@@ -16,7 +15,7 @@ const router = Router();
 router.delete(
   "/:id",
   verifyUser,
-  checkRequiredPermissions([Permissions.DeleteScenarios]),
+  checkRequiredPermissions(Permissions.DeleteScenarios),
   async (request: Request, response: Response) => {
     const { id } = request.params;
     const isValid = mongoose.isValidObjectId(id);

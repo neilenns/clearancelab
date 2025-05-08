@@ -5,14 +5,9 @@ import { auth, claimCheck } from "express-oauth2-jwt-bearer";
 
 const log = logger.child({ service: "permissions" });
 
-export enum Permissions {
-  DeleteScenarios = "delete:scenarios",
-  AddScenarios = "add:scenarios",
-  ViewLab = "view:lab",
-  ViewAdmin = "view:admin",
-}
-
-export const checkRequiredPermissions = (requiredPermissions: string[]) => {
+export const checkRequiredPermissions = (
+  requiredPermissions: string | string[],
+) => {
   if (ENV.DISABLE_AUTH && ENV.NODE_ENV === "development") {
     log.warn(
       "DISABLE_AUTH is true, skipping permission check for development.",
@@ -25,9 +20,12 @@ export const checkRequiredPermissions = (requiredPermissions: string[]) => {
   // Directly return the middleware created by claimCheck
   return claimCheck((payload) => {
     const permissions = (payload.permissions ?? []) as string[];
+    const requiredPermissionsArray = Array.isArray(requiredPermissions)
+      ? requiredPermissions
+      : [requiredPermissions];
 
-    const hasPermissions = requiredPermissions.every((requiredPermission) =>
-      permissions.includes(requiredPermission),
+    const hasPermissions = requiredPermissionsArray.every(
+      (requiredPermission) => permissions.includes(requiredPermission),
     );
 
     return hasPermissions;

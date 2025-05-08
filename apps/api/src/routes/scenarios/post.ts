@@ -1,8 +1,12 @@
 import { logger } from "@lib/logger.js";
-import { verifyUser } from "@middleware/permissions.js";
+import {
+  checkRequiredPermissions,
+  verifyUser,
+} from "@middleware/permissions.js";
 import { ScenarioModel } from "@models/scenario.js";
 import {
   AddOrUpdateScenarioResponse,
+  Permissions,
   Scenario,
   scenarioSchema,
 } from "@workspace/validators";
@@ -15,6 +19,8 @@ const router = Router();
 router.post(
   "/",
   verifyUser,
+  checkRequiredPermissions(Permissions.AddScenarios),
+
   async (request: Request<unknown, unknown, Scenario>, response: Response) => {
     const result = scenarioSchema.safeParse(request.body);
 

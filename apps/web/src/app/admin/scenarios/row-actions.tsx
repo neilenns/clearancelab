@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { useCheckPermissions } from "@/hooks/useCheckPermissions";
+import { Permissions } from "@workspace/validators";
 import { ExternalLinkIcon, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,7 +18,10 @@ type RowActionsProperties = {
   scenarioId?: string;
 };
 
-const permissionsToVerify = ["edit:scenarios", "delete:scenarios"];
+const permissionsToVerify = [
+  Permissions.EditScenarios,
+  Permissions.DeleteScenarios,
+];
 
 export const RowActions = ({ scenarioId }: RowActionsProperties) => {
   const deleteScenario = useDeleteScenario();
@@ -73,7 +77,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           >
             Copy link
           </DropdownMenuItem>
-          {permissionsStatus["edit:scenarios"] && (
+          {permissionsStatus[Permissions.EditScenarios] && (
             <DropdownMenuItem asChild>
               <Link
                 href={`/admin/scenarios/edit/${scenarioId}`}
@@ -83,7 +87,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
               </Link>
             </DropdownMenuItem>
           )}
-          {permissionsStatus["delete:scenarios"] && (
+          {permissionsStatus[Permissions.DeleteScenarios] && (
             <DropdownMenuItem
               className="destructive"
               onClick={() => setIsDeleteDialogOpen(true)}

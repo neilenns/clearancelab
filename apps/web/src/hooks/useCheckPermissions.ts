@@ -1,10 +1,11 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0";
+import { Permissions } from "@workspace/validators"; // Assuming this is the correct path
 import { useEffect, useMemo, useState } from "react";
 
 interface UseCheckPermissionsResult {
-  permissionsStatus: Record<string, boolean>;
+  permissionsStatus: Record<Permissions, boolean>;
   isLoading: boolean;
   error?: Error;
 }
@@ -12,19 +13,34 @@ interface UseCheckPermissionsResult {
 /**
  * Custom hook to check for a specific set of permissions from the user's session.
  *
- * @param permissionsToVerify An array of permission strings to check.
+ * @param permissionsToVerify A single permission or an array of permission strings (from Permissions enum) to check.
  * @returns An object containing the status of each requested permission,
  *          loading state, and error state.
  *
  * @example
- * const { permissionsStatus, isLoading, error } = useCheckPermissions(['read:data', 'write:data']);
- * if (!isLoading && permissionsStatus['read:data']) {
+ * // Single permission
+ * const { permissionsStatus, isLoading, error } = useCheckPermissions(Permissions.ReadData);
+ * if (!isLoading && permissionsStatus[Permissions.ReadData]) {
  *   // User can read data
+ * }
+ *
+ * // Multiple permissions
+ * const { permissionsStatus: multiStatus, isLoading: multiIsLoading, error: multiError } = useCheckPermissions([Permissions.ReadData, Permissions.WriteData]);
+ * if (!multiIsLoading && multiStatus[Permissions.WriteData]) {
+ *  // User can write data
  * }
  */
 export function useCheckPermissions(
-  permissionsToVerify: string[],
+  permissionsToVerify: Permissions | Permissions[],
 ): UseCheckPermissionsResult {
+  const permissionsArray = useMemo(
+    () =>
+      Array.isArray(permissionsToVerify)
+        ? permissionsToVerify
+        : [permissionsToVerify],
+    [permissionsToVerify],
+  );
+
   // Check if authentication/authorization is disabled via environment variable
   // Only allow disabling auth in development mode.
   const isAuthDisabledInDev =
@@ -33,12 +49,12 @@ export function useCheckPermissions(
 
   if (isAuthDisabledInDev) {
     // If auth is disabled in dev, grant all requested permissions immediately
-    const allPermissionsGranted = permissionsToVerify.reduce(
+    const allPermissionsGranted = permissionsArray.reduce(
       (acc, permission) => {
         acc[permission] = true;
         return acc;
       },
-      {} as Record<string, boolean>,
+      {} as Record<Permissions, boolean>,
     );
     return {
       permissionsStatus: allPermissionsGranted,
@@ -52,17 +68,17 @@ export function useCheckPermissions(
 
   // Memoize initial status creation to prevent re-running if permissionsToVerify reference changes unnecessarily
   const initialStatus = useMemo(() => {
-    return permissionsToVerify.reduce(
+    return permissionsArray.reduce(
       (acc, permission) => {
         acc[permission] = false;
         return acc;
       },
-      {} as Record<string, boolean>,
+      {} as Record<Permissions, boolean>,
     );
-  }, [permissionsToVerify]);
+  }, [permissionsArray]);
 
   const [permissionsStatus, setPermissionsStatus] =
-    useState<Record<string, boolean>>(initialStatus);
+    useState<Record<Permissions, boolean>>(initialStatus);
   // isLoading state for this hook, distinct from useUser's isLoading,
   // but driven by it.
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -73,14 +89,14 @@ export function useCheckPermissions(
     if (userIsLoading) {
       setIsLoading(true);
       setError(undefined);
-      // Reset to initial state based on current permissionsToVerify
+      // Reset to initial state based on current permissionsArray
       setPermissionsStatus(
-        permissionsToVerify.reduce(
+        permissionsArray.reduce(
           (acc, permission) => {
             acc[permission] = false;
             return acc;
           },
-          {} as Record<string, boolean>,
+          {} as Record<Permissions, boolean>,
         ),
       );
       return;
@@ -90,12 +106,12 @@ export function useCheckPermissions(
       setIsLoading(false);
       setError(userError);
       setPermissionsStatus(
-        permissionsToVerify.reduce(
+        permissionsArray.reduce(
           (acc, permission) => {
             acc[permission] = false;
             return acc;
           },
-          {} as Record<string, boolean>,
+          {} as Record<Permissions, boolean>,
         ),
       );
       return;
@@ -106,32 +122,32 @@ export function useCheckPermissions(
     setError(undefined);
 
     if (user) {
-      const userActualPermissions = (user.permissions as string[]) || [];
+      const userActualPermissions = (user.permissions as Permissions[]) || [];
 
-      const newStatus = permissionsToVerify.reduce(
+      const newStatus = permissionsArray.reduce(
         (acc, permissionKey) => {
           acc[permissionKey] = userActualPermissions.includes(permissionKey);
           return acc;
         },
-        {} as Record<string, boolean>,
+        {} as Record<Permissions, boolean>,
       );
       setPermissionsStatus(newStatus);
     } else {
       // No user session, all requested permissions are considered false.
       setPermissionsStatus(
-        permissionsToVerify.reduce(
+        permissionsArray.reduce(
           (acc, permission) => {
             acc[permission] = false;
             return acc;
           },
-          {} as Record<string, boolean>,
+          {} as Record<Permissions, boolean>,
         ),
       );
     }
-    // permissionsToVerify is included in the dependency array.
+    // permissionsArray is included in the dependency array.
     // If the parent component passes a new array instance on every render,
     // this effect will re-run. Memoize permissionsToVerify in the parent if it's dynamic.
-  }, [user, userError, userIsLoading, permissionsToVerify]);
+  }, [user, userError, userIsLoading, permissionsArray]);
 
   return { permissionsStatus, isLoading, error };
 }
