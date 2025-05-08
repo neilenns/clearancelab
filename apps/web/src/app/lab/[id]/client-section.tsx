@@ -14,15 +14,11 @@ import { toast } from "sonner";
 
 interface ClientSectionProperties {
   scenario: Scenario;
-  disableAuth: boolean;
 }
 
 const permissionsToVerify = ["edit:scenarios", "delete:scenarios"];
 
-export default function ClientSection({
-  scenario,
-  disableAuth,
-}: ClientSectionProperties) {
+export default function ClientSection({ scenario }: ClientSectionProperties) {
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const router = useRouter();
@@ -44,12 +40,12 @@ export default function ClientSection({
   return (
     <main className="p-6 overflow-y-auto">
       <div className="space-x-2 mb-4">
-        {(permissionsStatus["edit:scenarios"] || disableAuth) && (
+        {permissionsStatus["edit:scenarios"] && (
           <Button asChild>
             <Link href={`/admin/scenarios/edit/${scenario._id}`}>Edit</Link>
           </Button>
         )}
-        {(permissionsStatus["delete:scenarios"] || disableAuth) && (
+        {permissionsStatus["delete:scenarios"] && (
           <>
             <Button
               variant="destructive"

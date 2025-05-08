@@ -25,6 +25,29 @@ interface UseCheckPermissionsResult {
 export function useCheckPermissions(
   permissionsToVerify: string[],
 ): UseCheckPermissionsResult {
+  // Check if authentication/authorization is disabled via environment variable
+  // Only allow disabling auth in development mode.
+  const isAuthDisabledInDev =
+    process.env.NEXT_PUBLIC_DISABLE_AUTH === "true" &&
+    process.env.NODE_ENV === "development";
+
+  if (isAuthDisabledInDev) {
+    // If auth is disabled in dev, grant all requested permissions immediately
+    const allPermissionsGranted = permissionsToVerify.reduce(
+      (acc, permission) => {
+        acc[permission] = true;
+        return acc;
+      },
+      {} as Record<string, boolean>,
+    );
+    return {
+      permissionsStatus: allPermissionsGranted,
+      isLoading: false,
+      error: undefined,
+    };
+  }
+
+  // Original hook logic for when auth is enabled or in production
   const { user, error: userError, isLoading: userIsLoading } = useUser();
 
   // Memoize initial status creation to prevent re-running if permissionsToVerify reference changes unnecessarily
@@ -46,6 +69,7 @@ export function useCheckPermissions(
   const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
+    // This effect only runs if isAuthDisabled is false (due to the early return above)
     if (userIsLoading) {
       setIsLoading(true);
       setError(undefined);
