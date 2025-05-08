@@ -31,5 +31,5 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main>{children}</main>;
+  return <main aria-label="Statistics content">{children}</main>;
 }

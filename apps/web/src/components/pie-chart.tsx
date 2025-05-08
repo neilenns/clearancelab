@@ -100,7 +100,7 @@ export default function PieChart({
   // Click handler for pie wedges
   const handlePieClick = useCallback(
     (data: PieClickData<Statistic>) => {
-      if (data && data.payload) {
+      if (data?.payload) {
         router.push(data.payload.url);
       }
     },
@@ -116,6 +116,9 @@ export default function PieChart({
         <ChartContainer
           config={chartConfig}
           className="mx-auto w-64 h-64 aspect-square max-h-[250px]"
+          aria-hidden="false"
+          role="figure"
+          aria-label={`${title} pie chart`}
         >
           <RePieChart>
             <ChartTooltip
