@@ -1,3 +1,4 @@
+import { auth0url } from "@workspace/validators";
 import { z } from "zod";
 
 const environmentSchema = z
@@ -26,17 +27,9 @@ const environmentSchema = z
       .optional(),
     AUTH0_CLIENT_SECRET: z.string().optional(), // To generate this use `openssl rand -hex 32`
     AUTH0_CLIENT_ID: z.string().optional(),
-    AUTH0_DOMAIN: z
-      .string()
-      .refine((value) => !value.startsWith("https://"), {
-        message:
-          "AUTH0_DOMAIN should not be an URL. Use the value exactly as shown in the Auth0 dashboard.",
-      })
-      .optional(),
+    AUTH0_DOMAIN: auth0url, // Optional, but should be a valid URL
     AUTH0_SECRET: z.string().optional(),
-    APP_BASE_URL: z
-      .string()
-      .url({ message: "APP_BASE_URL must be a valid URL." }),
+    APP_BASE_URL: auth0url, // Optional, but should be a valid URL
     DISABLE_AUTH: z
       .preprocess((value) => value === "true" || value === "1", z.boolean())
       .default(false),
