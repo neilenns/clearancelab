@@ -30,6 +30,12 @@ export const checkRequiredPermissions = (requiredPermissions: string[]) => {
       permissions.includes(requiredPermission),
     );
 
+    if (!hasPermissions) {
+      +response
+        .status(403)
+        .json({ error: "Forbidden – insufficient permissions" });
+    }
+
     return hasPermissions;
   });
 };
