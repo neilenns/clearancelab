@@ -5,17 +5,19 @@ import { ConfirmDeleteDialog } from "@/components/confirm-delete-dialog";
 import FPE from "@/components/fpe/fpe";
 import { Button } from "@/components/ui/button";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { useUser } from "@auth0/nextjs-auth0";
+import { useCheckPermissions } from "@/hooks/useCheckPermissions";
 import { Scenario } from "@workspace/validators";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 interface ClientSectionProperties {
   scenario: Scenario;
   disableAuth: boolean;
 }
+
+const permissionsToVerify = ["edit:scenarios", "delete:scenarios"];
 
 export default function ClientSection({
   scenario,
@@ -24,31 +26,7 @@ export default function ClientSection({
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const router = useRouter();
-  const { user, isLoading, error } = useUser();
-  const [canEdit, setCanEdit] = useState(false);
-  const [canDelete, setCanDelete] = useState(false);
-
-  useEffect(() => {
-    if (disableAuth) {
-      setCanEdit(true);
-      setCanDelete(true);
-      return;
-    }
-
-    if (isLoading) {
-      return;
-    }
-
-    if (error || !user) {
-      console.error("Error fetching user:", error);
-      setCanEdit(false);
-      setCanDelete(false);
-      return;
-    }
-
-    setCanEdit(user.permissions.includes("edit:scenarios"));
-    setCanDelete(user.permissions.includes("delete:scenarios"));
-  }, [user, isLoading, error, disableAuth]);
+  const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
 
   const deleteScenarioHandler = async () => {
     toast.promise(deleteScenario(scenario._id), {
@@ -66,12 +44,12 @@ export default function ClientSection({
   return (
     <main className="p-6 overflow-y-auto">
       <div className="space-x-2 mb-4">
-        {canEdit && (
+        {(permissionsStatus["edit:scenarios"] || disableAuth) && (
           <Button asChild>
             <Link href={`/admin/scenarios/edit/${scenario._id}`}>Edit</Link>
           </Button>
         )}
-        {canDelete && (
+        {(permissionsStatus["delete:scenarios"] || disableAuth) && (
           <>
             <Button
               variant="destructive"

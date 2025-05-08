@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
+import { useCheckPermissions } from "@/hooks/useCheckPermissions";
 import { ExternalLinkIcon, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,9 +17,12 @@ type RowActionsProperties = {
   scenarioId?: string;
 };
 
+const permissionsToVerify = ["edit:scenarios", "delete:scenarios"];
+
 export const RowActions = ({ scenarioId }: RowActionsProperties) => {
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
 
   const copyLinkHandler = () => {
     if (scenarioId) {
@@ -69,20 +73,24 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           >
             Copy link
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link
-              href={`/admin/scenarios/edit/${scenarioId}`}
-              aria-label="Edit scenario"
+          {permissionsStatus["edit:scenarios"] && (
+            <DropdownMenuItem asChild>
+              <Link
+                href={`/admin/scenarios/edit/${scenarioId}`}
+                aria-label="Edit scenario"
+              >
+                Edit
+              </Link>
+            </DropdownMenuItem>
+          )}
+          {permissionsStatus["delete:scenarios"] && (
+            <DropdownMenuItem
+              className="destructive"
+              onClick={() => setIsDeleteDialogOpen(true)}
             >
-              Edit
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            className="destructive"
-            onClick={() => setIsDeleteDialogOpen(true)}
-          >
-            Delete
-          </DropdownMenuItem>
+              Delete
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
       <ConfirmDeleteDialog
