@@ -10,9 +10,10 @@ export const useDeleteScenario = () => {
     }
 
     try {
-      const result = await deleteScenario(scenarioId);
+      await deleteScenario(scenarioId);
     } catch (error) {
       console.error(`Failed to delete scenario: ${error}`);
+      throw error;
     }
   };
 };

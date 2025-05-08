@@ -3,7 +3,7 @@
 import { apiDelete } from "@/lib/api";
 import { revalidatePath } from "next/cache";
 
-export const deleteScenario = async (id: string): Promise<boolean> => {
+export const deleteScenario = async (id: string) => {
   try {
     const result = await apiDelete(`/scenarios/${id}`, { withAuthToken: true });
 
@@ -18,10 +18,8 @@ export const deleteScenario = async (id: string): Promise<boolean> => {
     // to parse it since all we care about is the result succeeding.
     revalidatePath(`/lab/${id}`);
     revalidatePath("/lab");
-
-    return true;
   } catch (error) {
     console.error("Error deleting scenario:", error);
-    return false;
+    throw new Error("Failed to delete scenario");
   }
 };
