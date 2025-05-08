@@ -64,7 +64,7 @@ export async function middleware(request: NextRequest) {
     ...session,
     user: {
       ...session.user,
-      permissions: decodedToken.permissions,
+      permissions: decodedToken.permissions ?? [],
     },
   });
 
