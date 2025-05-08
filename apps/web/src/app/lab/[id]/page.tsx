@@ -2,6 +2,7 @@
 
 import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { fetchScenariosByIds } from "@/api/scenarios/fetch-scenarios-by-ids";
+import { ENV } from "@/lib/environment";
 import ClientSection from "./client-section";
 import NotFound from "./not-found";
 
@@ -26,5 +27,11 @@ export default async function Page({ params }: { params: Parameters }) {
 
   const scenario = scenarios[0];
 
-  return <ClientSection aria-label="Scenario viewer" scenario={scenario} />;
+  return (
+    <ClientSection
+      aria-label="Scenario viewer"
+      scenario={scenario}
+      disableAuth={ENV.DISABLE_AUTH}
+    />
+  );
 }

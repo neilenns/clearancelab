@@ -14,9 +14,13 @@ import { toast } from "sonner";
 
 interface ClientSectionProperties {
   scenario: Scenario;
+  disableAuth: boolean;
 }
 
-export default function ClientSection({ scenario }: ClientSectionProperties) {
+export default function ClientSection({
+  scenario,
+  disableAuth,
+}: ClientSectionProperties) {
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const router = useRouter();
@@ -25,6 +29,12 @@ export default function ClientSection({ scenario }: ClientSectionProperties) {
   const [canDelete, setCanDelete] = useState(false);
 
   useEffect(() => {
+    if (disableAuth) {
+      setCanEdit(true);
+      setCanDelete(true);
+      return;
+    }
+
     if (isLoading) {
       return;
     }
