@@ -14,6 +14,7 @@ export interface PieChartProperties {
   chartData: Statistic[];
   title: string;
   baseUrl: string;
+  isBoolean?: boolean; // Add this line
 }
 
 type AdditionalMetadata = {
@@ -42,14 +43,23 @@ function addMetadataToData(
   data: Statistic[],
   palette: string[],
   baseUrl: string,
+  isBoolean: boolean = false,
 ): (Statistic & AdditionalMetadata)[] {
-  return data.map((entry, index) => ({
-    ...entry,
-    fill: palette[index % palette.length],
-    // This assumes the base url is to the admin scenario data table page, and the parameter
-    // needs to be in quotes to make it look like JSON.
-    url: `${baseUrl}%22${entry.item}%22`,
-  }));
+  return data.map((entry, index) => {
+    // This is really gross but I don't know a better way to do this. Some of the stats back are really boolean
+    // values and the data table needs a proper true or false, not quoted, to work since the query strings are JSON-encoded.
+    const filterValue = isBoolean
+      ? entry.item === "Yes"
+      : `%22${entry.item}%22`;
+
+    return {
+      ...entry,
+      fill: palette[index % palette.length],
+      // This assumes the base url is to the admin scenario data table page, and the parameter
+      // needs to be in quotes to make it look like JSON.
+      url: `${baseUrl}${filterValue}`,
+    };
+  });
 }
 
 function getChartConfig(
@@ -75,12 +85,13 @@ export default function PieChart({
   chartData,
   title,
   baseUrl,
+  isBoolean = false,
 }: PieChartProperties) {
   const router = useRouter();
 
   const colorizedData = useMemo(() => {
-    return addMetadataToData(chartData ?? [], palette, baseUrl);
-  }, [baseUrl, chartData]);
+    return addMetadataToData(chartData ?? [], palette, baseUrl, isBoolean);
+  }, [baseUrl, chartData, isBoolean]);
 
   const chartConfig = useMemo(() => {
     return getChartConfig(chartData, palette);

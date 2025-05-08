@@ -20,11 +20,47 @@ router.get("/", verifyUser, async (request: Request, response: Response) => {
     { $sort: { count: -1, item: 1 } }, // Sort by count descending, then item ascending
   ]);
 
+  const canClear = await ScenarioModel.aggregate<Statistic>([
+    {
+      $group: {
+        _id: {
+          $cond: [
+            { $eq: ["$canClear", true] },
+            "Yes",
+            "No",
+          ],
+        },
+        count: { $sum: 1 },
+      },
+    },
+    { $project: { _id: 0, item: "$_id", count: "$count" } },
+    { $sort: { item: 1 } },
+  ]);
+
+  const isValid = await ScenarioModel.aggregate<Statistic>([
+    {
+      $group: {
+        _id: {
+          $cond: [
+            { $eq: ["$isValid", true] },
+            "Yes",
+            "No",
+          ],
+        },
+        count: { $sum: 1 },
+      },
+    },
+    { $project: { _id: 0, item: "$_id", count: "$count" } },
+    { $sort: { item: 1 } },
+  ]);
+
   const responseData: PlanStatisticsResponse = {
     success: true,
     data: {
       departures,
       destinations,
+      canClear,
+      isValid,
     },
   };
 
