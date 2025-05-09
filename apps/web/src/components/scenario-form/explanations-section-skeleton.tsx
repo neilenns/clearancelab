@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { ExplanationsDndListSkeleton } from "./explanations-dnd-list-skeleton";
 
 export function ExplanationsSectionSkeleton() {
   return (
@@ -18,28 +18,7 @@ export function ExplanationsSectionSkeleton() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div
-          className="flex items-end space-x-4 mb-4"
-          aria-busy="true"
-          aria-label="Loading explanations"
-          role="row"
-        >
-          <div className="w-6" role="cell">
-            <Skeleton aria-hidden="true" />
-          </div>
-          <div className="w-28" role="cell">
-            <Skeleton aria-hidden="true" />
-          </div>
-          <div className="flex-1" role="cell">
-            <Skeleton aria-hidden="true" />
-          </div>
-          <div className="flex-1" role="cell">
-            <Skeleton aria-hidden="true" />
-          </div>
-          <div className="w-10" role="cell">
-            <Skeleton aria-hidden="true" />
-          </div>
-        </div>
+        <ExplanationsDndListSkeleton />
       </CardContent>
     </Card>
   );
