@@ -10,7 +10,7 @@ export function useSidebarColumns() {
       [
         columnHelper.accessor("plan.dep", {
           id: "plan.dep",
-          header: () => <div aria-label="Departure column">Departure</div>,
+          header: () => <div aria-label="Departure column">Dep</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           meta: {
             columnHeaderJustification: "justify-center",
@@ -21,7 +21,7 @@ export function useSidebarColumns() {
         }),
         columnHelper.accessor("plan.dest", {
           id: "plan.dest",
-          header: () => <div aria-label="Arrival column">Arrival</div>,
+          header: () => <div aria-label="Arrival column">Dest</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           meta: {
             columnHeaderJustification: "justify-center",
@@ -32,7 +32,7 @@ export function useSidebarColumns() {
         }),
         columnHelper.accessor("plan.aid", {
           id: "plan.aid",
-          header: () => <div aria-label="Callsign column">Callsign</div>,
+          header: () => <div aria-label="Callsign column">AID</div>,
           cell: (info) => <div>{info.getValue()}</div>,
           meta: {
             width: "w-[100px]",
