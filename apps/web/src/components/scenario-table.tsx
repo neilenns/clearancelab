@@ -55,7 +55,7 @@ export function ScenarioTable({
   selectedId,
 }: DataTableProperties) {
   const router = useRouter();
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({}); //manage your own row selection state
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   // From https://github.com/taro-28/tanstack-table-search-params?tab=readme-ov-file
   // The encoder and decoder is custom and uses JSON because the default method doesn't seem to
@@ -119,6 +119,11 @@ export function ScenarioTable({
 
   const table = useReactTable({
     ...stateAndOnChanges,
+    // Override the state from stateAndOnChanges to include rowSelection
+    state: {
+      ...stateAndOnChanges.state,
+      rowSelection,
+    },
     data,
     columns,
     enableMultiRowSelection: false,
@@ -128,9 +133,6 @@ export function ScenarioTable({
     getFilteredRowModel: getFilteredRowModel(), //client-side filtering
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select filter/autocomplete
-    state: {
-      rowSelection,
-    },
   });
 
   return (

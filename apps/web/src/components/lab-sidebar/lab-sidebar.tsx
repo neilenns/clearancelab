@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import { ScenarioSummary } from "@workspace/validators";
 import { WandSparkles } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { useKey } from "react-use";
 import { ScenarioTable } from "../scenario-table";
@@ -28,12 +28,13 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
   const selectedId = parameters.id as string;
   const router = useRouter();
   const columns = useSidebarColumns();
+  const query = useSearchParams();
 
   const onRowSelected = useCallback(
     (scenario: ScenarioSummary) => {
-      router.replace(`/lab/${scenario._id}`);
+      router.replace(`/lab/${scenario._id}?${query.toString()}`);
     },
-    [router],
+    [router, query],
   );
 
   const onSurprise = useCallback(() => {
