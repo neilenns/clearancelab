@@ -35,3 +35,7 @@ pnpm --silent install --frozen-lockfile
 echo "🪄  Shell magic: creating developer-friendly aliases..."
 grep -qxF "alias npm='pnpm'" ~/.zshrc || \
   echo "alias npm='pnpm'" >> ~/.zshrc
+
+### Pre-commit hooks
+echo "🔗  Installing pre-commit hooks..."
+pre-commit install
