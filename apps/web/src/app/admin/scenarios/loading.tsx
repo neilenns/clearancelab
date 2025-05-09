@@ -1,9 +1,9 @@
 "use client";
 
 import { AdminHeader } from "@/components/admin-header";
-import { Spinner } from "@/components/ui/spinner";
+import { Loading } from "@/components/loading";
 
-export default function Loading() {
+export default function LoadingPage() {
   return (
     <div>
       <AdminHeader />
@@ -11,11 +11,7 @@ export default function Loading() {
         className="flex min-h-screen flex-col items-center justify-center text-center px-4 py-4"
         aria-label="Loading scenarios"
       >
-        <div role="status" aria-live="polite">
-          <Spinner size="medium">
-            <span>Loading scenarios...</span>
-          </Spinner>
-        </div>
+        <Loading />
       </main>
     </div>
   );

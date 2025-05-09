@@ -1,7 +1,9 @@
 import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { LabSidebar } from "@/components/lab-sidebar/lab-sidebar";
+import { Loading } from "@/components/loading";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 const description = "Scenarios to practice your flight plan review skills.";
 const title = "Scenarios | Clearance Lab";
@@ -39,7 +41,9 @@ export default async function Layout({
 
   return (
     <SidebarProvider>
-      <LabSidebar scenarios={scenarios} />
+      <Suspense fallback={<Loading />}>
+        <LabSidebar scenarios={scenarios} />
+      </Suspense>
       <SidebarInset>{children}</SidebarInset>
     </SidebarProvider>
   );

@@ -8,8 +8,10 @@ import {
 
 export const fetchPlanStatistics = async () => {
   try {
+    // This isn't cached so a static version of the page doesn't get generated at build time.
     const response = await getJson("/statistics/plans", {
       withAuthToken: true,
+      cache: "no-store",
     });
 
     if (!response.ok) {
