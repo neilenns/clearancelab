@@ -1,25 +1,12 @@
 import { YesNoIcon } from "@/components/yes-no-icon";
-import { ColumnDef, createColumnHelper, RowData } from "@tanstack/react-table";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
 import { useMemo } from "react";
 import { RowActions } from "./row-actions";
 
-declare module "@tanstack/react-table" {
-  //allows us to define custom properties for our columns
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: "boolean" | "text" | "combo-box";
-    columnHeaderJustification?:
-      | "justify-start"
-      | "justify-center"
-      | "justify-end";
-    width?: string;
-    filterLabel?: string;
-  }
-}
 const columnHelper = createColumnHelper<Scenario>();
 
-export function useScenarioColumns() {
+export function useAdminColumns() {
   const columns = useMemo<ColumnDef<Scenario, unknown>[]>(
     () =>
       [

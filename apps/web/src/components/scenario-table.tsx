@@ -11,25 +11,40 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import {
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
+  RowData,
   useReactTable,
 } from "@tanstack/react-table";
 import { Scenario } from "@workspace/validators";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTableSearchParams } from "tanstack-table-search-params";
-import { useScenarioColumns } from "./use-scenario-columns";
+
+declare module "@tanstack/react-table" {
+  //allows us to define custom properties for our columns
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    filterVariant?: "boolean" | "text" | "combo-box";
+    columnHeaderJustification?:
+      | "justify-start"
+      | "justify-center"
+      | "justify-end";
+    width?: string;
+    filterLabel?: string;
+  }
+}
 
 interface DataTableProperties {
   data: Scenario[];
+  columns: ColumnDef<Scenario>[];
 }
 
-export function ScenarioTable({ data }: DataTableProperties) {
+export function ScenarioTable({ data, columns }: DataTableProperties) {
   const router = useRouter();
-  const columns = useScenarioColumns();
 
   // From https://github.com/taro-28/tanstack-table-search-params?tab=readme-ov-file
   // The encoder and decoder is custom and uses JSON because the default method doesn't seem to
