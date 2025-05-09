@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FormDescription, FormLabel } from "@/components/ui/form";
 import {
   DragDropContext,
   Draggable,
@@ -33,7 +32,14 @@ export function ExplanationsSection() {
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-    move(result.source.index, result.destination.index);
+
+    // Only do the move and re-render if the index has changed
+    const { index: from } = result.source;
+    const { index: to } = result.destination;
+
+    if (from !== to) {
+      move(from, to);
+    }
   };
 
   return (
@@ -59,32 +65,32 @@ export function ExplanationsSection() {
               <div className="flex items-end space-x-4 mb-4">
                 <div className="w-6"></div>
                 <div className="w-28">
-                  <FormLabel>Level</FormLabel>
-                  <FormDescription>
+                  <div className="text-sm font-semibold">Level</div>
+                  <div className="text-muted-foreground text-sm">
                     <span className="invisible" aria-hidden="true">
                       Spacer
                     </span>
-                  </FormDescription>
+                  </div>
                 </div>
                 <div className="flex-1">
-                  <FormLabel>Headline</FormLabel>
-                  <FormDescription>
+                  <div className="text-sm font-semibold">Headline</div>
+                  <div className="text-muted-foreground text-sm">
                     Headline for the explanation box.
-                  </FormDescription>
+                  </div>
                 </div>
                 <div className="flex-1">
-                  <FormLabel>Description</FormLabel>
-                  <FormDescription>
+                  <div className="text-sm font-semibold">Description</div>
+                  <div className="text-muted-foreground text-sm">
                     Detailed description of the tip or issue.
-                  </FormDescription>
+                  </div>
                 </div>
                 <div className="w-10">
-                  <FormLabel>Delete</FormLabel>
-                  <FormDescription>
+                  <div className="text-sm font-semibold">Delete</div>
+                  <div className="text-muted-foreground text-sm">
                     <span className="invisible" aria-hidden="true">
                       Spacer
                     </span>
-                  </FormDescription>
+                  </div>
                 </div>
               </div>
             )}

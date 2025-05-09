@@ -22,20 +22,21 @@ export function ExplanationsSectionSkeleton() {
           className="flex items-end space-x-4 mb-4"
           aria-busy="true"
           aria-label="Loading explanations"
+          role="row"
         >
-          <div className="w-6">
+          <div className="w-6" role="cell">
             <Skeleton aria-hidden="true" />
           </div>
-          <div className="w-28">
+          <div className="w-28" role="cell">
             <Skeleton aria-hidden="true" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1" role="cell">
             <Skeleton aria-hidden="true" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1" role="cell">
             <Skeleton aria-hidden="true" />
           </div>
-          <div className="w-10">
+          <div className="w-10" role="cell">
             <Skeleton aria-hidden="true" />
           </div>
         </div>

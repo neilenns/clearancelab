@@ -42,6 +42,7 @@ export const ExplanationFieldRow = ({
       <div className="flex items-start space-x-4">
         <div
           className="w-6 flex items-center justify-center h-[36px]"
+          aria-label="Drag to reorder explanation"
           {...provided.dragHandleProps}
         >
           <GripVertical className="h-4 w-4" />
@@ -99,7 +100,10 @@ export const ExplanationFieldRow = ({
                   Headline for the explanation box.
                 </FormDescription>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    id={`explanation-headline-${index.toString()}`}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -117,7 +121,10 @@ export const ExplanationFieldRow = ({
                   Detailed description of the tip or issue.
                 </FormDescription>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    id={`explanation-description-${index.toString()}`}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
