@@ -100,4 +100,5 @@ export function revalidateAfterSave(id?: string) {
     revalidatePath(`/lab/${id}`);
   }
   revalidatePath("/lab");
+  revalidatePath("/admin/scenarios");
 }
