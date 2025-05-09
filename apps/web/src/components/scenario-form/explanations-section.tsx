@@ -48,36 +48,42 @@ export function ExplanationsSection() {
           className="space-y-6"
           aria-describedby="explanations-section-title"
         >
-          <div className="flex items-end space-x-4 mb-4">
-            <div className="w-28">
-              <FormLabel>Level</FormLabel>
-              <FormDescription>
-                <span className="invisible" aria-hidden="true">
-                  Spacer
-                </span>
-              </FormDescription>
+          {fields.length === 0 ? (
+            <div className="text-center py-4 text-muted-foreground">
+              Tap the button below to add an explanation
             </div>
-            <div className="flex-1">
-              <FormLabel>Headline</FormLabel>
-              <FormDescription>
-                Headline for the explanation box.
-              </FormDescription>
+          ) : (
+            <div className="flex items-end space-x-4 mb-4">
+              <div className="w-28">
+                <FormLabel>Level</FormLabel>
+                <FormDescription>
+                  <span className="invisible" aria-hidden="true">
+                    Spacer
+                  </span>
+                </FormDescription>
+              </div>
+              <div className="flex-1">
+                <FormLabel>Headline</FormLabel>
+                <FormDescription>
+                  Headline for the explanation box.
+                </FormDescription>
+              </div>
+              <div className="flex-1">
+                <FormLabel>Description</FormLabel>
+                <FormDescription>
+                  Detailed description of the tip or issue.
+                </FormDescription>
+              </div>
+              <div className="w-10">
+                <FormLabel>Delete</FormLabel>
+                <FormDescription>
+                  <span className="invisible" aria-hidden="true">
+                    Spacer
+                  </span>
+                </FormDescription>
+              </div>
             </div>
-            <div className="flex-1">
-              <FormLabel>Description</FormLabel>
-              <FormDescription>
-                Detailed description of the tip or issue.
-              </FormDescription>
-            </div>
-            <div className="w-10">
-              <FormLabel>Delete</FormLabel>
-              <FormDescription>
-                <span className="invisible" aria-hidden="true">
-                  Spacer
-                </span>
-              </FormDescription>
-            </div>
-          </div>
+          )}
 
           {fields.map((field, index) => (
             <div key={field.id} className="flex flex-col space-y-4">
@@ -193,11 +199,6 @@ export function ExplanationsSection() {
               </div>
             </div>
           ))}
-          {fields.length === 0 && (
-            <div className="text-center py-4 text-muted-foreground">
-              Tap the button below to add an explanation
-            </div>
-          )}
           <Button
             type="button"
             variant="outline"
