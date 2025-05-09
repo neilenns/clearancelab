@@ -3,7 +3,7 @@ import { ENV } from "./environment";
 
 interface ApiRequestOptions {
   withAuthToken?: boolean;
-  cache?: string;
+  cache?: RequestCache;
 }
 
 async function apiRequest(
@@ -35,6 +35,7 @@ async function apiRequest(
   const response = await fetch(`${baseUrl}${path}`, {
     method,
     headers,
+    cache: options.cache,
     ...(body ? { body: JSON.stringify(body) } : {}),
   });
 
