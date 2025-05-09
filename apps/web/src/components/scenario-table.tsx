@@ -17,11 +17,14 @@ import {
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
+  Row,
   RowData,
+  RowSelectionState,
   useReactTable,
 } from "@tanstack/react-table";
 import { ScenarioSummary } from "@workspace/validators";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import { useTableSearchParams } from "tanstack-table-search-params";
 
 declare module "@tanstack/react-table" {
@@ -41,10 +44,18 @@ declare module "@tanstack/react-table" {
 interface DataTableProperties {
   data: ScenarioSummary[];
   columns: ColumnDef<ScenarioSummary>[];
+  selectedId?: string;
+  onRowSelected?: (row: ScenarioSummary) => void;
 }
 
-export function ScenarioTable({ data, columns }: DataTableProperties) {
+export function ScenarioTable({
+  data,
+  columns,
+  onRowSelected,
+  selectedId,
+}: DataTableProperties) {
   const router = useRouter();
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({}); //manage your own row selection state
 
   // From https://github.com/taro-28/tanstack-table-search-params?tab=readme-ov-file
   // The encoder and decoder is custom and uses JSON because the default method doesn't seem to
@@ -85,16 +96,41 @@ export function ScenarioTable({ data, columns }: DataTableProperties) {
     },
   );
 
+  useEffect(() => {
+    if (selectedId) {
+      setRowSelection({
+        [selectedId]: true,
+      });
+    } else {
+      setRowSelection({});
+    }
+  }, [selectedId]);
+
+  const handleRowClick = useCallback(
+    (row: Row<ScenarioSummary>) => {
+      setRowSelection({
+        [row.id]: true,
+      });
+
+      onRowSelected?.(row.original);
+    },
+    [onRowSelected],
+  );
+
   const table = useReactTable({
     ...stateAndOnChanges,
     data,
     columns,
     enableMultiRowSelection: false,
+    onRowSelectionChange: setRowSelection,
     getRowId: (row) => row._id,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client-side filtering
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select filter/autocomplete
+    state: {
+      rowSelection,
+    },
   });
 
   return (
@@ -138,7 +174,9 @@ export function ScenarioTable({ data, columns }: DataTableProperties) {
                 <TableRow
                   key={row.id}
                   className={cn({ "bg-muted": row.getIsSelected() })}
-                  onClick={row.getToggleSelectedHandler()}
+                  onClick={() => {
+                    handleRowClick(row);
+                  }}
                   data-state={row.getIsSelected() && "selected"}
                   aria-selected={row.getIsSelected()}
                 >
