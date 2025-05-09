@@ -27,7 +27,10 @@
     }
   },
   "features": {
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/python:1": {},
+
     "ghcr.io/jsburckhardt/devcontainer-features/gitleaks:1": {},
     "ghcr.io/neilenns/devcontainer-features/oh-my-zsh": {
       "disableAutoUpdate": false,
