@@ -39,7 +39,12 @@ export function ExplanationsDndList({
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="explanations">
         {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            aria-label="Re-orderable list of explanations"
+            role="list"
+          >
             {fields.map((field, index) => (
               <Draggable key={field.id} draggableId={field.id} index={index}>
                 {(provided) => (
