@@ -18,6 +18,7 @@ async function apiRequest(
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     ...(apiKey ? { "x-api-key": apiKey } : {}),
+    ...(options.cache ? { cache: options.cache } : {}),
   };
 
   const disableAuth = ENV.DISABLE_AUTH && ENV.NODE_ENV === "development";
