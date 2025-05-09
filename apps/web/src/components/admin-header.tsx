@@ -75,19 +75,19 @@ export function AdminHeader() {
       <Breadcrumb>
         <BreadcrumbList>{breadcrumbElements}</BreadcrumbList>
       </Breadcrumb>
-      {showNewButton && (
-        <Button
-          asChild
-          size="icon"
-          variant="ghost"
-          aria-label="Create new scenario"
-        >
-          <Link href="/admin/scenarios/new">
-            <CirclePlusIcon className="h-4 w-4" />
-          </Link>
-        </Button>
-      )}
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center gap-2">
+        {showNewButton && (
+          <Button
+            asChild
+            size="icon"
+            variant="outline"
+            aria-label="Create new scenario"
+          >
+            <Link href="/admin/scenarios/new">
+              <CirclePlusIcon className="h-4 w-4" />
+            </Link>
+          </Button>
+        )}
         <Button variant="outline" size="icon" asChild>
           <a href="/auth/logout">
             <LogOut aria-hidden="true" />

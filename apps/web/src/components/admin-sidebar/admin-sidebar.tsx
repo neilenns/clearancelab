@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Edit, Home } from "lucide-react";
+import { ChartPie, Edit, Home } from "lucide-react";
 import Link from "next/link";
 
 const items = [
@@ -25,6 +25,11 @@ const items = [
     title: "Manage scenarios",
     url: "/admin/scenarios",
     icon: Edit,
+  },
+  {
+    title: "View statistics",
+    url: "/admin/statistics",
+    icon: ChartPie,
   },
 ];
 
