@@ -9,14 +9,14 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
-  SidebarMenu,
 } from "@/components/ui/sidebar";
 import { ScenarioSummary } from "@workspace/validators";
 import { WandSparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useKey } from "react-use";
-import { ScenarioItem } from "./scenario-item";
+import { ScenarioTable } from "../scenario-table";
+import { useSidebarColumns } from "./use-sidebar-columns";
 
 // Extend the props from the base Sidebar and add scenarios
 interface LabSidebarProperties extends React.ComponentProps<typeof Sidebar> {
@@ -27,6 +27,34 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
   const parameters = useParams();
   const selectedId = parameters.id as string;
   const router = useRouter();
+  const columns = useSidebarColumns();
+
+  const navigateToScenario = useCallback(
+    (scenarioId: string) => {
+      // The search parameters are grabbed directly instead of using a hook to ensure
+      // they are always the latest. Per the docs, it includes the leading "?" so
+      // no need to add it.
+      router.replace(`/lab/${scenarioId}${globalThis.location.search}`);
+    },
+    [router],
+  );
+
+  const [filteredScenarios, setFilteredScenarios] =
+    useState<ScenarioSummary[]>(scenarios);
+
+  const onRowSelected = useCallback(
+    (scenario: ScenarioSummary) => {
+      // The search parameters are grabbed directly instead of using a hook to ensure
+      // they are always the latest. Per the docs, it includes the leading "?" so
+      // no need to add it.
+      navigateToScenario(scenario._id);
+    },
+    [navigateToScenario],
+  );
+
+  const onFilteredRowsChange = useCallback((rows: ScenarioSummary[]) => {
+    setFilteredScenarios(rows);
+  }, []);
 
   const onSurprise = useCallback(() => {
     const active = document.activeElement;
@@ -39,17 +67,17 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
       return;
     }
 
-    if (scenarios.length === 0) {
+    if (filteredScenarios.length === 0) {
       return;
     }
 
-    const randomIndex = Math.floor(Math.random() * scenarios.length);
-    const randomScenario = scenarios[randomIndex];
+    const randomIndex = Math.floor(Math.random() * filteredScenarios.length);
+    const randomScenario = filteredScenarios[randomIndex];
 
     if (randomScenario._id) {
-      router.replace(`/lab/${randomScenario._id}`);
+      navigateToScenario(randomScenario._id);
     }
-  }, [scenarios, router]);
+  }, [filteredScenarios, navigateToScenario]);
 
   useKey("s", onSurprise);
 
@@ -66,21 +94,13 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupContent>
-              <SidebarMenu>
-                {scenarios.map((scenario) => {
-                  if (!scenario._id) {
-                    return;
-                  }
-
-                  return (
-                    <ScenarioItem
-                      scenario={scenario}
-                      key={scenario._id.toString()}
-                      selected={selectedId === scenario._id.toString()}
-                    />
-                  );
-                })}
-              </SidebarMenu>
+              <ScenarioTable
+                data={scenarios}
+                columns={columns}
+                onRowSelected={onRowSelected}
+                selectedId={selectedId}
+                onFilteredRowsChange={onFilteredRowsChange}
+              />
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>

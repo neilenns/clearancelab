@@ -1,10 +1,10 @@
 "use server";
-import { fetchScenarios } from "@/api/scenarios/fetch-scenarios";
+import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { AdminHeader } from "@/components/admin-header";
 import ClientSection from "./client-section";
 
 export default async function Page() {
-  const result = await fetchScenarios();
+  const result = await fetchScenariosSummary();
   const scenarios = result.success ? result.data : [];
 
   return (

@@ -1,26 +1,13 @@
 import { YesNoIcon } from "@/components/yes-no-icon";
-import { ColumnDef, createColumnHelper, RowData } from "@tanstack/react-table";
-import { Scenario } from "@workspace/validators";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { ScenarioSummary } from "@workspace/validators";
 import { useMemo } from "react";
 import { RowActions } from "./row-actions";
 
-declare module "@tanstack/react-table" {
-  //allows us to define custom properties for our columns
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface ColumnMeta<TData extends RowData, TValue> {
-    filterVariant?: "boolean" | "text" | "combo-box";
-    columnHeaderJustification?:
-      | "justify-start"
-      | "justify-center"
-      | "justify-end";
-    width?: string;
-    filterLabel?: string;
-  }
-}
-const columnHelper = createColumnHelper<Scenario>();
+const columnHelper = createColumnHelper<ScenarioSummary>();
 
-export function useScenarioColumns() {
-  const columns = useMemo<ColumnDef<Scenario, unknown>[]>(
+export function useAdminColumns() {
+  const columns = useMemo<ColumnDef<ScenarioSummary, unknown>[]>(
     () =>
       [
         columnHelper.accessor("plan.aid", {
@@ -100,7 +87,7 @@ export function useScenarioColumns() {
             width: "w-[88px]",
           },
         }),
-      ] as ColumnDef<Scenario, unknown>[],
+      ] as ColumnDef<ScenarioSummary, unknown>[],
     [],
   );
 

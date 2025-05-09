@@ -11,25 +11,53 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import {
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
+  Row,
+  RowData,
+  RowSelectionState,
   useReactTable,
 } from "@tanstack/react-table";
-import { Scenario } from "@workspace/validators";
+import { ScenarioSummary } from "@workspace/validators";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import { useTableSearchParams } from "tanstack-table-search-params";
-import { useScenarioColumns } from "./use-scenario-columns";
 
-interface DataTableProperties {
-  data: Scenario[];
+declare module "@tanstack/react-table" {
+  //allows us to define custom properties for our columns
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    filterVariant?: "boolean" | "text" | "combo-box";
+    columnHeaderJustification?:
+      | "justify-start"
+      | "justify-center"
+      | "justify-end";
+    width?: string;
+    filterLabel?: string;
+  }
 }
 
-export function ScenarioTable({ data }: DataTableProperties) {
+interface DataTableProperties {
+  data: ScenarioSummary[];
+  columns: ColumnDef<ScenarioSummary>[];
+  selectedId?: string;
+  onRowSelected?: (row: ScenarioSummary) => void;
+  onFilteredRowsChange?: (rows: ScenarioSummary[]) => void;
+}
+
+export function ScenarioTable({
+  data,
+  columns,
+  onRowSelected,
+  selectedId,
+  onFilteredRowsChange,
+}: DataTableProperties) {
   const router = useRouter();
-  const columns = useScenarioColumns();
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   // From https://github.com/taro-28/tanstack-table-search-params?tab=readme-ov-file
   // The encoder and decoder is custom and uses JSON because the default method doesn't seem to
@@ -70,15 +98,54 @@ export function ScenarioTable({ data }: DataTableProperties) {
     },
   );
 
+  useEffect(() => {
+    if (selectedId) {
+      setRowSelection({
+        [selectedId]: true,
+      });
+    } else {
+      setRowSelection({});
+    }
+  }, [selectedId]);
+
+  const handleRowClick = useCallback(
+    (row: Row<ScenarioSummary>) => {
+      setRowSelection({
+        [row.id]: true,
+      });
+
+      onRowSelected?.(row.original);
+    },
+    [onRowSelected],
+  );
+
   const table = useReactTable({
     ...stateAndOnChanges,
+    // Override the state from stateAndOnChanges to include rowSelection
+    state: {
+      ...stateAndOnChanges.state,
+      rowSelection,
+    },
     data,
     columns,
+    enableMultiRowSelection: false,
+    onRowSelectionChange: setRowSelection,
+    getRowId: (row) => row._id,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client-side filtering
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select filter/autocomplete
   });
+
+  // Call onFilteredRowsChange when filtered rows change
+  useEffect(() => {
+    if (onFilteredRowsChange) {
+      const filteredRows = table
+        .getFilteredRowModel()
+        .rows.map((row) => row.original);
+      onFilteredRowsChange(filteredRows);
+    }
+  }, [onFilteredRowsChange, table]);
 
   return (
     <div className="w-full space-y-2">
@@ -120,6 +187,10 @@ export function ScenarioTable({ data }: DataTableProperties) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  className={cn({ "bg-muted": row.getIsSelected() })}
+                  onClick={() => {
+                    handleRowClick(row);
+                  }}
                   data-state={row.getIsSelected() && "selected"}
                   aria-selected={row.getIsSelected()}
                 >
