@@ -3,15 +3,15 @@ repos:
     rev: v8.25.1
     hooks:
       - id: gitleaks
-        name: "🔒 security · Detect hardcoded secrets"
+        name: "🔒 security: Detect hardcoded secrets"
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
       - id: check-executables-have-shebangs
-        name: "📁 filesystem/⚙️ exec · Verify shebang presence"
+        name: "📁 filesystem: Verify shebang presence"
       - id: check-shebang-scripts-are-executable
-        name: "📁 filesystem/⚙️ exec · Verify script permissions"
+        name: "📁 filesystem: Verify script permissions"
       - id: check-case-conflict
-        name: "📁 filesystem/📝 names · Check case sensitivity"
+        name: "📁 filesystem: Check case sensitivity"
       - id: check-illegal-windows-names
-        name: "📁 filesystem/📝 names · Validate Windows filenames"
+        name: "📁 filesystem: Validate Windows filenames"
