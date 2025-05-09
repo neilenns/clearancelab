@@ -89,6 +89,8 @@ export function ScenarioTable({ data, columns }: DataTableProperties) {
     ...stateAndOnChanges,
     data,
     columns,
+    enableMultiRowSelection: false,
+    getRowId: (row) => row._id,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client-side filtering
     getFacetedRowModel: getFacetedRowModel(),
@@ -135,6 +137,8 @@ export function ScenarioTable({ data, columns }: DataTableProperties) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  className={cn({ "bg-muted": row.getIsSelected() })}
+                  onClick={row.getToggleSelectedHandler()}
                   data-state={row.getIsSelected() && "selected"}
                   aria-selected={row.getIsSelected()}
                 >
