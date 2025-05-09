@@ -46,6 +46,7 @@ interface DataTableProperties {
   columns: ColumnDef<ScenarioSummary>[];
   selectedId?: string;
   onRowSelected?: (row: ScenarioSummary) => void;
+  onFilteredRowsChange?: (rows: ScenarioSummary[]) => void;
 }
 
 export function ScenarioTable({
@@ -53,6 +54,7 @@ export function ScenarioTable({
   columns,
   onRowSelected,
   selectedId,
+  onFilteredRowsChange,
 }: DataTableProperties) {
   const router = useRouter();
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -134,6 +136,17 @@ export function ScenarioTable({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(), // generate unique values for select filter/autocomplete
   });
+
+  // Call onFilteredRowsChange when filtered rows change
+  useEffect(() => {
+    if (onFilteredRowsChange) {
+      const filteredRows = table
+        .getFilteredRowModel()
+        .rows.map((row) => row.original);
+      onFilteredRowsChange(filteredRows);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [table.getFilteredRowModel().rows, onFilteredRowsChange]);
 
   return (
     <div className="w-full space-y-2">

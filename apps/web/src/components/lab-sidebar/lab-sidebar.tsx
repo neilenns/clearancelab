@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/sidebar";
 import { ScenarioSummary } from "@workspace/validators";
 import { WandSparkles } from "lucide-react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 import { useKey } from "react-use";
 import { ScenarioTable } from "../scenario-table";
 import { useSidebarColumns } from "./use-sidebar-columns";
@@ -28,14 +28,33 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
   const selectedId = parameters.id as string;
   const router = useRouter();
   const columns = useSidebarColumns();
-  const query = useSearchParams();
+
+  const navigateToScenario = useCallback(
+    (scenarioId: string) => {
+      // The search parameters are grabbed directly instead of using a hook to ensure
+      // they are always the latest. Per the docs, it includes the leading "?" so
+      // no need to add it.
+      router.replace(`/lab/${scenarioId}${globalThis.location.search}`);
+    },
+    [router],
+  );
+
+  const [filteredScenarios, setFilteredScenarios] =
+    useState<ScenarioSummary[]>(scenarios);
 
   const onRowSelected = useCallback(
     (scenario: ScenarioSummary) => {
-      router.replace(`/lab/${scenario._id}?${query.toString()}`);
+      // The search parameters are grabbed directly instead of using a hook to ensure
+      // they are always the latest. Per the docs, it includes the leading "?" so
+      // no need to add it.
+      navigateToScenario(scenario._id);
     },
-    [router, query],
+    [navigateToScenario],
   );
+
+  const onFilteredRowsChange = useCallback((rows: ScenarioSummary[]) => {
+    setFilteredScenarios(rows);
+  }, []);
 
   const onSurprise = useCallback(() => {
     const active = document.activeElement;
@@ -48,17 +67,17 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
       return;
     }
 
-    if (scenarios.length === 0) {
+    if (filteredScenarios.length === 0) {
       return;
     }
 
-    const randomIndex = Math.floor(Math.random() * scenarios.length);
-    const randomScenario = scenarios[randomIndex];
+    const randomIndex = Math.floor(Math.random() * filteredScenarios.length);
+    const randomScenario = filteredScenarios[randomIndex];
 
     if (randomScenario._id) {
-      router.replace(`/lab/${randomScenario._id}`);
+      navigateToScenario(randomScenario._id);
     }
-  }, [scenarios, router]);
+  }, [filteredScenarios, navigateToScenario]);
 
   useKey("s", onSurprise);
 
@@ -80,6 +99,7 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
                 columns={columns}
                 onRowSelected={onRowSelected}
                 selectedId={selectedId}
+                onFilteredRowsChange={onFilteredRowsChange}
               />
             </SidebarGroupContent>
           </SidebarGroup>
