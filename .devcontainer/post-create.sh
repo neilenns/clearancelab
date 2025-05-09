@@ -37,5 +37,5 @@ grep -qxF "alias npm='pnpm'" ~/.zshrc || \
   echo "alias npm='pnpm'" >> ~/.zshrc
 
 ### Pre-commit hooks
-echo "🔗  Installing pre-commit hooks..."
-pre-commit install
+echo "🔗 Installing pre-commit hooks (takes a minute, be patient)..."
+pre-commit install --install-hooks > /dev/null
