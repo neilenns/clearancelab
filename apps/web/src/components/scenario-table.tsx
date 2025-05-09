@@ -146,7 +146,7 @@ export function ScenarioTable({
       onFilteredRowsChange(filteredRows);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [table.getFilteredRowModel().rows, onFilteredRowsChange]);
+  }, [table.getFilteredRowModel(), onFilteredRowsChange]);
 
   return (
     <div className="w-full space-y-2">

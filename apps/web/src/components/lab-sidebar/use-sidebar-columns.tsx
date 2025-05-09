@@ -1,3 +1,8 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { ScenarioSummary } from "@workspace/validators";
 import { useMemo } from "react";
@@ -10,7 +15,16 @@ export function useSidebarColumns() {
       [
         columnHelper.accessor("plan.dep", {
           id: "plan.dep",
-          header: () => <div aria-label="Departure column">Dep</div>,
+          header: () => (
+            <Tooltip>
+              <TooltipTrigger>
+                <div aria-label="Departure column">Dep</div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <p>Departure airport</p>
+              </TooltipContent>
+            </Tooltip>
+          ),
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           meta: {
             columnHeaderJustification: "justify-center",
@@ -21,7 +35,16 @@ export function useSidebarColumns() {
         }),
         columnHelper.accessor("plan.dest", {
           id: "plan.dest",
-          header: () => <div aria-label="Arrival column">Dest</div>,
+          header: () => (
+            <Tooltip>
+              <TooltipTrigger>
+                <div aria-label="Arrival column">Dest</div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <p>Destination airport</p>
+              </TooltipContent>
+            </Tooltip>
+          ),
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           meta: {
             columnHeaderJustification: "justify-center",
@@ -32,7 +55,16 @@ export function useSidebarColumns() {
         }),
         columnHelper.accessor("plan.aid", {
           id: "plan.aid",
-          header: () => <div aria-label="Callsign column">AID</div>,
+          header: () => (
+            <Tooltip>
+              <TooltipTrigger>
+                <div aria-label="Callsign column">AID</div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <p>Callsign</p>
+              </TooltipContent>
+            </Tooltip>
+          ),
           cell: (info) => <div>{info.getValue()}</div>,
           meta: {
             width: "w-[100px]",

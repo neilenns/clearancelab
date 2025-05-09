@@ -31,6 +31,7 @@ export interface ScenarioSummary {
     dep?: string;
     dest?: string;
     aid: string;
+    rte?: string;
   };
 }
 
