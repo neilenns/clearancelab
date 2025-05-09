@@ -190,7 +190,6 @@ export function ExplanationsSection() {
                         aria-label="Delete explanation"
                       >
                         <Trash2 />
-                        <span className="sr-only">Delete explanation</span>
                       </Button>
                     </FormControl>
                     <FormMessage />
