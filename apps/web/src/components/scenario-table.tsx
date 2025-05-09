@@ -20,7 +20,7 @@ import {
   RowData,
   useReactTable,
 } from "@tanstack/react-table";
-import { Scenario } from "@workspace/validators";
+import { ScenarioSummary } from "@workspace/validators";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTableSearchParams } from "tanstack-table-search-params";
 
@@ -39,8 +39,8 @@ declare module "@tanstack/react-table" {
 }
 
 interface DataTableProperties {
-  data: Scenario[];
-  columns: ColumnDef<Scenario>[];
+  data: ScenarioSummary[];
+  columns: ColumnDef<ScenarioSummary>[];
 }
 
 export function ScenarioTable({ data, columns }: DataTableProperties) {

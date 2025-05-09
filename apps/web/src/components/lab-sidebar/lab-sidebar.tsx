@@ -9,14 +9,14 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
-  SidebarMenu,
 } from "@/components/ui/sidebar";
 import { ScenarioSummary } from "@workspace/validators";
 import { WandSparkles } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { useKey } from "react-use";
-import { ScenarioItem } from "./scenario-item";
+import { ScenarioTable } from "../scenario-table";
+import { useSidebarColumns } from "./use-sidebar-columns";
 
 // Extend the props from the base Sidebar and add scenarios
 interface LabSidebarProperties extends React.ComponentProps<typeof Sidebar> {
@@ -24,9 +24,10 @@ interface LabSidebarProperties extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
-  const parameters = useParams();
-  const selectedId = parameters.id as string;
+  // const parameters = useParams();
+  // const selectedId = parameters.id as string;
   const router = useRouter();
+  const columns = useSidebarColumns();
 
   const onSurprise = useCallback(() => {
     const active = document.activeElement;
@@ -66,21 +67,7 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupContent>
-              <SidebarMenu>
-                {scenarios.map((scenario) => {
-                  if (!scenario._id) {
-                    return;
-                  }
-
-                  return (
-                    <ScenarioItem
-                      scenario={scenario}
-                      key={scenario._id.toString()}
-                      selected={selectedId === scenario._id.toString()}
-                    />
-                  );
-                })}
-              </SidebarMenu>
+              <ScenarioTable data={scenarios} columns={columns} />
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
