@@ -12,8 +12,8 @@ export function ExplanationItem({ explanation }: ExplanationItemProperties) {
   // Convert newlines to proper HTML line breaks, collapsing multiple consecutive newlines into
   // a single newline first.
   const description = explanation.description
-    .replaceAll(/(\r\n){2,}/g, "\n")
-    .replaceAll(/\n{2,}/g, "\n");
+    .replaceAll("\r\n", "\n") // First normalize all line endings
+    .replaceAll(/\n{2,}/g, "\n"); // Then collapse consecutive newlines
 
   return (
     <CalloutBox variant={explanation.level} className="mb-2">
