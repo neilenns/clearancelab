@@ -9,7 +9,7 @@ import {
 import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { Permissions } from "@workspace/validators";
-import { ExternalLinkIcon, MoreHorizontal } from "lucide-react";
+import { Edit, ExternalLinkIcon, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -63,6 +63,18 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           <ExternalLinkIcon />
         </Link>
       </Button>
+      {permissionsStatus[Permissions.EditScenarios] && (
+        <Button variant="ghost" size="icon" asChild>
+          <Link
+            href={`/admin/scenarios/edit/${scenarioId}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="Edit scenario"
+          >
+            <Edit />
+          </Link>
+        </Button>
+      )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon">
@@ -77,16 +89,6 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           >
             Copy link
           </DropdownMenuItem>
-          {permissionsStatus[Permissions.EditScenarios] && (
-            <DropdownMenuItem asChild>
-              <Link
-                href={`/admin/scenarios/edit/${scenarioId}`}
-                aria-label="Edit scenario"
-              >
-                Edit
-              </Link>
-            </DropdownMenuItem>
-          )}
           {permissionsStatus[Permissions.DeleteScenarios] && (
             <DropdownMenuItem
               className="destructive"
