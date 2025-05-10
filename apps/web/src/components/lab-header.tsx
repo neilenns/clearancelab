@@ -21,6 +21,23 @@ const permissionsToVerify = [
   Permissions.DeleteScenarios,
 ];
 
+const copyLinkHandler = () => {
+  const url = new URL(
+    globalThis.location.pathname,
+    globalThis.location.origin,
+  ).toString();
+
+  navigator.clipboard
+    .writeText(url)
+    .then(() => {
+      toast.success("Link copied to clipboard");
+    })
+    .catch((error) => {
+      console.error("Failed to copy:", error);
+      toast.error("Failed to copy link to clipboard");
+    });
+};
+
 export function LabHeader({ scenario }: LabHeaderProperties) {
   const router = useRouter();
   const pathname = usePathname(); // Get current pathname
@@ -55,14 +72,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
           variant="ghost"
           size="icon"
           aria-label="Copy link to scenario"
-          onClick={() => {
-            const url = new URL(
-              globalThis.location.pathname,
-              globalThis.location.origin,
-            ).toString();
-            navigator.clipboard.writeText(url);
-            toast.success("Link copied to clipboard");
-          }}
+          onClick={copyLinkHandler}
         >
           <LinkIcon aria-hidden="true" />
         </Button>
