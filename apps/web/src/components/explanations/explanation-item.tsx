@@ -18,12 +18,19 @@ export function ExplanationItem({ explanation }: ExplanationItemProperties) {
         className="flex items-start gap-2 whitespace-pre-line"
         aria-labelledby={headlineId}
       >
-        {explanation.description.split("\n").map((part, index) => (
-          <Fragment key={index}>
-            {index > 0 && <br />}
-            {part}
-          </Fragment>
-        ))}
+        {
+          // Convert newlines to proper HTML line breaks, collapsing multiple consecutive newlines into
+          // a single newline first.
+          explanation.description
+            .replaceAll(/\n{2,}/g, "\n")
+            .split("\n")
+            .map((part, index) => (
+              <Fragment key={index}>
+                {index > 0 && <br />}
+                {part}
+              </Fragment>
+            ))
+        }
       </p>
     </CalloutBox>
   );
