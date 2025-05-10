@@ -101,4 +101,5 @@ export function revalidateAfterSave(id?: string) {
   }
   revalidatePath("/lab");
   revalidatePath("/admin/scenarios");
+  revalidatePath("/admin/statistics");
 }
