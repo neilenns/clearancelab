@@ -119,7 +119,7 @@ export function VatsimImportDialog() {
           }}
         />
         {errorContent && (
-          <Alert variant="error">
+          <Alert variant="destructive">
             <AlertTriangleIcon className="h-4 w-4" />
             <AlertTitle>Unable to import flight plan</AlertTitle>
             <AlertDescription>{errorContent}</AlertDescription>

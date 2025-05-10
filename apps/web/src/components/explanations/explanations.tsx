@@ -17,14 +17,21 @@ export function Explanations({ scenario }: ExplanationsProperties) {
   return (
     <div role="region" aria-label="Clearance status and explanations">
       {scenario.canClear ? (
-        <CalloutBox level="ok">You can issue the clearance!</CalloutBox>
+        <CalloutBox variant="ok" className="mb-2">
+          You can issue the clearance!
+        </CalloutBox>
       ) : (
-        <CalloutBox level="warning">You cannot issue the clearance yet.</CalloutBox>
+        <CalloutBox variant="warning">
+          You cannot issue the clearance yet.
+        </CalloutBox>
       )}
 
       <div className="mt-2" aria-label="Explanation details">
         {scenario.explanations.map((explanation, index) => (
-          <ExplanationItem key={`explanation-${index.toString()}`} explanation={explanation} />
+          <ExplanationItem
+            key={`explanation-${index.toString()}`}
+            explanation={explanation}
+          />
         ))}
       </div>
     </div>
@@ -33,7 +40,7 @@ export function Explanations({ scenario }: ExplanationsProperties) {
 
 function ExplanationItem({ explanation }: ExplanationItemProperties) {
   return (
-    <CalloutBox level={explanation.level}>
+    <CalloutBox variant={explanation.level} className="mb-2">
       <p
         className="flex items-start gap-2 font-bold"
         id={`explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`}
