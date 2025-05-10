@@ -1,8 +1,10 @@
+import { ENV } from "@/lib/environment";
 import type { Metadata } from "next";
 
 const description = "View statistics for Clearance Lab";
 const title = "Statistics | Clearance Lab";
-const url = "https://clearancelab.badcasserole.com/admin/statistics";
+const basePath = "/admin/statistics";
+const url = new URL(basePath, ENV.APP_BASE_URL);
 
 export const metadata: Metadata = {
   title,
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
     card: "summary",
     images: [
       {
-        url: `https://clearancelab.badcasserole.com/logo.svg`,
+        url: new URL("/logo.svg", ENV.APP_BASE_URL),
         alt: "Clearance Lab logo, a beaker half filled with blue liquid.",
       },
     ],

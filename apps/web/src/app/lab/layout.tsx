@@ -2,12 +2,14 @@ import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { LabSidebar } from "@/components/lab-sidebar/lab-sidebar";
 import { Loading } from "@/components/loading";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { ENV } from "@/lib/environment";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
 const description = "Scenarios to practice your flight plan review skills.";
 const title = "Scenarios | Clearance Lab";
-const url = "https://clearancelab.badcasserole.com/lab";
+const pagePath = "/lab";
+const url = new URL(pagePath, ENV.APP_BASE_URL);
 
 export const metadata: Metadata = {
   title,
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary",
     images: [
       {
-        url: `https://clearancelab.badcasserole.com/logo.svg`,
+        url: new URL("/logo.svg", ENV.APP_BASE_URL),
         alt: "Clearance Lab logo, a beaker half filled with blue liquid.",
       },
     ],

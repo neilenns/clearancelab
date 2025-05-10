@@ -1,11 +1,12 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ENV } from "@/lib/environment";
 import type { Metadata } from "next";
 import "./globals.css";
 
-const description = "Where aspiring controllers sharpen their flight plan review skills.";
+const description =
+  "Where aspiring controllers sharpen their flight plan review skills.";
 const title = "Clearance Lab";
-const url = "https://clearancelab.badcasserole.com";
 
 export const metadata: Metadata = {
   icons: {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url,
+    url: new URL("/", ENV.APP_BASE_URL),
     type: "website",
   },
   twitter: {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary",
     images: [
       {
-        url: `https://clearancelab.badcasserole.com/logo.svg`,
+        url: new URL("/logo.svg", ENV.APP_BASE_URL),
         alt: "Clearance Lab logo, a beaker half filled with blue liquid.",
       },
     ],

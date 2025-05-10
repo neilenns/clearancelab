@@ -3,6 +3,7 @@
 // The fetching of data to pass to the page is based off this:
 // https://medium.com/@kishorjena/solving-server-to-client-data-flow-in-next-js-handling-index-and-non-index-pages-62d9194537cc
 import { fetchScenariosByIds } from "@/api/scenarios/fetch-scenarios-by-ids";
+import { ENV } from "@/lib/environment";
 import { Metadata } from "next";
 
 type Parameters = Promise<{ id: string }>;
@@ -22,7 +23,8 @@ export async function generateMetadata({
 
   const title = `${scenario.plan.aid} | Clearance Lab`;
   const description = `Practice flight plan for ${scenario.plan.aid}.`;
-  const url = `https://clearancelab.badcasserole.com/lab/${id}`;
+  const basePath = `/lab/${id}`;
+  const url = new URL(basePath, ENV.APP_BASE_URL);
 
   return {
     title,
@@ -39,7 +41,7 @@ export async function generateMetadata({
       card: "summary",
       images: [
         {
-          url: `https://clearancelab.badcasserole.com/logo.svg`,
+          url: new URL("/logo.svg", ENV.APP_BASE_URL),
           alt: "Clearance Lab logo, a beaker half filled with blue liquid.",
         },
       ],
