@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { DraggableProvided } from "@hello-pangea/dnd";
 import { ScenarioInput } from "@workspace/validators";
 import { GripVertical, Trash2 } from "lucide-react";
@@ -121,7 +122,7 @@ export const ExplanationFieldRow = ({
                   Detailed description of the tip or issue.
                 </FormDescription>
                 <FormControl>
-                  <Input
+                  <Textarea
                     id={`explanation-description-${index.toString()}`}
                     {...field}
                   />
