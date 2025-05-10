@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url: ENV.APP_BASE_URL,
+    url: new URL("/", ENV.APP_BASE_URL),
     type: "website",
   },
   twitter: {
