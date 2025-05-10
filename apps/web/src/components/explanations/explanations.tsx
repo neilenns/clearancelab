@@ -1,12 +1,9 @@
-import { Explanation, Scenario } from "@workspace/validators";
+import { Scenario } from "@workspace/validators";
 import { CalloutBox } from "../callout-box";
+import { ExplanationItem } from "./explanation-item";
 
 interface ExplanationsProperties {
   scenario?: Scenario;
-}
-
-interface ExplanationItemProperties {
-  explanation: Explanation;
 }
 
 export function Explanations({ scenario }: ExplanationsProperties) {
@@ -35,24 +32,5 @@ export function Explanations({ scenario }: ExplanationsProperties) {
         ))}
       </div>
     </div>
-  );
-}
-
-function ExplanationItem({ explanation }: ExplanationItemProperties) {
-  return (
-    <CalloutBox variant={explanation.level} className="mb-2">
-      <p
-        className="flex items-start gap-2 font-bold"
-        id={`explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`}
-      >
-        {explanation.headline}
-      </p>
-      <p
-        className="flex items-start gap-2"
-        aria-labelledby={`explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`}
-      >
-        {explanation.description}
-      </p>
-    </CalloutBox>
   );
 }
