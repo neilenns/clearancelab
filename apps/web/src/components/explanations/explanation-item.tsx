@@ -7,17 +7,16 @@ interface ExplanationItemProperties {
 }
 
 export function ExplanationItem({ explanation }: ExplanationItemProperties) {
+  const headlineId = `explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`;
+
   return (
     <CalloutBox variant={explanation.level} className="mb-2">
-      <p
-        className="flex items-start gap-2 font-bold"
-        id={`explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`}
-      >
+      <p className="flex items-start gap-2 font-bold" id={headlineId}>
         {explanation.headline}
       </p>
       <p
         className="flex items-start gap-2 whitespace-pre-line"
-        aria-labelledby={`explanation-headline-${explanation.headline.replaceAll(/\s+/g, "-").toLowerCase()}`}
+        aria-labelledby={headlineId}
       >
         {explanation.description.split("\n").map((part, index) => (
           <Fragment key={index}>
