@@ -5,7 +5,7 @@ import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Permissions, Scenario } from "@workspace/validators";
-import { LogIn, LogOut } from "lucide-react";
+import { LinkIcon, LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation"; // Added usePathname
 import { useState } from "react";
@@ -48,7 +48,25 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
       role="banner"
       aria-label={`Lab scenario page header`}
     >
-      {scenario.plan.dep} - {scenario.plan.dest} ({scenario.plan.aid})
+      <div className="flex items-center gap-2">
+        {scenario.plan.dep} - {scenario.plan.dest} ({scenario.plan.aid})
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          aria-label="Copy link to scenario"
+          onClick={() => {
+            const url = new URL(
+              globalThis.location.pathname,
+              globalThis.location.origin,
+            ).toString();
+            navigator.clipboard.writeText(url);
+            toast.success("Link copied to clipboard");
+          }}
+        >
+          <LinkIcon aria-hidden="true" />
+        </Button>
+      </div>
       <div className="space-x-2">
         {permissionsStatus[Permissions.EditScenarios] && (
           <Button variant="outline" asChild>
