@@ -63,16 +63,18 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           <ExternalLinkIcon />
         </Link>
       </Button>
-      <Button variant="ghost" size="icon" asChild>
-        <Link
-          href={`/admin/scenarios/edit/${scenarioId}`}
-          target="_blank"
-          rel="noreferrer noopener"
-          aria-label="Edit scenario"
-        >
-          <Edit />
-        </Link>
-      </Button>
+      {permissionsStatus[Permissions.EditScenarios] && (
+        <Button variant="ghost" size="icon" asChild>
+          <Link
+            href={`/admin/scenarios/edit/${scenarioId}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="Edit scenario"
+          >
+            <Edit />
+          </Link>
+        </Button>
+      )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon">
@@ -87,16 +89,6 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
           >
             Copy link
           </DropdownMenuItem>
-          {permissionsStatus[Permissions.EditScenarios] && (
-            <DropdownMenuItem asChild>
-              <Link
-                href={`/admin/scenarios/edit/${scenarioId}`}
-                aria-label="Edit scenario"
-              >
-                Edit
-              </Link>
-            </DropdownMenuItem>
-          )}
           {permissionsStatus[Permissions.DeleteScenarios] && (
             <DropdownMenuItem
               className="destructive"
