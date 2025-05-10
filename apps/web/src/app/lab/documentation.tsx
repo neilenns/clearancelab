@@ -91,7 +91,7 @@ export function Documentation() {
         the functionality in CRC. Airport conditions are shown below the FPE, to
         provide the additional information required to validate the plan and
         issue the clearance. Quick links to view the filed route on SkyVector
-        and FlightAware are accessible via the tooltip on the <code>RTE</code>
+        and FlightAware are accessible via the tooltip on the <code>RTE</code>{" "}
         label.
       </p>
       <p>
