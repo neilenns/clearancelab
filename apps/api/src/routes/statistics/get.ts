@@ -1,11 +1,11 @@
-import { verifyUser } from "@/middleware/permissions.js";
+import { verifyApiKey } from "@/middleware/apikey.js";
 import { ScenarioModel } from "@models/scenario.js";
 import { PlanStatisticsResponse, Statistic } from "@workspace/validators";
 import express, { Request, Response } from "express";
 
 const router = express.Router();
 
-router.get("/", verifyUser, async (request: Request, response: Response) => {
+router.get("/", verifyApiKey, async (request: Request, response: Response) => {
   const departures = await ScenarioModel.aggregate<Statistic>([
     { $match: { "plan.dep": { $exists: true, $nin: [undefined, ""] } } },
     { $group: { _id: "$plan.dep", count: { $sum: 1 } } },
