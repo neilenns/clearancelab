@@ -1,9 +1,11 @@
+import { ENV } from "@/lib/environment";
 import type { Metadata } from "next";
 import AdminLayoutClient from "./admin-layout-client"; // Import the new client component
 
 const description = "Administration tools for Clearance Lab";
 const title = "Admin | Clearance Lab";
-const url = "https://clearancelab.badcasserole.com/admin";
+const basePath = "/admin";
+const url = new URL(basePath, ENV.APP_BASE_URL);
 
 export const metadata: Metadata = {
   title,
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
     card: "summary",
     images: [
       {
-        url: `https://clearancelab.badcasserole.com/logo.svg`,
+        url: new URL("/logo.svg", ENV.APP_BASE_URL),
         alt: "Clearance Lab logo, a beaker half filled with blue liquid.",
       },
     ],
