@@ -27,6 +27,8 @@ const environmentSchema = z
     AUTH0_DOMAIN: auth0url.optional(), // Optional, but should be a valid URL
     AUTH0_SECRET: z.string().optional(),
     APP_BASE_URL: z.string().url().optional(), // Optional, but should be a valid URL
+    BACKEND_CF_ACCESS_CLIENT_ID: z.string().optional(),
+    BACKEND_CF_ACCESS_CLIENT_SECRET: z.string().optional(),
     DISABLE_AUTH: z
       .preprocess((value) => value === "true" || value === "1", z.boolean())
       .default(false),

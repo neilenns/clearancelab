@@ -13,6 +13,8 @@
         "AUTH0_DOMAIN",
         "AUTH0_SCOPE",
         "AUTH0_SECRET",
+        "BACKEND_CF_ACCESS_CLIENT_ID",
+        "BACKEND_CF_ACCESS_CLIENT_SECRET",
         "MONGO_DB_CONNECTION_STRING",
         "MONGO_DB_NAME"
       ],
@@ -29,6 +31,8 @@
         "AUTH0_DOMAIN",
         "AUTH0_SCOPE",
         "AUTH0_SECRET",
+        "BACKEND_CF_ACCESS_CLIENT_ID",
+        "BACKEND_CF_ACCESS_CLIENT_SECRET",
         "CLOUDFLARE_ACCOUNT_ID",
         "CLOUDFLARE_API_TOKEN"
       ]
@@ -61,6 +65,8 @@
         "AUTH0_SCOPE",
         "AUTH0_SECRET",
         "DISABLE_AUTH",
+        "BACKEND_CF_ACCESS_CLIENT_ID",
+        "BACKEND_CF_ACCESS_CLIENT_SECRET",
         "NEXT_PUBLIC_DISABLE_AUTH"
       ]
     }

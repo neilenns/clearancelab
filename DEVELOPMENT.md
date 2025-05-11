@@ -180,3 +180,10 @@ And the following secrets must be set in GitHub:
 
 | `WATCHTOWER_API_KEY` | API key for the Watchtower webhook. |
 | `CF_ACCESS_CLIENT_SECRET` | Cloudflare Access client secret used in the webhook headers to authenticate through Cloudflare to the Watchtower instance. |
+
+The backend API server is protected via Cloudflare Zero Trust. The following secrets must be set in GitHub for the deployed web app to get through to the backend server:
+
+| Secret                            | Description                           |
+| --------------------------------- | ------------------------------------- |
+| `BACKEND_CF_ACCESS_CLIENT_ID`     | Client ID for the service worker.     |
+| `BACKEND_CF_ACCESS_CLIENT_SECRET` | Client secret for the service worker. |

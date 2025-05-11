@@ -65,6 +65,8 @@ jobs:
           auth0_client_secret: ${{ secrets.AUTH0_CLIENT_SECRET }}
           auth0_domain: ${{ vars.AUTH0_DOMAIN }}
           auth0_secret: ${{ secrets.AUTH0_SECRET }}
+          backend_cf_access_client_id: ${{ secrets.BACKEND_CF_ACCESS_CLIENT_ID }}
+          backend_cf_access_client_secret: ${{ secrets.BACKEND_CF_ACCESS_CLIENT_SECRET }}
           cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           deploy_env: ${{ vars.DEPLOY_ENV }}
