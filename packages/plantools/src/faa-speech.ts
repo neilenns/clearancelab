@@ -110,6 +110,9 @@ export function spellGroupForm(input: number | string): string {
   } else {
     const firstGroup = Math.floor(n / 100);
     const secondGroup = n % 100;
+    if (secondGroup === 0) {
+      return `${twoDigit(firstGroup)} hundred`;
+    }
     return `${twoDigit(firstGroup)} ${twoDigit(secondGroup)}`;
   }
 }
