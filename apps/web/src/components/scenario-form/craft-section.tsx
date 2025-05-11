@@ -57,6 +57,24 @@ export function CraftSection() {
             <div>
               <FormField
                 control={control}
+                name="craft.controllerName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Controller name</FormLabel>
+                    <FormDescription>
+                      The way to say the controller&apos;s name.
+                    </FormDescription>
+                    <FormControl>
+                      <Input id="controllerName" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div>
+              <FormField
+                control={control}
                 name="craft.telephony"
                 render={({ field }) => (
                   <FormItem>
