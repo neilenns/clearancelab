@@ -50,11 +50,23 @@ router.get(
 
       // If an airline was found, and the callsign was able to get split, use the airline's telephony and the flight number in group form.
       // Otherwise, fall back to just spelling out the callsign.
-      const spokenCallsign =
-        airline && callsignParts
-          ? `${changeCase.capitalCase(airline.telephony)} ${spellGroupForm(callsignParts.flightNumber)}`
-          : spellCallsign(flightPlan.callsign);
-
+-     const spokenCallsign =
+-       airline && callsignParts
+-         ? `${changeCase.capitalCase(airline.telephony)} ${spellGroupForm(callsignParts.flightNumber)}`
+-         : spellCallsign(flightPlan.callsign);
++     let spokenCallsign: string;
++     if (airline && callsignParts) {
++       try {
++         spokenCallsign = `${changeCase.capitalCase(airline.telephony)} ${spellGroupForm(
++           callsignParts.flightNumber,
++         )}`;
++       } catch {
++         // Fallback to a fully-spelled callsign if the flight number is invalid
++         spokenCallsign = spellCallsign(flightPlan.callsign);
++       }
++     } else {
++       spokenCallsign = spellCallsign(flightPlan.callsign);
++     }
       const telephony = [
         spokenCallsign,
         weightClass, // The weight class, if found
