@@ -18,10 +18,13 @@ export default async function Page({ params }: { params: Parameters }) {
 
   const scenario = scenarios[0];
 
-  // Older scenarios may not have a home airport. If there isn't one defined set it to the empty
+  // Older scenarios may some fields missing. If they're undefined set them to the empty
   // string to ensure there aren't errors from React about going from uncontrolled to controlled
   // when a value is set.
   scenario.plan.homeAirport ??= "";
+  if (scenario.craft) {
+    scenario.craft.controllerName ??= "";
+  }
 
   return (
     <div>
