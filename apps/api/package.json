@@ -27,7 +27,6 @@
     "express-oauth2-jwt-bearer": "^1.6.1",
     "express-rate-limit": "^7.5.0",
     "express-winston": "^4.2.0",
-    "helmet": "^8.1.0",
     "logform": "^2.7.0",
     "mongoose": "^8.13.2",
     "mongoose-lean-virtuals": "^1.1.0",
