@@ -105,7 +105,6 @@ To speed builds, the following environment variables can be set to enable TurboR
 | Variable      | Description                                |
 | ------------- | ------------------------------------------ |
 | `TURBO_TEAM`  | Team name.                                 |
-| `TURBO_API`   | URI to the Turbo remote cache instance.    |
 | `TURBO_TOKEN` | Token to grant access to the remote cache. |
 
 > [!IMPORTANT]

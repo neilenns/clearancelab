@@ -28,7 +28,6 @@ jobs:
           push: true
           tag_latest: true
           turbo_token: ${{ secrets.TURBO_TOKEN }}
-          turbo_api: ${{ vars.TURBO_API }}
           turbo_team: ${{ vars.TURBO_TEAM }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
