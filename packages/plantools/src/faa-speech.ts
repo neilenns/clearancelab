@@ -1,5 +1,6 @@
-/* eslint-disable unicorn/prefer-spread */
+/* eslint-disable @typescript-eslint/no-misused-spread */
 /* eslint-disable security/detect-object-injection */
+
 const digitWords: Record<string, string> = {
   "0": "zero",
   "1": "one",
@@ -15,25 +16,19 @@ const digitWords: Record<string, string> = {
 
 export function spellSquawk(code: string): string {
   const digits = code.replaceAll(/\D/g, "").padStart(4, "0").slice(-4);
-  return digits
-    .split("")
-    .map((d) => digitWords[d])
-    .join(" ");
+  return [...digits].map((d: string) => digitWords[d]).join(" ");
 }
 
 export function spellFrequency(freq: string | number): string {
   const stringVersion = typeof freq === "number" ? freq.toFixed(3) : freq;
   const [left, right] = stringVersion.split(".");
 
-  const leftPart = left
-    .replaceAll(/\D/g, "")
-    .split("")
-    .map((d) => digitWords[d])
+  const leftPart = [...left.replaceAll(/\D/g, "")]
+    .map((d: string) => digitWords[d])
     .join(" ");
   const rightTrimmed = right.replace(/0+$/, ""); // remove trailing zeros
-  const rightPart = rightTrimmed
-    .split("")
-    .map((d) => digitWords[d])
+  const rightPart = [...rightTrimmed]
+    .map((d: string) => digitWords[d])
     .join(" ");
 
   return `${leftPart} point ${rightPart}`;
