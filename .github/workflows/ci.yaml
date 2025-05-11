@@ -6,7 +6,6 @@ on:
       - main
 
 env:
-  TURBO_API: ${{ vars.TURBO_API }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   IMAGE_NAME: ghcr.io/${{ github.repository }}-api
@@ -93,6 +92,5 @@ jobs:
           push: false
           tag_latest: false
           turbo_token: ${{ secrets.TURBO_TOKEN }}
-          turbo_api: ${{ vars.TURBO_API }}
           turbo_team: ${{ vars.TURBO_TEAM }}
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -19,9 +19,6 @@ inputs:
   turbo_token:
     required: true
     description: "Turborepo token for remote cache authentication"
-  turbo_api:
-    required: true
-    description: "API endpoint for Turborepo remote cache"
   turbo_team:
     required: true
     description: "Team name for Turborepo remote cache"
@@ -72,7 +69,6 @@ runs:
           TURBO_TOKEN=${{ inputs.turbo_token }}
         build-args: |
           VERSION=${{ inputs.version }}
-          TURBO_API=${{ inputs.turbo_api }}
           TURBO_TEAM=${{ inputs.turbo_team }}
           PNPM_STORE=/pnpm-store
         tags: |
