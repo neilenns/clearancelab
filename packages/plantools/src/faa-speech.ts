@@ -26,10 +26,11 @@ export function spellFrequency(freq: string | number): string {
   const leftPart = [...left.replaceAll(/\D/g, "")]
     .map((d: string) => digitWords[d])
     .join(" ");
-  const rightTrimmed = right.replace(/0+$/, ""); // remove trailing zeros
-  const rightPart = [...rightTrimmed]
-    .map((d: string) => digitWords[d])
-    .join(" ");
 
-  return `${leftPart} point ${rightPart}`;
+  // Handle case when there's no decimal point
+  const rightPart = right
+    ? [...right.replace(/0+$/, "")].map((d: string) => digitWords[d]).join(" ")
+    : "";
+
+  return right ? `${leftPart} point ${rightPart}` : leftPart;
 }
