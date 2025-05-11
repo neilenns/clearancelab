@@ -8,6 +8,7 @@ import {
   getRandomName,
   getRandomVatsimId,
   getWeightClass,
+  spellGroupForm,
   splitCallsign,
 } from "@workspace/plantools";
 import { Scenario, ScenarioResponse } from "@workspace/validators";
@@ -38,7 +39,9 @@ router.get(
 
       // Calculate the telephony string.
       const callsignParts = splitCallsign(flightPlan.callsign);
-      const weightClass = getWeightClass(flightPlan.equipmentType ?? "");
+      const weightClass = getWeightClass(
+        flightPlan.equipmentType ?? "",
+      )?.toLowerCase();
 
       const airline = callsignParts
         ? await AirlineModel.findByAirlineCode(callsignParts.airlineCode)
@@ -46,9 +49,9 @@ router.get(
 
       const telephony = [
         airline?.telephony && changeCase.capitalCase(airline.telephony), // The telephony name, if found, in capital case
-        callsignParts?.flightNumber, // The flight number, if found
-        weightClass, // The weight class, if found
+        spellGroupForm(callsignParts?.flightNumber), // The flight number, if found
         !airline?.telephony && flightPlan.callsign, // Include callsign only if telephony is not found
+        weightClass, // The weight class, if found
       ]
         .filter(Boolean) // Removes any falsy values like null, undefined, or empty strings
         .join(" ");
