@@ -14,10 +14,18 @@ async function apiRequest(
 ) {
   const baseUrl = ENV.API_BASE_URL;
   const apiKey = ENV.API_KEY;
+  const backendCfClientAccessId = ENV.BACKEND_CF_ACCESS_CLIENT_ID;
+  const backendCfClientAccessSecret = ENV.BACKEND_CF_ACCESS_CLIENT_SECRET;
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     ...(apiKey ? { "x-api-key": apiKey } : {}),
+    ...(backendCfClientAccessId && backendCfClientAccessSecret
+      ? {
+          "CF-Access-Client-Id": backendCfClientAccessId,
+          "CF-Access-Client-Secret": backendCfClientAccessSecret,
+        }
+      : {}),
     ...(options.cache ? { cache: options.cache } : {}),
   };
 

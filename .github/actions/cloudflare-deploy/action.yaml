@@ -32,6 +32,12 @@ inputs:
   cloudflare_api_token:
     required: true
     description: "Cloudflare API token for deployment"
+  backend_cf_access_client_id:
+    required: true
+    description: "Cloudflare client ID for backend access"
+  backend_cf_access_client_secret:
+    required: true
+    description: "Cloudflare client secret for backend access"
   deploy_env:
     required: true
     description: "The environment to deploy to (e.g., production, staging)"
@@ -76,6 +82,8 @@ runs:
         echo "${{ inputs.api_key }}" | pnpx wrangler secret put API_KEY --env ${{ inputs.deploy_env }}
         echo "${{ inputs.auth0_secret }}" | pnpx wrangler secret put AUTH0_SECRET --env ${{ inputs.deploy_env }}
         echo "${{ inputs.auth0_client_secret }}" | pnpx wrangler secret put AUTH0_CLIENT_SECRET --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.backend_cf_access_client_id }}" | pnpx wrangler secret put BACKEND_CF_ACCESS_CLIENT_ID --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.backend_cf_access_client_secret }}" | pnpx wrangler secret put BACKEND_CF_ACCESS_CLIENT_SECRET --env ${{ inputs.deploy_env }}
       shell: bash
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
@@ -94,6 +102,8 @@ runs:
         AUTH0_CLIENT_SECRET: ${{ inputs.auth0_client_secret }}
         AUTH0_DOMAIN: ${{ inputs.auth0_domain }}
         AUTH0_SECRET: ${{ inputs.auth0_secret }}
+        BACKEND_CF_ACCESS_CLIENT_ID: ${{ inputs.backend_cf_access_client_id }}
+        BACKEND_CF_ACCESS_CLIENT_SECRET: ${{ inputs.backend_cf_access_client_secret }}
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
         DEPLOY_ENV: ${{ inputs.deploy_env }}
