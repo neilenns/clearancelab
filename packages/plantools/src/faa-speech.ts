@@ -1,4 +1,6 @@
-const smallNumbers: Record<string, string> = {
+/* eslint-disable unicorn/prefer-spread */
+/* eslint-disable security/detect-object-injection */
+const digitWords: Record<string, string> = {
   "0": "zero",
   "1": "one",
   "2": "two",
@@ -13,12 +15,26 @@ const smallNumbers: Record<string, string> = {
 
 export function spellSquawk(code: string): string {
   const digits = code.replaceAll(/\D/g, "").padStart(4, "0").slice(-4);
-  return (
-    digits
-      // eslint-disable-next-line unicorn/prefer-spread
-      .split("")
-      // eslint-disable-next-line security/detect-object-injection
-      .map((d) => smallNumbers[d])
-      .join(" ")
-  );
+  return digits
+    .split("")
+    .map((d) => digitWords[d])
+    .join(" ");
+}
+
+export function spellFrequency(freq: string | number): string {
+  const stringVersion = typeof freq === "number" ? freq.toFixed(3) : freq;
+  const [left, right] = stringVersion.split(".");
+
+  const leftPart = left
+    .replaceAll(/\D/g, "")
+    .split("")
+    .map((d) => digitWords[d])
+    .join(" ");
+  const rightTrimmed = right.replace(/0+$/, ""); // remove trailing zeros
+  const rightPart = rightTrimmed
+    .split("")
+    .map((d) => digitWords[d])
+    .join(" ");
+
+  return `${leftPart} point ${rightPart}`;
 }
