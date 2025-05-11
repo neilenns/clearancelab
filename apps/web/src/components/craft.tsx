@@ -3,6 +3,7 @@ import {
   getFormattedClearanceLimit,
   getFormattedDepartureFrequency,
   getTelephony,
+  spellSquawk,
 } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 
@@ -29,7 +30,7 @@ export function Craft({ scenario }: CraftProperties) {
         {craft?.altitude && <span>{capitalizeFirst(craft.altitude)}.</span>}
         <span>Departure {getFormattedDepartureFrequency(scenario)}.</span>
         {scenario.plan.bcn && (
-          <span>Squawk {scenario.plan.bcn.toString().padStart(4, "0")}.</span>
+          <span>Squawk {spellSquawk(scenario.plan.bcn.toString())}.</span>
         )}
       </p>
     </section>

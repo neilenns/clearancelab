@@ -1,4 +1,5 @@
 import { Plan, Scenario } from "@workspace/validators";
+import { spellFrequency } from "./faa-speech";
 
 const AirlineCodeRegexPattern = /\b([A-Za-z]{3})([A-Za-z\d]+)\b/;
 
@@ -134,6 +135,6 @@ export const getFormattedDepartureFrequency = (scenario: Scenario) => {
   const departure = craft?.frequency ?? "offline";
 
   return typeof departure === "number"
-    ? `is ${departure.toFixed(3)}`
+    ? `is ${spellFrequency(departure)}`
     : departure;
 };
