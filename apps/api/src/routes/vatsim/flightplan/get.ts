@@ -64,7 +64,7 @@ router.get(
           pilotName: getRandomName(),
           rmk: flightPlan.remarks,
           rte: flightPlan.route,
-          spd: flightPlan.groundspeed,
+          spd: flightPlan.cruiseTas,
           typ: flightPlan.equipmentType,
           eq: flightPlan.equipmentSuffix,
           homeAirport: flightPlan.homeAirport,

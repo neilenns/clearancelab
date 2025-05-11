@@ -30,6 +30,7 @@ export interface IVatsimFlightPlan {
   departureTime?: Date;
   EDCT?: Date;
   cruiseAltitude?: number;
+  cruiseTas?: number;
   route?: string;
   squawk?: string;
   remarks?: string;
@@ -93,6 +94,7 @@ const VatsimFlightPlanSchema = new Schema<
     departureTime: { type: Date },
     EDCT: { type: Date },
     cruiseAltitude: { type: Number },
+    cruiseTas: { type: Number },
     route: { type: String },
     squawk: { type: String },
     remarks: { type: String },
