@@ -133,5 +133,7 @@ export const getFormattedDepartureFrequency = (scenario: Scenario) => {
 
   const departure = craft?.frequency ?? "offline";
 
-  return typeof departure === "number" ? departure.toFixed(3) : departure;
+  return typeof departure === "number"
+    ? `is ${departure.toFixed(3)}`
+    : departure;
 };
