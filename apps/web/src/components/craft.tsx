@@ -17,7 +17,8 @@ export function Craft({ scenario }: CraftProperties) {
   return (
     <section role="region" aria-label="Clearance information">
       <p className="space-x-1">
-        <span key="telephony">{getTelephony(scenario)},</span>
+        <span key="telephony">{getTelephony(scenario)}, </span>
+        <span>{scenario.craft?.controllerName}, </span>
         {clearanceLimit && (
           <>
             <span>cleared to</span>
@@ -26,7 +27,7 @@ export function Craft({ scenario }: CraftProperties) {
         )}
         {craft?.route && <span>via the {craft.route}.</span>}
         {craft?.altitude && <span>{capitalizeFirst(craft.altitude)}.</span>}
-        <span>Departure is {getFormattedDepartureFrequency(scenario)}.</span>
+        <span>Departure {getFormattedDepartureFrequency(scenario)}.</span>
         {scenario.plan.bcn && (
           <span>Squawk {scenario.plan.bcn.toString().padStart(4, "0")}.</span>
         )}

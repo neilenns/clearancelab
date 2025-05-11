@@ -30,7 +30,7 @@ export function Answer({ scenario, className }: AnswerProperties) {
   const messages = [
     {
       alignment: "left",
-      content: `Portland Ground, ${getTelephony(scenario)}, IFR to ${getFormattedClearanceLimit(scenario)}.`,
+      content: `${scenario.craft?.controllerName}, ${getTelephony(scenario)}, IFR to ${getFormattedClearanceLimit(scenario)}.`,
     },
     {
       alignment: "right",
@@ -60,7 +60,7 @@ export function Answer({ scenario, className }: AnswerProperties) {
                 <TableRow key="F">
                   <TableCell>F</TableCell>
                   <TableCell>
-                    {scenario.craft?.frequency ?? "offline"}
+                    {scenario.craft?.frequency?.toFixed(3) ?? "offline"}
                   </TableCell>
                 </TableRow>
                 <TableRow key="T">
