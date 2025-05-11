@@ -8,6 +8,8 @@ import {
   getRandomName,
   getRandomVatsimId,
   getWeightClass,
+  spellCallsign,
+  spellGroupForm,
   splitCallsign,
 } from "@workspace/plantools";
 import { Scenario, ScenarioResponse } from "@workspace/validators";
@@ -38,17 +40,33 @@ router.get(
 
       // Calculate the telephony string.
       const callsignParts = splitCallsign(flightPlan.callsign);
-      const weightClass = getWeightClass(flightPlan.equipmentType ?? "");
+      const weightClass = getWeightClass(
+        flightPlan.equipmentType ?? "",
+      )?.toLowerCase();
 
       const airline = callsignParts
         ? await AirlineModel.findByAirlineCode(callsignParts.airlineCode)
         : undefined;
 
+      // If an airline was found, and the callsign was able to get split, use the airline's telephony and the flight number in group form.
+      // Otherwise, fall back to just spelling out the callsign.
+      let spokenCallsign: string;
+      if (airline && callsignParts) {
+        try {
+          spokenCallsign = `${changeCase.capitalCase(airline.telephony)} ${spellGroupForm(
+            callsignParts.flightNumber,
+          )}`;
+        } catch {
+          // Fallback to a fully-spelled callsign if the flight number is invalid
+          spokenCallsign = spellCallsign(flightPlan.callsign);
+        }
+      } else {
+        spokenCallsign = spellCallsign(flightPlan.callsign);
+      }
+
       const telephony = [
-        airline?.telephony && changeCase.capitalCase(airline.telephony), // The telephony name, if found, in capital case
-        callsignParts?.flightNumber, // The flight number, if found
+        spokenCallsign,
         weightClass, // The weight class, if found
-        !airline?.telephony && flightPlan.callsign, // Include callsign only if telephony is not found
       ]
         .filter(Boolean) // Removes any falsy values like null, undefined, or empty strings
         .join(" ");
