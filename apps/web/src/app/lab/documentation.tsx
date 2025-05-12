@@ -88,7 +88,10 @@ export function Documentation() {
         Select scenarios from the sidebar to practice, or use the random
         scenario button to show a random scenario from the list. You can also
         press the{" "}
-        <kbd className="rounded border border-muted px-1.5 py-0.5 text-sm font-mono bg-muted text-muted-foreground">
+        <kbd
+          aria-keyshortcuts="S"
+          className="rounded border border-muted px-1.5 py-0.5 text-sm font-mono bg-muted text-muted-foreground"
+        >
           S
         </kbd>{" "}
         key to show a random scenario.
@@ -116,7 +119,10 @@ export function Documentation() {
       <p>
         The scenario answer is revealed by clicking the <code>Show answer</code>{" "}
         button or by pressing the{" "}
-        <kbd className="rounded border border-muted px-1.5 py-0.5 text-sm font-mono bg-muted text-muted-foreground">
+        <kbd
+          aria-keyshortcuts="A"
+          className="rounded border border-muted px-1.5 py-0.5 text-sm font-mono bg-muted text-muted-foreground"
+        >
           A
         </kbd>{" "}
         key.
