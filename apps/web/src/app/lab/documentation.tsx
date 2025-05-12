@@ -84,6 +84,15 @@ export function Documentation() {
         includes any corrections that may be required and the correct clearance
         phrasing.
       </p>
+      <p>
+        Select scenarios from the sidebar to practice, or use the random
+        scenario button to show a random scenario from the list. You can also
+        press the{" "}
+        <kbd className="rounded border border-muted px-1.5 py-0.5 text-sm font-mono bg-muted text-muted-foreground">
+          S
+        </kbd>{" "}
+        key to show a random scenario.
+      </p>
 
       <h2>The Flight Plan Editor</h2>
       <p>
@@ -127,18 +136,6 @@ export function Documentation() {
         Try revealing the answer to the scenario for flight plan shown above:
       </p>
       <Answer scenario={scenario} className="mt-4" />
-      <h2>Tips</h2>
-      <p>
-        Press the{" "}
-        <kbd className="rounded border border-muted px-1.5 py-0.5 text-sm font-mono bg-muted text-muted-foreground">
-          S
-        </kbd>{" "}
-        key to show a random scenario. Press the{" "}
-        <kbd className="rounded border border-muted px-1.5 py-0.5 text-sm font-mono bg-muted text-muted-foreground">
-          A
-        </kbd>{" "}
-        key to show the answer.
-      </p>
     </section>
   );
 }
