@@ -71,13 +71,29 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
       return;
     }
 
-    const randomIndex = Math.floor(Math.random() * filteredScenarios.length);
-    const randomScenario = filteredScenarios[randomIndex];
+    let attempts = 0;
+    let randomScenario: ScenarioSummary;
+
+    // This is a bit of a hack to ensure we don't select the same scenario twice in a row.
+    // Try up to 20 times to find a different scenario. Ideally this would work with a list
+    // of scenarios that haven't been seen yet, but I had all sorts of React state problems trying
+    // to implement that.
+    if (filteredScenarios.length === 1) {
+      randomScenario = filteredScenarios[0];
+    } else {
+      do {
+        const randomIndex = Math.floor(
+          Math.random() * filteredScenarios.length,
+        );
+        randomScenario = filteredScenarios[randomIndex];
+        attempts++;
+      } while (randomScenario._id === selectedId && attempts < 20);
+    }
 
     if (randomScenario._id) {
       navigateToScenario(randomScenario._id);
     }
-  }, [filteredScenarios, navigateToScenario]);
+  }, [filteredScenarios, navigateToScenario, selectedId]);
 
   useKey("s", onSurprise);
 
