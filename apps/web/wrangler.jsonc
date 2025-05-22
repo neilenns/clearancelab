@@ -42,7 +42,12 @@
           "new_sqlite_classes": ["DOQueueHandler"],
         },
       ],
-      "route": "clearancelab-dev.badcasserole.com/*",
+      "routes": [
+        {
+          "pattern": "clearancelab-dev.badcasserole.com",
+          "custom_domain": true,
+        },
+      ],
       "vars": {
         "API_BASE_URL": "https://clearancelab-backend-dev.badcasserole.com",
         "AUTH0_DOMAIN": "dev-q5itijfspt3smgyw.us.auth0.com",
@@ -85,7 +90,12 @@
           "new_sqlite_classes": ["DOQueueHandler"],
         },
       ],
-      "route": "clearancelab.badcasserole.com/*",
+      "routes": [
+        {
+          "pattern": "clearancelab.badcasserole.com",
+          "custom_domain": true,
+        },
+      ],
       "vars": {
         "API_BASE_URL": "https://clearancelab-backend-prod.badcasserole.com",
         "AUTH0_DOMAIN": "vatsim-edct.us.auth0.com",
