@@ -20,7 +20,6 @@ router.post(
   "/",
   verifyUser,
   checkRequiredPermissions(Permissions.AddScenarios),
-
   async (request: Request<unknown, unknown, Scenario>, response: Response) => {
     const result = scenarioSchema.safeParse(request.body);
 
