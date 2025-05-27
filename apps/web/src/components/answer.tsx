@@ -36,7 +36,7 @@ export function Answer({ scenario, className }: AnswerProperties) {
   const messages = [
     {
       alignment: "left",
-      content: `${scenario.craft?.controllerName}, ${getTelephony(scenario)}, IFR to ${getFormattedClearanceLimit(scenario)}.`,
+      content: `${scenario.craft?.controllerName}, ${getTelephony(scenario)}. IFR to ${getFormattedClearanceLimit(scenario)}.`,
     },
     {
       alignment: "right",
