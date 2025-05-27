@@ -3,18 +3,19 @@ import { Chat, ChatMessage } from "@/components/chat";
 import { Craft } from "@/components/craft";
 import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+import { cn, generateIssueBody, generateIssueTitle } from "@/lib/utils";
 import { getFormattedClearanceLimit, getTelephony } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import { AnimatePresence, motion } from "framer-motion";
 import { Info } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useKey } from "react-use";
 
@@ -100,6 +101,17 @@ export function Answer({ scenario, className }: AnswerProperties) {
                 <Explanations scenario={scenario} />
                 {canClear && <Chat messages={messages} />}
               </div>
+              <CardFooter className="flex justify-center">
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={`https://github.com/neilenns/clearancelab/issues/new?labels=bug&title=${generateIssueTitle(scenario)}&body=${generateIssueBody(scenario)}`}
+                  className="text-sm text-muted-foreground hover:underline"
+                  aria-label="Report a mistake"
+                >
+                  Report a mistake
+                </Link>
+              </CardFooter>
             </motion.div>
           ) : (
             <motion.div
