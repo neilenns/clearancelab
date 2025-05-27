@@ -35,11 +35,11 @@ router.post(
         success: true,
       });
     } catch (error) {
-      log.error("Error creating scenario:", error);
+      log.error("Error incrementing scenario views:", error);
 
       response.status(500).json({
         success: false,
-        message: "Error creating scenario",
+        message: "Error incrementing scenario views",
       });
     }
   },
