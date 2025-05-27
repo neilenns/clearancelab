@@ -13,11 +13,9 @@ interface ClientSectionProperties {
 
 export default function ClientSection({ scenario }: ClientSectionProperties) {
   useEffect(() => {
-    try {
-      void incrementViews(scenario._id);
-    } catch (error) {
+    incrementViews(scenario._id).catch((error) => {
       console.error("Failed to increment views:", error);
-    }
+    });
   }, [scenario._id]);
 
   return (
