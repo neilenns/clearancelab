@@ -10,8 +10,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { cn, generateIssueBody, generateIssueTitle } from "@/lib/utils";
-import { getFormattedClearanceLimit, getTelephony } from "@workspace/plantools";
+import { cn } from "@/lib/utils";
+import {
+  generateIssueBody,
+  generateIssueTitle,
+  getFormattedClearanceLimit,
+  getTelephony,
+} from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import { AnimatePresence, motion } from "framer-motion";
 import { Info } from "lucide-react";
