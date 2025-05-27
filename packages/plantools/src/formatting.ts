@@ -3,6 +3,23 @@ import { spellFrequency } from "./faa-speech";
 
 const AirlineCodeRegexPattern = /\b([A-Za-z]{3})([A-Za-z\d]+)\b/;
 
+export function generateIssueTitle(scenario: Scenario): string {
+  const title = `Issue with scenario ${scenario.plan.dep ?? ""} - ${scenario.plan.dest ?? ""} (${scenario.plan.aid})`;
+
+  return encodeURIComponent(title);
+}
+
+export function generateIssueBody(scenario: Scenario): string {
+  const scenarioUrl = `https://clearancelab.badcasserole.com/lab/${scenario._id ?? "unknown"}`;
+  const bodyContent = `Scenario: ${scenarioUrl}
+  
+## Issue details
+
+Explain the issue and what the proposed solution is.`;
+
+  return encodeURIComponent(bodyContent);
+}
+
 /**
  * Formats an airport name by appending "Airport" if not already present
  * @param name The airport name to format
