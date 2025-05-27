@@ -4,18 +4,18 @@
 // prettier-multiline-arrays-set-line-pattern: 5
 
 const digitWords = [
-  "Zero", "One", "Two", "Tree", "Four",
-  "Fife", "Six", "Seven", "Eight", "Niner",
+  "zero", "one", "two", "tree", "four",
+  "fife", "six", "seven", "eight", "niner",
 ];
 
 const teenWords = [
-  "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen",
-  "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen",
+  "ten", "eleven", "twelve", "thirteen", "fourteen",
+  "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
 ];
 
 const tensWords = [
-  "", "", "Twenty", "Thirty", "Forty",
-  "Fifty", "Sixty", "Seventy", "Eighty", "Ninety",
+  "", "", "twenty", "thirty", "forty",
+  "fifty", "sixty", "seventy", "eighty", "ninety",
 ];
 
 const phoneticMap: Record<string, string> = {
