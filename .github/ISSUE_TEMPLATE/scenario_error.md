@@ -2,7 +2,7 @@
 name: Scenario error
 about: Report an error in a scenario
 title: ""
-labels: ""
+labels: "bug"
 assignees: ""
 ---
 
