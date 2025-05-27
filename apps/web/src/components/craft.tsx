@@ -19,10 +19,10 @@ export function Craft({ scenario }: CraftProperties) {
     <section role="region" aria-label="Clearance information">
       <p className="space-x-1">
         <span key="telephony">{getTelephony(scenario)}, </span>
-        <span>{scenario.craft?.controllerName}, </span>
+        <span>{scenario.craft?.controllerName}. </span>
         {clearanceLimit && (
           <>
-            <span>cleared to</span>
+            <span>Cleared to</span>
             <span>{getFormattedClearanceLimit(scenario)}</span>
           </>
         )}
