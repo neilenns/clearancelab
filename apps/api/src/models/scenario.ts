@@ -21,6 +21,7 @@ export interface Scenario {
   isValid: boolean;
   plan: Plan;
   explanations: Explanation[];
+  views: number;
 }
 
 export interface ScenarioSummary {
@@ -40,6 +41,7 @@ export interface ScenarioModelType extends Model<Scenario> {
   findScenarioById(id: string): Promise<Scenario | null>;
   findScenarios(scenarioIds: string[]): Promise<Scenario[]>;
   findSummary(scenarioIds: string[]): Promise<ScenarioSummary[]>;
+  incrementViews(scenarioId: string): Promise<void>;
 }
 
 // Define schema
@@ -54,6 +56,7 @@ const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
       type: [ExplanationSchema],
       default: [],
     },
+    views: { type: Number, default: 0 },
   },
   {
     collection: "scenarios",
@@ -98,6 +101,21 @@ ScenarioSchema.pre("save", function (next) {
 
   next();
 });
+
+ScenarioSchema.statics.incrementViews = async function (
+  scenarioId: string,
+): Promise<void> {
+  try {
+    if (!isValidObjectId(scenarioId)) {
+      throw new Error(`Invalid scenario ID: ${scenarioId}`);
+    }
+
+    await this.updateOne({ _id: scenarioId }, { $inc: { views: 1 } });
+  } catch (error) {
+    logger.error(`Error incrementing views for scenario ${scenarioId}:`, error);
+    throw error;
+  }
+};
 
 ScenarioSchema.statics.findScenarios = async function (
   scenarioIds: string[],
