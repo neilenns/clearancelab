@@ -30,6 +30,7 @@
     "interruptible",
     "logform",
     "Metar",
+    "miniflare",
     "mongoimport",
     "mongosh",
     "nextjs",

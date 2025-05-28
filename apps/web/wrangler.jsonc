@@ -35,6 +35,13 @@
           "database_id": "61eacd5e-ea4e-4100-9d91-8be52a9843de",
           "database_name": "clearancelab-web-dev",
         },
+        {
+          "binding": "CLEARANCELAB_DB",
+          "database_id": "0dc0451d-d419-48e7-b790-03e954ec4136",
+          "database_name": "clearancelab-dev",
+          "migrations_dir": "drizzle/migrations",
+          "migrations_table": "__drizzle_migrations",
+        },
       ],
       "migrations": [
         {
@@ -82,6 +89,13 @@
           "binding": "NEXT_TAG_CACHE_D1",
           "database_id": "b85551e9-7a2c-4086-9939-f0f97e902f44",
           "database_name": "clearancelab-web-prod",
+        },
+        {
+          "binding": "CLEARANCELAB_DB",
+          "database_id": "4afcd415-9492-4977-97a4-fd7f9218b117",
+          "database_name": "clearancelab-prod",
+          "migrations_dir": "drizzle/migrations",
+          "migrations_table": "__drizzle_migrations",
         },
       ],
       "migrations": [

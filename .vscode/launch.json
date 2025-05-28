@@ -32,6 +32,19 @@
       "name": "Clearance Lab (API)",
       "request": "launch",
       "type": "node-terminal"
+    },
+    {
+      "command": "pnpm run db:studio",
+      "cwd": "${workspaceFolder}/apps/web",
+      "name": "Drizzle studio",
+      "request": "launch",
+      "serverReadyAction": {
+        "action": "debugWithEdge",
+        "killOnServerStop": true,
+        "pattern": "running on",
+        "uriFormat": "https://local.drizzle.studio?port=8788&host=localhost"
+      },
+      "type": "node-terminal"
     }
   ],
   "version": "0.2.0"
