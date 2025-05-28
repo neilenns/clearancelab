@@ -35,6 +35,12 @@ inputs:
   backend_cf_access_client_id:
     required: true
     description: "Cloudflare client ID for backend access"
+  cloudflare_d1_token:
+    required: true
+    description: "Cloudflare token for interacting with D1 databases"
+  cloudflare_database_id:
+    required: true
+    description: "Cloudflare database ID for the access codes database"
   backend_cf_access_client_secret:
     required: true
     description: "Cloudflare client secret for backend access"
@@ -82,10 +88,26 @@ runs:
         echo "${{ inputs.auth0_client_secret }}" | pnpx wrangler secret put AUTH0_CLIENT_SECRET --env ${{ inputs.deploy_env }}
         echo "${{ inputs.backend_cf_access_client_id }}" | pnpx wrangler secret put BACKEND_CF_ACCESS_CLIENT_ID --env ${{ inputs.deploy_env }}
         echo "${{ inputs.backend_cf_access_client_secret }}" | pnpx wrangler secret put BACKEND_CF_ACCESS_CLIENT_SECRET --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.cloudflare_account_id }}" | pnpx wrangler secret put CLOUDFLARE_ACCOUNT_ID --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.cloudflare_d1_token }}" | pnpx wrangler secret put CLOUDFLARE_D1_TOKEN --env ${{ inputs.deploy_env }}
       shell: bash
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+
+    - name: Migrate database
+      uses: cloudflare/wrangler-action@v3
+      env:
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
+        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
+      with:
+        apiToken: ${{ inputs.cloudflare_api_token }}
+        environment: ${{ inputs.deploy_env }}
+        workingDirectory: ./apps/web
+        packageManager: pnpm
+        wranglerVersion: "4.17.0"
+        command: |
+          d1 migrations apply CLEARANCELAB_DB --env=${{ inputs.deploy_env}} --remote
 
     - name: Deploy to Cloudflare
       working-directory: ./out
