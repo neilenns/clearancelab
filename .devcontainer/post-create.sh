@@ -28,8 +28,10 @@ pnpm --silent add -g turbo@2.5.0
 pnpm --silent add -g @devcontainers/cli
 pnpm --silent install --frozen-lockfile
 
-### Database setup
+### Seed the database
+echo "🌱 Seeding the database..."
 "${SCRIPT_DIR}/seed/init.sh"
+cd ./apps/web && pnpm run db:seed > /dev/null
 
 ### Aliases
 echo "🪄  Shell magic: creating developer-friendly aliases..."
