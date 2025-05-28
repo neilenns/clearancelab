@@ -104,6 +104,7 @@ runs:
         apiToken: ${{ inputs.cloudflare_api_token }}
         environment: ${{ inputs.deploy_env }}
         workingDirectory: ./apps/web
+        wranglerVersion: "4.17.0"
         command: |
           d1 migrations apply CLEARANCELAB_DB --env=${{ inputs.deploy_env}} --remote
 
