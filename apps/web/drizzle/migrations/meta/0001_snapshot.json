@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "458d1d9a-60f4-4197-b2d6-2f21025e9185",
-  "prevId": "ce5d9c2d-7171-4495-8cca-f04a3c701961",
+  "id": "708b1f31-2563-47d8-87de-3532d6c8846a",
+  "prevId": "f8cc0651-9446-4ac3-af69-335fe625e811",
   "tables": {
     "airports": {
       "name": "airports",
@@ -28,6 +28,133 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
+    "craft": {
+      "name": "craft",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "scenarioId": {
+          "name": "scenarioId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "altitude": {
+          "name": "altitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clearanceLimit": {
+          "name": "clearanceLimit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "controllerName": {
+          "name": "controllerName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "frequency": {
+          "name": "frequency",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "route": {
+          "name": "route",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "telephony": {
+          "name": "telephony",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "craftScenarioId_idx": {
+          "name": "craftScenarioId_idx",
+          "columns": [
+            "scenarioId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "explanations": {
+      "name": "explanations",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "scenarioId": {
+          "name": "scenarioId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "headline": {
+          "name": "headline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "level": {
+          "name": "level",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "scenarioId_idx": {
+          "name": "scenarioId_idx",
+          "columns": [
+            "scenarioId"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "plans": {
       "name": "plans",
       "columns": {
@@ -37,6 +164,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "scenarioId": {
+          "name": "scenarioId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         },
         "aid": {
           "name": "aid",
@@ -144,7 +278,15 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "plansScenarioId_idx": {
+          "name": "plansScenarioId_idx",
+          "columns": [
+            "scenarioId"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -169,13 +311,6 @@
         },
         "isValid": {
           "name": "isValid",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "planId": {
-          "name": "planId",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
