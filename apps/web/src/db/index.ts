@@ -8,5 +8,5 @@ export const getDatabase = cache(() => {
   if (Object.keys(env).length === 0) {
     throw new Error("Environment variables are missing or empty.");
   }
-  return drizzle(env.ACCESS_CODES_DB, { schema });
+  return drizzle(env.CLEARANCELAB_DB, { schema });
 });

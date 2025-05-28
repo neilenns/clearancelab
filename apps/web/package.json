@@ -8,7 +8,7 @@
     "cf-deploy": "pnpm run cf-build && opennextjs-cloudflare deploy -- --env=$DEPLOY_ENV",
     "cf-populate": "opennextjs-cloudflare populateCache remote -- --env=$DEPLOY_ENV",
     "cf-preview": "pnpm run cf-build && opennextjs-cloudflare preview",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./src/types/worker-configuration.d.ts",
+    "cf-typegen": "wrangler types --env=$DEPLOY_ENV --env-interface CloudflareEnv ./src/types/worker-configuration.d.ts",
     "ci": "next build --experimental-build-mode compile",
     "clean": "rimraf .next",
     "db:generate": "cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit generate",
