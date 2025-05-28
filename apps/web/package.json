@@ -92,6 +92,6 @@
     "turbo": "^2.5.0",
     "typescript": "^5",
     "typescript-eslint": "^8.30.1",
-    "wrangler": "^4.12.0"
+    "wrangler": "^4.17.0"
   }
 }
