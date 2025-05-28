@@ -8,13 +8,6 @@ export const getScenario = async (id: number) => {
       where: (scenarios, { eq }) => eq(scenarios.id, id),
       with: {
         explanations: true,
-        craft: true,
-        plan: {
-          with: {
-            depAirportInfo: true,
-            destAirportInfo: true,
-          },
-        },
       },
     });
   } catch (error) {

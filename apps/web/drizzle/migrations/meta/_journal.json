@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1748452401487,
-      "tag": "0000_flaky_roland_deschain",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1748452469744,
-      "tag": "0001_regular_living_tribunal",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1748452788308,
-      "tag": "0002_cute_iron_monger",
+      "when": 1748476090356,
+      "tag": "0000_aspiring_squirrel_girl",
       "breakpoints": true
     }
   ]

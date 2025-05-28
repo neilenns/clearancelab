@@ -1,6 +1,6 @@
 import { relations } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { plans } from "./plans";
+import { scenarios } from "./scenarios";
 
 export const airports = sqliteTable("airports", {
   airportCode: text().primaryKey(),
@@ -8,14 +8,14 @@ export const airports = sqliteTable("airports", {
 });
 
 export const airportsRelations = relations(airports, ({ one }) => ({
-  depAirportInfo: one(plans, {
+  depAirportInfo: one(scenarios, {
     fields: [airports.airportCode],
-    references: [plans.dep],
+    references: [scenarios.plan_dep],
     relationName: "depAirportInfo",
   }),
-  destAirportInfo: one(plans, {
+  destAirportInfo: one(scenarios, {
     fields: [airports.airportCode],
-    references: [plans.dest],
+    references: [scenarios.plan_dest],
     relationName: "destAirportInfo",
   }),
 }));
