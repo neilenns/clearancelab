@@ -38,6 +38,9 @@ inputs:
   cloudflare_d1_token:
     required: true
     description: "Cloudflare token for interacting with D1 databases"
+  cloudflare_database_id:
+    required: true
+    description: "Cloudflare database ID for the access codes database"
   backend_cf_access_client_secret:
     required: true
     description: "Cloudflare client secret for backend access"
@@ -95,10 +98,10 @@ runs:
     - name: Migrate database
       uses: cloudflare/wrangler-action@v3
       env:
-        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_d1_token }}
+        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
       with:
-        apiToken: ${{ inputs.cloudflare_d1_token }}
+        apiToken: ${{ inputs.cloudflare_api_token }}
         environment: ${{ inputs.deploy_env }}
         workingDirectory: ./apps/web
         packageManager: pnpm
