@@ -10,3 +10,14 @@ export const getDatabase = cache(() => {
   }
   return drizzle(env.CLEARANCELAB_DB, { schema });
 });
+
+// This is the one to use for static routes (i.e. ISR/SSG)
+export const getDatabaseAsync = cache(async () => {
+  const { env } = await getCloudflareContext({ async: true });
+
+  if (Object.keys(env).length === 0) {
+    throw new Error("Unable to obtain a Cloudflare context.");
+  }
+
+  return drizzle(env.CLEARANCELAB_DB, { schema });
+});
