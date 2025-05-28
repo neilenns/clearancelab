@@ -4,6 +4,11 @@ DELETE FROM plans;
 DELETE FROM scenarios;
 DELETE FROM explanations;
 DELETE FROM craft;
+DELETE FROM airlines;
+
+INSERT INTO airlines (airlineCode, telephony) VALUES
+  ("GTI", "Giant"),
+  ("DAL", "Delta");
 
 INSERT INTO airports (airportCode, name) VALUES 
   ('RCKH', 'Kaohsiung International'), 

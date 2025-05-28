@@ -1,3 +1,4 @@
+export * from "./airlines";
 export * from "./airports";
 export * from "./craft";
 export * from "./explanations";

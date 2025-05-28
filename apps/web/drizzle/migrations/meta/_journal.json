@@ -15,6 +15,13 @@
       "when": 1748452469744,
       "tag": "0001_regular_living_tribunal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1748452788308,
+      "tag": "0002_cute_iron_monger",
+      "breakpoints": true
     }
   ]
 }
