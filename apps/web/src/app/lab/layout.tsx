@@ -1,7 +1,7 @@
 import { LabSidebar } from "@/components/lab-sidebar/lab-sidebar";
 import { Loading } from "@/components/loading";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { getSummaryScenarios } from "@/db/scenarios";
+import { getSummaryScenarios, SummaryScenarios } from "@/db/scenarios";
 import { ENV } from "@/lib/environment";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -38,23 +38,14 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-export default async function Layout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  let scenarios;
+  let scenarios: SummaryScenarios;
+
   try {
     scenarios = await getSummaryScenarios();
   } catch (error) {
     console.error("Failed to load scenarios in layout:", error);
     scenarios = []; // Fallback to empty array to prevent layout failure
   }
-
-  return (
-    {children}
-  );
-}
 
   return (
     <SidebarProvider>
