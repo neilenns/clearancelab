@@ -1,11 +1,11 @@
 "use client";
+import { Scenario } from "@/db/scenarios";
 import {
   DragDropContext,
   Draggable,
   Droppable,
   DropResult,
 } from "@hello-pangea/dnd";
-import { ScenarioInput } from "@workspace/validators";
 import {
   Control,
   FieldArrayWithId,
@@ -14,8 +14,8 @@ import {
 import { ExplanationFieldRow } from "./explanation-field-row";
 
 interface ExplanationsDndListProperties {
-  fields: FieldArrayWithId<ScenarioInput, "explanations", "id">[];
-  control: Control<ScenarioInput>;
+  fields: FieldArrayWithId<Scenario, "explanations", "id">[];
+  control: Control<Scenario>;
   remove: UseFieldArrayRemove;
   move: (from: number, to: number) => void;
 }

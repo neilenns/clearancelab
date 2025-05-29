@@ -1,7 +1,8 @@
 "use server";
-import { fetchScenariosByIds } from "@/api/scenarios/fetch-scenarios-by-ids";
+
 import { AdminHeader } from "@/components/admin-header";
 import { ScenarioForm } from "@/components/scenario-form/scenario-form";
+import { getScenario } from "@/db/scenarios";
 import { Suspense } from "react";
 import Loading from "./loading";
 import NotFound from "./not-found";
@@ -10,21 +11,17 @@ type Parameters = Promise<{ id: string }>;
 
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
-  const scenarios = await fetchScenariosByIds([id]);
+  const scenario = await getScenario(Number(id));
 
-  if (scenarios.length === 0) {
+  if (!scenario) {
     return <NotFound id={id} />;
   }
-
-  const scenario = scenarios[0];
 
   // Older scenarios may some fields missing. If they're undefined set them to the empty
   // string to ensure there aren't errors from React about going from uncontrolled to controlled
   // when a value is set.
-  scenario.plan.homeAirport ??= "";
-  if (scenario.craft) {
-    scenario.craft.controllerName ??= "";
-  }
+  scenario.plan_homeAirport ??= "";
+  scenario.craft_controllerName ??= "";
 
   return (
     <div>

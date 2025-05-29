@@ -13,8 +13,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
+import { Scenario } from "@/db/scenarios";
 import { getRandomAltimeter } from "@workspace/plantools";
-import { ScenarioInput } from "@workspace/validators";
 import { RefreshCwIcon } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 import { NumberInput } from "../number-input";
@@ -27,7 +27,7 @@ import {
 } from "../ui/select";
 
 export function AirportConditionsSection() {
-  const { control } = useFormContext<ScenarioInput>();
+  const { control } = useFormContext<Scenario>();
 
   return (
     <Card>
@@ -49,20 +49,20 @@ export function AirportConditionsSection() {
           <div>
             <FormField
               control={control}
-              name={"airportConditions.flow"}
+              name={"airportConditions_flow"}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Flow</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={field.value ?? ""}
                   >
                     <FormControl>
                       <div>
                         <input
                           type="hidden"
                           name={field.name}
-                          value={field.value}
+                          value={field.value ?? ""}
                         />
                         <SelectTrigger
                           aria-haspopup="listbox"
@@ -88,7 +88,7 @@ export function AirportConditionsSection() {
           <div>
             <FormField
               control={control}
-              name="airportConditions.altimeter"
+              name="airportConditions_altimeter"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -105,7 +105,7 @@ export function AirportConditionsSection() {
                     >
                       <RefreshCwIcon width={14} height={14} />
                     </button>
-                  </FormLabel>{" "}
+                  </FormLabel>
                   <FormControl>
                     <NumberInput
                       className="w-30"
@@ -124,7 +124,7 @@ export function AirportConditionsSection() {
           <div>
             <FormField
               control={control}
-              name="airportConditions.departureOnline"
+              name="airportConditions_departureOnline"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>

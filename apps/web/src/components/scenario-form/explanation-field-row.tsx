@@ -16,14 +16,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Scenario } from "@/db/scenarios";
 import { DraggableProvided } from "@hello-pangea/dnd";
-import { ScenarioInput } from "@workspace/validators";
 import { GripVertical, Trash2 } from "lucide-react";
 import { Control, UseFieldArrayRemove } from "react-hook-form";
 
 export interface ExplanationFieldRowProperties {
   index: number;
-  control: Control<ScenarioInput>;
+  control: Control<Scenario>;
   remove: UseFieldArrayRemove;
   provided: DraggableProvided;
 }

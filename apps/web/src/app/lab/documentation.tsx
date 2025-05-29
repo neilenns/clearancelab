@@ -3,6 +3,7 @@
 import { Answer } from "@/components/answer";
 import FPE from "@/components/fpe/fpe";
 import { Scenario } from "@/db/scenarios";
+import { Level } from "@/db/schema";
 import { FlowDirection } from "@workspace/validators";
 import { Info } from "lucide-react";
 
@@ -13,8 +14,7 @@ const scenario: Scenario = {
   airportConditions_departureOnline: true,
   airportConditions_flow: FlowDirection.WEST,
   canClear: true,
-  // eslint-disable-next-line unicorn/no-null
-  craft_clearanceLimit: null,
+  craft_clearanceLimit: undefined,
   craft_altitude: "Climb via SID except maintain 7000",
   craft_controllerName: "Portland Ground",
   craft_frequency: 124.35,
@@ -27,7 +27,7 @@ const scenario: Scenario = {
       description:
         "Change the suffix to 'L' in the flight plan then clear the pilot as usual.",
       headline: "The equipment suffix 'X' is not appropriate for the A320.",
-      level: "warning",
+      level: Level.WARNING,
     },
   ],
   isValid: true,
