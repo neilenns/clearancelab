@@ -1,4 +1,6 @@
+import { eq, sql } from "drizzle-orm";
 import { getDatabaseAsync } from ".";
+import { scenarios } from "./schema";
 
 export const getScenario = async (id: number) => {
   try {
@@ -36,6 +38,23 @@ export const getSummaryScenarios = async () => {
   } catch (error) {
     console.error("Error fetching scenarios summary:", error);
     throw new Error("Failed to fetch scenarios summary");
+  }
+};
+
+export const incrementViews = async (id: number) => {
+  try {
+    const database = await getDatabaseAsync();
+
+    // Update the database with the new value
+    return await database
+      .update(scenarios)
+      .set({
+        views: sql`${scenarios.views} + 1`,
+      })
+      .where(eq(scenarios.id, id));
+  } catch (error) {
+    console.error("Error incrementing views for scenario:", error);
+    throw error;
   }
 };
 

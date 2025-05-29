@@ -1,6 +1,6 @@
 "use server";
 
-import { getScenario } from "@/db/scenarios";
+import { getScenario, incrementViews } from "@/db/scenarios";
 import ClientSection from "./client-section";
 import NotFound from "./not-found";
 
@@ -12,6 +12,12 @@ export default async function Page({ params }: { params: Parameters }) {
 
   if (!scenario) {
     return <NotFound id={id} />;
+  }
+
+  try {
+    await incrementViews(scenario.id);
+  } catch (error) {
+    console.error("Failed to increment views:", error);
   }
 
   return <ClientSection aria-label="Scenario viewer" scenario={scenario} />;
