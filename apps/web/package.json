@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build --turbopack",
+    "build": "next build",
     "cf-build": "opennextjs-cloudflare build",
     "cf-deploy": "pnpm run cf-build && opennextjs-cloudflare deploy -- --env=$DEPLOY_ENV",
     "cf-populate": "opennextjs-cloudflare populateCache remote -- --env=$DEPLOY_ENV",
