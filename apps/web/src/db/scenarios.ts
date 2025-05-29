@@ -12,6 +12,13 @@ import {
 import { Explanation } from "./explanations";
 import { scenarios } from "./schema";
 
+export enum FlowDirection {
+  NORTH = "NORTH",
+  SOUTH = "SOUTH",
+  EAST = "EAST",
+  WEST = "WEST",
+}
+
 export const getScenario = async (id: number) => {
   try {
     const database = await getDatabaseAsync();
@@ -77,8 +84,12 @@ export const incrementViews = async (id: number) => {
 export type SummaryScenarios = Awaited<ReturnType<typeof getSummaryScenarios>>;
 export type SummaryScenario = SummaryScenarios[number];
 export type GetScenarioResult = Awaited<
-  Omit<ReturnType<typeof getScenario>, "explanations"> & {
+  Omit<
+    ReturnType<typeof getScenario>,
+    "explanations" | "airportConditions_flow"
+  > & {
     explanations: Explanation[];
+    airportConditions_flow: FlowDirection;
   }
 >;
 export type Scenario = NonNullable<GetScenarioResult>;

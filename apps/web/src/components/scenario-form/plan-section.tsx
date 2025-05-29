@@ -164,7 +164,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                   </button>
                 </FormLabel>
                 <FormControl>
-                  <Input id="callsign" {...field} />
+                  <Input id="callsign" {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -196,6 +196,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     id="cid"
                     type="number"
                     {...field}
+                    value={field.value ?? ""}
                     onChange={(event) => {
                       const value = event.target.value;
                       field.onChange(
@@ -233,6 +234,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                   <Input
                     id="bcn"
                     {...field}
+                    value={field.value ?? ""}
                     onChange={(event) => {
                       const value = event.target.value;
                       field.onChange(
@@ -253,7 +255,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>TYP</FormLabel>
                 <FormControl>
-                  <Input id="typ" {...field} />
+                  <Input id="typ" {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -267,7 +269,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel htmlFor="eq">EQ</FormLabel>
                 <FormControl>
-                  <Input id="eq" placeholder="L" {...field} />
+                  <Input id="eq" {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -281,7 +283,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>DEP</FormLabel>
                 <FormControl>
-                  <Input id="dep" {...field} />
+                  <Input id="dep" {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -295,7 +297,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>DEST</FormLabel>
                 <FormControl>
-                  <Input id="dest" {...field} />
+                  <Input id="dest" {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -313,6 +315,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     id="spd"
                     type="number"
                     {...field}
+                    value={field.value ?? ""}
                     onChange={(event) => {
                       const value = event.target.value;
                       field.onChange(
@@ -333,7 +336,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>ALT</FormLabel>
                 <FormControl>
-                  <Input id="alt" {...field} />
+                  <Input id="alt" {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -349,7 +352,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>RTE</FormLabel>
                 <FormControl>
-                  <Textarea id="rte" className="min-h-10" {...field} />
+                  <Textarea
+                    id="rte"
+                    className="min-h-10"
+                    {...field}
+                    value={field.value ?? ""}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -365,7 +373,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>RMK</FormLabel>
                 <FormControl>
-                  <Textarea id="rmk" className="min-h-10" {...field} />
+                  <Textarea
+                    id="rmk"
+                    className="min-h-10"
+                    {...field}
+                    value={field.value ?? ""}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

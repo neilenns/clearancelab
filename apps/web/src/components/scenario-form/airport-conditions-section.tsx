@@ -114,6 +114,7 @@ export function AirportConditionsSection() {
                       decimalScale={2}
                       aria-label="Altimeter"
                       {...field}
+                      value={field.value ?? 0}
                     />
                   </FormControl>
                   <FormMessage />

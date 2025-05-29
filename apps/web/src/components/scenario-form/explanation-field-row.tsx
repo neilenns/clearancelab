@@ -104,6 +104,7 @@ export const ExplanationFieldRow = ({
                   <Input
                     id={`explanation-headline-${index.toString()}`}
                     {...field}
+                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />
@@ -125,6 +126,7 @@ export const ExplanationFieldRow = ({
                   <Textarea
                     id={`explanation-description-${index.toString()}`}
                     {...field}
+                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />
