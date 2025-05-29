@@ -10,14 +10,7 @@ import {
   ReplaceNullWithUndefined,
 } from ".";
 import { Explanation } from "./explanations";
-import { scenarios } from "./schema";
-
-export enum FlowDirection {
-  NORTH = "NORTH",
-  SOUTH = "SOUTH",
-  EAST = "EAST",
-  WEST = "WEST",
-}
+import { FlowDirection, scenarios } from "./schema";
 
 export const getScenario = async (id: number) => {
   try {

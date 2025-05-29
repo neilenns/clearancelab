@@ -3,6 +3,13 @@ import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { airports } from "./airports";
 import { explanations } from "./explanations";
 
+export enum FlowDirection {
+  NORTH = "NORTH",
+  SOUTH = "SOUTH",
+  EAST = "EAST",
+  WEST = "WEST",
+}
+
 export const scenarios = sqliteTable("scenarios", {
   id: integer().primaryKey({ autoIncrement: true }),
   canClear: integer({ mode: "boolean" }).notNull(),
