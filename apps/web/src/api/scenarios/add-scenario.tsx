@@ -24,16 +24,17 @@ export const addScenario = async (
   try {
     // Start by saving the scenario. This returns the ID that's needed to associate the explanations
     // to the scenario.
-    const insertedId = (await insertScenario(parsed.data.scenario))[0]
-      .insertedId;
+    // Save the scenario and retrieve the result
+    const scenarioResult = await insertScenario(parsed.data.scenario);
+    const insertedId = scenarioResult[0].insertedId;
 
-    parsed.data.explanations.forEach(async (explanation) => {
+    for (const explanation of parsed.data.explanations) {
       await insertExplanation({
         ...explanation,
         id: undefined,
         scenarioId: insertedId,
       });
-    });
+    }
 
     revalidateAfterSave(insertedId);
 
