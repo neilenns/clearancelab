@@ -77,6 +77,19 @@ export const ExplanationFieldRow = ({
           />
           <FormField
             control={control}
+            name={`explanations.${index}.order`}
+            render={({ field }) => (
+              <input
+                type="hidden"
+                id={`explanation-index-${index.toString()}`}
+                name={field.name}
+                value={index}
+                aria-hidden="true"
+              />
+            )}
+          />
+          <FormField
+            control={control}
             name={`explanations.${index}.level`}
             render={({ field }) => (
               <FormItem>

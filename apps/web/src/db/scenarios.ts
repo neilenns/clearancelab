@@ -18,7 +18,9 @@ export const getScenario = async (id: number) => {
     const result = await database.query.scenarios.findFirst({
       where: (scenarios, { eq }) => eq(scenarios.id, id),
       with: {
-        explanations: true,
+        explanations: {
+          orderBy: (explanations, { asc }) => [asc(explanations.order)],
+        },
         destAirportInfo: true,
         depAirportInfo: true,
       },

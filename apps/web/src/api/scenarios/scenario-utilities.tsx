@@ -83,16 +83,19 @@ export function transformFormData(payload: FormData): TransformResult {
     };
   }
 
-  // Now handle the explanations:
+  // Now handle the explanations
   const explanationsObject = formData.explanations ?? {};
-  // Convert id and scenarioId to numbers for each explanation
+
+  // Convert properties to numbers for each explanation
   const explanationsArray = Object.values(explanationsObject).map(
     (explanation) => ({
       ...explanation,
       id: convertToNumber(explanation.id),
       scenarioId: convertToNumber(explanation.scenarioId),
+      order: convertToNumber(explanation.order),
     }),
   );
+
   const parsedExplanations =
     explanationsArraySchema.safeParse(explanationsArray);
 
