@@ -15,7 +15,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 type RowActionsProperties = {
-  scenarioId?: string;
+  scenarioId: number;
 };
 
 const permissionsToVerify = [
@@ -40,7 +40,7 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
   };
 
   const deleteScenarioHandler = async () => {
-    toast.promise(deleteScenario(scenarioId), {
+    toast.promise(deleteScenario(scenarioId.toString()), {
       loading: "Deleting scenario...",
       success: () => {
         return "Scenario deleted successfully";

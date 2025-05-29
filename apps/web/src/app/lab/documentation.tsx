@@ -40,7 +40,7 @@ const scenario: Scenario = {
   plan_eq: "X",
   plan_homeAirport: "KPDX",
   plan_pilotName: "Dakota",
-  plan_rte: "LAVAA7 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+  plan_rte: "LAVAA7 YKM YXC MIREK/N0448F360 Q995 OILRS OILRS2",
   plan_rmk: "RALT/KSFO PHTO SIMBRIEF/FIRST IFR FLIGHT/ VERY NEW TO VATSIM",
   plan_spd: 200,
   plan_typ: "A320",

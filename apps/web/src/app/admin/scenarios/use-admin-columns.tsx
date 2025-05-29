@@ -1,17 +1,17 @@
 import { YesNoIcon } from "@/components/yes-no-icon";
+import { SummaryScenario } from "@/db/scenarios";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { ScenarioSummary } from "@workspace/validators";
 import { useMemo } from "react";
 import { RowActions } from "./row-actions";
 
-const columnHelper = createColumnHelper<ScenarioSummary>();
+const columnHelper = createColumnHelper<SummaryScenario>();
 
 export function useAdminColumns() {
-  const columns = useMemo<ColumnDef<ScenarioSummary, unknown>[]>(
+  const columns = useMemo<ColumnDef<SummaryScenario, unknown>[]>(
     () =>
       [
-        columnHelper.accessor("plan.aid", {
-          id: "plan.aid",
+        columnHelper.accessor("plan_aid", {
+          id: "plan_aid",
           header: () => <div aria-label="Callsign column">Callsign</div>,
           cell: (info) => <div>{info.getValue()}</div>,
           meta: {
@@ -20,8 +20,8 @@ export function useAdminColumns() {
             filterLabel: "callsign",
           },
         }),
-        columnHelper.accessor("plan.dep", {
-          id: "plan.dep",
+        columnHelper.accessor("plan_dep", {
+          id: "plan_dep",
           header: () => <div aria-label="Departure column">Departure</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           meta: {
@@ -31,8 +31,8 @@ export function useAdminColumns() {
             filterLabel: "departure",
           },
         }),
-        columnHelper.accessor("plan.dest", {
-          id: "plan.dest",
+        columnHelper.accessor("plan_dest", {
+          id: "plan_dest",
           header: () => <div aria-label="Arrival column">Arrival</div>,
           cell: (info) => <div className="text-center">{info.getValue()}</div>,
           meta: {
@@ -42,8 +42,8 @@ export function useAdminColumns() {
             filterLabel: "arrival",
           },
         }),
-        columnHelper.accessor("plan.rte", {
-          id: "plan.rte",
+        columnHelper.accessor("plan_rte", {
+          id: "plan_rte",
           header: () => <div aria-label="Route column">Route</div>,
           cell: (info) => (
             <div className="text-left whitespace-normal">{info.getValue()}</div>
@@ -82,12 +82,12 @@ export function useAdminColumns() {
         }),
         columnHelper.display({
           id: "actions",
-          cell: ({ row }) => <RowActions scenarioId={row.original._id} />,
+          cell: ({ row }) => <RowActions scenarioId={row.original.id} />,
           meta: {
             width: "w-[88px]",
           },
         }),
-      ] as ColumnDef<ScenarioSummary, unknown>[],
+      ] as ColumnDef<SummaryScenario, unknown>[],
     [],
   );
 
