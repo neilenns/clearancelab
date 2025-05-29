@@ -1,3 +1,5 @@
+// prettier-multiline-arrays-set-threshold: 1
+// prettier-multiline-arrays-set-line-pattern: 4
 import { ExplanationInsertModel } from "@/db/explanations";
 import { ScenarioInsertModel, scenarioInsertSchema } from "@/db/scenarios";
 import { explanationsArraySchema } from "@/db/schema";
@@ -35,31 +37,40 @@ export function transformFormData(payload: FormData): TransformResult {
   if (!(payload instanceof FormData)) {
     return {
       success: false,
-      errors: { payload: ["Invalid payload"] },
+      errors: {
+        payload: [
+          "Invalid payload",
+        ],
+      },
       fields: {},
     };
   }
 
+  const conversionMap = {
+    boolean: [
+      "isValid", "canClear", "airportConditions_departureOnline",
+    ],
+    number: [
+      "plan_alt", "plan_bcn", "plan_cid", "plan_spd",
+      "plan_vatsimId", "airportConditions_altimeter", "craft_frequency",
+    ],
+  };
+
+  // Unflatten the properties. This gets the explanations as a nested array of objects.
   const formData = unflatten(Object.fromEntries(payload));
 
+  // Clean up the properties that need type conversions
   if (formData.id === "") formData.id = undefined;
 
-  formData.isValid = convertToBoolean(formData.isValid);
-  formData.canClear = convertToBoolean(formData.canClear);
-  formData.airportConditions_departureOnline = convertToBoolean(
-    formData.airportConditions_departureOnline,
-  );
+  for (const key of conversionMap.boolean) {
+    if (key in formData) formData[key] = convertToBoolean(formData[key]);
+  }
 
-  formData.plan_alt = convertToNumber(formData.plan_alt);
-  formData.plan_bcn = convertToNumber(formData.plan_bcn);
-  formData.plan_cid = convertToNumber(formData.plan_cid);
-  formData.plan_spd = convertToNumber(formData.plan_spd);
-  formData.plan_vatsimId = convertToNumber(formData.plan_vatsimId);
-  formData.airportConditions_altimeter = convertToNumber(
-    formData.airportConditions_altimeter,
-  );
-  formData.craft_frequency = convertToNumber(formData.craft_frequency);
+  for (const key of conversionMap.number) {
+    if (key in formData) formData[key] = convertToNumber(formData[key]);
+  }
 
+  // Validate the data
   const parsedScenario = scenarioInsertSchema.safeParse(formData);
 
   if (!parsedScenario.success) {

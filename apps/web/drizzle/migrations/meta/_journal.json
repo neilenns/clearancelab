@@ -15,6 +15,13 @@
       "when": 1748479227211,
       "tag": "0001_high_polaris",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1748535249599,
+      "tag": "0002_conscious_silvermane",
+      "breakpoints": true
     }
   ]
 }

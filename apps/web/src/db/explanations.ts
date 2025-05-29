@@ -34,7 +34,7 @@ export const deleteExplanationsForScenario = async (scenarioId: number) => {
       .delete(explanations)
       .where(eq(explanations.scenarioId, scenarioId));
   } catch (error) {
-    console.error("Error inserting explanation:", error);
+    console.error("Error deleting explanations:", error);
     throw error;
   }
 };

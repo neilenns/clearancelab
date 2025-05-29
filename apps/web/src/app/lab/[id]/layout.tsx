@@ -13,7 +13,15 @@ export async function generateMetadata({
 }: {
   params: Parameters;
 }): Promise<Metadata | undefined> {
-  const { id } = Number(await params);
+  const id = Number(await params);
+
+  if (!id) {
+    return {
+      title: "Clearance lab",
+      description: "Practice flight plans",
+    };
+  }
+
   const scenario = await getScenario(id);
 
   if (!scenario) {

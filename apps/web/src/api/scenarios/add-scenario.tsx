@@ -28,13 +28,15 @@ export const addScenario = async (
     const scenarioResult = await insertScenario(parsed.data.scenario);
     const insertedId = scenarioResult[0].insertedId;
 
-    for (const explanation of parsed.data.explanations) {
-      await insertExplanation({
-        ...explanation,
-        id: undefined,
-        scenarioId: insertedId,
-      });
-    }
+    // Add all the explanations
+    await Promise.all(
+      parsed.data.explanations.map((explanation) =>
+        insertExplanation({
+          ...explanation,
+          scenarioId: insertedId,
+        }),
+      ),
+    );
 
     revalidateAfterSave(insertedId);
 

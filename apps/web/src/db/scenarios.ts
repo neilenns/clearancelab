@@ -10,6 +10,9 @@ import { FlowDirection, scenarios } from "./schema";
 
 export const getScenario = async (id: number) => {
   try {
+    if (typeof id !== "number" || Number.isNaN(id)) {
+      throw new TypeError("Invalid scenario ID");
+    }
     const database = await getDatabaseAsync();
 
     const result = await database.query.scenarios.findFirst({
