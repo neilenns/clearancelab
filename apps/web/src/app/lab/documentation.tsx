@@ -24,6 +24,7 @@ const scenario: Scenario = {
     {
       id: 1,
       scenarioId: 1,
+      order: 0,
       description:
         "Change the suffix to 'L' in the flight plan then clear the pilot as usual.",
       headline: "The equipment suffix 'X' is not appropriate for the A320.",
