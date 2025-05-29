@@ -3,8 +3,8 @@ import { spellFrequency } from "./faa-speech";
 const AirlineCodeRegexPattern = /\b([A-Za-z]{3})([A-Za-z\d]+)\b/;
 
 export function generateIssueTitle(
-  departure: string | null,
-  destination: string | null,
+  departure: string | undefined,
+  destination: string | undefined,
   aid: string,
 ): string {
   const title = `Issue with scenario ${departure ?? ""} - ${destination ?? ""} (${aid})`;
@@ -45,7 +45,7 @@ export const formatAirportName = (name?: string) => {
  */
 export const getFormattedClearanceLimit = (
   airportName: string | undefined,
-  clearanceLimit: string | null,
+  clearanceLimit: string | undefined,
 ) => {
   const formattedClearanceLimit = airportName ?? clearanceLimit ?? "";
 
@@ -66,7 +66,10 @@ export const capitalizeFirst = (value: string) =>
  * @param aid The flight callsign or identifier
  * @returns The CRAFT telephony, or the flight callsign if not available
  */
-export const getTelephony = (craftTelephony: string | null, aid: string) => {
+export const getTelephony = (
+  craftTelephony: string | undefined,
+  aid: string,
+) => {
   // Using || here is intentional to get a falsy check on empty strings.
   // Using ?? won't work since empty strings aren't null or undefined.
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
