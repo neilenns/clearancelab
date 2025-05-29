@@ -38,7 +38,23 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const scenarios = await getSummaryScenarios();
+export default async function Layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  let scenarios;
+  try {
+    scenarios = await getSummaryScenarios();
+  } catch (error) {
+    console.error("Failed to load scenarios in layout:", error);
+    scenarios = []; // Fallback to empty array to prevent layout failure
+  }
+
+  return (
+    {children}
+  );
+}
 
   return (
     <SidebarProvider>
