@@ -1,4 +1,10 @@
 import { InferSelectModel } from "drizzle-orm";
-import { explanations } from "./schema";
+import { explanations, Level } from "./schema";
 
-export type Explanation = InferSelectModel<typeof explanations>;
+// Override the type for the `level` property
+export type Explanation = Omit<
+  InferSelectModel<typeof explanations>,
+  "level"
+> & {
+  level: Level;
+};

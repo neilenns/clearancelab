@@ -29,7 +29,6 @@ export function Craft({ scenario }: CraftProperties) {
   return (
     <section role="region" aria-label="Clearance information">
       <p className="space-x-1">
-        scenario
         <span key="telephony">{getTelephony(craft_telephony, plan_aid)}, </span>
         <span>{craft_controllerName}. </span>
         {clearanceLimit && (
