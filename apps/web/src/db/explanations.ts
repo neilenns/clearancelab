@@ -1,14 +1,6 @@
 import { eq, InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { getDatabaseAsync } from ".";
-import { explanations, Level } from "./schema";
-
-// Override the type for the `level` property
-export type Explanation = Omit<
-  InferSelectModel<typeof explanations>,
-  "level"
-> & {
-  level: Level;
-};
+import { explanations } from "./schema";
 
 export const insertExplanation = async (
   explanation: ExplanationInsertModel,
@@ -39,4 +31,5 @@ export const deleteExplanationsForScenario = async (scenarioId: number) => {
   }
 };
 
+export type Explanation = InferSelectModel<typeof explanations>;
 export type ExplanationInsertModel = InferInsertModel<typeof explanations>;

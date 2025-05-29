@@ -2,14 +2,6 @@ import { relations } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { scenarios } from "./scenarios";
 
-// Define the level type
-export enum Level {
-  ERROR = "error",
-  INFO = "info",
-  TIP = "tip",
-  WARNING = "warning",
-}
-
 import { z } from "zod";
 
 export const explanationSchema = z.object({
