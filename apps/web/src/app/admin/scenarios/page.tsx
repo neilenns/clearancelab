@@ -14,7 +14,7 @@ export default async function Page() {
   try {
     scenarios = await getSummaryScenarios();
   } catch (error) {
-    console.error("Failed to load scenarios in layout:", error);
+    console.error("Failed to load scenarios in admin scenarios:", error);
     scenarios = []; // Fallback to empty array to prevent layout failure
   }
 
