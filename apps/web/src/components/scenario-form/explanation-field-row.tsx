@@ -51,6 +51,32 @@ export const ExplanationFieldRow = ({
         <div className="w-28">
           <FormField
             control={control}
+            name={`explanations.${index}.id`}
+            render={({ field }) => (
+              <input
+                type="hidden"
+                id={`explanation-id-${index.toString()}`}
+                name={field.name}
+                value={field.value}
+                aria-hidden="true"
+              />
+            )}
+          />
+          <FormField
+            control={control}
+            name={`explanations.${index}.scenarioId`}
+            render={({ field }) => (
+              <input
+                type="hidden"
+                id={`explanation-scenarioId-${index.toString()}`}
+                name={field.name}
+                value={field.value}
+                aria-hidden="true"
+              />
+            )}
+          />
+          <FormField
+            control={control}
             name={`explanations.${index}.level`}
             render={({ field }) => (
               <FormItem>

@@ -10,6 +10,18 @@ export enum Level {
   WARNING = "warning",
 }
 
+import { z } from "zod";
+
+export const explanationSchema = z.object({
+  id: z.number().optional(), // Primary key, optional for inserts
+  scenarioId: z.number().nonnegative(),
+  headline: z.string().min(1), // Required, must have at least 1 character
+  level: z.enum(["error", "info", "tip", "warning"]),
+  description: z.string().min(1), // Required, must have at least 1 character
+});
+
+export const explanationsArraySchema = z.array(explanationSchema); // Schema for an array of explanations
+
 export const explanations = sqliteTable(
   "explanations",
   {

@@ -1,9 +1,5 @@
-import { eq, sql } from "drizzle-orm";
-import {
-  createInsertSchema,
-  createSelectSchema,
-  createUpdateSchema,
-} from "drizzle-zod";
+import { eq, InferInsertModel, sql } from "drizzle-orm";
+import { createInsertSchema } from "drizzle-zod";
 import {
   getDatabaseAsync,
   nullsToUndefined,
@@ -74,6 +70,20 @@ export const incrementViews = async (id: number) => {
   }
 };
 
+export const insertScenario = async (scenario: ScenarioInsertModel) => {
+  try {
+    const database = await getDatabaseAsync();
+
+    return await database
+      .insert(scenarios)
+      .values(scenario)
+      .returning({ insertedId: scenarios.id });
+  } catch (error) {
+    console.error("Error inserting scenario:", error);
+    throw error;
+  }
+};
+
 export type SummaryScenarios = Awaited<ReturnType<typeof getSummaryScenarios>>;
 export type SummaryScenario = SummaryScenarios[number];
 export type GetScenarioResult = Awaited<
@@ -86,7 +96,6 @@ export type GetScenarioResult = Awaited<
   }
 >;
 export type Scenario = NonNullable<GetScenarioResult>;
+export type ScenarioInsertModel = InferInsertModel<typeof scenarios>;
 
-export const ScenarioSelectSchema = createSelectSchema(scenarios);
-export const ScenarioInsertSchema = createInsertSchema(scenarios);
-export const ScenarioUpdateSchema = createUpdateSchema(scenarios);
+export const scenarioInsertSchema = createInsertSchema(scenarios);

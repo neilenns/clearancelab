@@ -1,7 +1,7 @@
 "use server";
 
-import { postJson } from "@/lib/api";
-import { addOrUpdateScenarioResponseSchema } from "@workspace/validators";
+import { insertExplanation } from "@/db/explanations";
+import { insertScenario } from "@/db/scenarios";
 import type { OnSubmitScenarioState } from "./scenario-utilities";
 import { revalidateAfterSave, transformFormData } from "./scenario-utilities";
 
@@ -22,33 +22,26 @@ export const addScenario = async (
   }
 
   try {
-    const response = await postJson("/scenarios", parsed.data, {
-      withAuthToken: true,
+    // Start by saving the scenario. This returns the ID that's needed to associate the explanations
+    // to the scenario.
+    const insertedId = (await insertScenario(parsed.data.scenario))[0]
+      .insertedId;
+
+    parsed.data.explanations.forEach(async (explanation) => {
+      await insertExplanation({
+        ...explanation,
+        id: undefined,
+        scenarioId: insertedId,
+      });
     });
 
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => "Unknown error");
-      throw new Error(
-        `Failed to add scenario: ${response.status} ${errorText}`,
-      );
-    }
-
-    const json = await response.json();
-    const parsedResponse = addOrUpdateScenarioResponseSchema.safeParse(json);
-
-    if (!parsedResponse.success) {
-      throw new Error(
-        `Invalid server response format: ${JSON.stringify(parsedResponse.error)}`,
-      );
-    }
-
-    revalidateAfterSave(parsedResponse.data.data?._id);
+    revalidateAfterSave(insertedId);
 
     return {
       success: true,
       hasSubmitted: true,
       message: "Scenario saved!",
-      id: parsedResponse.data.data?._id,
+      id: insertedId,
     };
   } catch (error) {
     console.error(error);
