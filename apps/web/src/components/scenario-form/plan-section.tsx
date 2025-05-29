@@ -27,7 +27,6 @@ import {
 } from "@workspace/plantools";
 import { RefreshCwIcon } from "lucide-react";
 import { useFormContext } from "react-hook-form";
-import { VatsimImportDialog } from "./vatsim-import-dialog";
 
 interface PlanSectionProperties {
   isEditMode: boolean;
@@ -35,6 +34,11 @@ interface PlanSectionProperties {
 
 export function PlanSection({ isEditMode }: PlanSectionProperties) {
   const { control } = useFormContext<Scenario>();
+
+  // This will be removed and get replaced with the Vatsim import dialog in a separate PR
+  if (isEditMode) {
+    console.log("Edit mode is enabled");
+  }
 
   return (
     <Card>
@@ -135,10 +139,6 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                 </FormItem>
               )}
             />
-          </div>
-
-          <div className="self-end">
-            {!isEditMode && <VatsimImportDialog />}
           </div>
         </div>
 
