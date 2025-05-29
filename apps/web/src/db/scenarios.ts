@@ -1,4 +1,4 @@
-import { eq, InferInsertModel, sql } from "drizzle-orm";
+import { count, eq, InferInsertModel, sql } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import {
   getDatabaseAsync,
@@ -7,6 +7,40 @@ import {
 } from ".";
 import { Explanation } from "./explanations";
 import { FlowDirection, scenarios } from "./schema";
+
+export const getStatistics = async () => {
+  try {
+    const database = await getDatabaseAsync();
+
+    const canClear = await database.$count(
+      scenarios,
+      eq(scenarios.canClear, true),
+    );
+    const isValid = await database.$count(
+      scenarios,
+      eq(scenarios.isValid, true),
+    );
+    const departures = await database
+      .select({ dep: scenarios.plan_dep, value: count(scenarios.id) })
+      .from(scenarios)
+      .groupBy(scenarios.plan_dep);
+
+    const destinations = await database
+      .select({ dest: scenarios.plan_dest, value: count(scenarios.id) })
+      .from(scenarios)
+      .groupBy(scenarios.plan_dest);
+
+    return {
+      canClear,
+      isValid,
+      departures,
+      destinations,
+    };
+  } catch (error) {
+    console.error("Error calculating scenario statistics:", error);
+    throw new Error("Failed calculating scenario statistics");
+  }
+};
 
 export const getScenario = async (id: number) => {
   try {
@@ -119,6 +153,7 @@ export const deleteScenario = async (id: number) => {
   }
 };
 
+export type ScenarioStatistics = Awaited<ReturnType<typeof getStatistics>>;
 export type SummaryScenarios = Awaited<ReturnType<typeof getSummaryScenarios>>;
 export type SummaryScenario = SummaryScenarios[number];
 export type GetScenarioResult = Awaited<
