@@ -11,7 +11,11 @@ type Parameters = Promise<{ id: string }>;
 
 export default async function Page({ params }: { params: Parameters }) {
   const { id } = await params;
-  const scenario = await getScenario(Number(id));
+  const numericId = Number(id);
+  if (isNaN(numericId)) {
+    return <NotFound id={id} />;
+  }
+  const scenario = await getScenario(numericId);
 
   if (!scenario) {
     return <NotFound id={id} />;
