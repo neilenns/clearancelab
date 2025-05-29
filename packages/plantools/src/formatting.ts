@@ -110,7 +110,7 @@ export const getWeightClass = (equipmentType: string) => {
  * @param destination The destination airport ICAO code
  * @returns The FlightAware URL as a string
  */
-export const getFlightAwareUrl = (departure: string, destination: string) => {
+export const getFlightAwareUrl = (departure?: string, destination?: string) => {
   if (!departure || !destination) {
     return;
   }
@@ -126,9 +126,9 @@ export const getFlightAwareUrl = (departure: string, destination: string) => {
  * @returns The SkyVector URL as a string
  */
 export const getSkyVectorUrl = (
-  departure: string,
-  destination: string,
-  route: string,
+  departure?: string,
+  destination?: string,
+  route?: string,
 ) => {
   if (!departure || !destination || !route) {
     return;

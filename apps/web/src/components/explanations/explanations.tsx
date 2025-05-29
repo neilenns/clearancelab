@@ -8,7 +8,8 @@ interface ExplanationsProperties {
 
 export function Explanations({ scenario }: ExplanationsProperties) {
   if (!scenario) {
-    return;
+    // eslint-disable-next-line unicorn/no-null
+    return null;
   }
 
   return (
@@ -23,7 +24,7 @@ export function Explanations({ scenario }: ExplanationsProperties) {
         </CalloutBox>
       )}
 
-      <div className="mt-2" aria-label="Explanation details">
+      <div role="region" className="mt-2" aria-label="Explanation details">
         {scenario.explanations.map((explanation, index) => (
           <ExplanationItem
             key={`explanation-${index.toString()}`}

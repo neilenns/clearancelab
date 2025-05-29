@@ -92,11 +92,7 @@ export const ScenarioForm = ({
         aria-label="Scenario creation form"
       >
         <fieldset disabled={isPending} className="space-y-4">
-          <input
-            type="hidden"
-            name="_id"
-            value={form.watch("id")?.toString()}
-          />
+          <input type="hidden" name="id" value={form.watch("id")?.toString()} />
 
           <PlanSection isEditMode={isEditMode} />
           <AirportConditionsSection />

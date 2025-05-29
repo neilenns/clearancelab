@@ -18,7 +18,10 @@ export function CraftSectionSkeleton() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4">
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-2 items-start mb-4"
+          aria-hidden="true"
+        >
           <div className="col-span-4">
             <Skeleton className="h-8" />
           </div>

@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function AirportConditionsSectionSkeleton() {
   return (
-    <Card>
+    <Card aria-busy="true" aria-label="Loading airport conditions section">
       <CardHeader>
         <CardTitle>Airport conditions</CardTitle>
         <CardDescription>
@@ -18,7 +18,10 @@ export function AirportConditionsSectionSkeleton() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-2 items-start mb-4">
+        <div
+          className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-2 items-start mb-4"
+          aria-hidden="true"
+        >
           <div>
             <Skeleton className="h-8" />
           </div>

@@ -19,8 +19,8 @@ export const scenarios = sqliteTable("scenarios", {
   plan_alt: real(),
   plan_bcn: real(),
   plan_cid: integer(),
-  plan_dep: text(),
-  plan_dest: text(),
+  plan_dep: text().references(() => airports.airportCode),
+  plan_dest: text().references(() => airports.airportCode),
   plan_eq: text(),
   plan_pilotName: text(),
   plan_homeAirport: text(),
@@ -35,7 +35,7 @@ export const scenarios = sqliteTable("scenarios", {
   craft_frequency: real(),
   craft_route: text(),
   craft_telephony: text(),
-  airportConditions_flow: text(),
+  airportConditions_flow: text({ enum: ["NORTH", "SOUTH", "EAST", "WEST"] }),
   airportConditions_altimeter: real(),
   airportConditions_departureOnline: integer({ mode: "boolean" })
     .notNull()

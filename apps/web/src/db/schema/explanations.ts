@@ -16,7 +16,7 @@ export const explanations = sqliteTable(
     id: integer().primaryKey({ autoIncrement: true }),
     scenarioId: integer().notNull(),
     headline: text().notNull(),
-    level: text().notNull(),
+    level: text({ enum: ["error", "info", "tip", "warning"] }).notNull(),
     description: text().notNull(),
   },
   (table) => [
