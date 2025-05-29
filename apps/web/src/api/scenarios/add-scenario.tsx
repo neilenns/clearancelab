@@ -5,7 +5,7 @@ import { insertScenario } from "@/db/scenarios";
 import type { OnSubmitScenarioState } from "./scenario-utilities";
 import { revalidateAfterSave, transformFormData } from "./scenario-utilities";
 
-export const addScenario = async (
+export const handleAddScenario = async (
   _previous: OnSubmitScenarioState,
   payload: FormData,
 ): Promise<OnSubmitScenarioState> => {
@@ -33,6 +33,7 @@ export const addScenario = async (
       parsed.data.explanations.map((explanation) =>
         insertExplanation({
           ...explanation,
+          id: undefined, // This will get created by the database automatically
           scenarioId: insertedId,
         }),
       ),

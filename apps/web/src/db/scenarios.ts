@@ -86,6 +86,24 @@ export const insertScenario = async (scenario: ScenarioInsertModel) => {
     throw error;
   }
 };
+export const updateScenario = async (scenario: ScenarioInsertModel) => {
+  if (!scenario.id) {
+    console.error("Scenario ID must be specified to update a scenario.");
+    throw new Error("Scenario ID must be specified to update a scenario.");
+  }
+
+  try {
+    const database = await getDatabaseAsync();
+
+    return await database
+      .update(scenarios)
+      .set(scenario)
+      .where(eq(scenarios.id, scenario.id));
+  } catch (error) {
+    console.error("Error inserting scenario:", error);
+    throw error;
+  }
+};
 
 export type SummaryScenarios = Awaited<ReturnType<typeof getSummaryScenarios>>;
 export type SummaryScenario = SummaryScenarios[number];

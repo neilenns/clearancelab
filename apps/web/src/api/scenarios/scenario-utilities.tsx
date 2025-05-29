@@ -51,8 +51,8 @@ export function transformFormData(payload: FormData): TransformResult {
       "isValid", "canClear", "airportConditions_departureOnline",
     ],
     number: [
-      "plan_alt", "plan_bcn", "plan_cid", "plan_spd",
-      "plan_vatsimId", "airportConditions_altimeter", "craft_frequency",
+      "id", "plan_alt", "plan_bcn", "plan_cid",
+      "plan_spd", "plan_vatsimId", "airportConditions_altimeter", "craft_frequency",
     ],
   };
 
