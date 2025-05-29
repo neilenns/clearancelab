@@ -3,7 +3,6 @@
 import { Answer } from "@/components/answer";
 import FPE from "@/components/fpe/fpe";
 import { Scenario } from "@/db/scenarios";
-import { Level } from "@/db/schema";
 import { FlowDirection } from "@workspace/validators";
 import { Info } from "lucide-react";
 
@@ -28,7 +27,7 @@ const scenario: Scenario = {
       description:
         "Change the suffix to 'L' in the flight plan then clear the pilot as usual.",
       headline: "The equipment suffix 'X' is not appropriate for the A320.",
-      level: Level.WARNING,
+      level: "warning",
     },
   ],
   isValid: true,

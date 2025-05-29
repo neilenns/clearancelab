@@ -41,14 +41,14 @@ const copyLinkHandler = () => {
 
 export function LabHeader({ scenario }: LabHeaderProperties) {
   const router = useRouter();
-  const pathname = usePathname(); // Get current pathname
+  const pathname = usePathname();
   const { user, isLoading } = useUser();
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
 
   const deleteScenarioHandler = async () => {
-    toast.promise(deleteScenario(scenario.id.toString()), {
+    toast.promise(deleteScenario(scenario.id), {
       loading: "Deleting scenario...",
       success: () => {
         router.replace("/lab");
