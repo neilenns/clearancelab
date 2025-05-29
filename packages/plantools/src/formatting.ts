@@ -1,16 +1,19 @@
-import { Plan, Scenario } from "@workspace/validators";
 import { spellFrequency } from "./faa-speech";
 
 const AirlineCodeRegexPattern = /\b([A-Za-z]{3})([A-Za-z\d]+)\b/;
 
-export function generateIssueTitle(scenario: Scenario): string {
-  const title = `Issue with scenario ${scenario.plan.dep ?? ""} - ${scenario.plan.dest ?? ""} (${scenario.plan.aid})`;
+export function generateIssueTitle(
+  departure: string | null,
+  destination: string | null,
+  aid: string,
+): string {
+  const title = `Issue with scenario ${departure ?? ""} - ${destination ?? ""} (${aid})`;
 
   return encodeURIComponent(title);
 }
 
-export function generateIssueBody(scenario: Scenario): string {
-  const scenarioUrl = `https://clearancelab.badcasserole.com/lab/${scenario._id ?? "unknown"}`;
+export function generateIssueBody(id: number): string {
+  const scenarioUrl = `https://clearancelab.badcasserole.com/lab/${id.toString()}`;
   const bodyContent = `Scenario: ${scenarioUrl}
   
 ## Issue details
@@ -36,14 +39,17 @@ export const formatAirportName = (name?: string) => {
 /**
  * Returns the formatted clearance limit for a flight. This is either the destination airport name or the
  * clearance limit from the craft object.
- * @param scenario The scenario object containing information about the flight
+ * @param airportName The name of the destination airport, or undefined if not available
+ * @param clearanceLimit The clearance limit string from the craft object
  * @returns The formatted clearance limit for the flight
  */
-export const getFormattedClearanceLimit = (scenario: Scenario) => {
-  const { destAirportInfo, craft } = scenario;
-  const clearanceLimit = destAirportInfo?.name ?? craft?.clearanceLimit;
+export const getFormattedClearanceLimit = (
+  airportName: string | undefined,
+  clearanceLimit: string | null,
+) => {
+  const formattedClearanceLimit = airportName ?? clearanceLimit ?? "";
 
-  return formatAirportName(clearanceLimit);
+  return formatAirportName(formattedClearanceLimit);
 };
 
 /**
@@ -56,14 +62,15 @@ export const capitalizeFirst = (value: string) =>
 
 /**
  * Returns the telephony information for the flight.
- * @param scenario The scenario object containing information about the flight
+ * @param craftTelephony The telephony information from the craft object
+ * @param aid The flight callsign or identifier
  * @returns The CRAFT telephony, or the flight callsign if not available
  */
-export const getTelephony = (scenario: Scenario) => {
+export const getTelephony = (craftTelephony: string | null, aid: string) => {
   // Using || here is intentional to get a falsy check on empty strings.
   // Using ?? won't work since empty strings aren't null or undefined.
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-  const result = scenario.craft?.telephony?.trim() || scenario.plan.aid;
+  const result = craftTelephony?.trim() || aid;
   return result;
 };
 
@@ -99,40 +106,35 @@ export const getWeightClass = (equipmentType: string) => {
 
 /**
  * Returns the FlightAware URL for the flight based on departure and destination.
- * @param scenario The scenario object containing information about the flight
+ * @param departure The departure airport ICAO code
+ * @param destination The destination airport ICAO code
  * @returns The FlightAware URL as a string
  */
-export const getFlightAwareUrl = (plan: Plan | undefined) => {
-  if (!plan) {
+export const getFlightAwareUrl = (departure?: string, destination?: string) => {
+  if (!departure || !destination) {
     return;
   }
 
-  const { dep, dest } = plan;
-
-  if (!dep || !dest) {
-    return;
-  }
-
-  return `https://flightaware.com/analysis/route.rvt?origin=${dep}&destination=${dest}`;
+  return `https://flightaware.com/analysis/route.rvt?origin=${departure}&destination=${destination}`;
 };
 
 /**
  * Returns the SkyVector URL for the flight based on departure, route, and destination.
- * @param scenario The scenario object containing information about the flight
+ * @param departure The departure airport ICAO code
+ * @param destination The destination airport ICAO code
+ * @param route The flight route as a string
  * @returns The SkyVector URL as a string
  */
-export const getSkyVectorUrl = (plan: Plan | undefined) => {
-  if (!plan) {
+export const getSkyVectorUrl = (
+  departure?: string,
+  destination?: string,
+  route?: string,
+) => {
+  if (!departure || !destination || !route) {
     return;
   }
 
-  const { dep, dest, rte } = plan;
-
-  if (!dep || !dest || !rte) {
-    return;
-  }
-
-  const flightPlanString = `${dep} ${rte} ${dest}`;
+  const flightPlanString = `${departure} ${route} ${destination}`;
 
   return `https://skyvector.com/?fpl=${encodeURIComponent(flightPlanString)}`;
 };
@@ -142,14 +144,13 @@ export const getSkyVectorUrl = (plan: Plan | undefined) => {
  * @param scenario The scenario object containing information about the flight
  * @returns The formatted departure frequency as a string, or "offline" if not available
  */
-export const getFormattedDepartureFrequency = (scenario: Scenario) => {
-  const { craft } = scenario;
-
-  if (!scenario.airportConditions.departureOnline) {
+export const getFormattedDepartureFrequency = (
+  departureOffline: boolean,
+  departure: number | string | null = "offline",
+) => {
+  if (departureOffline) {
     return "offline";
   }
-
-  const departure = craft?.frequency ?? "offline";
 
   return typeof departure === "number"
     ? `is ${spellFrequency(departure)}`

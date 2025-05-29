@@ -3,21 +3,30 @@
     {
       "args": ["lint", "--log-prefix=none", "--ui=stream"],
       "command": "${workspaceFolder}/node_modules/.bin/turbo",
+      "detail": "Lints all projects in the monorepo",
       "group": {
         "isDefault": true,
         "kind": "test"
+      },
+      "icon": {
+        "color": "terminal.ansiBlue",
+        "id": "check-all"
       },
       "label": "Lint everything",
       "problemMatcher": ["$eslint-stylish"],
       "type": "shell"
     },
     {
-      "command": "./.devcontainer/seed/init.sh",
-      "group": {
-        "isDefault": false,
-        "kind": "build"
+      "command": "pnpm run db:seed",
+      "detail": "Deletes the database and recreates it with seed data.",
+      "icon": {
+        "color": "terminal.ansiGreen",
+        "id": "database"
       },
-      "label": "Re-initialize the database",
+      "label": "Seed DB",
+      "options": {
+        "cwd": "${workspaceFolder}/apps/web"
+      },
       "problemMatcher": [],
       "type": "shell"
     }

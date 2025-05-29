@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "ae6bd3a9-4436-4698-bf35-d7ecf3ddd0af",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "7b957528-1db4-4263-90c6-406513caa6f6",
+  "prevId": "3868013b-eaca-49ce-9f7b-29a70cebb369",
   "tables": {
     "airlines": {
       "name": "airlines",
@@ -96,6 +96,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         }
       },
       "indexes": {
@@ -207,13 +215,6 @@
           "notNull": false,
           "autoincrement": false
         },
-        "plan_raw": {
-          "name": "plan_raw",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
         "plan_rmk": {
           "name": "plan_rmk",
           "type": "text",
@@ -290,6 +291,28 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "airportConditions_flow": {
+          "name": "airportConditions_flow",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "airportConditions_altimeter": {
+          "name": "airportConditions_altimeter",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "airportConditions_departureOnline": {
+          "name": "airportConditions_departureOnline",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
         }
       },
       "indexes": {},

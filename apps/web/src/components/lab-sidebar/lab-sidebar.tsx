@@ -10,7 +10,7 @@ import {
   SidebarGroupContent,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { ScenarioSummary } from "@workspace/validators";
+import { SummaryScenario, SummaryScenarios } from "@/db/scenarios";
 import { WandSparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -20,39 +20,41 @@ import { useSidebarColumns } from "./use-sidebar-columns";
 
 // Extend the props from the base Sidebar and add scenarios
 interface LabSidebarProperties extends React.ComponentProps<typeof Sidebar> {
-  scenarios: ScenarioSummary[];
+  scenarios: SummaryScenarios;
 }
 
 export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
   const parameters = useParams();
-  const selectedId = parameters.id as string;
+  const selectedId = Number(parameters.id);
   const router = useRouter();
   const columns = useSidebarColumns();
 
   const navigateToScenario = useCallback(
-    (scenarioId: string) => {
+    (scenarioId: number) => {
       // The search parameters are grabbed directly instead of using a hook to ensure
       // they are always the latest. Per the docs, it includes the leading "?" so
       // no need to add it.
-      router.replace(`/lab/${scenarioId}${globalThis.location.search}`);
+      router.replace(
+        `/lab/${scenarioId.toString()}${globalThis.location.search}`,
+      );
     },
     [router],
   );
 
   const [filteredScenarios, setFilteredScenarios] =
-    useState<ScenarioSummary[]>(scenarios);
+    useState<SummaryScenarios>(scenarios);
 
   const onRowSelected = useCallback(
-    (scenario: ScenarioSummary) => {
+    (scenario: SummaryScenario) => {
       // The search parameters are grabbed directly instead of using a hook to ensure
       // they are always the latest. Per the docs, it includes the leading "?" so
       // no need to add it.
-      navigateToScenario(scenario._id);
+      navigateToScenario(scenario.id);
     },
     [navigateToScenario],
   );
 
-  const onFilteredRowsChange = useCallback((rows: ScenarioSummary[]) => {
+  const onFilteredRowsChange = useCallback((rows: SummaryScenarios) => {
     setFilteredScenarios(rows);
   }, []);
 
@@ -72,7 +74,7 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
     }
 
     let attempts = 0;
-    let randomScenario: ScenarioSummary;
+    let randomScenario: SummaryScenario;
 
     // This is a bit of a hack to ensure we don't select the same scenario twice in a row.
     // Try up to 20 times to find a different scenario. Ideally this would work with a list
@@ -87,11 +89,11 @@ export function LabSidebar({ scenarios, ...properties }: LabSidebarProperties) {
         );
         randomScenario = filteredScenarios[randomIndex];
         attempts++;
-      } while (randomScenario._id === selectedId && attempts < 20);
+      } while (randomScenario.id === selectedId && attempts < 20);
     }
 
-    if (randomScenario._id) {
-      navigateToScenario(randomScenario._id);
+    if (randomScenario.id) {
+      navigateToScenario(randomScenario.id);
     }
   }, [filteredScenarios, navigateToScenario, selectedId]);
 

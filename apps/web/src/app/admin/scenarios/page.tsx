@@ -1,13 +1,12 @@
 "use server";
-import { fetchScenariosSummary } from "@/api/scenarios/fetch-scenarios";
 import { AdminHeader } from "@/components/admin-header";
+import { getSummaryScenarios } from "@/db/scenarios";
 import { Suspense } from "react";
 import ClientSection from "./client-section";
 import Loading from "./loading";
 
 export default async function Page() {
-  const result = await fetchScenariosSummary();
-  const scenarios = result.success ? result.data : [];
+  const scenarios = await getSummaryScenarios();
 
   return (
     <div>

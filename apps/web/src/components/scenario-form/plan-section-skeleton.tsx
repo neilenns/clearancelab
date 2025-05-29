@@ -14,7 +14,8 @@ export function PlanSectionSkeleton() {
       <CardHeader>
         <CardTitle>Flight plan</CardTitle>
         <CardDescription>
-          Enter the flight plan details. The flight plan does not have to be valid.
+          Enter the flight plan details. The flight plan does not have to be
+          valid.
         </CardDescription>
       </CardHeader>
       <CardContent>

@@ -1,7 +1,7 @@
 /* eslint-disable security/detect-object-injection */
 // prettier-multiline-arrays-set-threshold: 1
 // prettier-multiline-arrays-set-line-pattern: 10
-import { FlowDirection, Scenario } from "@workspace/validators";
+import { FlowDirection } from "@workspace/validators";
 
 // cSpell:disable
 const names: string[] = [
@@ -88,38 +88,38 @@ export function getRandomAirportCode(): string {
  * vatsimId, and altimeter fields.
  * @returns A random scenario
  */
-export function getRandomScenario(): Scenario {
+export function getRandomScenario() {
   return {
-    plan: {
-      aid: getRandomCallsign(),
-      alt: 0,
-      bcn: getRandomBcn(),
-      cid: getRandomCid(),
-      dep: "",
-      dest: "",
-      eq: "",
-      homeAirport: getRandomAirportCode(),
-      pilotName: getRandomName(),
-      rmk: "",
-      rte: "",
-      spd: 0,
-      typ: "",
-      vatsimId: getRandomVatsimId(),
-    },
+    id: 1,
+    plan_aid: getRandomCallsign(),
+    plan_alt: 0,
+    plan_bcn: getRandomBcn(),
+    plan_cid: getRandomCid(),
+    plan_dep: "",
+    plan_dest: "",
+    plan_eq: "",
+    plan_homeAirport: getRandomAirportCode(),
+    plan_pilotName: getRandomName(),
+    plan_rmk: "",
+    plan_rte: "",
+    plan_spd: 0,
+    plan_typ: "",
+    plan_vatsimId: getRandomVatsimId(),
     isValid: true,
     canClear: true,
-    craft: {
-      clearanceLimit: "",
-      route: "",
-      altitude: "",
-      telephony: "",
-    },
-    airportConditions: {
-      flow: FlowDirection.WEST,
-      altimeter: getRandomAltimeter(),
-      departureOnline: false,
-    },
+    craft_clearanceLimit: "",
+    craft_route: "",
+    craft_altitude: "",
+    craft_telephony: "",
+    craft_controllerName: "",
+    craft_frequency: 0,
+    views: 0,
+    airportConditions_flow: FlowDirection.WEST,
+    airportConditions_altimeter: getRandomAltimeter(),
+    airportConditions_departureOnline: false,
     explanations: [],
+    depAirportInfo: undefined,
+    destAirportInfo: undefined,
   };
 }
 

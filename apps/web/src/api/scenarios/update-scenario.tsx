@@ -1,11 +1,14 @@
 "use server";
 
-import { putJson } from "@/lib/api";
-import { addOrUpdateScenarioResponseSchema } from "@workspace/validators";
+import {
+  deleteExplanationsForScenario,
+  insertExplanation,
+} from "@/db/explanations";
+import { updateScenario } from "@/db/scenarios";
 import type { OnSubmitScenarioState } from "./scenario-utilities";
 import { revalidateAfterSave, transformFormData } from "./scenario-utilities";
 
-export const updateScenario = async (
+export const handleUpdateScenario = async (
   _previous: OnSubmitScenarioState,
   payload: FormData,
 ): Promise<OnSubmitScenarioState> => {
@@ -21,7 +24,9 @@ export const updateScenario = async (
     };
   }
 
-  if (!parsed.data._id) {
+  const scenarioId = parsed.data.scenario.id;
+
+  if (!scenarioId) {
     return {
       success: false,
       hasSubmitted: true,
@@ -30,34 +35,31 @@ export const updateScenario = async (
   }
 
   try {
-    const response = await putJson(
-      `/scenarios/${parsed.data._id.toString()}`,
-      parsed.data,
-      { withAuthToken: true },
+    // Update the scenario first
+    await updateScenario(parsed.data.scenario);
+
+    // Then delete any explanations that were attached to the scenario
+    await deleteExplanationsForScenario(scenarioId);
+
+    // Then add back in the explanations
+    // Add all the explanations
+    await Promise.all(
+      parsed.data.explanations.map((explanation) =>
+        insertExplanation({
+          ...explanation,
+          id: undefined, // This will get created by the database automatically
+          scenarioId,
+        }),
+      ),
     );
 
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => "Unknown error");
-      throw new Error(
-        `Failed to update scenario: ${response.status} ${errorText}`,
-      );
-    }
-
-    const json = await response.json();
-    const parsedResponse = addOrUpdateScenarioResponseSchema.safeParse(json);
-    if (!parsedResponse.success) {
-      throw new Error(
-        `Invalid server response format: ${JSON.stringify(parsedResponse.error)}`,
-      );
-    }
-
-    revalidateAfterSave(parsedResponse.data.data?._id);
+    revalidateAfterSave(scenarioId);
 
     return {
       success: true,
       hasSubmitted: true,
       message: "Scenario updated!",
-      id: parsedResponse.data.data?._id,
+      id: parsed.data.scenario.id,
     };
   } catch (error) {
     console.error(error);

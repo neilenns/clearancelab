@@ -15,7 +15,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 type RowActionsProperties = {
-  scenarioId?: string;
+  scenarioId: number;
 };
 
 const permissionsToVerify = [
@@ -29,14 +29,10 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
   const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
 
   const copyLinkHandler = () => {
-    if (scenarioId) {
-      navigator.clipboard.writeText(
-        `${globalThis.location.origin}/lab/${scenarioId}`,
-      );
-      toast.success("Link copied to clipboard");
-    } else {
-      toast.error("Scenario ID is not available");
-    }
+    navigator.clipboard.writeText(
+      `${globalThis.location.origin}/lab/${scenarioId.toString()}`,
+    );
+    toast.success("Link copied to clipboard");
   };
 
   const deleteScenarioHandler = async () => {

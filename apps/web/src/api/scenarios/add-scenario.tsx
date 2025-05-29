@@ -1,11 +1,11 @@
 "use server";
 
-import { postJson } from "@/lib/api";
-import { addOrUpdateScenarioResponseSchema } from "@workspace/validators";
+import { insertExplanation } from "@/db/explanations";
+import { insertScenario } from "@/db/scenarios";
 import type { OnSubmitScenarioState } from "./scenario-utilities";
 import { revalidateAfterSave, transformFormData } from "./scenario-utilities";
 
-export const addScenario = async (
+export const handleAddScenario = async (
   _previous: OnSubmitScenarioState,
   payload: FormData,
 ): Promise<OnSubmitScenarioState> => {
@@ -22,33 +22,30 @@ export const addScenario = async (
   }
 
   try {
-    const response = await postJson("/scenarios", parsed.data, {
-      withAuthToken: true,
-    });
+    // Start by saving the scenario. This returns the ID that's needed to associate the explanations
+    // to the scenario.
+    // Save the scenario and retrieve the result
+    const scenarioResult = await insertScenario(parsed.data.scenario);
+    const insertedId = scenarioResult[0].insertedId;
 
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => "Unknown error");
-      throw new Error(
-        `Failed to add scenario: ${response.status} ${errorText}`,
-      );
-    }
+    // Add all the explanations
+    await Promise.all(
+      parsed.data.explanations.map((explanation) =>
+        insertExplanation({
+          ...explanation,
+          id: undefined, // This will get created by the database automatically
+          scenarioId: insertedId,
+        }),
+      ),
+    );
 
-    const json = await response.json();
-    const parsedResponse = addOrUpdateScenarioResponseSchema.safeParse(json);
-
-    if (!parsedResponse.success) {
-      throw new Error(
-        `Invalid server response format: ${JSON.stringify(parsedResponse.error)}`,
-      );
-    }
-
-    revalidateAfterSave(parsedResponse.data.data?._id);
+    revalidateAfterSave(insertedId);
 
     return {
       success: true,
       hasSubmitted: true,
       message: "Scenario saved!",
-      id: parsedResponse.data.data?._id,
+      id: insertedId,
     };
   } catch (error) {
     console.error(error);
