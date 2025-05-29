@@ -201,6 +201,9 @@ importers:
       '@workspace/plantools':
         specifier: workspace:*
         version: link:../../packages/plantools
+      '@workspace/validators':
+        specifier: workspace:*
+        version: link:../../packages/validators
       add:
         specifier: ^2.0.6
         version: 2.0.6
