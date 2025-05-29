@@ -88,6 +88,7 @@ export const insertScenario = async (scenario: ScenarioInsertModel) => {
     throw error;
   }
 };
+
 export const updateScenario = async (scenario: ScenarioInsertModel) => {
   if (!scenario.id) {
     console.error("Scenario ID must be specified to update a scenario.");
@@ -103,6 +104,17 @@ export const updateScenario = async (scenario: ScenarioInsertModel) => {
       .where(eq(scenarios.id, scenario.id));
   } catch (error) {
     console.error("Error inserting scenario:", error);
+    throw error;
+  }
+};
+
+export const deleteScenario = async (id: number) => {
+  try {
+    const database = await getDatabaseAsync();
+
+    return await database.delete(scenarios).where(eq(scenarios.id, id));
+  } catch (error) {
+    console.error("Error deleting scenario:", error);
     throw error;
   }
 };

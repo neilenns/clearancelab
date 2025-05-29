@@ -30,13 +30,13 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
 
   const copyLinkHandler = () => {
     navigator.clipboard.writeText(
-      `${globalThis.location.origin}/lab/${scenarioId}`,
+      `${globalThis.location.origin}/lab/${scenarioId.toString()}`,
     );
     toast.success("Link copied to clipboard");
   };
 
   const deleteScenarioHandler = async () => {
-    toast.promise(deleteScenario(scenarioId.toString()), {
+    toast.promise(deleteScenario(scenarioId), {
       loading: "Deleting scenario...",
       success: () => {
         return "Scenario deleted successfully";

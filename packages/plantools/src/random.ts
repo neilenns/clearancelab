@@ -90,6 +90,7 @@ export function getRandomAirportCode(): string {
  */
 export function getRandomScenario() {
   return {
+    id: 1,
     plan_aid: getRandomCallsign(),
     plan_alt: 0,
     plan_bcn: getRandomBcn(),
@@ -110,10 +111,15 @@ export function getRandomScenario() {
     craft_route: "",
     craft_altitude: "",
     craft_telephony: "",
+    craft_controllerName: "",
+    craft_frequency: 0,
+    views: 0,
     airportConditions_flow: FlowDirection.WEST,
     airportConditions_altimeter: getRandomAltimeter(),
     airportConditions_departureOnline: false,
     explanations: [],
+    depAirportInfo: undefined,
+    destAirportInfo: undefined,
   };
 }
 
