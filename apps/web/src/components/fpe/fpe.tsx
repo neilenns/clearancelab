@@ -4,9 +4,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Scenario } from "@/db/scenarios";
 import { cn } from "@/lib/utils";
 import { getFlightAwareUrl, getSkyVectorUrl } from "@workspace/plantools";
-import { Scenario } from "@workspace/validators";
 import * as changeCase from "change-case";
 import { useCallback, useState } from "react";
 import { FPEBox } from "./fpe-box";
@@ -16,12 +16,11 @@ import { FPETextArea } from "./fpe-textarea";
 import "./fpe.css";
 
 interface FPEProperties {
-  scenario?: Scenario | undefined;
+  scenario: Scenario;
 }
 
 // The dotted underline under RTE comes from https://notchtools.com/css-underline-generator
 const FPE = ({ scenario }: FPEProperties) => {
-  const { plan, airportConditions } = scenario ?? {};
   const [isDirty, setIsDirty] = useState(false);
 
   const handleAnyChange = useCallback(() => {
@@ -32,15 +31,23 @@ const FPE = ({ scenario }: FPEProperties) => {
     setIsDirty(false);
   }, []);
 
-  const skyVectorUrl = getSkyVectorUrl(plan);
-  const flightAwareUrl = getFlightAwareUrl(plan);
+  const skyVectorUrl = getSkyVectorUrl(
+    scenario.plan_dep,
+    scenario.plan_dest,
+    scenario.plan_rte,
+  );
+  const flightAwareUrl = getFlightAwareUrl(
+    scenario.plan_dep,
+    scenario.plan_dest,
+  );
 
   return (
     <div className="w-[800px] mb-2">
       <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[0.9375rem] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
-        {plan && (
+        {scenario && (
           <div className="fpe-title text-xs ml-[2px] mb-[2px]">
-            {plan.aid} - {plan.pilotName} {plan.homeAirport} ({plan.vatsimId})
+            {scenario.plan_aid} - {scenario.plan_pilotName}{" "}
+            {scenario.plan_homeAirport} ({scenario.plan_vatsimId})
           </div>
         )}
         <div className="fpe-close text-right">&times;</div>
@@ -157,77 +164,77 @@ const FPE = ({ scenario }: FPEProperties) => {
           aria-labelledby="fpe-aid-label"
           className="fpe-aid-box border-none"
         >
-          {plan?.aid}
+          {scenario?.plan_aid}
         </FPEBox>
         <FPEBox
           aria-labelledby="fpe-aid-label"
           className="fpe-cruiseid-box border-none"
         >
-          {plan?.cid}
+          {scenario?.plan_cid}
         </FPEBox>
         <FPEBox
           aria-labelledby="fpe-bcn-label"
           className="fpe-bcn-box border-none"
         >
-          {plan?.bcn?.toString().padStart(4, "0")}
+          {scenario?.plan_bcn?.toString().padStart(4, "0")}
         </FPEBox>
         <FPEInput
           aria-labelledby="fpe-typ-label"
           className="fpe-typ-box"
-          defaultValue={plan?.typ}
+          defaultValue={scenario?.plan_typ ?? ""}
           onChange={handleAnyChange}
           maxLength={5}
         />
         <FPEInput
           aria-labelledby="fpe-eq-label"
           className="fpe-eq-box"
-          defaultValue={plan?.eq}
+          defaultValue={scenario?.plan_eq ?? ""}
           onChange={handleAnyChange}
           maxLength={1}
         />
         <FPEInput
           aria-labelledby="fpe-dep-label"
           className="fpe-dep-box"
-          defaultValue={plan?.dep}
+          defaultValue={scenario?.plan_dep ?? ""}
           onChange={handleAnyChange}
           maxLength={4}
         />
         <FPEInput
           aria-labelledby="fpe-dest-label"
           className="fpe-dest-box"
-          defaultValue={plan?.dest}
+          defaultValue={scenario?.plan_dest ?? ""}
           onChange={handleAnyChange}
           maxLength={4}
         />
         <FPEInput
           aria-labelledby="fpe-spd-label"
           className="fpe-spd-box"
-          defaultValue={plan?.spd}
+          defaultValue={scenario?.plan_spd ?? ""}
           onChange={handleAnyChange}
           maxLength={3}
         />
         <FPEInput
           aria-labelledby="fpe-alt-label"
           className="fpe-alt-box"
-          defaultValue={plan?.alt}
+          defaultValue={scenario?.plan_alt ?? ""}
           onChange={handleAnyChange}
           maxLength={7}
         />
         <FPETextArea
           aria-labelledby="fpe-rte-label"
           className="fpe-rte-box text-left min-h-[50px]"
-          defaultValue={plan?.rte}
+          defaultValue={scenario?.plan_rte ?? ""}
           onChange={handleAnyChange}
         />
         <FPETextArea
           aria-labelledby="fpe-rmk-label"
           className="fpe-rmk-box text-left min-h-[50px]"
-          defaultValue={plan?.rmk}
+          defaultValue={scenario?.plan_rmk ?? ""}
           onChange={handleAnyChange}
         />
       </div>
 
-      {airportConditions && (
+      {scenario && (
         <div
           className="relative px-4 py-2 mt-2 w-[800px] text-sm bg-[var(--color-fpe)] text-[var(--color-fpe-conditions-foreground)] 
          border border-[var(--color-fpe-conditions-border)]"
@@ -238,9 +245,10 @@ const FPE = ({ scenario }: FPEProperties) => {
           <span className="font-semibold text-[var(--color-fpe-conditions-label-foreground)]">
             Conditions:
           </span>{" "}
-          Flow: {changeCase.sentenceCase(airportConditions.flow ?? "")}.
-          Altimeter: {airportConditions.altimeter?.toFixed(2)}. Departure{" "}
-          {airportConditions.departureOnline ? "online" : "offline"}.
+          Flow: {changeCase.sentenceCase(scenario.airportConditions_flow ?? "")}
+          . Altimeter: {scenario.airportConditions_altimeter?.toFixed(2)}.
+          Departure{" "}
+          {scenario.airportConditions_departureOnline ? "online" : "offline"}.
         </div>
       )}
     </div>

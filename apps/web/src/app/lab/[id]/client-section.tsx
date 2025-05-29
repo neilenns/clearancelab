@@ -4,7 +4,7 @@ import { incrementViews } from "@/api/scenarios/increment-views";
 import { Answer } from "@/components/answer";
 import FPE from "@/components/fpe/fpe";
 import { LabHeader } from "@/components/lab-header";
-import { Scenario } from "@workspace/validators";
+import { Scenario } from "@/db/scenarios";
 import { useEffect } from "react";
 
 interface ClientSectionProperties {
@@ -13,10 +13,14 @@ interface ClientSectionProperties {
 
 export default function ClientSection({ scenario }: ClientSectionProperties) {
   useEffect(() => {
-    incrementViews(scenario._id).catch((error) => {
+    if (!scenario) {
+      return;
+    }
+
+    incrementViews(scenario.id.toString()).catch((error) => {
       console.error("Failed to increment views:", error);
     });
-  }, [scenario._id]);
+  }, [scenario, scenario.id]);
 
   return (
     <main className="overflow-y-auto">

@@ -2,7 +2,7 @@
 // Solution comes from: https://stackoverflow.com/a/79182354/9206264
 // The fetching of data to pass to the page is based off this:
 // https://medium.com/@kishorjena/solving-server-to-client-data-flow-in-next-js-handling-index-and-non-index-pages-62d9194537cc
-import { fetchScenariosByIds } from "@/api/scenarios/fetch-scenarios-by-ids";
+import { getScenario } from "@/db/scenarios";
 import { ENV } from "@/lib/environment";
 import { Metadata } from "next";
 
@@ -14,16 +14,15 @@ export async function generateMetadata({
   params: Parameters;
 }): Promise<Metadata | undefined> {
   const { id } = await params;
-  const scenarios = await fetchScenariosByIds([id]);
+  const scenario = await getScenario(id);
 
-  if (scenarios.length === 0) {
+  if (!scenario) {
     return;
   }
-  const scenario = scenarios[0];
 
-  const title = `${scenario.plan.aid} | Clearance Lab`;
-  const description = `Practice flight plan for ${scenario.plan.aid}.`;
-  const basePath = `/lab/${id}`;
+  const title = `${scenario.plan_aid} | Clearance Lab`;
+  const description = `Practice flight plan for ${scenario.plan_aid}.`;
+  const basePath = `/lab/${id.toString()}`;
   const url = new URL(basePath, ENV.APP_BASE_URL);
 
   return {

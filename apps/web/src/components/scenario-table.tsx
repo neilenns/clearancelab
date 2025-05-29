@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { SummaryScenario, SummaryScenarios } from "@/db/scenarios";
 import { cn } from "@/lib/utils";
 import {
   ColumnDef,
@@ -22,7 +23,6 @@ import {
   RowSelectionState,
   useReactTable,
 } from "@tanstack/react-table";
-import { ScenarioSummary } from "@workspace/validators";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useTableSearchParams } from "tanstack-table-search-params";
@@ -42,11 +42,11 @@ declare module "@tanstack/react-table" {
 }
 
 interface DataTableProperties {
-  data: ScenarioSummary[];
-  columns: ColumnDef<ScenarioSummary>[];
-  selectedId?: string;
-  onRowSelected?: (row: ScenarioSummary) => void;
-  onFilteredRowsChange?: (rows: ScenarioSummary[]) => void;
+  data: SummaryScenarios;
+  columns: ColumnDef<SummaryScenario>[];
+  selectedId?: number;
+  onRowSelected?: (row: SummaryScenario) => void;
+  onFilteredRowsChange?: (rows: SummaryScenario[]) => void;
 }
 
 export function ScenarioTable({
@@ -109,7 +109,7 @@ export function ScenarioTable({
   }, [selectedId]);
 
   const handleRowClick = useCallback(
-    (row: Row<ScenarioSummary>) => {
+    (row: Row<SummaryScenario>) => {
       setRowSelection({
         [row.id]: true,
       });
@@ -130,7 +130,7 @@ export function ScenarioTable({
     columns,
     enableMultiRowSelection: false,
     onRowSelectionChange: setRowSelection,
-    getRowId: (row) => row._id,
+    getRowId: (row) => row.id.toString(),
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client-side filtering
     getFacetedRowModel: getFacetedRowModel(),

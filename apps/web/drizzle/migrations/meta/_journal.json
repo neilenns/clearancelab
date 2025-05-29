@@ -8,6 +8,13 @@
       "when": 1748476090356,
       "tag": "0000_aspiring_squirrel_girl",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1748479227211,
+      "tag": "0001_high_polaris",
+      "breakpoints": true
     }
   ]
 }

@@ -2,26 +2,28 @@
 
 import { Answer } from "@/components/answer";
 import FPE from "@/components/fpe/fpe";
-import { FlowDirection, Scenario } from "@workspace/validators";
+import { Scenario } from "@/db/scenarios";
+import { FlowDirection } from "@workspace/validators";
 import { Info } from "lucide-react";
 
 // cspell:disable
 const scenario: Scenario = {
-  airportConditions: {
-    altimeter: 29.9,
-    departureOnline: true,
-    flow: FlowDirection.WEST,
-  },
+  id: 1,
+  airportConditions_altimeter: 29.9,
+  airportConditions_departureOnline: true,
+  airportConditions_flow: FlowDirection.WEST,
   canClear: true,
-  craft: {
-    altitude: "Climb via SID except maintain 7000",
-    controllerName: "Portland Ground",
-    frequency: 124.35,
-    route: "LAVAA7 departure, Yakima transition, then as filed",
-    telephony: "Alaska 223",
-  },
+  // eslint-disable-next-line unicorn/no-null
+  craft_clearanceLimit: null,
+  craft_altitude: "Climb via SID except maintain 7000",
+  craft_controllerName: "Portland Ground",
+  craft_frequency: 124.35,
+  craft_route: "CASCD4 departure, then as filed",
+  craft_telephony: "Alaska seventeen",
   explanations: [
     {
+      id: 1,
+      scenarioId: 1,
       description:
         "Change the suffix to 'L' in the flight plan then clear the pilot as usual.",
       headline: "The equipment suffix 'X' is not appropriate for the A320.",
@@ -29,43 +31,29 @@ const scenario: Scenario = {
     },
   ],
   isValid: true,
-  plan: {
-    aid: "ASA223",
-    alt: 350,
-    bcn: 2000,
-    cid: 585,
-    dep: "KPDX",
-    dest: "CYEG",
-    eq: "X",
-    homeAirport: "KPDX",
-    pilotName: "Dakota",
-    rte: "LAVAA7 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
-    rmk: "RALT/KSFO PHTO SIMBRIEF/FIRST IFR FLIGHT/ VERY NEW TO VATSIM",
-    spd: 200,
-    typ: "A320",
-    vatsimId: 1_400_467,
-  },
+  plan_aid: "ASA223",
+  plan_alt: 350,
+  plan_bcn: 2000,
+  plan_cid: 585,
+  plan_dep: "KPDX",
+  plan_dest: "CYEG",
+  plan_eq: "X",
+  plan_homeAirport: "KPDX",
+  plan_pilotName: "Dakota",
+  plan_rte: "LAVAA7 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+  plan_rmk: "RALT/KSFO PHTO SIMBRIEF/FIRST IFR FLIGHT/ VERY NEW TO VATSIM",
+  plan_spd: 200,
+  plan_typ: "A320",
+  plan_vatsimId: 1_400_467,
   depAirportInfo: {
     airportCode: "KPDX",
-    city: "Portland",
-    countryCode: "US",
-    iataCode: "PDX",
-    icaoCode: "KPDX",
-    latitude: 45.588_709,
-    longitude: -122.596_869,
     name: "Portland International",
-    state: "Oregon",
-    timezone: "America/Los_Angeles",
   },
   destAirportInfo: {
     airportCode: "CYEG",
-    countryCode: "CA",
-    iataCode: "YEG",
-    icaoCode: "CYEG",
     name: "Edmonton International",
-    state: "Alberta",
-    timezone: "America/Edmonton",
   },
+  views: 1,
 };
 // cspell:enable
 

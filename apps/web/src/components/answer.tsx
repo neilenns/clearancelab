@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { Scenario } from "@/db/scenarios";
 import { cn } from "@/lib/utils";
 import {
   generateIssueBody,
@@ -17,7 +18,6 @@ import {
   getFormattedClearanceLimit,
   getTelephony,
 } from "@workspace/plantools";
-import { Scenario } from "@workspace/validators";
 import { AnimatePresence, motion } from "framer-motion";
 import { Info } from "lucide-react";
 import Link from "next/link";
@@ -36,7 +36,7 @@ export function Answer({ scenario, className }: AnswerProperties) {
   const messages = [
     {
       alignment: "left",
-      content: `${scenario.craft?.controllerName}, ${getTelephony(scenario)}. IFR to ${getFormattedClearanceLimit(scenario)}.`,
+      content: `${scenario.craft_controllerName}, ${getTelephony(scenario.craft_telephony, scenario.plan_aid)}. IFR to ${getFormattedClearanceLimit(scenario.destAirportInfo?.name, scenario.craft_clearanceLimit)}.`,
     },
     {
       alignment: "right",
@@ -53,25 +53,30 @@ export function Answer({ scenario, className }: AnswerProperties) {
               <TableBody>
                 <TableRow key="C">
                   <TableCell>C</TableCell>
-                  <TableCell>{getFormattedClearanceLimit(scenario)}</TableCell>
+                  <TableCell>
+                    {getFormattedClearanceLimit(
+                      scenario.destAirportInfo?.name,
+                      scenario.craft_clearanceLimit,
+                    )}
+                  </TableCell>
                 </TableRow>
                 <TableRow key="R">
                   <TableCell>R</TableCell>
-                  <TableCell>{scenario.craft?.route}</TableCell>
+                  <TableCell>{scenario.craft_route}</TableCell>
                 </TableRow>
                 <TableRow key="A">
                   <TableCell>A</TableCell>
-                  <TableCell>{scenario.craft?.altitude}</TableCell>
+                  <TableCell>{scenario.craft_altitude}</TableCell>
                 </TableRow>
                 <TableRow key="F">
                   <TableCell>F</TableCell>
                   <TableCell>
-                    {scenario.craft?.frequency?.toFixed(3) ?? "offline"}
+                    {scenario.craft_frequency?.toFixed(3) ?? "offline"}
                   </TableCell>
                 </TableRow>
                 <TableRow key="T">
                   <TableCell>T</TableCell>
-                  <TableCell>{scenario.plan.bcn}</TableCell>
+                  <TableCell>{scenario.plan_bcn}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -110,7 +115,7 @@ export function Answer({ scenario, className }: AnswerProperties) {
                 <Link
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={`https://github.com/neilenns/clearancelab/issues/new?labels=bug&title=${generateIssueTitle(scenario)}&body=${generateIssueBody(scenario)}`}
+                  href={`https://github.com/neilenns/clearancelab/issues/new?labels=bug&title=${generateIssueTitle(scenario.plan_dep, scenario.plan_dest, scenario.plan_aid)}&body=${generateIssueBody(scenario.id)}`}
                   className="text-sm text-muted-foreground hover:underline"
                   aria-label="Report a mistake"
                 >

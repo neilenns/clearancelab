@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function AirportConditionsSectionSkeleton() {
@@ -7,7 +13,8 @@ export function AirportConditionsSectionSkeleton() {
       <CardHeader>
         <CardTitle>Airport conditions</CardTitle>
         <CardDescription>
-          Provides additional context required to evaluate and clear the flight plan.
+          Provides additional context required to evaluate and clear the flight
+          plan.
         </CardDescription>
       </CardHeader>
       <CardContent>

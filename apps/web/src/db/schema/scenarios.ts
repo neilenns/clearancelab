@@ -17,7 +17,6 @@ export const scenarios = sqliteTable("scenarios", {
   plan_eq: text(),
   plan_pilotName: text(),
   plan_homeAirport: text(),
-  plan_raw: text(),
   plan_rmk: text(),
   plan_rte: text(),
   plan_spd: real(),
@@ -29,6 +28,11 @@ export const scenarios = sqliteTable("scenarios", {
   craft_frequency: real(),
   craft_route: text(),
   craft_telephony: text(),
+  airportConditions_flow: text(),
+  airportConditions_altimeter: real(),
+  airportConditions_departureOnline: integer({ mode: "boolean" })
+    .notNull()
+    .default(false),
 });
 
 export const scenariosRelations = relations(scenarios, ({ one, many }) => ({

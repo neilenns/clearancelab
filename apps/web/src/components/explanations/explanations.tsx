@@ -1,4 +1,4 @@
-import { Scenario } from "@workspace/validators";
+import { Scenario } from "@/db/scenarios";
 import { CalloutBox } from "../callout-box";
 import { ExplanationItem } from "./explanation-item";
 
