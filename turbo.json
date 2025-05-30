@@ -4,7 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"]
+      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME"]
     },
     "cf-deploy": {
       "cache": false,

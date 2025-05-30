@@ -36,21 +36,6 @@ const environmentSchema = z
     NODE_ENV: z
       .enum(["development", "production", "test"])
       .default("development"),
-    API_BASE_URL: z
-      .string()
-      .url({
-        message: "API_BASE_URL must be a valid URL.",
-      })
-      .transform((value) => value.replace(/\/+$/, "")),
-    API_KEY: z
-      .string()
-      .optional()
-      .transform((value) => {
-        if (!value) {
-          console.warn("Warning: API_KEY is not set.");
-        }
-        return value;
-      }),
     AUTH0_AUDIENCE: auth0url.optional(), // Optional, but should be a valid URL
     AUTH0_CLIENT_SECRET: z.string().optional(),
     AUTH0_CLIENT_ID: z.string().optional(),
