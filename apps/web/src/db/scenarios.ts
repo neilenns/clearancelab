@@ -121,7 +121,7 @@ export const incrementViews = async (id: number) => {
   }
 };
 
-export const insertScenario = async (scenario: ScenarioInsertModel) => {
+export const insertScenario = async (scenario: Scenario) => {
   try {
     const database = await getDatabaseAsync();
 
@@ -135,7 +135,7 @@ export const insertScenario = async (scenario: ScenarioInsertModel) => {
   }
 };
 
-export const updateScenario = async (scenario: ScenarioInsertModel) => {
+export const updateScenario = async (scenario: Scenario) => {
   if (!scenario.id) {
     console.error("Scenario ID must be specified to update a scenario.");
     throw new Error("Scenario ID must be specified to update a scenario.");
@@ -179,8 +179,9 @@ export type GetScenarioResult = Awaited<
     airportConditions_flow: FlowDirection;
   }
 >;
-export type Scenario = NonNullable<GetScenarioResult>;
-export type ScenarioInsertModel = InferInsertModel<typeof scenarios>;
+export type Scenario = Omit<InferInsertModel<typeof scenarios>, "id"> & {
+  id?: number;
+};
 
 // Shared fields (everything except `id`)
 // This is done manually with zod instead of using drizzle-zod to save 137k in bundle size.
@@ -189,27 +190,27 @@ const scenarioFields = {
   isValid: z.boolean(),
   views: z.number().int().default(0),
   plan_aid: z.string(),
-  plan_alt: z.number().nullable(),
-  plan_bcn: z.number().nullable(),
-  plan_cid: z.number().int().nullable(),
-  plan_dep: z.string().nullable(),
-  plan_dest: z.string().nullable(),
-  plan_eq: z.string().nullable(),
-  plan_pilotName: z.string().nullable(),
-  plan_homeAirport: z.string().nullable(),
-  plan_rmk: z.string().nullable(),
-  plan_rte: z.string().nullable(),
-  plan_spd: z.number().nullable(),
-  plan_typ: z.string().nullable(),
+  plan_alt: z.number().optional(),
+  plan_bcn: z.number().optional(),
+  plan_cid: z.number().int().optional(),
+  plan_dep: z.string().optional(),
+  plan_dest: z.string().optional(),
+  plan_eq: z.string().optional(),
+  plan_pilotName: z.string().optional(),
+  plan_homeAirport: z.string().optional(),
+  plan_rmk: z.string().optional(),
+  plan_rte: z.string().optional(),
+  plan_spd: z.number().optional(),
+  plan_typ: z.string().optional(),
   plan_vatsimId: z.number().int(),
-  craft_altitude: z.string().nullable(),
-  craft_clearanceLimit: z.string().nullable(),
-  craft_controllerName: z.string().nullable(),
-  craft_frequency: z.number().nullable(),
-  craft_route: z.string().nullable(),
-  craft_telephony: z.string().nullable(),
-  airportConditions_flow: z.enum(["NORTH", "SOUTH", "EAST", "WEST"]).nullable(),
-  airportConditions_altimeter: z.number().nullable(),
+  craft_altitude: z.string().optional(),
+  craft_clearanceLimit: z.string().optional(),
+  craft_controllerName: z.string().optional(),
+  craft_frequency: z.number().optional(),
+  craft_route: z.string().optional(),
+  craft_telephony: z.string().optional(),
+  airportConditions_flow: z.enum(["NORTH", "SOUTH", "EAST", "WEST"]).optional(),
+  airportConditions_altimeter: z.number().optional(),
   airportConditions_departureOnline: z.boolean().default(false),
 };
 
