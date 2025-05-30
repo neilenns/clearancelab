@@ -1,7 +1,13 @@
 import { ExplanationLevel } from "@/db/explanations";
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
-import { AlertOctagon, AlertTriangle, Info, Lightbulb } from "lucide-react";
+import {
+  AlertOctagon,
+  AlertTriangle,
+  CheckCircle,
+  Info,
+  Lightbulb,
+} from "lucide-react";
 import React from "react";
 import { AlertDescription } from "./ui/alert";
 
@@ -23,11 +29,14 @@ const calloutBoxVariants = cva(
   },
 );
 
-const levelIcons: Record<ExplanationLevel, React.ElementType> = {
+// ok is added to enable this to show a success message as well, which isn't a state
+// stored in the database as an explanation level.
+const levelIcons: Record<ExplanationLevel | "ok", React.ElementType> = {
   info: Info,
   tip: Lightbulb,
   warning: AlertTriangle,
   error: AlertOctagon,
+  ok: CheckCircle,
 } as const;
 
 export function CalloutBox({
