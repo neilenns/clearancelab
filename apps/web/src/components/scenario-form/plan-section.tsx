@@ -16,7 +16,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
 import { Textarea } from "@/components/ui/textarea";
-import { Scenario } from "@/db/scenarios";
 import {
   getRandomAirportCode,
   getRandomBcn,
@@ -25,20 +24,17 @@ import {
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
+import { ScenarioInput } from "@workspace/validators";
 import { RefreshCwIcon } from "lucide-react";
 import { useFormContext } from "react-hook-form";
+import { VatsimImportDialog } from "./vatsim-import-dialog";
 
 interface PlanSectionProperties {
   isEditMode: boolean;
 }
 
 export function PlanSection({ isEditMode }: PlanSectionProperties) {
-  const { control } = useFormContext<Scenario>();
-
-  // This will be removed and get replaced with the Vatsim import dialog in a separate PR
-  if (isEditMode) {
-    console.log("Edit mode is enabled");
-  }
+  const { control } = useFormContext<ScenarioInput>();
 
   return (
     <Card>
@@ -54,7 +50,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
           <div>
             <FormField
               control={control}
-              name="plan_vatsimId"
+              name="plan.vatsimId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -84,7 +80,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
           <div>
             <FormField
               control={control}
-              name="plan_pilotName"
+              name="plan.pilotName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -114,7 +110,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
           <div>
             <FormField
               control={control}
-              name="plan_homeAirport"
+              name="plan.homeAirport"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -140,12 +136,16 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               )}
             />
           </div>
+
+          <div className="self-end">
+            {!isEditMode && <VatsimImportDialog />}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(4,_1fr)_35px_repeat(4,_1fr)] gap-2 items-start mb-4">
           <FormField
             control={control}
-            name="plan_aid"
+            name="plan.aid"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
@@ -164,7 +164,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                   </button>
                 </FormLabel>
                 <FormControl>
-                  <Input id="callsign" {...field} value={field.value ?? ""} />
+                  <Input id="callsign" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -173,7 +173,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
 
           <FormField
             control={control}
-            name="plan_cid"
+            name="plan.cid"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
@@ -196,7 +196,6 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     id="cid"
                     type="number"
                     {...field}
-                    value={field.value ?? ""}
                     onChange={(event) => {
                       const value = event.target.value;
                       field.onChange(
@@ -212,7 +211,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
 
           <FormField
             control={control}
-            name="plan_bcn"
+            name="plan.bcn"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
@@ -234,7 +233,6 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                   <Input
                     id="bcn"
                     {...field}
-                    value={field.value ?? ""}
                     onChange={(event) => {
                       const value = event.target.value;
                       field.onChange(
@@ -250,12 +248,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
 
           <FormField
             control={control}
-            name="plan_typ"
+            name="plan.typ"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>TYP</FormLabel>
                 <FormControl>
-                  <Input id="typ" {...field} value={field.value ?? ""} />
+                  <Input id="typ" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -264,12 +262,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
 
           <FormField
             control={control}
-            name="plan_eq"
+            name="plan.eq"
             render={({ field }) => (
               <FormItem>
                 <FormLabel htmlFor="eq">EQ</FormLabel>
                 <FormControl>
-                  <Input id="eq" {...field} value={field.value ?? ""} />
+                  <Input id="eq" placeholder="L" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -278,12 +276,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
 
           <FormField
             control={control}
-            name="plan_dep"
+            name="plan.dep"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>DEP</FormLabel>
                 <FormControl>
-                  <Input id="dep" {...field} value={field.value ?? ""} />
+                  <Input id="dep" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -292,12 +290,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
 
           <FormField
             control={control}
-            name="plan_dest"
+            name="plan.dest"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>DEST</FormLabel>
                 <FormControl>
-                  <Input id="dest" {...field} value={field.value ?? ""} />
+                  <Input id="dest" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -306,7 +304,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
 
           <FormField
             control={control}
-            name="plan_spd"
+            name="plan.spd"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>SPD</FormLabel>
@@ -315,7 +313,6 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                     id="spd"
                     type="number"
                     {...field}
-                    value={field.value ?? ""}
                     onChange={(event) => {
                       const value = event.target.value;
                       field.onChange(
@@ -331,12 +328,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
 
           <FormField
             control={control}
-            name="plan_alt"
+            name="plan.alt"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>ALT</FormLabel>
                 <FormControl>
-                  <Input id="alt" {...field} value={field.value ?? ""} />
+                  <Input id="alt" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -347,17 +344,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
         <div className="mb-2">
           <FormField
             control={control}
-            name="plan_rte"
+            name="plan.rte"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>RTE</FormLabel>
                 <FormControl>
-                  <Textarea
-                    id="rte"
-                    className="min-h-10"
-                    {...field}
-                    value={field.value ?? ""}
-                  />
+                  <Textarea id="rte" className="min-h-10" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -368,17 +360,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
         <div className="mb-2">
           <FormField
             control={control}
-            name="plan_rmk"
+            name="plan.rmk"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>RMK</FormLabel>
                 <FormControl>
-                  <Textarea
-                    id="rmk"
-                    className="min-h-10"
-                    {...field}
-                    value={field.value ?? ""}
-                  />
+                  <Textarea id="rmk" className="min-h-10" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

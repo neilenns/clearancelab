@@ -14,5 +14,5 @@ module.exports = {
     "prettier-plugin-organize-imports",
     "prettier-plugin-multiline-arrays",
   ],
-  multilineArraysWrapThreshold: -1
+  multilineArraysWrapThreshold: -1,
 };

@@ -4,11 +4,12 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME"]
+      "env": ["MONGO_DB_CONNECTION_STRING", "MONGO_DB_NAME", "API_BASE_URL"]
     },
     "cf-deploy": {
       "cache": false,
       "dependsOn": [
+        "@workspace/validators#build",
         "@workspace/plantools#build"
       ]
     },

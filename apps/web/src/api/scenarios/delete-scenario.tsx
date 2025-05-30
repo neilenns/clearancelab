@@ -1,13 +1,22 @@
 "use server";
 
-import { deleteScenario } from "@/db/scenarios";
+import { apiDelete } from "@/lib/api";
 import { revalidatePath } from "next/cache";
 
-export const handleDeleteScenario = async (id: number) => {
+export const deleteScenario = async (id: string) => {
   try {
-    await deleteScenario(id);
+    const result = await apiDelete(`/scenarios/${id}`, { withAuthToken: true });
 
-    revalidatePath(`/lab/${id.toString()}`);
+    if (!result.ok) {
+      const errorText = await result.text().catch(() => "Unknown error");
+      throw new Error(
+        `Failed to delete scenario: ${result.status} ${errorText}`,
+      );
+    }
+
+    // The delete response returns a DeleteScenarioResponse, but there's no reason
+    // to parse it since all we care about is the result succeeding.
+    revalidatePath(`/lab/${id}`);
     revalidatePath("/lab");
   } catch (error) {
     console.error("Error deleting scenario:", error);

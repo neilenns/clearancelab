@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Scenario } from "@/db/scenarios";
+import { ScenarioInput } from "@workspace/validators";
 import dynamic from "next/dynamic";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { ExplanationsDndListSkeleton } from "./explanations-dnd-list-skeleton";
@@ -21,7 +21,7 @@ const ExplanationsDndList = dynamic(
 );
 
 export function ExplanationsSection() {
-  const { control } = useFormContext<Scenario>();
+  const { control } = useFormContext<ScenarioInput>();
 
   const { fields, append, remove, move } = useFieldArray({
     name: "explanations",
@@ -93,14 +93,7 @@ export function ExplanationsSection() {
             size="sm"
             className="mt-2"
             onClick={() => {
-              append({
-                id: 1, // The actual value here doesn't matter, the database will set it when this is saved.
-                scenarioId: 1, // The actual value here doesn't matter, the backend will set it when this is saved.
-                order: 1, // The actual value here doesn't matter, the backend will set it when this is saved.
-                headline: "",
-                level: "error",
-                description: "",
-              });
+              append({ headline: "", level: "error", description: "" });
             }}
           >
             Add explanation

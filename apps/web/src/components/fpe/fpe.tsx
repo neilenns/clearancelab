@@ -4,9 +4,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Scenario } from "@/db/scenarios";
 import { cn } from "@/lib/utils";
 import { getFlightAwareUrl, getSkyVectorUrl } from "@workspace/plantools";
+import { Scenario } from "@workspace/validators";
 import * as changeCase from "change-case";
 import { useCallback, useState } from "react";
 import { FPEBox } from "./fpe-box";
@@ -16,11 +16,12 @@ import { FPETextArea } from "./fpe-textarea";
 import "./fpe.css";
 
 interface FPEProperties {
-  scenario: Scenario;
+  scenario?: Scenario | undefined;
 }
 
 // The dotted underline under RTE comes from https://notchtools.com/css-underline-generator
 const FPE = ({ scenario }: FPEProperties) => {
+  const { plan, airportConditions } = scenario ?? {};
   const [isDirty, setIsDirty] = useState(false);
 
   const handleAnyChange = useCallback(() => {
@@ -31,23 +32,17 @@ const FPE = ({ scenario }: FPEProperties) => {
     setIsDirty(false);
   }, []);
 
-  const skyVectorUrl = getSkyVectorUrl(
-    scenario.plan_dep,
-    scenario.plan_dest,
-    scenario.plan_rte,
-  );
-  const flightAwareUrl = getFlightAwareUrl(
-    scenario.plan_dep,
-    scenario.plan_dest,
-  );
+  const skyVectorUrl = getSkyVectorUrl(plan);
+  const flightAwareUrl = getFlightAwareUrl(plan);
 
   return (
     <div className="w-[800px] mb-2">
       <div className="fpe-dialog px-2 py-2 bg-[var(--color-fpe)] text-[0.9375rem] text-[var(--color-fpe-foreground)] border border-[var(--color-fpe-border)]">
-        <div className="fpe-title text-xs ml-[2px] mb-[2px]">
-          {scenario.plan_aid} - {scenario.plan_pilotName}{" "}
-          {scenario.plan_homeAirport} ({scenario.plan_vatsimId})
-        </div>
+        {plan && (
+          <div className="fpe-title text-xs ml-[2px] mb-[2px]">
+            {plan.aid} - {plan.pilotName} {plan.homeAirport} ({plan.vatsimId})
+          </div>
+        )}
         <div className="fpe-close text-right">&times;</div>
         <FPELabel id="fpe-aid-label" className="fpe-aid-label">
           AID
@@ -162,90 +157,92 @@ const FPE = ({ scenario }: FPEProperties) => {
           aria-labelledby="fpe-aid-label"
           className="fpe-aid-box border-none"
         >
-          {scenario.plan_aid}
+          {plan?.aid}
         </FPEBox>
         <FPEBox
           aria-labelledby="fpe-aid-label"
           className="fpe-cruiseid-box border-none"
         >
-          {scenario.plan_cid}
+          {plan?.cid}
         </FPEBox>
         <FPEBox
           aria-labelledby="fpe-bcn-label"
           className="fpe-bcn-box border-none"
         >
-          {scenario.plan_bcn?.toString().padStart(4, "0")}
+          {plan?.bcn?.toString().padStart(4, "0")}
         </FPEBox>
         <FPEInput
           aria-labelledby="fpe-typ-label"
           className="fpe-typ-box"
-          defaultValue={scenario.plan_typ ?? ""}
+          defaultValue={plan?.typ}
           onChange={handleAnyChange}
           maxLength={5}
         />
         <FPEInput
           aria-labelledby="fpe-eq-label"
           className="fpe-eq-box"
-          defaultValue={scenario.plan_eq ?? ""}
+          defaultValue={plan?.eq}
           onChange={handleAnyChange}
           maxLength={1}
         />
         <FPEInput
           aria-labelledby="fpe-dep-label"
           className="fpe-dep-box"
-          defaultValue={scenario.plan_dep ?? ""}
+          defaultValue={plan?.dep}
           onChange={handleAnyChange}
           maxLength={4}
         />
         <FPEInput
           aria-labelledby="fpe-dest-label"
           className="fpe-dest-box"
-          defaultValue={scenario.plan_dest ?? ""}
+          defaultValue={plan?.dest}
           onChange={handleAnyChange}
           maxLength={4}
         />
         <FPEInput
           aria-labelledby="fpe-spd-label"
           className="fpe-spd-box"
-          defaultValue={scenario.plan_spd ?? ""}
+          defaultValue={plan?.spd}
           onChange={handleAnyChange}
           maxLength={3}
         />
         <FPEInput
           aria-labelledby="fpe-alt-label"
           className="fpe-alt-box"
-          defaultValue={scenario.plan_alt ?? ""}
+          defaultValue={plan?.alt}
           onChange={handleAnyChange}
           maxLength={7}
         />
         <FPETextArea
           aria-labelledby="fpe-rte-label"
           className="fpe-rte-box text-left min-h-[50px]"
-          defaultValue={scenario.plan_rte ?? ""}
+          defaultValue={plan?.rte}
           onChange={handleAnyChange}
         />
         <FPETextArea
           aria-labelledby="fpe-rmk-label"
           className="fpe-rmk-box text-left min-h-[50px]"
-          defaultValue={scenario.plan_rmk ?? ""}
+          defaultValue={plan?.rmk}
           onChange={handleAnyChange}
         />
       </div>
 
-      <div
-        className="relative px-4 py-2 mt-2 w-[800px] text-sm bg-[var(--color-fpe)] text-[var(--color-fpe-conditions-foreground)] 
+      {airportConditions && (
+        <div
+          className="relative px-4 py-2 mt-2 w-[800px] text-sm bg-[var(--color-fpe)] text-[var(--color-fpe-conditions-foreground)] 
          border border-[var(--color-fpe-conditions-border)]"
-        role="region"
-        aria-label="Airport conditions"
-      >
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-fpe-conditions-left-bar)]"></div>
-        <span className="font-semibold text-[var(--color-fpe-conditions-label-foreground)]">
-          Conditions:
-        </span>{" "}
-        Flow: {changeCase.sentenceCase(scenario.airportConditions_flow ?? "")}.
-        Altimeter: {scenario.airportConditions_altimeter?.toFixed(2)}. Departure{" "}
-        {scenario.airportConditions_departureOnline ? "online" : "offline"}.
-      </div>
+          role="region"
+          aria-label="Airport conditions"
+        >
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-fpe-conditions-left-bar)]"></div>
+          <span className="font-semibold text-[var(--color-fpe-conditions-label-foreground)]">
+            Conditions:
+          </span>{" "}
+          Flow: {changeCase.sentenceCase(airportConditions.flow ?? "")}.
+          Altimeter: {airportConditions.altimeter?.toFixed(2)}. Departure{" "}
+          {airportConditions.departureOnline ? "online" : "offline"}.
+        </div>
+      )}
     </div>
   );
 };

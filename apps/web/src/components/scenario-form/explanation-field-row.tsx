@@ -16,14 +16,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Scenario } from "@/db/scenarios";
 import { DraggableProvided } from "@hello-pangea/dnd";
+import { ScenarioInput } from "@workspace/validators";
 import { GripVertical, Trash2 } from "lucide-react";
 import { Control, UseFieldArrayRemove } from "react-hook-form";
 
 export interface ExplanationFieldRowProperties {
   index: number;
-  control: Control<Scenario>;
+  control: Control<ScenarioInput>;
   remove: UseFieldArrayRemove;
   provided: DraggableProvided;
 }
@@ -49,45 +49,6 @@ export const ExplanationFieldRow = ({
           <GripVertical className="h-4 w-4" />
         </div>
         <div className="w-28">
-          <FormField
-            control={control}
-            name={`explanations.${index}.id`}
-            render={({ field }) => (
-              <input
-                type="hidden"
-                id={`explanation-id-${index.toString()}`}
-                name={field.name}
-                value={field.value}
-                aria-hidden="true"
-              />
-            )}
-          />
-          <FormField
-            control={control}
-            name={`explanations.${index}.scenarioId`}
-            render={({ field }) => (
-              <input
-                type="hidden"
-                id={`explanation-scenarioId-${index.toString()}`}
-                name={field.name}
-                value={field.value}
-                aria-hidden="true"
-              />
-            )}
-          />
-          <FormField
-            control={control}
-            name={`explanations.${index}.order`}
-            render={({ field }) => (
-              <input
-                type="hidden"
-                id={`explanation-index-${index.toString()}`}
-                name={field.name}
-                value={index}
-                aria-hidden="true"
-              />
-            )}
-          />
           <FormField
             control={control}
             name={`explanations.${index}.level`}
@@ -143,7 +104,6 @@ export const ExplanationFieldRow = ({
                   <Input
                     id={`explanation-headline-${index.toString()}`}
                     {...field}
-                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />
@@ -165,7 +125,6 @@ export const ExplanationFieldRow = ({
                   <Textarea
                     id={`explanation-description-${index.toString()}`}
                     {...field}
-                    value={field.value ?? ""}
                   />
                 </FormControl>
                 <FormMessage />

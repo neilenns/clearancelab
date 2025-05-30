@@ -1,11 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { type Scenario } from "@/db/scenarios";
 import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { Permissions } from "@/types/permissions";
 import { useUser } from "@auth0/nextjs-auth0";
+import { Permissions, Scenario } from "@workspace/validators";
 import { LinkIcon, LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation"; // Added usePathname
@@ -41,14 +40,14 @@ const copyLinkHandler = () => {
 
 export function LabHeader({ scenario }: LabHeaderProperties) {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname(); // Get current pathname
   const { user, isLoading } = useUser();
   const deleteScenario = useDeleteScenario();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
 
   const deleteScenarioHandler = async () => {
-    toast.promise(deleteScenario(scenario.id), {
+    toast.promise(deleteScenario(scenario._id), {
       loading: "Deleting scenario...",
       success: () => {
         router.replace("/lab");
@@ -67,7 +66,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
       aria-label={`Lab scenario page header`}
     >
       <div className="flex items-center gap-2">
-        {scenario.plan_dep} - {scenario.plan_dest} ({scenario.plan_aid})
+        {scenario.plan.dep} - {scenario.plan.dest} ({scenario.plan.aid})
         <Button
           type="button"
           variant="ghost"
@@ -82,7 +81,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
         {permissionsStatus[Permissions.EditScenarios] && (
           <Button variant="outline" asChild>
             <Link
-              href={`/admin/scenarios/edit/${scenario.id.toString()}`}
+              href={`/admin/scenarios/edit/${scenario._id}`}
               aria-label="Edit scenario"
             >
               Edit
