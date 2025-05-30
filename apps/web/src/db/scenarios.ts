@@ -179,7 +179,12 @@ export type GetScenarioResult = Awaited<
     airportConditions_flow: FlowDirection;
   }
 >;
-export type Scenario = NonNullable<GetScenarioResult>;
+
+// The id property is made optional so the Scenario type can be used for both insert and update
+// operations.
+export type Scenario = Omit<NonNullable<GetScenarioResult>, "id"> & {
+  id?: number;
+};
 export type ScenarioInsertModel = InferInsertModel<typeof scenarios>;
 
 export const scenarioInsertSchema = createInsertSchema(scenarios);
