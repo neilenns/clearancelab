@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  productionBrowserSourceMaps: true,
-
   // From https://dopoto.github.io/blog/20250217-nextjs-serializing-big-strings
   webpack: (config: { cache: { type: string } }) => {
     config.cache = {
