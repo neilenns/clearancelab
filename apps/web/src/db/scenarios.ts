@@ -1,4 +1,4 @@
-import { eq, InferInsertModel, sql } from "drizzle-orm";
+import { count, eq, InferInsertModel, sql } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import {
   getDatabaseAsync,
@@ -7,6 +7,52 @@ import {
 } from ".";
 import { Explanation } from "./explanations";
 import { FlowDirection, scenarios } from "./schema";
+
+export const getScenarioStatistics = async () => {
+  try {
+    const database = await getDatabaseAsync();
+
+    const canClear = await database
+      .select({ name: scenarios.canClear, count: count(scenarios.id) })
+      .from(scenarios)
+      .groupBy(scenarios.canClear);
+
+    const isValid = await database
+      .select({ name: scenarios.isValid, count: count(scenarios.id) })
+      .from(scenarios)
+      .groupBy(scenarios.isValid);
+
+    const departures = await database
+      .select({ name: scenarios.plan_dep, count: count(scenarios.id) })
+      .from(scenarios)
+      .groupBy(scenarios.plan_dep);
+
+    const destinations = await database
+      .select({ name: scenarios.plan_dest, count: count(scenarios.id) })
+      .from(scenarios)
+      .groupBy(scenarios.plan_dest);
+
+    // There is probably a way to do these type conversions in drizzle directly but I can't figure it out,
+    // so doing it this way.
+    return {
+      canClear: canClear.map((element) => {
+        return { item: element.name.toString(), count: element.count };
+      }),
+      isValid: isValid.map((element) => {
+        return { item: element.name.toString(), count: element.count };
+      }),
+      departures: departures.map((element) => {
+        return { item: element.name ?? "None", count: element.count };
+      }),
+      destinations: destinations.map((element) => {
+        return { item: element.name ?? "None", count: element.count };
+      }),
+    };
+  } catch (error) {
+    console.error("Error calculating scenario statistics:", error);
+    throw new Error("Failed calculating scenario statistics");
+  }
+};
 
 export const getScenario = async (id: number) => {
   try {
@@ -119,6 +165,9 @@ export const deleteScenario = async (id: number) => {
   }
 };
 
+export type ScenarioStatistics = Awaited<
+  ReturnType<typeof getScenarioStatistics>
+>;
 export type SummaryScenarios = Awaited<ReturnType<typeof getSummaryScenarios>>;
 export type SummaryScenario = SummaryScenarios[number];
 export type GetScenarioResult = Awaited<

@@ -1,11 +1,30 @@
 "use server";
-import { fetchPlanStatistics } from "@/api/statistics/fetch-plan-statistics";
+
 import { AdminHeader } from "@/components/admin-header";
+import { getScenarioStatistics, ScenarioStatistics } from "@/db/scenarios";
 import ClientSection from "./client-section";
 
 export default async function Page() {
-  const result = await fetchPlanStatistics();
-  const statistics = result.success ? result.data : undefined;
+  let statistics: ScenarioStatistics;
+
+  try {
+    statistics = await getScenarioStatistics();
+  } catch (error) {
+    console.error("Unable to retrieve scenario statistics:", error);
+    return (
+      <div>
+        <AdminHeader />
+        <main>
+          <div
+            className="flex h-full flex-col items-center justify-center px-4 py-4"
+            aria-label="No statistics available"
+          >
+            <p>No statistics available.</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div>
