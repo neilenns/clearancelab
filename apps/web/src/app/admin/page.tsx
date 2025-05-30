@@ -14,6 +14,7 @@ export default function Page() {
         <p className="max-w-md">So much to admin.</p>
         <Button
           className="mt-2"
+          aria-label="Regenerate all pages including scenario and admin pages"
           onClick={() => {
             toast.promise(handleRegeneratePages(), {
               loading: "Generating pages...",
