@@ -1,10 +1,10 @@
 "use client";
 
 import PieChart from "@/components/pie-chart";
-import { PlanStatistics } from "@workspace/validators";
+import { ScenarioStatistics } from "@/db/scenarios";
 
 interface ClientSectionProperties {
-  statistics?: PlanStatistics;
+  statistics: ScenarioStatistics;
 }
 
 export default function ClientSection({ statistics }: ClientSectionProperties) {
