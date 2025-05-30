@@ -9,7 +9,6 @@
     "cf-deploy": {
       "cache": false,
       "dependsOn": [
-        "@workspace/validators#build",
         "@workspace/plantools#build"
       ]
     },
