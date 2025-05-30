@@ -1,26 +1,41 @@
-import { auth0url } from "@workspace/validators";
 import { z } from "zod";
+
+// Normalizes inputs to be an URL that work with Auth0 since they are so wildly
+// inconsistent with their URL requirements.
+export const auth0url = z
+  .string()
+  .trim()
+  .transform((value) => {
+    let url = value;
+    if (!/^https:\/\//i.test(url)) {
+      url = `https://${url}`;
+    }
+
+    // So picky, but Auth0 requires a trailing slash on the URL.
+    if (!url.endsWith("/")) {
+      url += "/";
+    }
+    return url;
+  })
+  .refine(
+    (value) => {
+      try {
+        new URL(value);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    {
+      message: "Invalid URL",
+    },
+  );
 
 const environmentSchema = z
   .object({
     NODE_ENV: z
       .enum(["development", "production", "test"])
       .default("development"),
-    API_BASE_URL: z
-      .string()
-      .url({
-        message: "API_BASE_URL must be a valid URL.",
-      })
-      .transform((value) => value.replace(/\/+$/, "")),
-    API_KEY: z
-      .string()
-      .optional()
-      .transform((value) => {
-        if (!value) {
-          console.warn("Warning: API_KEY is not set.");
-        }
-        return value;
-      }),
     AUTH0_AUDIENCE: auth0url.optional(), // Optional, but should be a valid URL
     AUTH0_CLIENT_SECRET: z.string().optional(),
     AUTH0_CLIENT_ID: z.string().optional(),

@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { type Scenario } from "@/db/scenarios";
 import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
+import { Permissions } from "@/types/permissions";
 import { useUser } from "@auth0/nextjs-auth0";
-import { Permissions } from "@workspace/validators";
 import { LinkIcon, LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation"; // Added usePathname

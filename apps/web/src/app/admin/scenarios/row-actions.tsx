@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { Permissions } from "@workspace/validators";
+import { Permissions } from "@/types/permissions";
 import { Edit, ExternalLinkIcon, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";

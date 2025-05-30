@@ -3,7 +3,7 @@
 import { Answer } from "@/components/answer";
 import FPE from "@/components/fpe/fpe";
 import { Scenario } from "@/db/scenarios";
-import { FlowDirection } from "@workspace/validators";
+import { FlowDirection } from "@/db/schema";
 import { Info } from "lucide-react";
 
 // cspell:disable

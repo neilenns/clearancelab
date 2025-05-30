@@ -31,5 +31,12 @@ export const deleteExplanationsForScenario = async (scenarioId: number) => {
   }
 };
 
+export enum ExplanationLevel {
+  ERROR = "error",
+  INFO = "info",
+  TIP = "tip",
+  WARNING = "warning",
+}
+
 export type Explanation = InferSelectModel<typeof explanations>;
 export type ExplanationInsertModel = InferInsertModel<typeof explanations>;

@@ -4,7 +4,7 @@ import { AdminSidebar } from "@/components/admin-sidebar/admin-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
 import { useCheckPermissions } from "@/hooks/use-check-permissions";
-import { Permissions } from "@workspace/validators";
+import { Permissions } from "@/types/permissions";
 import React from "react";
 import UnauthorizedPage from "./unauthorized";
 
