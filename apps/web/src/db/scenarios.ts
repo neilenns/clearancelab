@@ -1,5 +1,5 @@
 import { count, eq, InferInsertModel, sql } from "drizzle-orm";
-import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 import {
   getDatabaseAsync,
   nullsToUndefined,
@@ -182,4 +182,47 @@ export type GetScenarioResult = Awaited<
 export type Scenario = NonNullable<GetScenarioResult>;
 export type ScenarioInsertModel = InferInsertModel<typeof scenarios>;
 
-export const scenarioInsertSchema = createInsertSchema(scenarios);
+// Shared fields (everything except `id`)
+// This is done manually with zod instead of using drizzle-zod to save 137k in bundle size.
+const scenarioFields = {
+  canClear: z.boolean(),
+  isValid: z.boolean(),
+  views: z.number().int().default(0),
+  plan_aid: z.string(),
+  plan_alt: z.number().nullable(),
+  plan_bcn: z.number().nullable(),
+  plan_cid: z.number().int().nullable(),
+  plan_dep: z.string().nullable(),
+  plan_dest: z.string().nullable(),
+  plan_eq: z.string().nullable(),
+  plan_pilotName: z.string().nullable(),
+  plan_homeAirport: z.string().nullable(),
+  plan_rmk: z.string().nullable(),
+  plan_rte: z.string().nullable(),
+  plan_spd: z.number().nullable(),
+  plan_typ: z.string().nullable(),
+  plan_vatsimId: z.number().int(),
+  craft_altitude: z.string().nullable(),
+  craft_clearanceLimit: z.string().nullable(),
+  craft_controllerName: z.string().nullable(),
+  craft_frequency: z.number().nullable(),
+  craft_route: z.string().nullable(),
+  craft_telephony: z.string().nullable(),
+  airportConditions_flow: z.enum(["NORTH", "SOUTH", "EAST", "WEST"]).nullable(),
+  airportConditions_altimeter: z.number().nullable(),
+  airportConditions_departureOnline: z.boolean().default(false),
+};
+
+// Insert schema (id is excluded, views and departureOnline can default)
+export const scenarioInsertSchema = z
+  .object({
+    ...scenarioFields,
+  })
+  .partial({ views: true, airportConditions_departureOnline: true });
+
+// Update schema (id is required, everything else optional)
+export const scenarioUpdateSchema = z
+  .object({
+    id: z.number().int(),
+  })
+  .merge(z.object(scenarioFields).partial());
