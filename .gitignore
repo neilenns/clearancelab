@@ -47,6 +47,7 @@ next-env.d.ts
 # OpenNext
 **/.open-next
 **/.wrangler
+**/bundled
 
 # Certificates
 **/certs

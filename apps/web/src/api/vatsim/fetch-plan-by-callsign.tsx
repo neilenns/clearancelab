@@ -1,7 +1,7 @@
 "use server";
 
+import { Scenario } from "@/db/scenarios";
 import { getJson } from "@/lib/api";
-import { fetchScenariosResponseSchema, Scenario } from "@workspace/validators";
 
 type FetchPlanByCallsignResponse =
   | {
@@ -35,23 +35,9 @@ export async function fetchPlanByCallsign(
       };
     }
 
-    const data = await response.json();
-    const parsedData = fetchScenariosResponseSchema.parse(data);
-
-    if (
-      !parsedData.success ||
-      !parsedData.data ||
-      parsedData.data.length === 0
-    ) {
-      return {
-        success: false,
-        error: "No flight plan found",
-      };
-    }
-
     return {
-      success: true,
-      data: parsedData.data[0],
+      success: false,
+      error: "No flight plan found",
     };
   } catch (error) {
     console.error("Error fetching VATSIM flight plan:", error);

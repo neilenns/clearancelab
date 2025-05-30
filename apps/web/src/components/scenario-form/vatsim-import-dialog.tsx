@@ -1,9 +1,7 @@
 import { fetchPlanByCallsign } from "@/api/vatsim/fetch-plan-by-callsign";
 import { Input } from "@/components/ui/input";
-import { getRandomAltimeter } from "@workspace/plantools";
 import { AlertTriangleIcon, ImportIcon, Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
-import { useFormContext } from "react-hook-form";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Button } from "../ui/button";
 import {
@@ -22,7 +20,7 @@ export function VatsimImportDialog() {
   const [errorContent, setErrorContent] = useState<React.ReactNode>();
   const [isPending, startTransition] = useTransition();
 
-  const { setValue } = useFormContext();
+  //  const { setValue } = useFormContext();
 
   function resetDialog() {
     setCallsign("");
@@ -50,28 +48,28 @@ export function VatsimImportDialog() {
       resetDialog();
       setOpen(false);
 
-      const { plan, airportConditions, craft } = result.data;
+      //   const { plan, airportConditions, craft } = result.data;
 
-      // Populate the fields with the values from the VATSIM flight plan.
-      // This happens after the dialog is closed to make it feel more responsive.
-      setValue("plan.aid", plan.aid);
-      setValue("plan.alt", plan.alt);
-      setValue("plan.bcn", plan.bcn);
-      setValue("plan.cid", plan.cid);
-      setValue("plan.dep", plan.dep);
-      setValue("plan.dest", plan.dest);
-      setValue("plan.eq", plan.eq);
-      setValue("plan.rmk", plan.rmk);
-      setValue("plan.rte", plan.rte);
-      setValue("plan.spd", plan.spd);
-      setValue("plan.typ", plan.typ);
-      setValue("plan.vatsimId", plan.vatsimId);
-      setValue("plan.pilotName", plan.pilotName);
-      setValue(
-        "airportConditions.altimeter",
-        airportConditions.altimeter ?? getRandomAltimeter(),
-      );
-      setValue("craft.telephony", craft?.telephony ?? "");
+      //   // Populate the fields with the values from the VATSIM flight plan.
+      //   // This happens after the dialog is closed to make it feel more responsive.
+      //   setValue("plan.aid", plan.aid);
+      //   setValue("plan.alt", plan.alt);
+      //   setValue("plan.bcn", plan.bcn);
+      //   setValue("plan.cid", plan.cid);
+      //   setValue("plan.dep", plan.dep);
+      //   setValue("plan.dest", plan.dest);
+      //   setValue("plan.eq", plan.eq);
+      //   setValue("plan.rmk", plan.rmk);
+      //   setValue("plan.rte", plan.rte);
+      //   setValue("plan.spd", plan.spd);
+      //   setValue("plan.typ", plan.typ);
+      //   setValue("plan.vatsimId", plan.vatsimId);
+      //   setValue("plan.pilotName", plan.pilotName);
+      //   setValue(
+      //     "airportConditions.altimeter",
+      //     airportConditions.altimeter ?? getRandomAltimeter(),
+      //   );
+      //   setValue("craft.telephony", craft?.telephony ?? "");
     });
   }
 

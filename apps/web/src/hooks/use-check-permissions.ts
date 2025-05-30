@@ -1,7 +1,7 @@
 "use client";
 
+import { Permissions } from "@/lib/auth0";
 import { useUser } from "@auth0/nextjs-auth0";
-import { Permissions } from "@workspace/validators"; // Assuming this is the correct path
 import { useEffect, useMemo, useState } from "react";
 
 interface UseCheckPermissionsResult {

@@ -1,7 +1,8 @@
 /* eslint-disable security/detect-object-injection */
 // prettier-multiline-arrays-set-threshold: 1
 // prettier-multiline-arrays-set-line-pattern: 10
-import { FlowDirection } from "@workspace/validators";
+
+import { FlowDirection } from "./flow-direction";
 
 // cSpell:disable
 const names: string[] = [

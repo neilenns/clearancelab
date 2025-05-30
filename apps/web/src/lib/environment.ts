@@ -1,5 +1,5 @@
-import { auth0url } from "@workspace/validators";
 import { z } from "zod";
+import { auth0url } from "./auth0";
 
 const environmentSchema = z
   .object({
