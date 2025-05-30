@@ -9,14 +9,6 @@ interface DecodedAccessToken {
   permissions?: string[];
 }
 
-export enum Permissions {
-  DeleteScenarios = "delete:scenarios",
-  AddScenarios = "add:scenarios",
-  ViewLab = "view:lab",
-  ViewAdmin = "view:admin",
-  EditScenarios = "edit:scenarios",
-}
-
 // Normalizes inputs to be an URL that work with Auth0 since they are so wildly
 // inconsistent with their URL requirements.
 export const auth0url = z

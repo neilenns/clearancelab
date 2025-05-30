@@ -1,6 +1,6 @@
 "use client";
 
-import { Permissions } from "@/lib/auth0";
+import { Permissions } from "@/types/permissions";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useEffect, useMemo, useState } from "react";
 
