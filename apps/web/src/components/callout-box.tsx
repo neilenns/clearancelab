@@ -1,13 +1,7 @@
+import { ExplanationLevel } from "@/db/explanations";
 import { cn } from "@/lib/utils";
-import { ExplanationLevel } from "@workspace/validators";
 import { cva, VariantProps } from "class-variance-authority";
-import {
-  AlertOctagon,
-  AlertTriangle,
-  CheckCircle,
-  Info,
-  Lightbulb,
-} from "lucide-react";
+import { AlertOctagon, AlertTriangle, Info, Lightbulb } from "lucide-react";
 import React from "react";
 import { AlertDescription } from "./ui/alert";
 
@@ -31,7 +25,6 @@ const calloutBoxVariants = cva(
 
 const levelIcons: Record<ExplanationLevel, React.ElementType> = {
   info: Info,
-  ok: CheckCircle,
   tip: Lightbulb,
   warning: AlertTriangle,
   error: AlertOctagon,

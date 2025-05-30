@@ -1,16 +1,15 @@
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { ScenarioSummary } from "@workspace/validators";
+import { SummaryScenario } from "@/db/scenarios";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 interface ScenarioItemProperties {
-  scenario: ScenarioSummary;
+  scenario: SummaryScenario;
   selected: boolean;
 }
 
 export function ScenarioItem({ scenario, selected }: ScenarioItemProperties) {
-  const { plan } = scenario;
-
+  const { id, plan_aid, plan_dep, plan_dest } = scenario;
   const reference = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export function ScenarioItem({ scenario, selected }: ScenarioItemProperties) {
     }
   }, [selected]);
 
-  if (!scenario._id) {
+  if (!scenario.id) {
     return;
   }
 
@@ -27,12 +26,12 @@ export function ScenarioItem({ scenario, selected }: ScenarioItemProperties) {
     <SidebarMenuItem>
       <SidebarMenuButton asChild isActive={selected}>
         <Link
-          href={`/lab/${scenario._id.toString()}`}
-          aria-label={`View scenario ${scenario.plan.dep ?? ""} to ${
-            scenario.plan.dest ?? ""
-          }, flight ${plan.aid}`}
+          href={`/lab/${id.toString()}`}
+          aria-label={`View scenario ${scenario.plan_dep ?? ""} to ${
+            scenario.plan_dest ?? ""
+          }, flight ${plan_aid}`}
         >
-          {plan.dep} - {plan.dest} ({plan.aid})
+          {plan_dep} - {plan_dest} ({plan_aid})
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>

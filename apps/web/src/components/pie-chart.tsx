@@ -5,10 +5,14 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Statistic } from "@workspace/validators";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { Pie, PieChart as RePieChart } from "recharts";
+
+export interface Statistic {
+  item: string;
+  count: number;
+}
 
 export interface PieChartProperties {
   chartData: Statistic[];
