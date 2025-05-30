@@ -91,7 +91,6 @@ export function getRandomAirportCode(): string {
  */
 export function getRandomScenario() {
   return {
-    id: 1,
     plan_aid: getRandomCallsign(),
     plan_alt: 0,
     plan_bcn: getRandomBcn(),
