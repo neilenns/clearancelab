@@ -1,4 +1,3 @@
-import { fetchPlanByCallsign } from "@/api/vatsim/fetch-plan-by-callsign";
 import { Input } from "@/components/ui/input";
 import { AlertTriangleIcon, ImportIcon, Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
@@ -34,7 +33,7 @@ export function VatsimImportDialog() {
     }
 
     startTransition(async () => {
-      const result = await fetchPlanByCallsign(callsign.toUpperCase());
+      const result = { success: true, error: "" };
 
       if (!result.success) {
         console.error("Error fetching VATSIM flight plan:", result.error);
