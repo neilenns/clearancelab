@@ -136,7 +136,7 @@ export const insertScenario = async (scenario: Scenario) => {
 };
 
 export const updateScenario = async (scenario: Scenario) => {
-  if (!scenario.id) {
+  if (scenario.id === undefined || scenario.id === null) {
     console.error("Scenario ID must be specified to update a scenario.");
     throw new Error("Scenario ID must be specified to update a scenario.");
   }
