@@ -2,7 +2,7 @@
   "configurations": [
     {
       "command": "pnpx turbo run dev",
-      "name": "Clearance Lab (All)",
+      "name": "Clearance lab",
       "request": "launch",
       "serverReadyAction": {
         "action": "debugWithEdge",
@@ -11,26 +11,6 @@
         "uriFormat": "%s/lab",
         "webRoot": "${workspaceFolder}/apps/web/src"
       },
-      "type": "node-terminal"
-    },
-    {
-      "command": "pnpx turbo run dev --filter web",
-      "internalConsoleOptions": "neverOpen",
-      "name": "Clearance Lab (Web)",
-      "request": "launch",
-      "serverReadyAction": {
-        "action": "debugWithEdge",
-        "killOnServerStop": true,
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
-        "webRoot": "${workspaceFolder}/apps/web/src"
-      },
-      "type": "node-terminal"
-    },
-    {
-      "command": "pnpx turbo run dev --filter api",
-      "name": "Clearance Lab (API)",
-      "request": "launch",
       "type": "node-terminal"
     },
     {
