@@ -2,6 +2,12 @@ name: "Deploy to Cloudflare"
 description: "Prunes, builds, and deploys the web app to Cloudflare"
 
 inputs:
+  api_key:
+    required: true
+    description: "API key for connecting to the API server"
+  api_base_url:
+    required: true
+    description: "Base URL for the API server"
   app_base_url:
     required: true
     description: "Base URL for the app"
@@ -29,12 +35,6 @@ inputs:
   backend_cf_access_client_id:
     required: true
     description: "Cloudflare client ID for backend access"
-  cloudflare_d1_token:
-    required: true
-    description: "Cloudflare token for interacting with D1 databases"
-  cloudflare_database_id:
-    required: true
-    description: "Cloudflare database ID for the access codes database"
   backend_cf_access_client_secret:
     required: true
     description: "Cloudflare client secret for backend access"
@@ -77,36 +77,23 @@ runs:
     - name: Deploy secrets to Cloudflare
       working-directory: ./out/apps/web
       run: |
+        echo "${{ inputs.api_key }}" | pnpx wrangler secret put API_KEY --env ${{ inputs.deploy_env }}
         echo "${{ inputs.auth0_secret }}" | pnpx wrangler secret put AUTH0_SECRET --env ${{ inputs.deploy_env }}
         echo "${{ inputs.auth0_client_secret }}" | pnpx wrangler secret put AUTH0_CLIENT_SECRET --env ${{ inputs.deploy_env }}
         echo "${{ inputs.backend_cf_access_client_id }}" | pnpx wrangler secret put BACKEND_CF_ACCESS_CLIENT_ID --env ${{ inputs.deploy_env }}
         echo "${{ inputs.backend_cf_access_client_secret }}" | pnpx wrangler secret put BACKEND_CF_ACCESS_CLIENT_SECRET --env ${{ inputs.deploy_env }}
-        echo "${{ inputs.cloudflare_account_id }}" | pnpx wrangler secret put CLOUDFLARE_ACCOUNT_ID --env ${{ inputs.deploy_env }}
-        echo "${{ inputs.cloudflare_d1_token }}" | pnpx wrangler secret put CLOUDFLARE_D1_TOKEN --env ${{ inputs.deploy_env }}
       shell: bash
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
         CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-
-    - name: Migrate database
-      uses: cloudflare/wrangler-action@v3
-      env:
-        CLOUDFLARE_API_TOKEN: ${{ inputs.cloudflare_api_token }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
-      with:
-        apiToken: ${{ inputs.cloudflare_api_token }}
-        environment: ${{ inputs.deploy_env }}
-        workingDirectory: ./apps/web
-        packageManager: pnpm
-        wranglerVersion: "4.17.0"
-        command: |
-          d1 migrations apply CLEARANCELAB_DB --env=${{ inputs.deploy_env}} --remote
 
     - name: Deploy to Cloudflare
       working-directory: ./out
       run: pnpx turbo run cf-deploy
       shell: bash
       env:
+        API_BASE_URL: ${{ inputs.api_base_url }}
+        API_KEY: ${{ inputs.api_key }}
         APP_BASE_URL: ${{ inputs.app_base_url }}
         AUTH0_AUDIENCE: ${{ inputs.auth0_audience }}
         AUTH0_CLIENT_ID: ${{ inputs.auth0_client_id }}

@@ -1,5 +1,5 @@
 import { CalloutBox } from "@/components/callout-box";
-import { Explanation } from "@/db/explanations";
+import { Explanation } from "@workspace/validators";
 import { Fragment } from "react";
 
 interface ExplanationItemProperties {

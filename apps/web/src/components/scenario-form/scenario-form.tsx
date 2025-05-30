@@ -3,8 +3,9 @@
 import { addOrUpdateScenario } from "@/api/scenarios/add-or-update-scenario";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Scenario } from "@/db/scenarios";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { getRandomScenario } from "@workspace/plantools";
+import { ScenarioInput, scenarioSchema } from "@workspace/validators";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useActionState, useEffect } from "react";
@@ -14,12 +15,13 @@ import { AirportConditionsSection } from "./airport-conditions-section";
 import { CraftSection } from "./craft-section";
 import { ExplanationsSection } from "./explanations-section";
 import { PlanSection } from "./plan-section";
+
 export const ScenarioForm = ({
   defaultValues,
 }: {
-  defaultValues: Scenario;
+  defaultValues: ScenarioInput;
 }) => {
-  const isEditMode = Boolean(defaultValues.id);
+  const isEditMode = Boolean(defaultValues._id);
   const initialFormState = {
     success: false,
     message: "",
@@ -32,7 +34,8 @@ export const ScenarioForm = ({
     initialFormState,
   );
 
-  const form = useForm<Scenario>({
+  const form = useForm<ScenarioInput>({
+    resolver: zodResolver(scenarioSchema),
     mode: "onTouched",
     defaultValues,
   });
@@ -92,7 +95,11 @@ export const ScenarioForm = ({
         aria-label="Scenario creation form"
       >
         <fieldset disabled={isPending} className="space-y-4">
-          <input type="hidden" name="id" value={form.watch("id")?.toString()} />
+          <input
+            type="hidden"
+            name="_id"
+            value={form.watch("_id")?.toString()}
+          />
 
           <PlanSection isEditMode={isEditMode} />
           <AirportConditionsSection />

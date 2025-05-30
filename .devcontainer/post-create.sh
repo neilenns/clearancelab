@@ -26,12 +26,10 @@ echo "⬇️  Installing pnpm packages..."
 
 pnpm --silent add -g turbo@2.5.0
 pnpm --silent add -g @devcontainers/cli
-pnpm --silent add -g wrangler
 pnpm --silent install --frozen-lockfile
 
-### Seed the database
-echo "🌱 Seeding the database..."
-cd ./apps/web && pnpm run db:seed > /dev/null
+### Database setup
+"${SCRIPT_DIR}/seed/init.sh"
 
 ### Aliases
 echo "🪄  Shell magic: creating developer-friendly aliases..."

@@ -65,9 +65,32 @@ The MongoDB VS Code extension is installed automatically and includes a connecti
 
 ### Local development
 
+Default values for local development are set in the [`devcontainer.env`](.devcontainer/devcontainer.env) file:
+
+| Variable                     | Description                                             | Value                    |
+| ---------------------------- | ------------------------------------------------------- | ------------------------ |
+| `MONGO_DB_CONNECTION_STRING` | URI to the local MongoDB instance.                      | `mongodb://db:27017/`    |
+| `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
+| `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
+
 Auth0 is disabled by default. To enable it, create a file called `devcontainer.env.overrides` in the `./devcontainer/` folder and set the `DISABLE_AUTH` variable to `false`. When adding a `devcontainer.env.overrides` file, you must reopen the devcontainer for the changes to take effect.
 
-The web needs several Auth0 variables set to validate secured endpoints. These are only required if you want to test authentication locally (when `DISABLE_AUTH` is set to `false` and `NEXT_PUBLIC_DISABLE_AUTH` is set to `false`). These can be set in the `devcontainer.env.overrides` file or in a `.env.local` file in the `apps/web` folder.
+For Auth0 to work on the API server, the following variables must be set, either via a `.env.local` file in the `apps/api` folder or in the `devcontainer.env.overrides` file:
+
+| Variable         | Description                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `AUTH0_DOMAIN`   | Domain of the Auth0 Clearance Lab application. Copy the value exactly as shown in the AUTH0 dashboard. |
+| `AUTH0_AUDIENCE` | URL for the API created in the Auth0 dashboard.                                                        |
+
+There are additional security-related variables to configure CORS and rate-limiting:
+
+| Variable                       | Description                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| `API_RATE_LIMIT_MAX`           | Maximum number of requests per window. Default 100.                             |
+| `API_RATE_LIMIT_MINUTE_WINDOW` | Time window for rate limiting in minutes. Default 5.                            |
+| `WHITELISTED_DOMAINS`          | List of domains that are allowed via CORS. Separate multiple domains with `\|`. |
+
+The web app also needs several Auth0 variables set to validate secured endpoints. These are only required if you want to test authentication locally (when `DISABLE_AUTH` is set to `false` and `NEXT_PUBLIC_DISABLE_AUTH` is set to `false`). These can be set in the `devcontainer.env.overrides` file or in a `.env.local` file in the `apps/web` folder.
 
 | Variable              | Description                                                                                               |
 | --------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -101,6 +124,8 @@ The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#dep
 
 | Variable              | Description                                                                                                                  | Required |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `API_BASE_URL`        | URI to the API server.                                                                                                       | ✅       |
+| `API_KEY`             | API key for access to the API server.                                                                                        | ✅       |
 | `APP_BASE_URL`        | URI to the web app.                                                                                                          | ✅       |
 | `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                                              | ✅       |
 | `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                                         | ✅       |

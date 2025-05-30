@@ -14,16 +14,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Scenario } from "@/db/scenarios";
+import { ScenarioInput } from "@workspace/validators";
 import { useFormContext, useWatch } from "react-hook-form";
 import { NumberInput } from "../number-input";
 
 export function CraftSection() {
-  const { control } = useFormContext<Scenario>();
+  const { control } = useFormContext<ScenarioInput>();
   const canClear = useWatch({ control, name: "canClear" });
   const departureOnline = useWatch({
     control,
-    name: "airportConditions_departureOnline",
+    name: "airportConditions.departureOnline",
   });
 
   return (
@@ -57,7 +57,7 @@ export function CraftSection() {
             <div>
               <FormField
                 control={control}
-                name="craft_controllerName"
+                name="craft.controllerName"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Controller name</FormLabel>
@@ -65,11 +65,7 @@ export function CraftSection() {
                       The way to say the controller&apos;s name.
                     </FormDescription>
                     <FormControl>
-                      <Input
-                        id="controllerName"
-                        {...field}
-                        value={field.value ?? ""}
-                      />
+                      <Input id="controllerName" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -79,7 +75,7 @@ export function CraftSection() {
             <div>
               <FormField
                 control={control}
-                name="craft_telephony"
+                name="craft.telephony"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Telephony</FormLabel>
@@ -87,11 +83,7 @@ export function CraftSection() {
                       The way to say the flight&apos;s callsign.
                     </FormDescription>
                     <FormControl>
-                      <Input
-                        id="telephony"
-                        {...field}
-                        value={field.value ?? ""}
-                      />
+                      <Input id="telephony" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,7 +93,7 @@ export function CraftSection() {
             <div>
               <FormField
                 control={control}
-                name="craft_clearanceLimit"
+                name="craft.clearanceLimit"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Clearance limit</FormLabel>
@@ -109,11 +101,7 @@ export function CraftSection() {
                       Overrides the destination airport as the clearance limit.
                     </FormDescription>
                     <FormControl>
-                      <Input
-                        id="clearanceLimit"
-                        {...field}
-                        value={field.value ?? ""}
-                      />
+                      <Input id="clearanceLimit" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -123,7 +111,7 @@ export function CraftSection() {
             <div>
               <FormField
                 control={control}
-                name="craft_route"
+                name="craft.route"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Route</FormLabel>
@@ -132,7 +120,7 @@ export function CraftSection() {
                       required.
                     </FormDescription>
                     <FormControl>
-                      <Input id="route" {...field} value={field.value ?? ""} />
+                      <Input id="route" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,7 +130,7 @@ export function CraftSection() {
             <div>
               <FormField
                 control={control}
-                name="craft_altitude"
+                name="craft.altitude"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Altitude</FormLabel>
@@ -150,11 +138,7 @@ export function CraftSection() {
                       Initial climb altitude for the clearance.
                     </FormDescription>
                     <FormControl>
-                      <Input
-                        id="altitude"
-                        {...field}
-                        value={field.value ?? ""}
-                      />
+                      <Input id="altitude" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -164,7 +148,7 @@ export function CraftSection() {
             <div>
               <FormField
                 control={control}
-                name="craft_frequency"
+                name="craft.frequency"
                 disabled={!departureOnline}
                 render={({ field }) => (
                   <FormItem>
@@ -182,7 +166,6 @@ export function CraftSection() {
                         decimalScale={3}
                         aria-label="Departure frequency"
                         {...field}
-                        value={field.value ?? 0}
                       ></NumberInput>
                     </FormControl>
                     <FormMessage />

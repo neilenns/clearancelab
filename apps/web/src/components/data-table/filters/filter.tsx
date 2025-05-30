@@ -1,11 +1,11 @@
 import { BooleanFilter } from "@/components/data-table/filters/boolean-filter";
-import { SummaryScenario } from "@/db/scenarios";
 import { Column } from "@tanstack/react-table";
+import { ScenarioSummary } from "@workspace/validators";
 import { ComboBoxFilter } from "./combo-box-filter";
 import { TextFilter } from "./text-filter";
 
 export interface FilterProperties {
-  column: Column<SummaryScenario, unknown>;
+  column: Column<ScenarioSummary, unknown>;
 }
 
 export function Filter({ column }: FilterProperties) {

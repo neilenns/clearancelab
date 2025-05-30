@@ -1,14 +1,11 @@
 "use server";
 
-import {
-  deleteExplanationsForScenario,
-  insertExplanation,
-} from "@/db/explanations";
-import { updateScenario } from "@/db/scenarios";
+import { putJson } from "@/lib/api";
+import { addOrUpdateScenarioResponseSchema } from "@workspace/validators";
 import type { OnSubmitScenarioState } from "./scenario-utilities";
 import { revalidateAfterSave, transformFormData } from "./scenario-utilities";
 
-export const handleUpdateScenario = async (
+export const updateScenario = async (
   _previous: OnSubmitScenarioState,
   payload: FormData,
 ): Promise<OnSubmitScenarioState> => {
@@ -24,9 +21,7 @@ export const handleUpdateScenario = async (
     };
   }
 
-  const scenarioId = parsed.data.scenario.id;
-
-  if (!scenarioId) {
+  if (!parsed.data._id) {
     return {
       success: false,
       hasSubmitted: true,
@@ -35,31 +30,34 @@ export const handleUpdateScenario = async (
   }
 
   try {
-    // Update the scenario first
-    await updateScenario(parsed.data.scenario);
-
-    // Then delete any explanations that were attached to the scenario
-    await deleteExplanationsForScenario(scenarioId);
-
-    // Then add back in the explanations
-    // Add all the explanations
-    await Promise.all(
-      parsed.data.explanations.map((explanation) =>
-        insertExplanation({
-          ...explanation,
-          id: undefined, // This will get created by the database automatically
-          scenarioId,
-        }),
-      ),
+    const response = await putJson(
+      `/scenarios/${parsed.data._id.toString()}`,
+      parsed.data,
+      { withAuthToken: true },
     );
 
-    revalidateAfterSave(scenarioId);
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => "Unknown error");
+      throw new Error(
+        `Failed to update scenario: ${response.status} ${errorText}`,
+      );
+    }
+
+    const json = await response.json();
+    const parsedResponse = addOrUpdateScenarioResponseSchema.safeParse(json);
+    if (!parsedResponse.success) {
+      throw new Error(
+        `Invalid server response format: ${JSON.stringify(parsedResponse.error)}`,
+      );
+    }
+
+    revalidateAfterSave(parsedResponse.data.data?._id);
 
     return {
       success: true,
       hasSubmitted: true,
       message: "Scenario updated!",
-      id: parsed.data.scenario.id,
+      id: parsedResponse.data.data?._id,
     };
   } catch (error) {
     console.error(error);

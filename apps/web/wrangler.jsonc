@@ -35,13 +35,6 @@
           "database_id": "61eacd5e-ea4e-4100-9d91-8be52a9843de",
           "database_name": "clearancelab-web-dev",
         },
-        {
-          "binding": "CLEARANCELAB_DB",
-          "database_id": "0dc0451d-d419-48e7-b790-03e954ec4136",
-          "database_name": "clearancelab-dev",
-          "migrations_dir": "drizzle/migrations",
-          "migrations_table": "__drizzle_migrations",
-        },
       ],
       "migrations": [
         {
@@ -56,6 +49,7 @@
         },
       ],
       "vars": {
+        "API_BASE_URL": "https://clearancelab-backend-dev.badcasserole.com",
         "AUTH0_DOMAIN": "dev-q5itijfspt3smgyw.us.auth0.com",
         "AUTH0_CLIENT_ID": "gNF8uPUI7CFt7xfZNavjebXgtKnfXM3Z",
         "APP_BASE_URL": "https://clearancelab-dev.badcasserole.com",
@@ -89,13 +83,6 @@
           "database_id": "b85551e9-7a2c-4086-9939-f0f97e902f44",
           "database_name": "clearancelab-web-prod",
         },
-        {
-          "binding": "CLEARANCELAB_DB",
-          "database_id": "4afcd415-9492-4977-97a4-fd7f9218b117",
-          "database_name": "clearancelab-prod",
-          "migrations_dir": "drizzle/migrations",
-          "migrations_table": "__drizzle_migrations",
-        },
       ],
       "migrations": [
         {
@@ -110,6 +97,7 @@
         },
       ],
       "vars": {
+        "API_BASE_URL": "https://clearancelab-backend-prod.badcasserole.com",
         "AUTH0_DOMAIN": "vatsim-edct.us.auth0.com",
         "AUTH0_CLIENT_ID": "HW1L8KjMG1ezy4NXxlAeNheIByjOUXcx",
         "APP_BASE_URL": "https://clearancelab.badcasserole.com",

@@ -1,4 +1,4 @@
-import { Scenario } from "@/db/scenarios";
+import { Scenario } from "@workspace/validators";
 import { CalloutBox } from "../callout-box";
 import { ExplanationItem } from "./explanation-item";
 
@@ -8,8 +8,7 @@ interface ExplanationsProperties {
 
 export function Explanations({ scenario }: ExplanationsProperties) {
   if (!scenario) {
-    // eslint-disable-next-line unicorn/no-null
-    return null;
+    return;
   }
 
   return (
@@ -24,7 +23,7 @@ export function Explanations({ scenario }: ExplanationsProperties) {
         </CalloutBox>
       )}
 
-      <div role="region" className="mt-2" aria-label="Explanation details">
+      <div className="mt-2" aria-label="Explanation details">
         {scenario.explanations.map((explanation, index) => (
           <ExplanationItem
             key={`explanation-${index.toString()}`}

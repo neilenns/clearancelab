@@ -8,13 +8,7 @@ export default function HomePage() {
       <div className="text-center max-w-xl space-y-6">
         <div className="flex justify-center">
           <div className="flex items-center gap-2">
-            <Image
-              src="/logo.svg"
-              alt="Clearance Lab"
-              width={64}
-              height={64}
-              priority
-            />
+            <Image src="/logo.svg" alt="Clearance Lab" width={64} height={64} priority />
             <span className="text-6xl font-semibold">Clearance Lab</span>
           </div>
         </div>

@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: ../..
+      dockerfile: apps/api/Dockerfile
+    command: sh
+    stdin_open: true
+    tty: true
+    environment:
+      MONGO_DB_CONNECTION_STRING: ${MONGO_DB_CONNECTION_STRING}
+      FORCE_COLOR: "1"
+    volumes:
+      - pnpm-store:/pnpm-store
+
+volumes:
+  pnpm-store:
+    name: pnpm-store

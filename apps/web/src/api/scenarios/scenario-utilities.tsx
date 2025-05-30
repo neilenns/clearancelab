@@ -1,13 +1,10 @@
-// prettier-multiline-arrays-set-threshold: 1
-// prettier-multiline-arrays-set-line-pattern: 4
-import { ExplanationInsertModel } from "@/db/explanations";
-import { ScenarioInsertModel, scenarioInsertSchema } from "@/db/scenarios";
-import { explanationsArraySchema } from "@/db/schema";
 import {
+  assertObject,
   convertToBoolean,
   convertToNumber,
   unflatten,
 } from "@workspace/plantools";
+import { Scenario, scenarioSchema } from "@workspace/validators";
 import { revalidatePath } from "next/cache";
 
 export type OnSubmitScenarioState = {
@@ -15,112 +12,92 @@ export type OnSubmitScenarioState = {
   message: string;
   fields?: Record<string, string>;
   errors?: Record<string, string[]>;
-  id?: number;
+  id?: string;
   hasSubmitted: boolean;
 };
 
 export type TransformResult =
-  | {
-      success: true;
-      data: {
-        scenario: ScenarioInsertModel;
-        explanations: ExplanationInsertModel[];
-      };
-    }
+  | { success: true; data: Scenario }
   | {
       success: false;
-      errors?: Record<string, string[]>;
-      fields?: Record<string, string>;
+      errors: Record<string, string[]>;
+      fields: Record<string, string>;
     };
 
 export function transformFormData(payload: FormData): TransformResult {
   if (!(payload instanceof FormData)) {
     return {
       success: false,
-      errors: {
-        payload: [
-          "Invalid payload",
-        ],
-      },
+      errors: { payload: ["Invalid payload"] },
       fields: {},
     };
   }
 
-  const conversionMap = {
-    boolean: [
-      "isValid", "canClear", "airportConditions_departureOnline",
-    ],
-    number: [
-      "id", "plan_alt", "plan_bcn", "plan_cid",
-      "plan_spd", "plan_vatsimId", "airportConditions_altimeter", "craft_frequency",
-    ],
-  };
-
-  // Unflatten the properties. This gets the explanations as a nested array of objects.
   const formData = unflatten(Object.fromEntries(payload));
 
-  // Clean up the properties that need type conversions
-  if (formData.id === "") formData.id = undefined;
+  // Handle the case where formData didn't include these properties For example,
+  // when canClear is false, craft isn't included.
+  formData.airportConditions ??= {};
+  formData.plan ??= {};
+  formData.craft ??= {};
 
-  for (const key of conversionMap.boolean) {
-    if (key in formData) formData[key] = convertToBoolean(formData[key]);
-  }
+  assertObject(formData.airportConditions);
+  assertObject(formData.plan);
+  assertObject(formData.craft);
 
-  for (const key of conversionMap.number) {
-    if (key in formData) formData[key] = convertToNumber(formData[key]);
-  }
+  if (formData._id === "") formData._id = undefined;
 
-  // Validate the data
-  const parsedScenario = scenarioInsertSchema.safeParse(formData);
-
-  if (!parsedScenario.success) {
-    console.log(
-      `Schema validation errors: ${JSON.stringify(parsedScenario.error)}`,
-    );
-
-    return {
-      success: false,
-    };
-  }
-
-  // Now handle the explanations
   const explanationsObject = formData.explanations ?? {};
+  const explanationsArray = Object.values(explanationsObject);
 
-  // Convert properties to numbers for each explanation
-  const explanationsArray = Object.values(explanationsObject).map(
-    (explanation) => ({
-      ...explanation,
-      id: convertToNumber(explanation.id),
-      scenarioId: convertToNumber(explanation.scenarioId),
-      order: convertToNumber(explanation.order),
-    }),
+  formData.isValid = convertToBoolean(formData.isValid);
+  formData.canClear = convertToBoolean(formData.canClear);
+  formData.airportConditions.departureOnline = convertToBoolean(
+    formData.airportConditions.departureOnline,
   );
 
-  const parsedExplanations =
-    explanationsArraySchema.safeParse(explanationsArray);
+  formData.plan.alt = convertToNumber(formData.plan.alt);
+  formData.plan.bcn = convertToNumber(formData.plan.bcn);
+  formData.plan.cid = convertToNumber(formData.plan.cid);
+  formData.plan.spd = convertToNumber(formData.plan.spd);
+  formData.plan.vatsimId = convertToNumber(formData.plan.vatsimId);
+  formData.airportConditions.altimeter = convertToNumber(
+    formData.airportConditions.altimeter,
+  );
+  formData.craft.frequency = convertToNumber(formData.craft.frequency);
 
-  if (!parsedExplanations.success) {
-    console.log(
-      `Schema validation errors: ${JSON.stringify(parsedExplanations.error)}`,
-    );
+  const toParse = {
+    ...formData,
+    explanations: explanationsArray,
+  };
+
+  const parsed = scenarioSchema.safeParse(toParse);
+
+  if (!parsed.success) {
+    const errors = parsed.error.flatten().fieldErrors;
+    const fields: Record<string, string> = {};
+    for (const key of Object.keys(formData)) {
+      fields[key] = JSON.stringify(formData[key]);
+    }
+
+    console.log(`Schema validation errors: ${JSON.stringify(errors)}`);
 
     return {
       success: false,
+      fields,
+      errors,
     };
   }
 
   return {
     success: true,
-    data: {
-      scenario: parsedScenario.data,
-      explanations: parsedExplanations.data,
-    },
+    data: parsed.data,
   };
 }
 
-export function revalidateAfterSave(id?: number) {
+export function revalidateAfterSave(id?: string) {
   if (id) {
-    revalidatePath(`/lab/${id.toString()}`);
+    revalidatePath(`/lab/${id}`);
   }
   revalidatePath("/lab");
   revalidatePath("/admin/scenarios");

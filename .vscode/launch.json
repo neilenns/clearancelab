@@ -2,28 +2,35 @@
   "configurations": [
     {
       "command": "pnpx turbo run dev",
-      "name": "Clearance lab",
+      "name": "Clearance Lab (All)",
       "request": "launch",
       "serverReadyAction": {
         "action": "debugWithEdge",
         "killOnServerStop": true,
         "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s/lab",
+        "uriFormat": "%s/admin/scenarios",
         "webRoot": "${workspaceFolder}/apps/web/src"
       },
       "type": "node-terminal"
     },
     {
-      "command": "pnpm run db:studio",
-      "cwd": "${workspaceFolder}/apps/web",
-      "name": "Drizzle studio",
+      "command": "pnpx turbo run dev --filter web",
+      "internalConsoleOptions": "neverOpen",
+      "name": "Clearance Lab (Web)",
       "request": "launch",
       "serverReadyAction": {
         "action": "debugWithEdge",
         "killOnServerStop": true,
-        "pattern": "running on",
-        "uriFormat": "https://local.drizzle.studio?port=8788&host=localhost"
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "webRoot": "${workspaceFolder}/apps/web/src"
       },
+      "type": "node-terminal"
+    },
+    {
+      "command": "pnpx turbo run dev --filter api",
+      "name": "Clearance Lab (API)",
+      "request": "launch",
       "type": "node-terminal"
     }
   ],

@@ -3,18 +3,18 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { SummaryScenario } from "@/db/scenarios";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { ScenarioSummary } from "@workspace/validators";
 import { useMemo } from "react";
 
-const columnHelper = createColumnHelper<SummaryScenario>();
+const columnHelper = createColumnHelper<ScenarioSummary>();
 
 export function useSidebarColumns() {
-  const columns = useMemo<ColumnDef<SummaryScenario, unknown>[]>(
+  const columns = useMemo<ColumnDef<ScenarioSummary, unknown>[]>(
     () =>
       [
-        columnHelper.accessor("plan_dep", {
-          id: "plan_dep",
+        columnHelper.accessor("plan.dep", {
+          id: "plan.dep",
           header: () => (
             <Tooltip>
               <TooltipTrigger>
@@ -33,8 +33,8 @@ export function useSidebarColumns() {
             filterLabel: "departure",
           },
         }),
-        columnHelper.accessor("plan_dest", {
-          id: "plan_dest",
+        columnHelper.accessor("plan.dest", {
+          id: "plan.dest",
           header: () => (
             <Tooltip>
               <TooltipTrigger>
@@ -53,8 +53,8 @@ export function useSidebarColumns() {
             filterLabel: "arrival",
           },
         }),
-        columnHelper.accessor("plan_aid", {
-          id: "plan_aid",
+        columnHelper.accessor("plan.aid", {
+          id: "plan.aid",
           header: () => (
             <Tooltip>
               <TooltipTrigger>
@@ -72,7 +72,7 @@ export function useSidebarColumns() {
             filterLabel: "callsign",
           },
         }),
-      ] as ColumnDef<SummaryScenario, unknown>[],
+      ] as ColumnDef<ScenarioSummary, unknown>[],
     [],
   );
 

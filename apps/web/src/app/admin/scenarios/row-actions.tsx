@@ -8,14 +8,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
-import { Permissions } from "@/types/permissions";
+import { Permissions } from "@workspace/validators";
 import { Edit, ExternalLinkIcon, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
 type RowActionsProperties = {
-  scenarioId: number;
+  scenarioId?: string;
 };
 
 const permissionsToVerify = [
@@ -29,10 +29,14 @@ export const RowActions = ({ scenarioId }: RowActionsProperties) => {
   const { permissionsStatus } = useCheckPermissions(permissionsToVerify);
 
   const copyLinkHandler = () => {
-    navigator.clipboard.writeText(
-      `${globalThis.location.origin}/lab/${scenarioId.toString()}`,
-    );
-    toast.success("Link copied to clipboard");
+    if (scenarioId) {
+      navigator.clipboard.writeText(
+        `${globalThis.location.origin}/lab/${scenarioId}`,
+      );
+      toast.success("Link copied to clipboard");
+    } else {
+      toast.error("Scenario ID is not available");
+    }
   };
 
   const deleteScenarioHandler = async () => {

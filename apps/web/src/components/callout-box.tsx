@@ -1,5 +1,5 @@
-import { ExplanationLevel } from "@/db/explanations";
 import { cn } from "@/lib/utils";
+import { ExplanationLevel } from "@workspace/validators";
 import { cva, VariantProps } from "class-variance-authority";
 import {
   AlertOctagon,
@@ -29,14 +29,12 @@ const calloutBoxVariants = cva(
   },
 );
 
-// ok is added to enable this to show a success message as well, which isn't a state
-// stored in the database as an explanation level.
-const levelIcons: Record<ExplanationLevel | "ok", React.ElementType> = {
+const levelIcons: Record<ExplanationLevel, React.ElementType> = {
   info: Info,
+  ok: CheckCircle,
   tip: Lightbulb,
   warning: AlertTriangle,
   error: AlertOctagon,
-  ok: CheckCircle,
 } as const;
 
 export function CalloutBox({

@@ -1,1 +1,0 @@
-ALTER TABLE `explanations` ADD `order` integer DEFAULT 0 NOT NULL;

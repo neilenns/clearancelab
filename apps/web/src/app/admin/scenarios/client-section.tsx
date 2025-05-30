@@ -1,11 +1,11 @@
 "use client";
 
-import { SummaryScenarios } from "@/db/scenarios";
+import { ScenarioSummary } from "@workspace/validators";
 import { ScenarioTable } from "../../../components/scenario-table";
 import { useAdminColumns } from "./use-admin-columns";
 
 interface ClientSectionProperties {
-  scenarios: SummaryScenarios;
+  scenarios: ScenarioSummary[];
 }
 
 export default function ClientSection({ scenarios }: ClientSectionProperties) {
