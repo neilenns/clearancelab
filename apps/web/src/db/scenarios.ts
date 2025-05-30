@@ -20,7 +20,7 @@ export const getScenarioStatistics = async () => {
     const isValid = await database
       .select({ name: scenarios.isValid, count: count(scenarios.id) })
       .from(scenarios)
-      .groupBy(scenarios.canClear);
+      .groupBy(scenarios.isValid);
 
     const departures = await database
       .select({ name: scenarios.plan_dep, count: count(scenarios.id) })

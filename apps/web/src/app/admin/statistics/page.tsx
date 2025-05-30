@@ -14,6 +14,14 @@ export default async function Page() {
     return (
       <div>
         <AdminHeader />
+        <main>
+          <div
+            className="flex h-full flex-col items-center justify-center px-4 py-4"
+            aria-label="No statistics available"
+          >
+            <p>No statistics available.</p>
+          </div>
+        </main>
       </div>
     );
   }

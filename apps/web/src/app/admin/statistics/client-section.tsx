@@ -8,17 +8,6 @@ interface ClientSectionProperties {
 }
 
 export default function ClientSection({ statistics }: ClientSectionProperties) {
-  if (!statistics) {
-    return (
-      <div
-        className="flex h-full flex-col items-center justify-center px-4 py-4"
-        aria-label="No statistics available"
-      >
-        <p>No statistics available.</p>
-      </div>
-    );
-  }
-
   return (
     <div
       className="flex flex-wrap gap-2"
