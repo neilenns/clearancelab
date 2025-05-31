@@ -39,7 +39,7 @@ const scenario: Scenario = {
     eq: "X",
     homeAirport: "KPDX",
     pilotName: "Dakota",
-    rte: "LAVAA7 YKM DCT YXC DCT MIREK/N0448F360 Q995 OILRS OILRS2",
+    rte: "LAVAA7 YKM YXC MIREK/N0448F360 Q995 OILRS OILRS2",
     rmk: "RALT/KSFO PHTO SIMBRIEF/FIRST IFR FLIGHT/ VERY NEW TO VATSIM",
     spd: 200,
     typ: "A320",
