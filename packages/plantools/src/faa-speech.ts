@@ -77,7 +77,6 @@ export function spellFrequency(freq: string | number): string {
         .join(" ")
     : "";
 
-  console.log(`Right: "${right}"`);
   return right ? `${leftPart} point ${rightPart}` : leftPart;
 }
 
