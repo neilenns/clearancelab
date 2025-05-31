@@ -26,6 +26,7 @@ echo "⬇️  Installing pnpm packages..."
 
 pnpm --silent add -g turbo@2.5.0
 pnpm --silent add -g @devcontainers/cli
+pnpm --silent add -g wrangler
 pnpm --silent install --frozen-lockfile
 
 ### Database setup
