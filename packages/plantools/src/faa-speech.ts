@@ -68,10 +68,10 @@ export function spellFrequency(freq: string | number): string {
     .map((d: string) => digitWords[Number(d)])
     .join(" ");
 
-  // Handle case when there's no decimal point
+  // Handle case when there's no decimal portion
   const rightPart = right
     ? [
-        ...right.replace(/0+$/, ""),
+        ...(right.replace(/0+$/, "") || "0"), // This handles the case of numbers like 126.000, where at least one zero needs to get left for proper telephony.
       ]
         .map((d: string) => digitWords[Number(d)])
         .join(" ")
