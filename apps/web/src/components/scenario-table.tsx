@@ -187,7 +187,9 @@ export function ScenarioTable({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  className={cn({ "bg-muted": row.getIsSelected() })}
+                  className={cn("cursor-pointer", {
+                    "bg-muted": row.getIsSelected(),
+                  })}
                   onClick={() => {
                     handleRowClick(row);
                   }}
