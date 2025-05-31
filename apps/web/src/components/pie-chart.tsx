@@ -1,14 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 import { Statistic } from "@workspace/validators";
+import {
+  ArcElement,
+  ChartData,
+  Chart as ChartJS,
+  PieController,
+  Tooltip,
+  type InteractionItem,
+} from "chart.js";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
-import { Pie, PieChart as RePieChart } from "recharts";
+import { useMemo, useRef, type MouseEvent } from "react";
+import { Chart, getElementAtEvent } from "react-chartjs-2";
 
 export interface PieChartProperties {
   chartData: Statistic[];
@@ -17,69 +19,30 @@ export interface PieChartProperties {
   isBoolean?: boolean; // Add this line
 }
 
-type AdditionalMetadata = {
-  fill: string;
-  url: string;
-};
+ChartJS.register(ArcElement, PieController, Tooltip);
 
-type PieClickData<Statistic> = {
-  payload: Statistic & AdditionalMetadata;
-};
-
-const palette = [
-  "color-mix(in oklab, var(--primary) 100%, white 0%)",
-  "color-mix(in oklab, var(--primary) 88%, white 12%)",
-  "color-mix(in oklab, var(--primary) 76%, white 24%)",
-  "color-mix(in oklab, var(--primary) 64%, white 36%)",
-  "color-mix(in oklab, var(--primary) 52%, white 48%)",
-  "color-mix(in oklab, var(--primary) 40%, white 60%)",
-  "color-mix(in oklab, var(--primary) 28%, white 72%)",
-  "color-mix(in oklab, var(--primary) 16%, white 84%)",
-  "color-mix(in oklab, var(--primary) 8%, white 92%)",
-  "color-mix(in oklab, var(--primary) 4%, white 96%)",
+const GreenGold20 = [
+  "#146c36",
+  "#1c713b",
+  "#257740",
+  "#2d7d45",
+  "#34844a",
+  "#3a8a4d",
+  "#40914f",
+  "#479751",
+  "#4f9e53",
+  "#5aa355",
+  "#67a956",
+  "#76af56",
+  "#84b457",
+  "#93b958",
+  "#a3bd5a",
+  "#b2c25b",
+  "#c3c55d",
+  "#d3c95f",
+  "#e3cd62",
+  "#f4d166",
 ];
-
-function addMetadataToData(
-  data: Statistic[],
-  palette: string[],
-  baseUrl: string,
-  isBoolean: boolean = false,
-): (Statistic & AdditionalMetadata)[] {
-  return data.map((entry, index) => {
-    // This is really gross but I don't know a better way to do this. Some of the stats back are really boolean
-    // values and the data table needs a proper true or false, not quoted, to work since the query strings are JSON-encoded.
-    const filterValue = isBoolean
-      ? entry.item === "Yes"
-      : `%22${entry.item}%22`;
-
-    return {
-      ...entry,
-      fill: palette[index % palette.length],
-      // This assumes the base url is to the admin scenario data table page, and the parameter
-      // needs to be in quotes to make it look like JSON.
-      url: `${baseUrl}${filterValue}`,
-    };
-  });
-}
-
-function getChartConfig(
-  chartData: Statistic[],
-  palette: string[],
-): ChartConfig {
-  const config: ChartConfig = {};
-
-  for (const [index, data] of chartData.entries()) {
-    config[data.item] = {
-      label: data.item,
-      theme: {
-        light: palette[index % palette.length],
-        dark: palette[index % palette.length],
-      },
-    };
-  }
-
-  return config;
-}
 
 export default function PieChart({
   chartData,
@@ -88,51 +51,67 @@ export default function PieChart({
   isBoolean = false,
 }: PieChartProperties) {
   const router = useRouter();
+  const chartReference = useRef<ChartJS>(null);
 
-  const colorizedData = useMemo(() => {
-    return addMetadataToData(chartData ?? [], palette, baseUrl, isBoolean);
-  }, [baseUrl, chartData, isBoolean]);
+  const data = useMemo(() => {
+    const data: ChartData<"pie", number[], string> = {
+      labels: chartData.map((element) => element.item),
+      datasets: [
+        {
+          data: chartData.map((element) => element.count),
+          borderWidth: 1,
+          backgroundColor: GreenGold20,
+          borderColor: GreenGold20,
+        },
+      ],
+    };
 
-  const chartConfig = useMemo(() => {
-    return getChartConfig(chartData, palette);
+    return data;
   }, [chartData]);
 
-  // Click handler for pie wedges
-  const handlePieClick = useCallback(
-    (data: PieClickData<Statistic>) => {
-      if (data?.payload) {
-        router.push(data.payload.url);
-      }
-    },
-    [router],
-  );
+  const printElementAtEvent = (element: InteractionItem[]) => {
+    if (element.length === 0) return;
+
+    const { index } = element[0];
+    const item = data.labels?.[index];
+
+    const filterValue = isBoolean ? item === "Yes" : `%22${item}%22`;
+
+    router.push(`${baseUrl}${filterValue}`);
+  };
+
+  const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
+    const { current: chart } = chartReference;
+
+    if (!chart) {
+      return;
+    }
+
+    printElementAtEvent(getElementAtEvent(chart, event));
+  };
 
   return (
     <Card className="flex flex-col gap-2">
       <CardHeader className="items-center pb-0">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 pb-0 ">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto w-64 h-64 aspect-square max-h-[250px]"
+      <CardContent className="flex-1 pb-0 mx-auto w-64 h-64 aspect-square max-h-[250px]">
+        <Chart
+          type="pie"
+          datasetIdKey={title}
           aria-hidden="false"
           role="figure"
-          aria-label={`${title} pie chart`}
-        >
-          <RePieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Pie
-              data={colorizedData}
-              dataKey="count"
-              nameKey="item"
-              onClick={handlePieClick}
-            />
-          </RePieChart>
-        </ChartContainer>
+          data={data}
+          ref={chartReference}
+          onClick={onClick}
+          options={{
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+          }}
+        />
       </CardContent>
     </Card>
   );
