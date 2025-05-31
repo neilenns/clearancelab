@@ -4,6 +4,7 @@ import {
   ArcElement,
   ChartData,
   Chart as ChartJS,
+  PieController,
   Tooltip,
   type InteractionItem,
 } from "chart.js";
@@ -18,7 +19,7 @@ export interface PieChartProperties {
   isBoolean?: boolean; // Add this line
 }
 
-ChartJS.register(ArcElement, Tooltip);
+ChartJS.register(ArcElement, PieController, Tooltip);
 
 const GreenGold20 = [
   "#146c36",
