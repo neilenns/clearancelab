@@ -35,13 +35,13 @@ export const formatAirportName = (name?: string) => {
 
 /**
  * Returns the formatted clearance limit for a flight. This is either the destination airport name or the
- * clearance limit from the craft object.
+ * clearance limit from the craft object, with the limit from the craft object taking priority.
  * @param scenario The scenario object containing information about the flight
  * @returns The formatted clearance limit for the flight
  */
 export const getFormattedClearanceLimit = (scenario: Scenario) => {
   const { destAirportInfo, craft } = scenario;
-  const clearanceLimit = destAirportInfo?.name ?? craft?.clearanceLimit;
+  const clearanceLimit = craft?.clearanceLimit ?? destAirportInfo?.name;
 
   return formatAirportName(clearanceLimit);
 };

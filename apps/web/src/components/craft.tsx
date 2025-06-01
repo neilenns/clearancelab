@@ -12,20 +12,14 @@ interface CraftProperties {
 }
 
 export function Craft({ scenario }: CraftProperties) {
-  const { destAirportInfo, craft } = scenario;
-  const clearanceLimit = destAirportInfo?.name ?? craft?.clearanceLimit;
+  const { craft } = scenario;
 
   return (
     <section role="region" aria-label="Clearance information">
       <p className="space-x-1">
         <span key="telephony">{getTelephony(scenario)}, </span>
         <span>{scenario.craft?.controllerName}. </span>
-        {clearanceLimit && (
-          <>
-            <span>Cleared to</span>
-            <span>{getFormattedClearanceLimit(scenario)}</span>
-          </>
-        )}
+        <span>Cleared to {getFormattedClearanceLimit(scenario)}</span>
         {craft?.route && <span>via the {craft.route}.</span>}
         {craft?.altitude && <span>{capitalizeFirst(craft.altitude)}.</span>}
         <span>Departure {getFormattedDepartureFrequency(scenario)}.</span>
