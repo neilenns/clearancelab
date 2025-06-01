@@ -109,9 +109,16 @@ export function Answer({ scenario, className }: AnswerProperties) {
                     <Chat messages={messages} />
                     {scenario.hasAudio && scenario.audioUrl && (
                       <div className="flex justify-center">
-                        <audio controls className="w-half pt-2">
+                        <audio
+                          controls
+                          className="w-1/2 pt-2"
+                          aria-label="Play scenario audio"
+                          aria-describedby="audio-description"
+                        >
                           <source src={scenario.audioUrl} type="audio/mpeg" />
-                          Your browser does not support the audio element.
+                          <p id="audio-description">
+                            + Browser does not support audio playback.
+                          </p>
                         </audio>
                       </div>
                     )}
