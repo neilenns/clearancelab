@@ -104,7 +104,26 @@ export function Answer({ scenario, className }: AnswerProperties) {
             >
               <div id="answer-content" className="px-2 py-2 gap-0">
                 <Explanations scenario={scenario} />
-                {canClear && <Chat messages={messages} />}
+                {canClear && (
+                  <div>
+                    <Chat messages={messages} />
+                    {scenario.hasAudio && scenario.audioUrl && (
+                      <div className="flex justify-center">
+                        <audio
+                          controls
+                          className="w-1/2 pt-2"
+                          aria-label="Play scenario audio"
+                          aria-describedby="audio-description"
+                        >
+                          <source src={scenario.audioUrl} type="audio/mpeg" />
+                          <p id="audio-description">
+                            + Browser does not support audio playback.
+                          </p>
+                        </audio>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
               <CardFooter className="flex justify-center">
                 <Link

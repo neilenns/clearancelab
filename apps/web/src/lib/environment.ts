@@ -21,6 +21,7 @@ const environmentSchema = z
         }
         return value;
       }),
+    AUDIO_BASE_URL: z.string().url(),
     AUTH0_AUDIENCE: auth0url.optional(), // Optional, but should be a valid URL
     AUTH0_CLIENT_SECRET: z.string().optional(),
     AUTH0_CLIENT_ID: z.string().optional(),

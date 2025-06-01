@@ -106,6 +106,7 @@ export function getRandomScenario(): Scenario {
       typ: "",
       vatsimId: getRandomVatsimId(),
     },
+    hasAudio: false,
     isValid: true,
     canClear: true,
     craft: {

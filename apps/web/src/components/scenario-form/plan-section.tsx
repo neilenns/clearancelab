@@ -373,7 +373,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-2 items-start mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-2 items-start mb-4">
           <div>
             <FormField
               control={control}
@@ -402,6 +402,25 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
                   <FormLabel>Can clear?</FormLabel>
                   <FormDescription>
                     Can the flight plan be cleared, even with errors?
+                  </FormDescription>
+                  <FormControl>
+                    <ReactFormSwitch field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div>
+            <FormField
+              control={control}
+              name="hasAudio"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Has audio?</FormLabel>
+                  <FormDescription>
+                    Is there an audio file uploaded for this scenario?
                   </FormDescription>
                   <FormControl>
                     <ReactFormSwitch field={field} />

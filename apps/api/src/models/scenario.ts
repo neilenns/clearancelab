@@ -18,6 +18,7 @@ export interface Scenario {
   craft?: Craft;
   depAirportInfo?: AirportInfoData;
   destAirportInfo?: AirportInfoData;
+  hasAudio?: boolean;
   isValid: boolean;
   plan: Plan;
   explanations: Explanation[];
@@ -50,6 +51,7 @@ const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
     airportConditions: { type: AirportConditionsSchema, required: true },
     canClear: { type: Boolean, default: true },
     craft: CraftSchema,
+    hasAudio: { type: Boolean, default: false },
     isValid: { type: Boolean, default: true },
     plan: PlanSchema,
     explanations: {
