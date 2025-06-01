@@ -50,11 +50,11 @@
     },
     "canClear": true,
     "craft": {
-      "altitude": "Climb via SID except maintain 7000",
+      "altitude": "Climb via SID except maintain seven thousand",
       "controllerName": "Portland Ground",
       "frequency": 124.35,
       "route": "CASCD4 departure, then as filed",
-      "telephony": "Alaska 17"
+      "telephony": "Alaska seventeen"
     },
     "explanations": [],
     "isValid": true,
@@ -85,11 +85,11 @@
     },
     "canClear": true,
     "craft": {
-      "altitude": "Climb via SID except maintain 7000",
+      "altitude": "Climb via SID except maintain seven thousand",
       "controllerName": "Portland Ground",
       "frequency": 124.35,
       "route": "LAVAA7 departure, Yakima transition, then as filed",
-      "telephony": "Alaska 223"
+      "telephony": "Alaska two twenty-three"
     },
     "explanations": [],
     "hasAudio": true,
@@ -121,10 +121,10 @@
     },
     "canClear": true,
     "craft": {
-      "altitude": "Climb via SID except maintain 7000",
+      "altitude": "Climb via SID except maintain seven thousand",
       "controllerName": "Portland Ground",
       "route": "WHAMY5 departure, then as filed",
-      "telephony": "N357JK Heavy"
+      "telephony": "November three fife seven juliet kilo heavy"
     },
     "explanations": [],
     "isValid": true,
@@ -155,11 +155,11 @@
     },
     "canClear": true,
     "craft": {
-      "altitude": "Climb via SID except maintain 6000",
+      "altitude": "Climb via SID except maintain six thousand",
       "controllerName": "Portland Ground",
       "frequency": 124.35,
       "route": "PTLD2 departure, then as filed",
-      "telephony": "Alaska 498"
+      "telephony": "Alaska four ninety-eight"
     },
     "explanations": [],
     "isValid": true,
@@ -202,6 +202,7 @@
         "level": "warning"
       }
     ],
+    "hasAudio": true,
     "isValid": false,
     "plan": {
       "aid": "FFT1522",
@@ -238,7 +239,7 @@
       "_id": {
         "$oid": "68151a4081bc2aa747584c6d"
       },
-      "altitude": "climb via SID except maintain 9,000",
+      "altitude": "climb via SID except maintain nine thousand",
       "clearanceLimit": "",
       "route": "BANGR9, ARRIE transition, then as filed."
     },

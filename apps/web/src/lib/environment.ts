@@ -33,6 +33,10 @@ const environmentSchema = z
     DISABLE_AUTH: z
       .preprocess((value) => value === "true" || value === "1", z.boolean())
       .default(false),
+    SAMPLE_SCENARIO_ID: z
+      .string()
+      .optional()
+      .default("6802cf0fcd28e1a43a89e8db"), // ASA223
   })
   .superRefine((environment, context) => {
     if (environment.DISABLE_AUTH && environment.NODE_ENV === "production") {
