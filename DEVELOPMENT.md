@@ -127,6 +127,7 @@ The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#dep
 | `API_BASE_URL`        | URI to the API server.                                                                                                       | ✅       |
 | `API_KEY`             | API key for access to the API server.                                                                                        | ✅       |
 | `APP_BASE_URL`        | URI to the web app.                                                                                                          | ✅       |
+| `AUDIO_BASE_URL`      | URI for the R2 bucket that hosts the audio files.                                                                            | ✅       |
 | `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                                              | ✅       |
 | `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                                         | ✅       |
 | `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                                                | ✅       |

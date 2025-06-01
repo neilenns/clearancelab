@@ -1,6 +1,7 @@
 "use server";
 
 import { getJson } from "@/lib/api";
+import { ENV } from "@/lib/environment";
 import { fetchScenariosResponseSchema, Scenario } from "@workspace/validators";
 
 export interface fetchScenariosByIdsOptions {
@@ -58,6 +59,14 @@ export const fetchScenariosByIds = async (
         batchIds.includes(scenario._id ?? ""),
       );
 
+      for (const scenario of validScenarios) {
+        if (scenario.hasAudio) {
+          scenario.audioUrl = new URL(
+            `${scenario._id!}.mp3`, // This is guaranteed to be set when it's a result from the database.
+            ENV.AUDIO_BASE_URL,
+          ).toString();
+        }
+      }
       results.push(...validScenarios);
     } catch (error) {
       console.error(`Error fetching batch of scenarios:`, error);

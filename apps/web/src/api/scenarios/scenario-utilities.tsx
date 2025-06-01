@@ -52,6 +52,7 @@ export function transformFormData(payload: FormData): TransformResult {
 
   formData.isValid = convertToBoolean(formData.isValid);
   formData.canClear = convertToBoolean(formData.canClear);
+  formData.hasAudio = convertToBoolean(formData.hasAudio);
   formData.airportConditions.departureOnline = convertToBoolean(
     formData.airportConditions.departureOnline,
   );

@@ -29,6 +29,7 @@ const scenario: Scenario = {
     },
   ],
   isValid: true,
+  hasAudio: false,
   plan: {
     aid: "ASA223",
     alt: 350,
