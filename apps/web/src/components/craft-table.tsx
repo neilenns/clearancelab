@@ -26,42 +26,48 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
     <div className={cn("flex flex-col items-center", className)}>
       <p className="font-bold">CRAFT</p>
 
-      <Table aria-label="CRAFT components">
-        <TableBody>
-          <TableRow key="telephony">
-            <TableCell></TableCell>
-            <TableCell className="font-bold">
-              {getTelephony(scenario)}
-            </TableCell>
-          </TableRow>
-          <TableRow key="C">
-            <TableCell>C</TableCell>
-            <TableCell>
-              Cleared to {getFormattedClearanceLimit(scenario)}
-            </TableCell>
-          </TableRow>
-          <TableRow key="R">
-            <TableCell>R</TableCell>
-            <TableCell>via the {craft.route}.</TableCell>
-          </TableRow>
-          <TableRow key="A">
-            <TableCell>A</TableCell>
-            <TableCell>{capitalizeFirst(craft.altitude ?? "")}.</TableCell>
-          </TableRow>
-          <TableRow key="F">
-            <TableCell>F</TableCell>
-            <TableCell>
-              Departure {getFormattedDepartureFrequency(scenario)}.
-            </TableCell>
-          </TableRow>
-          <TableRow key="T">
-            <TableCell>T</TableCell>
-            <TableCell>
-              Squawk {spellSquawk(scenario.plan.bcn?.toString() ?? "")}.
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <div className="w-full max-w-2xl">
+        <Table aria-label="CRAFT components">
+          <TableBody>
+            <TableRow key="telephony">
+              <TableCell></TableCell>
+              <TableCell className="font-bold">
+                {getTelephony(scenario)}
+              </TableCell>
+            </TableRow>
+            <TableRow key="C">
+              <TableCell>C</TableCell>
+              <TableCell className="whitespace-normal">
+                Cleared to {getFormattedClearanceLimit(scenario)}
+              </TableCell>
+            </TableRow>
+            <TableRow key="R">
+              <TableCell>R</TableCell>
+              <TableCell className="whitespace-normal">
+                via the {craft.route}.
+              </TableCell>
+            </TableRow>
+            <TableRow key="A">
+              <TableCell>A</TableCell>
+              <TableCell className="whitespace-normal">
+                {capitalizeFirst(craft.altitude ?? "")}.
+              </TableCell>
+            </TableRow>
+            <TableRow key="F">
+              <TableCell>F</TableCell>
+              <TableCell className="whitespace-normal">
+                Departure {getFormattedDepartureFrequency(scenario)}.
+              </TableCell>
+            </TableRow>
+            <TableRow key="T">
+              <TableCell>T</TableCell>
+              <TableCell className="whitespace-normal">
+                Squawk {spellSquawk(scenario.plan.bcn?.toString() ?? "")}.
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
