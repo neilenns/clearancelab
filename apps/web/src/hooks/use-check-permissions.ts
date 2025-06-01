@@ -64,7 +64,7 @@ export function useCheckPermissions(
   }
 
   // Original hook logic for when auth is enabled or in production
-  const { user, error: userError, isLoading: userIsLoading } = useUser();
+  const { user, isLoading: userIsLoading } = useUser();
 
   // Memoize initial status creation to prevent re-running if permissionsToVerify reference changes unnecessarily
   const initialStatus = useMemo(() => {
@@ -82,30 +82,11 @@ export function useCheckPermissions(
   // isLoading state for this hook, distinct from useUser's isLoading,
   // but driven by it.
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
-    console.log("useCheckPermissions effect triggered");
-    // This effect only runs if isAuthDisabled is false (due to the early return above)
     if (userIsLoading) {
       setIsLoading(true);
-      setError(undefined);
       // Reset to initial state based on current permissionsArray
-      setPermissionsStatus(
-        permissionsArray.reduce(
-          (acc, permission) => {
-            acc[permission] = false;
-            return acc;
-          },
-          {} as Record<Permissions, boolean>,
-        ),
-      );
-      return;
-    }
-
-    if (userError) {
-      setIsLoading(false);
-      setError(userError);
       setPermissionsStatus(
         permissionsArray.reduce(
           (acc, permission) => {
@@ -120,7 +101,6 @@ export function useCheckPermissions(
 
     // User data is loaded and no error from useUser
     setIsLoading(false);
-    setError(undefined);
 
     if (user) {
       // Use direct user.permissions as indicated
@@ -146,7 +126,7 @@ export function useCheckPermissions(
         ),
       );
     }
-  }, [user, userError, userIsLoading, permissionsArray]);
+  }, [user, userIsLoading, permissionsArray]);
 
-  return { permissionsStatus, isLoading, error };
+  return { permissionsStatus, isLoading };
 }
