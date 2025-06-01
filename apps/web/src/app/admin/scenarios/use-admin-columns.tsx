@@ -65,9 +65,9 @@ export function useAdminColumns() {
             filterLabel: "is valid",
           },
         }),
-        columnHelper.accessor("canClear", {
-          id: "canClear",
-          header: () => <span aria-label="Can clear column">Can clear</span>,
+        columnHelper.accessor("hasAudio", {
+          id: "hasAudio",
+          header: () => <span aria-label="Has audio column">Has audio</span>,
           cell: (info) => (
             <div className="flex justify-center items-center">
               <YesNoIcon value={info.getValue()} />
@@ -77,7 +77,7 @@ export function useAdminColumns() {
             filterVariant: "boolean",
             columnHeaderJustification: "justify-center",
             width: "w-[120px]",
-            filterLabel: "can clear",
+            filterLabel: "Has audio",
           },
         }),
         columnHelper.display({

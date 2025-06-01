@@ -18,7 +18,7 @@ export interface Scenario {
   craft?: Craft;
   depAirportInfo?: AirportInfoData;
   destAirportInfo?: AirportInfoData;
-  hasAudio?: boolean;
+  hasAudio: boolean;
   isValid: boolean;
   plan: Plan;
   explanations: Explanation[];
@@ -29,6 +29,7 @@ export interface ScenarioSummary {
   _id: Types.ObjectId;
   isValid: boolean;
   canClear: boolean;
+  hasAudio: boolean;
   plan: {
     dep?: string;
     dest?: string;
@@ -160,7 +161,7 @@ ScenarioSchema.statics.findSummary = async function (
         : {};
 
     const results = await this.find(query)
-      .select("isValid canClear plan.dep plan.dest plan.aid plan.rte")
+      .select("isValid canClear hasAudio plan.dep plan.dest plan.aid plan.rte")
       .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
       .lean()
       .exec();

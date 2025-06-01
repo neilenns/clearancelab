@@ -11,6 +11,7 @@ export const planStatisticsSchema = z.object({
   destinations: z.array(statisticSchema),
   canClear: z.array(statisticSchema),
   isValid: z.array(statisticSchema),
+  hasAudio: z.array(statisticSchema),
 });
 
 export const planStatisticsSuccessSchema = z.object({
@@ -31,6 +32,7 @@ export interface PlanStatistics {
   destinations: Statistic[];
   canClear: Statistic[];
   isValid: Statistic[];
+  hasAudio: Statistic[];
 }
 export type PlanStatisticsResponse = z.infer<
   typeof planStatisticsResponseSchema
