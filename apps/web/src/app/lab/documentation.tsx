@@ -1,76 +1,15 @@
 "use client";
 
-import { Answer } from "@/components/answer";
+import { AnswerWithAudio } from "@/components/answer-with-audio";
 import FPE from "@/components/fpe/fpe";
-import { FlowDirection, Scenario } from "@workspace/validators";
-import { Info } from "lucide-react";
+import { Scenario } from "@workspace/validators";
 
-// cspell:disable
-const scenario: Scenario = {
-  airportConditions: {
-    altimeter: 29.9,
-    departureOnline: true,
-    flow: FlowDirection.WEST,
-  },
-  canClear: true,
-  craft: {
-    altitude: "Climb via SID except maintain 7000",
-    controllerName: "Portland Ground",
-    frequency: 124.35,
-    route: "LAVAA7 departure, Yakima transition, then as filed",
-    telephony: "Alaska 223",
-  },
-  explanations: [
-    {
-      description:
-        "Change the suffix to 'L' in the flight plan then clear the pilot as usual.",
-      headline: "The equipment suffix 'X' is not appropriate for the A320.",
-      level: "warning",
-    },
-  ],
-  isValid: true,
-  hasAudio: false,
-  plan: {
-    aid: "ASA223",
-    alt: 350,
-    bcn: 2000,
-    cid: 585,
-    dep: "KPDX",
-    dest: "CYEG",
-    eq: "X",
-    homeAirport: "KPDX",
-    pilotName: "Dakota",
-    rte: "LAVAA7 YKM YXC MIREK/N0448F360 Q995 OILRS OILRS2",
-    rmk: "RALT/KSFO PHTO SIMBRIEF/FIRST IFR FLIGHT/ VERY NEW TO VATSIM",
-    spd: 200,
-    typ: "A320",
-    vatsimId: 1_400_467,
-  },
-  depAirportInfo: {
-    airportCode: "KPDX",
-    city: "Portland",
-    countryCode: "US",
-    iataCode: "PDX",
-    icaoCode: "KPDX",
-    latitude: 45.588_709,
-    longitude: -122.596_869,
-    name: "Portland International",
-    state: "Oregon",
-    timezone: "America/Los_Angeles",
-  },
-  destAirportInfo: {
-    airportCode: "CYEG",
-    countryCode: "CA",
-    iataCode: "YEG",
-    icaoCode: "CYEG",
-    name: "Edmonton International",
-    state: "Alberta",
-    timezone: "America/Edmonton",
-  },
-};
 // cspell:enable
+export interface DocumentationProperties {
+  sampleScenario?: Scenario;
+}
 
-export function Documentation() {
+export function Documentation({ sampleScenario }: DocumentationProperties) {
   return (
     <section
       aria-labelledby="documentation-title"
@@ -111,11 +50,15 @@ export function Documentation() {
         You can make edits to the values in the fields, just like in CRC, to
         practice fixing mistakes you identify when reviewing the plan.
       </p>
-      <p>
-        Try viewing the route on SkyVector and fixing the incorrect equipment
-        suffix in the following plan:
-      </p>
-      <FPE scenario={scenario} />
+      {sampleScenario && (
+        <>
+          <p>
+            Try viewing the route on SkyVector and fixing the incorrect
+            equipment suffix in the following plan:
+          </p>
+          <FPE scenario={sampleScenario} />
+        </>
+      )}
       <h2>Answers</h2>
       <p>
         The scenario answer is revealed by clicking the <code>Show answer</code>{" "}
@@ -131,18 +74,19 @@ export function Documentation() {
       <p>
         Each answer explains any issues with the flight plan, and whether the
         clearance can be issued. If the clearance can be issued, the answer
-        includes an example conversation with the pilot demonstrating the
-        correct clearance phrasing. To view each component of the CRAFT
-        clearance use the{" "}
-        <span className="inline-block align-text-bottom">
-          <Info className="w-4 h-4" aria-label="Additional information" />
-        </span>{" "}
-        button next to the clearance.
+        includes audio of the conversation with the pilot demonstrating the
+        correct clearance phrasing. The CRAFT components will be outlined below
+        the audio.
       </p>
-      <p>
-        Try revealing the answer to the scenario for flight plan shown above:
-      </p>
-      <Answer scenario={scenario} className="mt-4" />
+      {sampleScenario && (
+        <>
+          <p>
+            Try revealing the answer to the scenario for flight plan shown
+            above:
+          </p>
+          <AnswerWithAudio scenario={sampleScenario} className="mt-4" />
+        </>
+      )}
     </section>
   );
 }
