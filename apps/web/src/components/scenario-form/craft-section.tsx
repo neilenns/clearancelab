@@ -65,7 +65,11 @@ export function CraftSection() {
                       The way to say the controller&apos;s name.
                     </FormDescription>
                     <FormControl>
-                      <Input id="controllerName" {...field} />
+                      <Input
+                        id="controllerName"
+                        {...field}
+                        value={field.value ?? ""}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -83,7 +87,11 @@ export function CraftSection() {
                       The way to say the flight&apos;s callsign.
                     </FormDescription>
                     <FormControl>
-                      <Input id="telephony" {...field} />
+                      <Input
+                        id="telephony"
+                        {...field}
+                        value={field.value ?? ""}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,7 +109,11 @@ export function CraftSection() {
                       Overrides the destination airport as the clearance limit.
                     </FormDescription>
                     <FormControl>
-                      <Input id="clearanceLimit" {...field} />
+                      <Input
+                        id="clearanceLimit"
+                        {...field}
+                        value={field.value ?? ""}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -120,7 +132,7 @@ export function CraftSection() {
                       required.
                     </FormDescription>
                     <FormControl>
-                      <Input id="route" {...field} />
+                      <Input id="route" {...field} value={field.value ?? ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -138,7 +150,11 @@ export function CraftSection() {
                       Initial climb altitude for the clearance.
                     </FormDescription>
                     <FormControl>
-                      <Input id="altitude" {...field} />
+                      <Input
+                        id="altitude"
+                        {...field}
+                        value={field.value ?? ""}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
