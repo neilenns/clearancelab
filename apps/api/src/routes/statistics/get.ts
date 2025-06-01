@@ -54,6 +54,23 @@ router.get("/", verifyApiKey, async (request: Request, response: Response) => {
     { $sort: { item: 1 } },
   ]);
 
+  const hasAudio = await ScenarioModel.aggregate<Statistic>([
+    {
+      $group: {
+        _id: {
+          $cond: [
+            { $eq: ["$hasAudio", true] },
+            "Yes",
+            "No",
+          ],
+        },
+        count: { $sum: 1 },
+      },
+    },
+    { $project: { _id: 0, item: "$_id", count: "$count" } },
+    { $sort: { item: 1 } },
+  ]);
+
   const responseData: PlanStatisticsResponse = {
     success: true,
     data: {
@@ -61,6 +78,7 @@ router.get("/", verifyApiKey, async (request: Request, response: Response) => {
       destinations,
       canClear,
       isValid,
+      hasAudio,
     },
   };
 

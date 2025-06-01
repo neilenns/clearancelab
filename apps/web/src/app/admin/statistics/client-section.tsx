@@ -36,15 +36,21 @@ export default function ClientSection({ statistics }: ClientSectionProperties) {
           baseUrl="/admin/scenarios?columnFilters.plan.dest="
         />
         <PieChart
+          chartData={statistics.isValid}
+          title="Is Valid"
+          baseUrl="/admin/scenarios?columnFilters.isValid="
+          isBoolean={true}
+        />
+        <PieChart
           chartData={statistics.canClear}
           title="Can clear"
           baseUrl="/admin/scenarios?columnFilters.canClear="
           isBoolean={true}
         />
         <PieChart
-          chartData={statistics.isValid}
-          title="Is Valid"
-          baseUrl="/admin/scenarios?columnFilters.isValid="
+          chartData={statistics.hasAudio}
+          title="Has audio"
+          baseUrl="/admin/scenarios?columnFilters.hasAudio="
           isBoolean={true}
         />
       </div>
