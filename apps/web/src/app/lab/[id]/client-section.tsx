@@ -2,6 +2,7 @@
 
 import { incrementViews } from "@/api/scenarios/increment-views";
 import { Answer } from "@/components/answer";
+import { AnswerWithAudio } from "@/components/answer-with-audio";
 import FPE from "@/components/fpe/fpe";
 import { LabHeader } from "@/components/lab-header";
 import { Scenario } from "@workspace/validators";
@@ -23,7 +24,11 @@ export default function ClientSection({ scenario }: ClientSectionProperties) {
       <LabHeader scenario={scenario} />
       <div className="p-4">
         <FPE scenario={scenario} />
-        <Answer scenario={scenario} />
+        {scenario.hasAudio ? (
+          <AnswerWithAudio scenario={scenario} />
+        ) : (
+          <Answer scenario={scenario} />
+        )}
       </div>
     </main>
   );

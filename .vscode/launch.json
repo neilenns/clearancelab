@@ -8,7 +8,7 @@
         "action": "debugWithEdge",
         "killOnServerStop": true,
         "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s/admin/scenarios",
+        "uriFormat": "%s/lab/6802cf0fcd28e1a43a89e8db",
         "webRoot": "${workspaceFolder}/apps/web/src"
       },
       "type": "node-terminal"
