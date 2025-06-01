@@ -92,6 +92,7 @@
       "telephony": "Alaska 223"
     },
     "explanations": [],
+    "hasAudio": true,
     "isValid": true,
     "plan": {
       "aid": "ASA223",

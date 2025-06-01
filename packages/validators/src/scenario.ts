@@ -10,12 +10,14 @@ export const scenarioSchema = z.object({
   _id: z.string().optional(),
   isValid: z.boolean().default(true),
   canClear: z.boolean().default(true),
+  hasAudio: z.boolean().default(false),
   airportConditions: AirportConditionsSchema,
   craft: CraftSchema.optional(),
   depAirportInfo: AirportInfoSchema.optional().nullable(),
   destAirportInfo: AirportInfoSchema.optional().nullable(),
   plan: PlanSchema,
   explanations: z.array(ExplanationSchema).default([]),
+  audioUrl: z.string().url().optional(),
 });
 
 export const scenarioListSuccessSchema = z.object({
