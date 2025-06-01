@@ -19,7 +19,7 @@ export function Audio({ scenario, className }: AudioProperties) {
         aria-describedby="audio-description"
       >
         <source src={scenario.audioUrl} type="audio/mpeg" />
-        <p id="audio-description">+ Browser does not support audio playback.</p>
+        <p id="audio-description">Browser does not support audio playback.</p>
       </audio>
     </div>
   );

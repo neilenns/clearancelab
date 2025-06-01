@@ -4,6 +4,7 @@ import {
   capitalizeFirst,
   getFormattedClearanceLimit,
   getFormattedDepartureFrequency,
+  getTelephony,
   spellSquawk,
 } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
@@ -16,12 +17,23 @@ interface CraftTableProperties {
 export function CraftTable({ scenario, className }: CraftTableProperties) {
   const { craft } = scenario;
 
+  if (!craft) {
+    // eslint-disable-next-line unicorn/no-null
+    return null;
+  }
+
   return (
     <div className={cn("flex flex-col items-center", className)}>
       <p className="font-bold">CRAFT</p>
 
       <Table aria-label="CRAFT components">
         <TableBody>
+          <TableRow key="telephony">
+            <TableCell></TableCell>
+            <TableCell className="font-bold">
+              {getTelephony(scenario)}
+            </TableCell>
+          </TableRow>
           <TableRow key="C">
             <TableCell>C</TableCell>
             <TableCell>
@@ -30,11 +42,11 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
           </TableRow>
           <TableRow key="R">
             <TableCell>R</TableCell>
-            <TableCell>via the {craft?.route}.</TableCell>
+            <TableCell>via the {craft.route}.</TableCell>
           </TableRow>
           <TableRow key="A">
             <TableCell>A</TableCell>
-            <TableCell>{capitalizeFirst(craft?.altitude ?? "")}.</TableCell>
+            <TableCell>{capitalizeFirst(craft.altitude ?? "")}.</TableCell>
           </TableRow>
           <TableRow key="F">
             <TableCell>F</TableCell>
