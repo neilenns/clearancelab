@@ -43,27 +43,22 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
             </TableRow>
             <TableRow key="C">
               <TableCell>C</TableCell>
-              {hasClearanceLimit && (
-                <TableCell className="whitespace-normal">
-                  Cleared to {getFormattedClearanceLimit(scenario)}
-                </TableCell>
-              )}
+              <TableCell className="whitespace-normal">
+                {hasClearanceLimit &&
+                  `Cleared to ${getFormattedClearanceLimit(scenario)}`}
+              </TableCell>
             </TableRow>
             <TableRow key="R">
               <TableCell>R</TableCell>
-              {hasRoute && (
-                <TableCell className="whitespace-normal">
-                  via the {craft.route}.
-                </TableCell>
-              )}
+              <TableCell className="whitespace-normal">
+                {hasRoute && `via the ${craft.route}.`}
+              </TableCell>
             </TableRow>
             <TableRow key="A">
               <TableCell>A</TableCell>
-              {hasAltitude && (
-                <TableCell className="whitespace-normal">
-                  {capitalizeFirst(craft.altitude ?? "")}.
-                </TableCell>
-              )}
+              <TableCell className="whitespace-normal">
+                {hasAltitude && `${capitalizeFirst(craft.altitude ?? "")}.`}
+              </TableCell>
             </TableRow>
             <TableRow key="F">
               <TableCell>F</TableCell>
