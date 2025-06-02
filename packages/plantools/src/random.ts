@@ -39,6 +39,22 @@ const airportCodes = [
 Object.freeze(airportCodes);
 // cSpell:enable
 
+// prettier-ignore
+const externalBeaconRanges: [number, number][] = [
+    [3501, 3577], 
+    [6601, 6677], 
+    [1501, 1577],
+    [1601, 1677],
+  ];
+
+// prettier-ignore
+const internalBeaconRanges: [number, number][] = [
+    [4601, 4677], 
+    [4701, 4777], 
+    [5101, 5177],
+    [5201, 5277],
+  ];
+
 /**
  * Generates a random integer between the specified min and max values, inclusive.
  * @param min The minimum value.
@@ -93,7 +109,7 @@ export function getRandomScenario(): Scenario {
     plan: {
       aid: getRandomCallsign(),
       alt: 0,
-      bcn: getRandomBcn(),
+      bcn: getRandomExternalBcn(),
       cid: getRandomCid(),
       dep: "",
       dest: "",
@@ -134,20 +150,28 @@ export function getRandomName(): string {
 }
 
 /**
- * Generates a random beacon from the range of valid beacons in ZSE.
+ * Generates a random beacon from the range of valid beacons in ZSE for flights departing ZSE airspace.
  * @returns A random beacon
  */
-export function getRandomBcn(): number {
-  // These are the ZSE ranges.
-  // prettier-ignore
-  const ranges: [number, number][] = [
-    [ 650,  677], 
-    [2236, 2277], 
-    [3430, 3477],
-    [7412, 7477],
-  ];
+export function getRandomExternalBcn(): number {
+  const selectedRange =
+    externalBeaconRanges[
+      Math.floor(Math.random() * externalBeaconRanges.length)
+    ];
+  const value = getRandomInt(selectedRange[0], selectedRange[1]);
 
-  const selectedRange = ranges[Math.floor(Math.random() * ranges.length)];
+  return value;
+}
+
+/**
+ * Generates a random beacon from the range of valid beacons in ZSE for flights departing ZSE airspace.
+ * @returns A random beacon
+ */
+export function getRandomInternalBcn(): number {
+  const selectedRange =
+    internalBeaconRanges[
+      Math.floor(Math.random() * internalBeaconRanges.length)
+    ];
   const value = getRandomInt(selectedRange[0], selectedRange[1]);
 
   return value;
