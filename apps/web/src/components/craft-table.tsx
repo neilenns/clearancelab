@@ -22,6 +22,12 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
     return null;
   }
 
+  // Check for special values that indicate these portions of CRAFT should have empty values
+  // displayed.
+  const hasClearanceLimit = craft.clearanceLimit !== "none";
+  const hasRoute = craft.route !== "none";
+  const hasAltitude = craft.altitude !== "none";
+
   return (
     <div className={cn("flex flex-col items-center", className)}>
       <p className="font-bold">CRAFT</p>
@@ -37,21 +43,27 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
             </TableRow>
             <TableRow key="C">
               <TableCell>C</TableCell>
-              <TableCell className="whitespace-normal">
-                Cleared to {getFormattedClearanceLimit(scenario)}
-              </TableCell>
+              {hasClearanceLimit && (
+                <TableCell className="whitespace-normal">
+                  Cleared to {getFormattedClearanceLimit(scenario)}
+                </TableCell>
+              )}
             </TableRow>
             <TableRow key="R">
               <TableCell>R</TableCell>
-              <TableCell className="whitespace-normal">
-                via the {craft.route}.
-              </TableCell>
+              {hasRoute && (
+                <TableCell className="whitespace-normal">
+                  via the {craft.route}.
+                </TableCell>
+              )}
             </TableRow>
             <TableRow key="A">
               <TableCell>A</TableCell>
-              <TableCell className="whitespace-normal">
-                {capitalizeFirst(craft.altitude ?? "")}.
-              </TableCell>
+              {hasAltitude && (
+                <TableCell className="whitespace-normal">
+                  {capitalizeFirst(craft.altitude ?? "")}.
+                </TableCell>
+              )}
             </TableRow>
             <TableRow key="F">
               <TableCell>F</TableCell>
