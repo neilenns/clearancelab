@@ -27,6 +27,20 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
   const hasClearanceLimit = craft.clearanceLimit !== "none";
   const hasRoute = craft.route !== "none";
   const hasAltitude = craft.altitude !== "none";
+  const hasSquawk = scenario.plan.bcn;
+  const hasDeparture =
+    scenario.airportConditions.departureOnline && craft.frequency !== 0;
+
+  if (
+    !hasAltitude &&
+    !hasClearanceLimit &&
+    !hasDeparture &&
+    !hasRoute &&
+    !hasSquawk
+  ) {
+    // eslint-disable-next-line unicorn/no-null
+    return null;
+  }
 
   return (
     <div className={cn("flex flex-col items-center", className)}>
@@ -63,13 +77,15 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
             <TableRow key="F">
               <TableCell>F</TableCell>
               <TableCell className="whitespace-normal">
-                Departure {getFormattedDepartureFrequency(scenario)}.
+                {hasDeparture &&
+                  `Departure ${getFormattedDepartureFrequency(scenario)}.`}
               </TableCell>
             </TableRow>
             <TableRow key="T">
               <TableCell>T</TableCell>
               <TableCell className="whitespace-normal">
-                Squawk {spellSquawk(scenario.plan.bcn?.toString() ?? "")}.
+                {hasSquawk &&
+                  `Squawk ${spellSquawk(scenario.plan.bcn?.toString() ?? "")}.`}
               </TableCell>
             </TableRow>
           </TableBody>
