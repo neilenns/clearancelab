@@ -41,7 +41,12 @@ export const formatAirportName = (name?: string) => {
  */
 export const getFormattedClearanceLimit = (scenario: Scenario) => {
   const { destAirportInfo, craft } = scenario;
-  const clearanceLimit = craft?.clearanceLimit ?? destAirportInfo?.name;
+  const trimmedLimit = craft?.clearanceLimit?.trim();
+
+  const clearanceLimit =
+    trimmedLimit && trimmedLimit.length > 0
+      ? trimmedLimit
+      : destAirportInfo?.name;
 
   return formatAirportName(clearanceLimit);
 };
