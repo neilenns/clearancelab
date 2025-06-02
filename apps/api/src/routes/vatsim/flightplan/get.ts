@@ -3,8 +3,8 @@ import { AirlineModel } from "@models/airlines.js";
 import { VatsimFlightPlanModel } from "@models/vatsim-flight-plan.js";
 import {
   convertToNumber,
-  getRandomBcn,
   getRandomCid,
+  getRandomExternalBcn,
   getRandomName,
   getRandomVatsimId,
   getWeightClass,
@@ -75,7 +75,7 @@ router.get(
         plan: {
           aid: flightPlan.callsign,
           alt: flightPlan.cruiseAltitude,
-          bcn: convertToNumber(flightPlan.squawk) ?? getRandomBcn(),
+          bcn: convertToNumber(flightPlan.squawk) ?? getRandomExternalBcn(),
           cid: getRandomCid(),
           dep: flightPlan.departure,
           dest: flightPlan.arrival,
@@ -96,6 +96,7 @@ router.get(
         },
         isValid: false,
         canClear: false,
+        hasAudio: false,
         explanations: [],
       };
 

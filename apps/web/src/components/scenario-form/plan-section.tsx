@@ -17,10 +17,16 @@ import { Input } from "@/components/ui/input";
 import { ReactFormSwitch } from "@/components/ui/react-form-switch";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   getRandomAirportCode,
-  getRandomBcn,
   getRandomCallsign,
   getRandomCid,
+  getRandomExternalBcn,
+  getRandomInternalBcn,
   getRandomName,
   getRandomVatsimId,
 } from "@workspace/plantools";
@@ -216,18 +222,32 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel>
                   BCN
-                  <button
-                    type="button"
-                    aria-label="Generate random beacon"
-                    tabIndex={-1}
-                    aria-hidden="false"
-                    onClick={() => {
-                      const random = getRandomBcn();
-                      field.onChange(random.toString().padStart(4, "0"));
-                    }}
-                  >
-                    <RefreshCwIcon width={14} height={14} />
-                  </button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        aria-label="Generate random beacon"
+                        tabIndex={-1}
+                        aria-hidden="false"
+                        onClick={(event) => {
+                          const random = event.shiftKey
+                            ? getRandomInternalBcn()
+                            : getRandomExternalBcn();
+                          field.onChange(random.toString().padStart(4, "0"));
+                        }}
+                      >
+                        <RefreshCwIcon width={14} height={14} />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <>
+                        Generates a random beacon for external flights.
+                        <br />
+                        Shift+click to generate a random beacon for internal
+                        flights.
+                      </>
+                    </TooltipContent>
+                  </Tooltip>
                 </FormLabel>
                 <FormControl>
                   <Input
