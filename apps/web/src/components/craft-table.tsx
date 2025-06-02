@@ -5,6 +5,7 @@ import {
   getFormattedClearanceLimit,
   getFormattedDepartureFrequency,
   getTelephony,
+  spellSquawk,
 } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 
@@ -84,7 +85,7 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
               <TableCell>T</TableCell>
               <TableCell className="whitespace-normal">
                 {hasSquawk &&
-                  `Squawk {spellSquawk(scenario.plan.bcn?.toString() ?? "")}.`}
+                  `Squawk ${spellSquawk(scenario.plan.bcn?.toString() ?? "")}.`}
               </TableCell>
             </TableRow>
           </TableBody>
