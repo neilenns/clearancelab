@@ -9,7 +9,6 @@ import { corsOptions, setWhitelist } from "./lib/cors.js";
 import { ENV } from "./lib/environment.js";
 import { logger } from "./lib/logger.js";
 import applyMiddleware from "./middleware/index.js";
-import { rateLimiter } from "./middleware/rate-limit.js";
 import healthRoutes from "./routes/health/index.js";
 import addRoutes from "./routes/index.js";
 
@@ -73,7 +72,6 @@ function startHealthServer() {
 
     // Security
     app.use(cors(corsOptions));
-    app.use(rateLimiter);
 
     healthApp.use("/health", healthRoutes);
 
@@ -100,7 +98,6 @@ async function startServer() {
 
     // Security
     app.use(cors(corsOptions));
-    app.use(rateLimiter);
 
     // Middleware and routes
     applyMiddleware(app);
