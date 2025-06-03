@@ -2,18 +2,11 @@ import { ENV } from "@lib/environment.js";
 import { logger } from "@lib/logger.js";
 import { ApiKeyModel } from "@models/api-key.js";
 import { type NextFunction, type Request, type Response } from "express";
-import rateLimit from "express-rate-limit";
 
 const log = logger.child({ service: "apikey" });
 
-const apiKeyLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: { error: "Too many attempts, please try again later" },
-});
-
 // Verifies that a valid api key was provided in the web request.
-export const verifyApiKeyRaw = async function (
+export const verifyApiKey = async function (
   request: Request,
   response: Response,
   next: NextFunction,
@@ -54,5 +47,3 @@ export const verifyApiKeyRaw = async function (
 
   next();
 };
-
-export const verifyApiKey = [apiKeyLimiter, verifyApiKeyRaw];

@@ -8,8 +8,6 @@ config({
 
 const environmentSchema = z
   .object({
-    API_RATE_LIMIT_MAX: z.coerce.number().default(120),
-    API_RATE_LIMIT_MINUTE_WINDOW: z.coerce.number().default(1),
     AUTH0_AUDIENCE: auth0url.optional(), // Optional, but should be a valid URL
     AUTH0_DOMAIN: auth0url.optional(), // Optional, but should be a valid URL
     DISABLE_AUTH: z
