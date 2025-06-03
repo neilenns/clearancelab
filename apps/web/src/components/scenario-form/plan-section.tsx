@@ -287,7 +287,7 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
               <FormItem>
                 <FormLabel htmlFor="eq">EQ</FormLabel>
                 <FormControl>
-                  <Input id="eq" placeholder="L" {...field} />
+                  <Input id="eq" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
