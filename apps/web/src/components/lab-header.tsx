@@ -66,7 +66,8 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
       aria-label={`Lab scenario page header`}
     >
       <div className="flex items-center gap-2">
-        {scenario.plan.dep} - {scenario.plan.dest} ({scenario.plan.aid})
+        {scenario.plan.dep} - {scenario.plan.dest} ({scenario.plan.aid}){" "}
+        {scenario.isDraft ? "DRAFT" : ""}
         <Button
           type="button"
           variant="ghost"

@@ -20,7 +20,6 @@ import { NumberInput } from "../number-input";
 
 export function CraftSection() {
   const { control } = useFormContext<ScenarioInput>();
-  const canClear = useWatch({ control, name: "canClear" });
   const departureOnline = useWatch({
     control,
     name: "airportConditions.departureOnline",
@@ -31,22 +30,12 @@ export function CraftSection() {
       <CardHeader>
         <CardTitle>CRAFT details</CardTitle>
         <CardDescription>
-          {canClear ? (
-            <span>
-              Provides custom values for the CRAFT clearance when shown to the
-              student.
-            </span>
-          ) : (
-            <span>
-              To provide CRAFT details, turn on the flight plan{" "}
-              <b>Can clear?</b> option.
-            </span>
-          )}
+          Provides custom values for the CRAFT clearance when shown to the
+          student.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <fieldset
-          disabled={!canClear}
           className="space-y-4"
           aria-describedby="craft-section-description"
         >

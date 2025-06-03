@@ -95,7 +95,7 @@ router.get(
           telephony,
         },
         isValid: false,
-        canClear: false,
+        isDraft: false,
         hasAudio: false,
         explanations: [],
       };

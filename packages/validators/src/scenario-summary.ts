@@ -5,7 +5,7 @@ import { genericErrorResponseSchema } from "./error-response";
 export const scenarioSummarySchema = z.object({
   _id: z.string(),
   isValid: z.boolean(),
-  canClear: z.boolean(),
+  isDraft: z.boolean(),
   hasAudio: z.boolean(),
   plan: z.object({
     dep: z.string().optional(),

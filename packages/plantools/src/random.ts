@@ -124,7 +124,7 @@ export function getRandomScenario(): Scenario {
     },
     hasAudio: false,
     isValid: true,
-    canClear: true,
+    isDraft: true,
     craft: {
       clearanceLimit: "",
       route: "",

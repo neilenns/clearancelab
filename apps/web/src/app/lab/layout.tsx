@@ -38,7 +38,7 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const result = await fetchScenariosSummary();
+  const result = await fetchScenariosSummary({ includeDrafts: false });
   const scenarios = result.success ? result.data : [];
 
   return (

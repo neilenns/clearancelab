@@ -42,12 +42,6 @@ export default function ClientSection({ statistics }: ClientSectionProperties) {
           isBoolean={true}
         />
         <PieChart
-          chartData={statistics.canClear}
-          title="Can clear"
-          baseUrl="/admin/scenarios?columnFilters.canClear="
-          isBoolean={true}
-        />
-        <PieChart
           chartData={statistics.hasAudio}
           title="Has audio"
           baseUrl="/admin/scenarios?columnFilters.hasAudio="

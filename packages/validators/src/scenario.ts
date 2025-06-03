@@ -9,7 +9,7 @@ import { PlanSchema } from "./plan.js";
 export const scenarioSchema = z.object({
   _id: z.string().optional(),
   isValid: z.boolean().default(true),
-  canClear: z.boolean().default(true),
+  isDraft: z.boolean().default(true),
   hasAudio: z.boolean().default(false),
   airportConditions: AirportConditionsSchema,
   craft: CraftSchema.optional(),

@@ -21,7 +21,7 @@ export async function generateMetadata({
   }
   const scenario = scenarios[0];
 
-  const title = `${scenario.plan.aid} | Clearance Lab`;
+  const title = `${scenario.plan.aid}${scenario.isDraft ? " (DRAFT)" : ""} | Clearance Lab`;
   const description = `Practice flight plan for ${scenario.plan.aid}.`;
   const basePath = `/lab/${id}`;
   const url = new URL(basePath, ENV.APP_BASE_URL);

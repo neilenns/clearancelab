@@ -47,9 +47,7 @@ export function AnswerWithAudio({
               <div id="answer-content" className="px-2 py-2 gap-0">
                 <Explanations scenario={scenario} />
                 <Audio className="mt-4" scenario={scenario} />
-                {scenario.canClear && (
-                  <CraftTable className="mt-4" scenario={scenario} />
-                )}
+                <CraftTable className="mt-4" scenario={scenario} />
               </div>
               <CardFooter className="flex justify-center">
                 <Link

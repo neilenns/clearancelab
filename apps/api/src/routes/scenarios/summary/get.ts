@@ -12,7 +12,7 @@ type QueryParameters = Request<
   unknown,
   unknown,
   unknown,
-  { id?: string | string[] }
+  { id?: string | string[]; includeDrafts?: boolean }
 >;
 
 router.get(
@@ -21,9 +21,11 @@ router.get(
   async (request: QueryParameters, response: Response) => {
     const ids = request.query.id;
     const idList = Array.isArray(ids) ? ids : ids ? [ids] : [];
+    const includeDrafts =
+      request.query.includeDrafts?.toString().toLowerCase() === "true";
 
     try {
-      const scenarios = await ScenarioModel.findSummary(idList);
+      const scenarios = await ScenarioModel.findSummary(idList, includeDrafts);
 
       const scenarioResponse: ScenarioSummaryResponse = {
         success: true,
