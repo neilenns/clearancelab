@@ -416,12 +416,12 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
           <div>
             <FormField
               control={control}
-              name="canClear"
+              name="hasAudio"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Can clear?</FormLabel>
+                  <FormLabel>Has audio?</FormLabel>
                   <FormDescription>
-                    Can the flight plan be cleared, even with errors?
+                    Is there an audio file uploaded for this scenario?
                   </FormDescription>
                   <FormControl>
                     <ReactFormSwitch field={field} />
@@ -435,13 +435,11 @@ export function PlanSection({ isEditMode }: PlanSectionProperties) {
           <div>
             <FormField
               control={control}
-              name="hasAudio"
+              name="isDraft"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Has audio?</FormLabel>
-                  <FormDescription>
-                    Is there an audio file uploaded for this scenario?
-                  </FormDescription>
+                  <FormLabel>Draft?</FormLabel>
+                  <FormDescription>Is the scenario a draft?</FormDescription>
                   <FormControl>
                     <ReactFormSwitch field={field} />
                   </FormControl>

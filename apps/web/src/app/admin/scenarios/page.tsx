@@ -6,7 +6,7 @@ import ClientSection from "./client-section";
 import Loading from "./loading";
 
 export default async function Page() {
-  const result = await fetchScenariosSummary();
+  const result = await fetchScenariosSummary({ includeDrafts: true });
   const scenarios = result.success ? result.data : [];
 
   return (

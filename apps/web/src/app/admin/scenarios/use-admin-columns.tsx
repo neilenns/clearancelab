@@ -52,7 +52,7 @@ export function useAdminColumns() {
         }),
         columnHelper.accessor("isValid", {
           id: "isValid",
-          header: () => <span aria-label="Is valid column">Is valid</span>,
+          header: () => <span aria-label="Is valid column">Valid</span>,
           cell: (info) => (
             <div className="flex justify-center items-center">
               <YesNoIcon value={info.getValue()} />
@@ -65,9 +65,9 @@ export function useAdminColumns() {
             filterLabel: "is valid",
           },
         }),
-        columnHelper.accessor("hasAudio", {
-          id: "hasAudio",
-          header: () => <span aria-label="Has audio column">Has audio</span>,
+        columnHelper.accessor("isDraft", {
+          id: "isDraft",
+          header: () => <span aria-label="Is draft column">Draft</span>,
           cell: (info) => (
             <div className="flex justify-center items-center">
               <YesNoIcon value={info.getValue()} />
@@ -77,7 +77,7 @@ export function useAdminColumns() {
             filterVariant: "boolean",
             columnHeaderJustification: "justify-center",
             width: "w-[120px]",
-            filterLabel: "Has audio",
+            filterLabel: "Draft",
           },
         }),
         columnHelper.display({

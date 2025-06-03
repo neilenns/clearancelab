@@ -9,9 +9,7 @@ interface AudioProperties {
 export function Audio({ scenario, className }: AudioProperties) {
   return (
     <div className={cn("flex flex-col items-center", className)}>
-      <p className="font-bold">
-        Listen to the {scenario.canClear ? "clearance" : "conversation"}
-      </p>
+      <p className="font-bold">Listen to the conversation</p>
       <audio
         controls
         className="w-1/2 pt-2"

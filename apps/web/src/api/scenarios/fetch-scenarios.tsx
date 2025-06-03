@@ -7,6 +7,10 @@ import {
   GenericErrorResponse,
 } from "@workspace/validators";
 
+interface FetchScenarioOptions {
+  includeDrafts: boolean;
+}
+
 /**
  * Fetches scenarios based on the provided options.
  * @returns An array of fetched scenarios.
@@ -32,8 +36,10 @@ export const fetchScenarios = async () => {
  * Fetches the summary of scenarios.
  * @returns An array of scenarios summary.
  */
-export const fetchScenariosSummary = async () => {
-  const response = await getJson(`/scenarios/summary`);
+export const fetchScenariosSummary = async (options: FetchScenarioOptions) => {
+  const response = await getJson(
+    `/scenarios/summary?includeDrafts=${options.includeDrafts}`,
+  );
 
   if (!response.ok) {
     throw new Error("Failed to fetch scenario summaries.");

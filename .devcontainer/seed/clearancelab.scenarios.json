@@ -8,7 +8,6 @@
       "departureOnline": false,
       "flow": "WEST"
     },
-    "canClear": true,
     "craft": {
       "altitude": "Climb via SID except maintain 7000",
       "controllerName": "Portland Ground",
@@ -23,6 +22,7 @@
       }
     ],
     "hasAudio": false,
+    "isDraft": true,
     "isValid": false,
     "plan": {
       "aid": "ASA1160",
@@ -49,7 +49,6 @@
       "departureOnline": true,
       "flow": "WEST"
     },
-    "canClear": true,
     "craft": {
       "altitude": "Climb via SID except maintain seven thousand",
       "controllerName": "Portland Ground",
@@ -59,6 +58,7 @@
     },
     "explanations": [],
     "hasAudio": false,
+    "isDraft": false,
     "isValid": true,
     "plan": {
       "aid": "ASA17",
@@ -85,7 +85,6 @@
       "departureOnline": true,
       "flow": "WEST"
     },
-    "canClear": true,
     "craft": {
       "altitude": "Climb via SID except maintain seven thousand",
       "controllerName": "Portland Ground",
@@ -95,6 +94,7 @@
     },
     "explanations": [],
     "hasAudio": true,
+    "isDraft": false,
     "isValid": true,
     "plan": {
       "aid": "ASA223",
@@ -121,7 +121,6 @@
       "departureOnline": false,
       "flow": "EAST"
     },
-    "canClear": true,
     "craft": {
       "altitude": "Climb via SID except maintain seven thousand",
       "controllerName": "Portland Ground",
@@ -130,6 +129,7 @@
     },
     "explanations": [],
     "hasAudio": false,
+    "isDraft": false,
     "isValid": true,
     "plan": {
       "aid": "N357JK",
@@ -156,7 +156,6 @@
       "departureOnline": true,
       "flow": "EAST"
     },
-    "canClear": true,
     "craft": {
       "altitude": "Climb via SID except maintain six thousand",
       "controllerName": "Portland Ground",
@@ -166,6 +165,7 @@
     },
     "explanations": [],
     "hasAudio": false,
+    "isDraft": false,
     "isValid": true,
     "plan": {
       "aid": "ASA498",
@@ -196,7 +196,6 @@
       "departureOnline": false,
       "flow": "EAST"
     },
-    "canClear": true,
     "craft": {
       "_id": {
         "$oid": "683c8d090ac49c2264b1fbd3"
@@ -226,6 +225,7 @@
       }
     ],
     "hasAudio": true,
+    "isDraft": false,
     "isValid": false,
     "plan": {
       "_id": {
@@ -264,7 +264,6 @@
       "departureOnline": false,
       "flow": "NORTH"
     },
-    "canClear": true,
     "craft": {
       "_id": {
         "$oid": "68151a4081bc2aa747584c6d"
@@ -278,6 +277,7 @@
     },
     "explanations": [],
     "hasAudio": false,
+    "isDraft": false,
     "isValid": true,
     "plan": {
       "_id": {

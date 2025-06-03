@@ -1,5 +1,12 @@
 import { logger } from "@lib/logger.js";
-import { Model, Schema, Types, isValidObjectId, model } from "mongoose";
+import {
+  FilterQuery,
+  Model,
+  Schema,
+  Types,
+  isValidObjectId,
+  model,
+} from "mongoose";
 import {
   AirportConditions,
   AirportConditionsSchema,
@@ -14,7 +21,7 @@ import { Plan, PlanSchema } from "./plan.js";
 export interface Scenario {
   _id: Types.ObjectId;
   airportConditions: AirportConditions;
-  canClear: boolean;
+  isDraft: boolean;
   craft?: Craft;
   depAirportInfo?: AirportInfoData;
   destAirportInfo?: AirportInfoData;
@@ -28,7 +35,7 @@ export interface Scenario {
 export interface ScenarioSummary {
   _id: Types.ObjectId;
   isValid: boolean;
-  canClear: boolean;
+  isDraft: boolean;
   hasAudio: boolean;
   plan: {
     dep?: string;
@@ -42,7 +49,10 @@ export interface ScenarioSummary {
 export interface ScenarioModelType extends Model<Scenario> {
   findScenarioById(id: string): Promise<Scenario | null>;
   findScenarios(scenarioIds: string[]): Promise<Scenario[]>;
-  findSummary(scenarioIds: string[]): Promise<ScenarioSummary[]>;
+  findSummary(
+    scenarioIds: string[],
+    includeDrafts: boolean,
+  ): Promise<ScenarioSummary[]>;
   incrementViews(scenarioId: string): Promise<void>;
 }
 
@@ -50,7 +60,7 @@ export interface ScenarioModelType extends Model<Scenario> {
 const ScenarioSchema = new Schema<Scenario, ScenarioModelType>(
   {
     airportConditions: { type: AirportConditionsSchema, required: true },
-    canClear: { type: Boolean, default: true },
+    isDraft: { type: Boolean, default: true },
     craft: CraftSchema,
     hasAudio: { type: Boolean, default: false },
     isValid: { type: Boolean, default: true },
@@ -149,19 +159,23 @@ ScenarioSchema.statics.findScenarios = async function (
 
 ScenarioSchema.statics.findSummary = async function (
   scenarioIds: string[],
+  includeDrafts: boolean,
 ): Promise<ScenarioSummary[]> {
   try {
-    const query =
-      scenarioIds.length > 0
-        ? {
-            _id: {
-              $in: scenarioIds.filter((id) => isValidObjectId(id)),
-            },
-          }
-        : {};
+    const query: FilterQuery<ScenarioSummary> = {};
+
+    if (scenarioIds.length > 0) {
+      query._id = {
+        $in: scenarioIds.filter((id) => isValidObjectId(id)),
+      };
+    }
+
+    if (!includeDrafts) {
+      query.isDraft = false;
+    }
 
     const results = await this.find(query)
-      .select("isValid canClear hasAudio plan.dep plan.dest plan.aid plan.rte")
+      .select("isValid isDraft hasAudio plan.dep plan.dest plan.aid plan.rte")
       .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
       .lean()
       .exec();
