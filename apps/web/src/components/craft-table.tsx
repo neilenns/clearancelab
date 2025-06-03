@@ -28,13 +28,23 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
   const hasRoute = craft.route !== "none";
   const hasAltitude = craft.altitude !== "none";
   const hasSquawk = scenario.plan.bcn;
-  const hasDeparture =
-    scenario.airportConditions.departureOnline && craft.frequency !== 0;
+
+  let departureString: string;
+
+  // This is a giant mess because I'm overloading departureOnline being true and craft.frequency being 0 to mean
+  // don't show anything at all.
+  if (!scenario.airportConditions.departureOnline) {
+    departureString = "Departure offline.";
+  } else if (craft.frequency === 0) {
+    departureString = "";
+  } else {
+    departureString = `Departure ${getFormattedDepartureFrequency(scenario)}.`;
+  }
 
   if (
     !hasAltitude &&
     !hasClearanceLimit &&
-    !hasDeparture &&
+    departureString === "" &&
     !hasRoute &&
     !hasSquawk
   ) {
@@ -77,8 +87,7 @@ export function CraftTable({ scenario, className }: CraftTableProperties) {
             <TableRow key="F">
               <TableCell>F</TableCell>
               <TableCell className="whitespace-normal">
-                {hasDeparture &&
-                  `Departure ${getFormattedDepartureFrequency(scenario)}.`}
+                {departureString}
               </TableCell>
             </TableRow>
             <TableRow key="T">
