@@ -48,7 +48,9 @@ export function Documentation({ sampleScenario }: DocumentationProperties) {
       </p>
       <p>
         You can make edits to the values in the fields, just like in CRC, to
-        practice fixing mistakes you identify when reviewing the plan.
+        practice fixing mistakes you identify when reviewing the plan. You can
+        then compare your fixes to the issues shown in the answers section to
+        see if you noticed all the necessary changes.
       </p>
       {sampleScenario && (
         <>
@@ -72,11 +74,11 @@ export function Documentation({ sampleScenario }: DocumentationProperties) {
         key.
       </p>
       <p>
-        Each answer explains any issues with the flight plan, and whether the
-        clearance can be issued. If the clearance can be issued, the answer
-        includes audio of the conversation with the pilot demonstrating the
-        correct clearance phrasing. The CRAFT components will be outlined below
-        the audio.
+        Each answer explains any issues with the original flight plan. The
+        answer also includes audio of the conversation with the pilot
+        demonstrating the correct clearance phrasing, or conversation with the
+        pilot if there are issues to resolve. The CRAFT components will be
+        outlined below the audio.
       </p>
       {sampleScenario && (
         <>
