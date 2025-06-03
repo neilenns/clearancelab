@@ -34,12 +34,14 @@ export const fetchScenarios = async () => {
 
 /**
  * Fetches the summary of scenarios.
+ * @param options - Configuration options for the query
  * @returns An array of scenarios summary.
  */
 export const fetchScenariosSummary = async (options: FetchScenarioOptions) => {
-  const response = await getJson(
-    `/scenarios/summary?includeDrafts=${options.includeDrafts}`,
-  );
+  const searchParameters = new URLSearchParams({
+    includeDrafts: options.includeDrafts.toString(),
+  });
+  const response = await getJson(`/scenarios/summary?${searchParameters}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch scenario summaries.");
