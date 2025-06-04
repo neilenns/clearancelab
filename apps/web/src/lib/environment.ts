@@ -36,7 +36,7 @@ const environmentSchema = z
     SAMPLE_SCENARIO_ID: z
       .string()
       .optional()
-      .default("6802cf0fcd28e1a43a89e8db"), // ASA223
+      .default("6802cef1cd28e1a43a89e8d9"), // ASA1160
   })
   .superRefine((environment, context) => {
     if (environment.DISABLE_AUTH && environment.NODE_ENV === "production") {

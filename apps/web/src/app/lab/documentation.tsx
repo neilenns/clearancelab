@@ -54,7 +54,7 @@ export function Documentation({ sampleScenario }: DocumentationProperties) {
       </p>
       {sampleScenario && (
         <>
-          <p>
+          <p className="mb-4">
             Try viewing the route on SkyVector and fixing the incorrect
             equipment suffix in the following plan:
           </p>
