@@ -1,6 +1,6 @@
 import { CalloutBox } from "@/components/callout-box";
+import Markdown from "@/components/markdown";
 import { Explanation } from "@workspace/validators";
-import { Fragment } from "react";
 
 interface ExplanationItemProperties {
   explanation: Explanation;
@@ -20,17 +20,12 @@ export function ExplanationItem({ explanation }: ExplanationItemProperties) {
       <p className="flex items-start gap-2 font-bold" id={headlineId}>
         {explanation.headline}
       </p>
-      <p
+      <div
         className="flex items-start gap-2 whitespace-pre-line"
         aria-labelledby={headlineId}
       >
-        {description.split("\n").map((part, index) => (
-          <Fragment key={index}>
-            {index > 0 && <br />}
-            {part}
-          </Fragment>
-        ))}
-      </p>
+        <Markdown>{description}</Markdown>
+      </div>
     </CalloutBox>
   );
 }
