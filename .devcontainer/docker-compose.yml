@@ -1,10 +1,10 @@
 services:
   app:
-    image: ghcr.io/neilenns/clearancelab/clearancelab-devcontainer:latest
+    image: ghcr.io/neilenns/devcontainers/monorepo:latest
     volumes:
       - ../..:/workspaces:cached
       - pnpm-store-devcontainer:/pnpm-store
-    env_file: 
+    env_file:
       - path: devcontainer.env
         required: true
       - path: devcontainer.env.overrides
