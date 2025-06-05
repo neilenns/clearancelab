@@ -24,7 +24,10 @@ const permissionsToVerify = [
 
 const handleRegenerateClick = (id?: string) => {
   if (id) {
-    toast.promise(regenerateScenario(id), { success: "Done!" });
+    toast.promise(regenerateScenario(id), {
+      success: "Done!",
+      error: "Failed to regenerate page",
+    });
   }
 };
 
@@ -92,7 +95,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
             aria-label="Refresh scenario"
             onClick={() => handleRegenerateClick(scenario._id)}
           >
-            <RefreshCwIcon />
+            <RefreshCwIcon aria-hidden="true" />
           </Button>
         )}
         {permissionsStatus[Permissions.EditScenarios] && (

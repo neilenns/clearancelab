@@ -9,6 +9,7 @@ const handleRegenerate = () => {
   toast.promise(regeneratePages(), {
     loading: "Generating pages...",
     success: "Done!",
+    error: "Failed to regenerate pages",
   });
 };
 
