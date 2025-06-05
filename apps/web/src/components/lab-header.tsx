@@ -1,11 +1,12 @@
 "use client";
 
+import { regenerateScenario } from "@/api/scenarios/regenerate-page";
 import { Button } from "@/components/ui/button";
 import { useCheckPermissions } from "@/hooks/use-check-permissions";
 import { useDeleteScenario } from "@/hooks/use-delete-scenario";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Permissions, Scenario } from "@workspace/validators";
-import { LinkIcon, LogIn, LogOut } from "lucide-react";
+import { LinkIcon, LogIn, LogOut, RefreshCwIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation"; // Added usePathname
 import { useState } from "react";
@@ -20,6 +21,15 @@ const permissionsToVerify = [
   Permissions.EditScenarios,
   Permissions.DeleteScenarios,
 ];
+
+const handleRegenerateClick = (id?: string) => {
+  if (id) {
+    toast.promise(regenerateScenario(id), {
+      success: "Done!",
+      error: "Failed to regenerate page",
+    });
+  }
+};
 
 const copyLinkHandler = () => {
   const url = new URL(
@@ -79,6 +89,15 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
         </Button>
       </div>
       <div className="space-x-2">
+        {permissionsStatus[Permissions.EditScenarios] && (
+          <Button
+            variant="outline"
+            aria-label="Refresh scenario"
+            onClick={() => handleRegenerateClick(scenario._id)}
+          >
+            <RefreshCwIcon aria-hidden="true" />
+          </Button>
+        )}
         {permissionsStatus[Permissions.EditScenarios] && (
           <Button variant="outline" asChild>
             <Link
