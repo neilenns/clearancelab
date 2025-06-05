@@ -30,6 +30,8 @@ const environmentSchema = z
     APP_BASE_URL: z.string().url().optional(), // Optional, but should be a valid URL
     BACKEND_CF_ACCESS_CLIENT_ID: z.string().optional(),
     BACKEND_CF_ACCESS_CLIENT_SECRET: z.string().optional(),
+    CLOUDFLARE_RUNTIME_API_TOKEN: z.string().optional(), // API token with Zone: Cache Purge permission
+    CLOUDFLARE_ZONE_ID: z.string().optional(), // Domain name the worker is hosted on, used for clearing cache files.
     DISABLE_AUTH: z
       .preprocess((value) => value === "true" || value === "1", z.boolean())
       .default(false),

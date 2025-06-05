@@ -16,8 +16,8 @@
         "AUTH0_SECRET",
         "BACKEND_CF_ACCESS_CLIENT_ID",
         "BACKEND_CF_ACCESS_CLIENT_SECRET",
-        "MONGO_DB_CONNECTION_STRING",
-        "MONGO_DB_NAME"
+        "CLOUDFLARE_RUNTIME_API_TOKEN",
+        "CLOUDFLARE_ZONE_ID"
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
@@ -36,7 +36,8 @@
         "BACKEND_CF_ACCESS_CLIENT_ID",
         "BACKEND_CF_ACCESS_CLIENT_SECRET",
         "CLOUDFLARE_ACCOUNT_ID",
-        "CLOUDFLARE_API_TOKEN"
+        "CLOUDFLARE_RUNTIME_API_TOKEN",
+        "CLOUDFLARE_ZONE_ID"
       ]
     },
     "ci": {
@@ -51,8 +52,8 @@
         "AUTH0_DOMAIN",
         "AUTH0_SCOPE",
         "AUTH0_SECRET",
-        "MONGO_DB_CONNECTION_STRING",
-        "MONGO_DB_NAME"
+        "CLOUDFLARE_RUNTIME_API_TOKEN",
+        "CLOUDFLARE_ZONE_ID"
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
@@ -71,6 +72,8 @@
         "DISABLE_AUTH",
         "BACKEND_CF_ACCESS_CLIENT_ID",
         "BACKEND_CF_ACCESS_CLIENT_SECRET",
+        "CLOUDFLARE_RUNTIME_API_TOKEN",
+        "CLOUDFLARE_ZONE_ID",
         "NEXT_PUBLIC_DISABLE_AUTH"
       ]
     }

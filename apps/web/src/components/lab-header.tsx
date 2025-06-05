@@ -25,6 +25,7 @@ const permissionsToVerify = [
 const handleRegenerateClick = (id?: string) => {
   if (id) {
     toast.promise(regenerateScenario(id), {
+      loading: "Regenerating page...",
       success: "Done!",
       error: "Failed to regenerate page",
     });
