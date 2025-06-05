@@ -7,7 +7,7 @@ import { fetchScenariosSummary } from "./fetch-scenarios";
 export const clearAudioCache = async (id: string) => {
   if (!ENV.CLOUDFLARE_RUNTIME_API_TOKEN || !ENV.CLOUDFLARE_ZONE_ID) {
     console.warn(
-      "CLOUDFLARE_RUNTIME_API_TOKEN or CLOUDFLARE_ZONE not set, skipping audio file cache purge.",
+      "CLOUDFLARE_RUNTIME_API_TOKEN or CLOUDFLARE_ZONE_ID not set, skipping audio file cache purge.",
     );
     return;
   }
@@ -45,7 +45,7 @@ export const clearAudioCache = async (id: string) => {
 export const regenerateScenario = async (id: string) => {
   try {
     revalidatePath(`/lab/${id}`);
-    clearAudioCache(id);
+    await clearAudioCache(id);
   } catch (error) {
     console.error(`Failed to regenerate ${id}`, error);
     throw new Error("Failed to regenerate page");

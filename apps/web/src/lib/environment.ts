@@ -31,7 +31,7 @@ const environmentSchema = z
     BACKEND_CF_ACCESS_CLIENT_ID: z.string().optional(),
     BACKEND_CF_ACCESS_CLIENT_SECRET: z.string().optional(),
     CLOUDFLARE_RUNTIME_API_TOKEN: z.string().optional(), // API token with Zone: Cache Purge permission
-    CLOUDFLARE_ZONE_ID: z.string().optional(), // Domain name the worker is hosted on, used for clearing cache files.
+    CLOUDFLARE_ZONE_ID: z.string().optional(), // Zone ID for the domain the worker is hosted on, used for clearing cache files.
     DISABLE_AUTH: z
       .preprocess((value) => value === "true" || value === "1", z.boolean())
       .default(false),
@@ -46,6 +46,20 @@ const environmentSchema = z
         path: ["DISABLE_AUTH"],
         code: z.ZodIssueCode.custom,
         message: "DISABLE_AUTH cannot be true in production environment",
+      });
+    }
+
+    if (
+      (environment.CLOUDFLARE_RUNTIME_API_TOKEN &&
+        !environment.CLOUDFLARE_ZONE_ID) ||
+      (!environment.CLOUDFLARE_RUNTIME_API_TOKEN &&
+        environment.CLOUDFLARE_ZONE_ID)
+    ) {
+      context.addIssue({
+        path: ["CLOUDFLARE_RUNTIME_API_TOKEN", "CLOUDFLARE_ZONE_ID"],
+        code: z.ZodIssueCode.custom,
+        message:
+          "Both CLOUDFLARE_RUNTIME_API_TOKEN and CLOUDFLARE_ZONE_ID must be set together",
       });
     }
 

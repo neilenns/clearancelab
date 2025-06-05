@@ -35,6 +35,9 @@ inputs:
   cloudflare_api_token:
     required: true
     description: "Cloudflare API token for deployment"
+  cloudflare_runtime_api_token:
+    required: true
+    description: "Cloudflare API token for runtime, used for purging cache files"
   backend_cf_access_client_id:
     required: true
     description: "Cloudflare client ID for backend access"
@@ -85,6 +88,7 @@ runs:
         echo "${{ inputs.auth0_client_secret }}" | pnpx wrangler secret put AUTH0_CLIENT_SECRET --env ${{ inputs.deploy_env }}
         echo "${{ inputs.backend_cf_access_client_id }}" | pnpx wrangler secret put BACKEND_CF_ACCESS_CLIENT_ID --env ${{ inputs.deploy_env }}
         echo "${{ inputs.backend_cf_access_client_secret }}" | pnpx wrangler secret put BACKEND_CF_ACCESS_CLIENT_SECRET --env ${{ inputs.deploy_env }}
+        echo "${{ inputs.cloudflare_runtime_api_token }}" | pnpx wrangler secret put CLOUDFLARE_RUNTIME_API_TOKEN --env ${{ inputs.deploy_env }}
       shell: bash
       env:
         CLOUDFLARE_ACCOUNT_ID: ${{ inputs.cloudflare_account_id }}
