@@ -34,8 +34,10 @@ export const clearAudioCache = async (id: string) => {
         `Failed to purge cache: ${JSON.stringify(result.errors)}`,
       );
     }
+
+    console.log(`Purged cache for audio file ${files[0].toString()}`);
   } catch (error) {
-    console.log("Failed to clear Cloudflare cache", error);
+    console.error("Failed to clear Cloudflare cache", error);
     throw new Error("Failed to clear Cloudflare cache");
   }
 };
