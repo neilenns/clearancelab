@@ -68,4 +68,5 @@ jobs:
           backend_cf_access_client_secret: ${{ secrets.BACKEND_CF_ACCESS_CLIENT_SECRET }}
           cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare_runtime_api_token: ${{ secrets.CLOUDFLARE_RUNTIME_API_TOKEN }}
           deploy_env: ${{ vars.DEPLOY_ENV }}
