@@ -89,6 +89,7 @@ export function LabHeader({ scenario }: LabHeaderProperties) {
         {permissionsStatus[Permissions.EditScenarios] && (
           <Button
             variant="outline"
+            aria-label="Refresh scenario"
             onClick={() => handleRegenerateClick(scenario._id)}
           >
             <RefreshCwIcon />
