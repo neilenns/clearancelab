@@ -1,19 +1,6 @@
 import { verifyApiKey } from "@middleware/apikey.js";
-import { AirlineModel } from "@models/airlines.js";
-import { VatsimFlightPlanModel } from "@models/vatsim-flight-plan.js";
-import {
-  convertToNumber,
-  getRandomCid,
-  getRandomExternalBcn,
-  getRandomName,
-  getRandomVatsimId,
-  getWeightClass,
-  spellCallsign,
-  spellGroupForm,
-  splitCallsign,
-} from "@workspace/plantools";
-import { Scenario, ScenarioResponse } from "@workspace/validators";
-import * as changeCase from "change-case";
+import { ScenarioResponse } from "@workspace/validators";
+import { flightPlanToScenario, getFlightPlan } from "@workspace/vatsim";
 import { NextFunction, Request, Response, Router } from "express";
 
 const router = Router();
@@ -26,7 +13,7 @@ router.get(
     try {
       const { callsign } = request.params;
 
-      const flightPlan = await VatsimFlightPlanModel.findByCallsign(callsign);
+      const flightPlan = await getFlightPlan(callsign);
 
       if (!flightPlan) {
         const findResult: ScenarioResponse = {
@@ -38,71 +25,73 @@ router.get(
         return;
       }
 
-      // Calculate the telephony string.
-      const callsignParts = splitCallsign(flightPlan.callsign);
-      const weightClass = getWeightClass(
-        flightPlan.equipmentType ?? "",
-      )?.toLowerCase();
+      const scenario = flightPlanToScenario(flightPlan);
 
-      const airline = callsignParts
-        ? await AirlineModel.findByAirlineCode(callsignParts.airlineCode)
-        : undefined;
+      // // Calculate the telephony string.
+      // const callsignParts = splitCallsign(flightPlan.callsign);
+      // const weightClass = getWeightClass(
+      //   flightPlan.equipmentType ?? "",
+      // )?.toLowerCase();
 
-      // If an airline was found, and the callsign was able to get split, use the airline's telephony and the flight number in group form.
-      // Otherwise, fall back to just spelling out the callsign.
-      let spokenCallsign: string;
-      if (airline && callsignParts) {
-        try {
-          spokenCallsign = `${changeCase.capitalCase(airline.telephony)} ${spellGroupForm(
-            callsignParts.flightNumber,
-          )}`;
-        } catch {
-          // Fallback to a fully-spelled callsign if the flight number is invalid
-          spokenCallsign = spellCallsign(flightPlan.callsign);
-        }
-      } else {
-        spokenCallsign = spellCallsign(flightPlan.callsign);
-      }
+      // const airline = callsignParts
+      //   ? await AirlineModel.findByAirlineCode(callsignParts.airlineCode)
+      //   : undefined;
 
-      const telephony = [
-        spokenCallsign,
-        weightClass, // The weight class, if found
-      ]
-        .filter(Boolean) // Removes any falsy values like null, undefined, or empty strings
-        .join(" ");
+      // // If an airline was found, and the callsign was able to get split, use the airline's telephony and the flight number in group form.
+      // // Otherwise, fall back to just spelling out the callsign.
+      // let spokenCallsign: string;
+      // if (airline && callsignParts) {
+      //   try {
+      //     spokenCallsign = `${changeCase.capitalCase(airline.telephony)} ${spellGroupForm(
+      //       callsignParts.flightNumber,
+      //     )}`;
+      //   } catch {
+      //     // Fallback to a fully-spelled callsign if the flight number is invalid
+      //     spokenCallsign = spellCallsign(flightPlan.callsign);
+      //   }
+      // } else {
+      //   spokenCallsign = spellCallsign(flightPlan.callsign);
+      // }
 
-      const returnedScenario: Scenario = {
-        plan: {
-          aid: flightPlan.callsign,
-          alt: flightPlan.cruiseAltitude,
-          bcn: convertToNumber(flightPlan.squawk) ?? getRandomExternalBcn(),
-          cid: getRandomCid(),
-          dep: flightPlan.departure,
-          dest: flightPlan.arrival,
-          pilotName: getRandomName(),
-          rmk: flightPlan.remarks,
-          rte: flightPlan.route,
-          spd: flightPlan.cruiseTas,
-          typ: flightPlan.equipmentType,
-          eq: flightPlan.equipmentSuffix,
-          homeAirport: flightPlan.homeAirport,
-          vatsimId: getRandomVatsimId(),
-        },
-        airportConditions: {
-          altimeter: flightPlan.metar?.altimeter,
-        },
-        craft: {
-          telephony,
-        },
-        isValid: false,
-        isDraft: false,
-        hasAudio: false,
-        explanations: [],
-      };
+      // const telephony = [
+      //   spokenCallsign,
+      //   weightClass, // The weight class, if found
+      // ]
+      //   .filter(Boolean) // Removes any falsy values like null, undefined, or empty strings
+      //   .join(" ");
+
+      // const returnedScenario: Scenario = {
+      //   plan: {
+      //     aid: flightPlan.callsign,
+      //     alt: flightPlan.cruiseAltitude,
+      //     bcn: convertToNumber(flightPlan.squawk) ?? getRandomExternalBcn(),
+      //     cid: getRandomCid(),
+      //     dep: flightPlan.departure,
+      //     dest: flightPlan.arrival,
+      //     pilotName: getRandomName(),
+      //     rmk: flightPlan.remarks,
+      //     rte: flightPlan.route,
+      //     spd: flightPlan.cruiseTas,
+      //     typ: flightPlan.equipmentType,
+      //     eq: flightPlan.equipmentSuffix,
+      //     homeAirport: flightPlan.homeAirport,
+      //     vatsimId: getRandomVatsimId(),
+      //   },
+      //   airportConditions: {
+      //     altimeter: flightPlan.metar?.altimeter,
+      //   },
+      //   craft: {
+      //     telephony,
+      //   },
+      //   isValid: false,
+      //   isDraft: false,
+      //   hasAudio: false,
+      //   explanations: [],
+      // };
 
       const findResult: ScenarioResponse = {
         success: true,
-        data: [returnedScenario],
+        data: [scenario],
       };
 
       response.json(findResult);

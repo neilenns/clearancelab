@@ -9,6 +9,7 @@ import {
 import { Scenario } from "@workspace/validators";
 import { VatsimPilot } from "./types";
 import { VatsimPrefile } from "./types/vatsim-prefile";
+import { splitAircraftType } from "./utilities";
 import { getVatsimData } from "./vatsim";
 
 type VatsimFlightPlan = VatsimPilot | VatsimPrefile | undefined;
@@ -46,6 +47,10 @@ export function flightPlanToScenario(flightPlan: VatsimFlightPlan) {
     throw new Error("VATSIM flight plans must have a callsign");
   }
 
+  const [equipmentCode, equipmentSuffix] = splitAircraftType(
+    flightPlan.flight_plan?.aircraft_faa,
+  );
+
   const scenario: Scenario = {
     plan: {
       aid: flightPlan.callsign,
@@ -60,8 +65,8 @@ export function flightPlanToScenario(flightPlan: VatsimFlightPlan) {
       rmk: flightPlan.flight_plan?.remarks,
       rte: flightPlan.flight_plan?.route,
       spd: convertToNumber(flightPlan.flight_plan?.cruise_tas),
-      //      typ: flightPlan.equipmentType,
-      //eq: flightPlan.equipmentSuffix,
+      typ: equipmentCode,
+      eq: equipmentSuffix,
       homeAirport: getRandomAirportCode(),
       vatsimId: getRandomVatsimId(),
     },
