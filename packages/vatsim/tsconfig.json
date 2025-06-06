@@ -3,12 +3,11 @@
     "allowImportingTsExtensions": true,
     "lib": ["esnext", "DOM"],
     "noEmit": true,
-    "outDir": "./dist",
     "sourceMap": true,
     "target": "es2015",
     "types": ["node"]
   },
   "exclude": ["node_modules", "dist"],
   "extends": "@workspace/typescript-config/base.json",
-  "include": ["."]
+  "include": ["src/**/*"]
 }

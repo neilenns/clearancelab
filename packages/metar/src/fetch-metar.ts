@@ -1,10 +1,12 @@
 import QuickLRU from "quick-lru";
-import Metar from "./types/metar";
+import { Metar } from "./types/metar";
 
 const cache = new QuickLRU<string, Metar>({
   maxSize: 100,
   maxAge: 10 * 60 * 1000, // Ten minutes
 });
+
+const HPA_TO_INHG = 0.029_529_983_071_445;
 
 export async function fetchMetarFromAviationWeather(
   airportCode?: string,
@@ -38,7 +40,7 @@ export async function fetchMetarFromAviationWeather(
     const metar = weatherData.find((metar) => metar.icaoId === airportCode);
     if (metar?.altim) {
       // The altimeter comes in as hPa and everything I've written assumes InHg. Convert it.
-      metar.altim *= 0.029_529_983_071_445;
+      metar.altim *= HPA_TO_INHG;
     }
 
     // Cache the data if it was found.

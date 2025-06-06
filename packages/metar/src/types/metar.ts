@@ -1,5 +1,5 @@
 // cspell:disable
-export default interface Metar {
+export interface Metar {
   metar_id: number;
   icaoId: string;
   receiptTime: string;

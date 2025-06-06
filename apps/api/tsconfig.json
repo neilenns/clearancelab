@@ -26,7 +26,6 @@
   "extends": "@tsconfig/node22/tsconfig.json",
   "include": [
     "src/**/*.ts",
-    "*.config.ts",
-    "../../packages/vatsim/src/types/vatsim-data.ts"
+    "*.config.ts"
   ]
 }

@@ -1,12 +1,20 @@
 import { VatsimData } from "./types";
 import VatsimEndpoints from "./types/vatsim-endpoints";
 
+interface CachedEndpoints {
+  data: VatsimEndpoints;
+  timestamp: number;
+}
+
+let cachedEndpoints: CachedEndpoints | undefined;
+const CACHE_TTL = 60 * 60 * 1000; // One hour
+
 const endpointUrl = "https://status.vatsim.net/status.json";
 
-let cachedEndpoints: VatsimEndpoints;
-
 export async function getApiEndpoints(): Promise<VatsimEndpoints> {
-  if (cachedEndpoints) return cachedEndpoints;
+  if (cachedEndpoints && Date.now() - cachedEndpoints.timestamp < CACHE_TTL) {
+    return cachedEndpoints.data;
+  }
 
   const response = await fetch(endpointUrl);
 
@@ -14,9 +22,14 @@ export async function getApiEndpoints(): Promise<VatsimEndpoints> {
     throw new Error("Failed to fetch endpoints");
   }
 
-  cachedEndpoints = (await response.json()) as VatsimEndpoints;
+  const endpoints = (await response.json()) as VatsimEndpoints;
 
-  return cachedEndpoints;
+  cachedEndpoints = {
+    data: endpoints,
+    timestamp: Date.now(),
+  };
+
+  return endpoints;
 }
 
 export async function getVatsimData(): Promise<VatsimData> {
@@ -31,7 +44,7 @@ export async function getVatsimData(): Promise<VatsimData> {
 
     return data;
   } catch (error) {
-    console.error("Failed to fetch VATSIM  data:", error);
+    console.error("Failed to fetch VATSIM data:", error);
     throw error;
   }
 }

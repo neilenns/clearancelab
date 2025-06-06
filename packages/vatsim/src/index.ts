@@ -1,2 +1,2 @@
 export * from "./flight-plan";
-export * from "./types/index";
+export * from "./types";

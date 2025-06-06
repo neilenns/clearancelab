@@ -12,7 +12,7 @@ import { VatsimPrefile } from "./types/vatsim-prefile";
 import { splitAircraftType } from "./utilities";
 import { getVatsimData } from "./vatsim";
 
-type VatsimFlightPlan = VatsimPilot | VatsimPrefile | undefined;
+type VatsimFlightPlanResult = VatsimPilot | VatsimPrefile | undefined;
 
 /**
  * Retrieves a flight plan from VATSIM. Returns undefined if the flight isn't found.
@@ -21,18 +21,14 @@ type VatsimFlightPlan = VatsimPilot | VatsimPrefile | undefined;
  */
 export async function getFlightPlan(
   callsign: string,
-): Promise<VatsimFlightPlan> {
+): Promise<VatsimFlightPlanResult> {
   try {
     const vatsimData = await getVatsimData();
-    let result: VatsimFlightPlan;
 
-    // Try and find a prefile first.
-    result = vatsimData.prefiles.find(
-      (prefile) => prefile.callsign === callsign,
-    );
-
-    // If there's no matching prefile try the pilots.
-    result ??= vatsimData.pilots.find((pilot) => pilot.callsign === callsign);
+    // Try finding a prefile first. If that fails, find a pilot.
+    const result =
+      vatsimData.prefiles.find((prefile) => prefile.callsign === callsign) ??
+      vatsimData.pilots.find((pilot) => pilot.callsign === callsign);
 
     return result;
   } catch (error) {
@@ -41,7 +37,9 @@ export async function getFlightPlan(
   }
 }
 
-export function flightPlanToScenario(flightPlan: VatsimFlightPlan) {
+export function flightPlanToScenario(
+  flightPlan: VatsimFlightPlanResult,
+): Scenario {
   if (!flightPlan?.callsign) {
     console.error("VATSIM flight plans must have a callsign.");
     throw new Error("VATSIM flight plans must have a callsign");
