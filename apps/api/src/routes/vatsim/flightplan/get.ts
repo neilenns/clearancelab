@@ -31,16 +31,17 @@ router.get(
       // gets populated with additional information from the DB or other web services.
       const scenario = flightPlanToScenario(flightPlan);
 
+      // Fill in craft components. Craft is always an empty object when returned from flightPlanToScenario,
+      // but the Scenario type has it as optional, so this makes TypeScript happy and
+      // makes it easier to work with in the rest of the code.
       scenario.craft ??= {};
       scenario.craft.telephony = await getCallsignTelephony(scenario);
 
-      scenario.depAirportInfo = await AirportInfo.findByAirportCode(
-        scenario.plan.dep,
-      );
-
-      scenario.destAirportInfo = await AirportInfo.findByAirportCode(
-        scenario.plan.dest,
-      );
+      // Fill in airport info.
+      scenario.depAirportInfo =
+        (await AirportInfo.findByAirportCode(scenario.plan.dep)) ?? undefined;
+      scenario.destAirportInfo =
+        (await AirportInfo.findByAirportCode(scenario.plan.dest)) ?? undefined;
 
       const findResult: ScenarioResponse = {
         success: true,
