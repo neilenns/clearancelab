@@ -10,7 +10,9 @@ export async function getApiEndpoints(): Promise<VatsimEndpoints> {
 
   const response = await fetch(endpointUrl);
 
-  if (!response.ok) throw new Error("Failed to fetch endpoints");
+  if (!response.ok) {
+    throw new Error("Failed to fetch endpoints");
+  }
 
   cachedEndpoints = (await response.json()) as VatsimEndpoints;
 

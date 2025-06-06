@@ -1,6 +1,7 @@
 import { getCallsignTelephony } from "@lib/utilities.js";
 import { verifyApiKey } from "@middleware/apikey.js";
 import { AirportInfo } from "@models/airport-info.js";
+import { fetchMetarFromAviationWeather } from "@workspace/metar";
 import { ScenarioResponse } from "@workspace/validators";
 import { flightPlanToScenario, getFlightPlan } from "@workspace/vatsim";
 import { NextFunction, Request, Response, Router } from "express";
@@ -42,6 +43,10 @@ router.get(
         (await AirportInfo.findByAirportCode(scenario.plan.dep)) ?? undefined;
       scenario.destAirportInfo =
         (await AirportInfo.findByAirportCode(scenario.plan.dest)) ?? undefined;
+
+      // Try and get weather info
+      const metar = await fetchMetarFromAviationWeather(scenario.plan.dep);
+      scenario.airportConditions.altimeter = metar?.altim;
 
       const findResult: ScenarioResponse = {
         success: true,

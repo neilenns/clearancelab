@@ -47,6 +47,9 @@ importers:
       '@dotenvx/dotenvx':
         specifier: ^1.41.0
         version: 1.44.1
+      '@workspace/metar':
+        specifier: workspace:*
+        version: link:../../packages/metar
       '@workspace/plantools':
         specifier: workspace:*
         version: link:../../packages/plantools
@@ -379,6 +382,30 @@ importers:
       typescript-eslint:
         specifier: ^8.24.1
         version: 8.33.0(eslint@9.28.0(jiti@2.4.2))(typescript@5.8.3)
+
+  packages/metar:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.14.0
+        version: 22.15.29
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      eslint:
+        specifier: ^9.25.0
+        version: 9.28.0(jiti@2.4.2)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.0(@swc/core@1.11.22)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.8.0)
+      typescript:
+        specifier: ^5.8.0
+        version: 5.8.3
 
   packages/plantools:
     devDependencies:

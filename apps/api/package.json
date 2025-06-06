@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.41.0",
+    "@workspace/metar": "workspace:*",
     "@workspace/plantools": "workspace:*",
     "@workspace/validators": "workspace:*",
     "@workspace/vatsim": "workspace:*",
