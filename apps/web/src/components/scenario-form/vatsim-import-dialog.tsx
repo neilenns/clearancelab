@@ -39,7 +39,6 @@ export function VatsimImportDialog() {
       const result = await fetchPlanByCallsign(callsign.toUpperCase());
 
       if (!result.success) {
-        console.error("Error fetching VATSIM flight plan:", result.error);
         setErrorContent(
           "Unable to find a flight plan for the provided callsign.",
         );

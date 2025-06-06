@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
 export interface AirportInfoData extends Document {
   airportCode: string;
@@ -12,6 +12,11 @@ export interface AirportInfoData extends Document {
   name?: string;
   state?: string;
   timezone?: string;
+}
+
+// Define the interface for your static methods
+interface AirportInfoModel extends Model<AirportInfoData> {
+  findByAirportCode(airportCode?: string): Promise<AirportInfoData | null>;
 }
 
 const AirportInfoSchema: Schema = new Schema(
@@ -36,7 +41,20 @@ const AirportInfoSchema: Schema = new Schema(
   },
   {
     collection: "airportinfo",
+    statics: {
+      async findByAirportCode(airportCode?: string) {
+        if (!airportCode) {
+          return;
+        }
+
+        return await this.findOne({ airportCode }).lean();
+      },
+    },
   },
 );
 
-export const AirportInfo = mongoose.model<AirportInfoData>("AirportInfo", AirportInfoSchema);
+// Use the extended interface when creating the model
+export const AirportInfo = mongoose.model<AirportInfoData, AirportInfoModel>(
+  "AirportInfo",
+  AirportInfoSchema,
+);

@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.41.0",
+    "@workspace/metar": "workspace:*",
     "@workspace/plantools": "workspace:*",
     "@workspace/validators": "workspace:*",
+    "@workspace/vatsim": "workspace:*",
     "auth0": "^4.22.0",
     "change-case": "^5.4.4",
     "cors": "^2.8.5",

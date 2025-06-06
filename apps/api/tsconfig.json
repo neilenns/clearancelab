@@ -24,5 +24,8 @@
   },
   "exclude": ["dist", "node_modules"],
   "extends": "@tsconfig/node22/tsconfig.json",
-  "include": ["src/**/*.ts", "*.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "*.config.ts"
+  ]
 }

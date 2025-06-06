@@ -7,6 +7,7 @@
     }
   },
   "dockerComposeFile": "docker-compose.yml",
+  "forwardPorts": [3000, 4503, 4504],
   "name": "Clearancelab development",
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
