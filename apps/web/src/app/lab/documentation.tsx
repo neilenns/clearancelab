@@ -48,13 +48,13 @@ export function Documentation({ sampleScenario }: DocumentationProperties) {
       </p>
       <p>
         You can make edits to the values in the fields, just like in CRC, to
-        practice fixing mistakes you identify when reviewing the plan. You can
-        then compare your fixes to the issues shown in the answers section to
-        see if you noticed all the necessary changes.
+        practice fixing mistakes you identify when reviewing the plan. Compare
+        your fixes to the issues shown in the answers section after revealing
+        the answer to see if you noticed all the necessary changes.
       </p>
       {sampleScenario && (
         <>
-          <p>
+          <p className="mb-4">
             Try viewing the route on SkyVector and fixing the incorrect
             equipment suffix in the following plan:
           </p>

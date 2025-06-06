@@ -122,22 +122,24 @@ The API server supports the following variables:
 
 The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#deployment). The following variables and secrets are supported:
 
-| Variable              | Description                                                                                                                  | Required |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `API_BASE_URL`        | URI to the API server.                                                                                                       | ✅       |
-| `API_KEY`             | API key for access to the API server.                                                                                        | ✅       |
-| `APP_BASE_URL`        | URI to the web app.                                                                                                          | ✅       |
-| `AUDIO_BASE_URL`      | URI for the R2 bucket that hosts the audio files.                                                                            | ✅       |
-| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                                              | ✅       |
-| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                                         | ✅       |
-| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                                                | ✅       |
-| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. This is not a URL. Copy the value exactly as shown in the AUTH0 dashboard. | ✅       |
-| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                                           | ✅       |
-| `DEPLOY_ENV`          | Deployment environment, either `prod` or `dev`.                                                                              | ✅       |
+| Variable                       | Description                                                                                                                  | Required |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `API_BASE_URL`                 | URI to the API server.                                                                                                       | ✅       |
+| `API_KEY`                      | API key for access to the API server.                                                                                        | ✅       |
+| `APP_BASE_URL`                 | URI to the web app.                                                                                                          | ✅       |
+| `AUDIO_BASE_URL`               | URI for the R2 bucket that hosts the audio files.                                                                            | ✅       |
+| `AUTH0_AUDIENCE`               | URL for the API created in the Auth0 dashboard.                                                                              | ✅       |
+| `AUTH0_CLIENT_ID`              | Client ID of the Clearance Lab application in Auth0.                                                                         | ✅       |
+| `AUTH0_CLIENT_SECRET`          | Client-side secret for Auth0.                                                                                                | ✅       |
+| `AUTH0_DOMAIN`                 | Domain of the Clearance Lab application in Auth0. This is not a URL. Copy the value exactly as shown in the AUTH0 dashboard. | ✅       |
+| `AUTH0_SECRET`                 | Secret for the Clearance Lab application in Auth0.                                                                           | ✅       |
+| `CLOUDFLARE_RUNTIME_API_TOKEN` | API token with `Zone: Cache purge` authorization. Used to clear cached audio files programmatically.                         |          |
+| `CLOUDFLARE_ZONE_ID`           | The Zone ID the worker is deployed under. Used to clear cached audio files programmatically.                                 |          |
+| `DEPLOY_ENV`                   | Deployment environment, either `prod` or `dev`.                                                                              | ✅       |
 
 The environment variables are set in the [`wrangler.toml`](apps/web/wrangler.toml) file and in GitHub environment variables. They must be set in both places, so the CI builds will pass environment variable verification.
 
-The API key and Auth0 secrets are stored as GitHub secrets and are pushed to Cloudflare during the release workflow.
+The `API_KEY`, `CLOUDFLARE_RUNTIME_API_TOKEN`, and Auth0 secrets are stored as GitHub secrets and are pushed to Cloudflare during the release workflow.
 
 ## Build process and deployment
 
