@@ -54,7 +54,7 @@ export function flightPlanToScenario(flightPlan: VatsimFlightPlan) {
   const scenario: Scenario = {
     plan: {
       aid: flightPlan.callsign,
-      alt: convertToNumber(flightPlan.flight_plan?.altitude),
+      alt: (convertToNumber(flightPlan.flight_plan?.altitude) ?? 0) / 100,
       bcn:
         convertToNumber(flightPlan.flight_plan?.assigned_transponder) ??
         getRandomExternalBcn(),
