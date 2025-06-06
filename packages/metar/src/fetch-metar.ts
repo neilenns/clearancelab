@@ -18,10 +18,10 @@ export async function fetchMetarFromAviationWeather(
   const cached = cache.get(key);
 
   if (cached) {
-    console.log(`Found valid cached metar for ${key}`);
+    console.log(`Found cached metar for ${key}`);
     return cached;
   } else {
-    console.log(`Found expired cached metar for ${key}`);
+    console.log(`No cached metar found for ${key}`);
   }
 
   const endpointUrl = `https://aviationweather.gov/cgi-bin/data/metar.php?ids=${airportCode}&hours=0&order=id%2C-obs&sep=true&format=json`;
