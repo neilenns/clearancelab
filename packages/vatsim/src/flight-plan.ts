@@ -71,6 +71,7 @@ export function flightPlanToScenario(flightPlan: VatsimFlightPlan) {
       vatsimId: getRandomVatsimId(),
     },
     airportConditions: {},
+    craft: {},
     isValid: true,
     isDraft: true,
     hasAudio: false,

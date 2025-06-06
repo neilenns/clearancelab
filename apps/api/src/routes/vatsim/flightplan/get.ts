@@ -1,4 +1,6 @@
+import { getCallsignTelephony } from "@lib/utilities.js";
 import { verifyApiKey } from "@middleware/apikey.js";
+import { AirportInfo } from "@models/airport-info.js";
 import { ScenarioResponse } from "@workspace/validators";
 import { flightPlanToScenario, getFlightPlan } from "@workspace/vatsim";
 import { NextFunction, Request, Response, Router } from "express";
@@ -25,69 +27,20 @@ router.get(
         return;
       }
 
+      // This converts the VATSIM flight plan to a base scenario, then it
+      // gets populated with additional information from the DB or other web services.
       const scenario = flightPlanToScenario(flightPlan);
 
-      // // Calculate the telephony string.
-      // const callsignParts = splitCallsign(flightPlan.callsign);
-      // const weightClass = getWeightClass(
-      //   flightPlan.equipmentType ?? "",
-      // )?.toLowerCase();
+      scenario.craft ??= {};
+      scenario.craft.telephony = await getCallsignTelephony(scenario);
 
-      // const airline = callsignParts
-      //   ? await AirlineModel.findByAirlineCode(callsignParts.airlineCode)
-      //   : undefined;
+      scenario.depAirportInfo = await AirportInfo.findByAirportCode(
+        scenario.plan.dep,
+      );
 
-      // // If an airline was found, and the callsign was able to get split, use the airline's telephony and the flight number in group form.
-      // // Otherwise, fall back to just spelling out the callsign.
-      // let spokenCallsign: string;
-      // if (airline && callsignParts) {
-      //   try {
-      //     spokenCallsign = `${changeCase.capitalCase(airline.telephony)} ${spellGroupForm(
-      //       callsignParts.flightNumber,
-      //     )}`;
-      //   } catch {
-      //     // Fallback to a fully-spelled callsign if the flight number is invalid
-      //     spokenCallsign = spellCallsign(flightPlan.callsign);
-      //   }
-      // } else {
-      //   spokenCallsign = spellCallsign(flightPlan.callsign);
-      // }
-
-      // const telephony = [
-      //   spokenCallsign,
-      //   weightClass, // The weight class, if found
-      // ]
-      //   .filter(Boolean) // Removes any falsy values like null, undefined, or empty strings
-      //   .join(" ");
-
-      // const returnedScenario: Scenario = {
-      //   plan: {
-      //     aid: flightPlan.callsign,
-      //     alt: flightPlan.cruiseAltitude,
-      //     bcn: convertToNumber(flightPlan.squawk) ?? getRandomExternalBcn(),
-      //     cid: getRandomCid(),
-      //     dep: flightPlan.departure,
-      //     dest: flightPlan.arrival,
-      //     pilotName: getRandomName(),
-      //     rmk: flightPlan.remarks,
-      //     rte: flightPlan.route,
-      //     spd: flightPlan.cruiseTas,
-      //     typ: flightPlan.equipmentType,
-      //     eq: flightPlan.equipmentSuffix,
-      //     homeAirport: flightPlan.homeAirport,
-      //     vatsimId: getRandomVatsimId(),
-      //   },
-      //   airportConditions: {
-      //     altimeter: flightPlan.metar?.altimeter,
-      //   },
-      //   craft: {
-      //     telephony,
-      //   },
-      //   isValid: false,
-      //   isDraft: false,
-      //   hasAudio: false,
-      //   explanations: [],
-      // };
+      scenario.destAirportInfo = await AirportInfo.findByAirportCode(
+        scenario.plan.dest,
+      );
 
       const findResult: ScenarioResponse = {
         success: true,
