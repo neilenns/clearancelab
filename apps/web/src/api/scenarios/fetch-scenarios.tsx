@@ -1,11 +1,8 @@
 "use server";
 
-import { getJson } from "@/lib/api";
-import {
-  fetchScenariosResponseSchema,
-  fetchScenariosSummaryResponseSchema,
-  GenericErrorResponse,
-} from "@workspace/validators";
+import { connectToDatabase } from "@/lib/database";
+import { ScenarioModel } from "@/models/scenario";
+import { GenericErrorResponse } from "@workspace/validators";
 
 interface FetchScenarioOptions {
   includeDrafts: boolean;
@@ -16,20 +13,26 @@ interface FetchScenarioOptions {
  * @returns An array of fetched scenarios.
  */
 export const fetchScenarios = async () => {
-  const response = await getJson("/scenarios");
+  try {
+    await connectToDatabase();
+    const scenarios = await ScenarioModel.findScenarios([]);
 
-  if (!response.ok) {
-    console.error("Failed to fetch scenarios:", response.statusText);
+    return {
+      success: true,
+      data: scenarios.map((scenario) => ({
+        ...scenario,
+        _id: scenario._id.toString(),
+      })),
+    };
+  } catch (error) {
+    console.error("Error fetching scenarios:", error);
     const fetchResponse: GenericErrorResponse = {
       success: false,
-      message: "Failed to fetch scenarios.",
+      message: "An error occurred while fetching scenarios.",
     };
 
     return fetchResponse;
   }
-
-  const data = await response.json();
-  return fetchScenariosResponseSchema.parse(data);
 };
 
 /**
@@ -37,16 +40,27 @@ export const fetchScenarios = async () => {
  * @param options - Configuration options for the query
  * @returns An array of scenarios summary.
  */
-export const fetchScenariosSummary = async (options: FetchScenarioOptions) => {
-  const searchParameters = new URLSearchParams({
-    includeDrafts: options.includeDrafts.toString(),
-  });
-  const response = await getJson(`/scenarios/summary?${searchParameters}`);
+export const fetchScenariosSummary = async ({
+  includeDrafts,
+}: FetchScenarioOptions) => {
+  try {
+    await connectToDatabase();
+    const scenarios = await ScenarioModel.findSummary([], includeDrafts);
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch scenario summaries.");
+    return {
+      success: true,
+      data: scenarios.map((scenario) => ({
+        ...scenario,
+        _id: scenario._id.toString(),
+      })),
+    };
+  } catch (error) {
+    console.error("Error fetching scenarios summary:", error);
+    const fetchResponse: GenericErrorResponse = {
+      success: false,
+      message: "An error occurred while fetching scenarios summary.",
+    };
+
+    return fetchResponse;
   }
-
-  const data = await response.json();
-  return fetchScenariosSummaryResponseSchema.parse(data);
 };

@@ -35,6 +35,8 @@ const environmentSchema = z
     DISABLE_AUTH: z
       .preprocess((value) => value === "true" || value === "1", z.boolean())
       .default(false),
+    MONGODB_URI: z.string().url(),
+    MONGODB_DATABASE: z.string(),
     SAMPLE_SCENARIO_ID: z
       .string()
       .optional()
