@@ -87,8 +87,8 @@ importers:
         specifier: ^8.13.2
         version: 8.16.2(socks@2.8.4)
       mongoose-lean-virtuals:
-        specifier: ^1.1.0
-        version: 1.1.1(mongoose@8.16.2(socks@2.8.4))
+        specifier: ^2.0.0
+        version: 2.0.0(mongoose@8.16.2(socks@2.8.4))
       winston:
         specifier: ^3.17.0
         version: 3.17.0
@@ -2767,6 +2767,7 @@ packages:
   '@smithy/middleware-endpoint@4.1.14':
     resolution: {integrity: sha512-+BGLpK5D93gCcSEceaaYhUD/+OCGXM1IDaq/jKUQ+ujB0PTWlWN85noodKw/IPFZhIKFCNEe19PGd/reUMeLSQ==}
     engines: {node: '>=18.0.0'}
+    deprecated: Please upgrade to @smithy/middleware-endpoint@4.1.15 or higher to fix a bug preventing the resolution of ENV and config file custom endpoints https://github.com/smithy-lang/smithy-typescript/issues/1645
 
   '@smithy/middleware-retry@2.3.1':
     resolution: {integrity: sha512-P2bGufFpFdYcWvqpyqqmalRtwFUNUA8vHjJR5iGqbfR6mp65qKOLcUd6lTr4S9Gn/enynSrSf3p3FVgVAf6bXA==}
@@ -5805,11 +5806,11 @@ packages:
       socks:
         optional: true
 
-  mongoose-lean-virtuals@1.1.1:
-    resolution: {integrity: sha512-8chOqpVE3bcoWT2pIgcJeIZlXaOfQCavZgQZF4qytUtjRBqsNMyzUoR16qdw9XL2kC478N8iA8z0AA+NSS0d1A==}
+  mongoose-lean-virtuals@2.0.0:
+    resolution: {integrity: sha512-f0rZnr40FzZ74mIREggCxBMK7w1WTeQ9SLH7pI+J4mpnyB0cu4UI2P1i8CdPZRF2Wquwk0ZsbetGxKM4YBGP8w==}
     engines: {node: '>=16.20.1'}
     peerDependencies:
-      mongoose: '>=5.11.10'
+      mongoose: '>=8.0.0'
 
   mongoose@8.16.2:
     resolution: {integrity: sha512-52T4XPhDgJL4cqooBsOORzYBH3ddMwABMEF/LV7TgvD2DEKZlnYTc2HF9ch1U2lcKjhE4pQ+WuInfLFJbguGcQ==}
@@ -13923,7 +13924,7 @@ snapshots:
     optionalDependencies:
       socks: 2.8.4
 
-  mongoose-lean-virtuals@1.1.1(mongoose@8.16.2(socks@2.8.4)):
+  mongoose-lean-virtuals@2.0.0(mongoose@8.16.2(socks@2.8.4)):
     dependencies:
       mongoose: 8.16.2(socks@2.8.4)
       mpath: 0.8.4

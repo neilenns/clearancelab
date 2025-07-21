@@ -30,7 +30,7 @@
     "express-winston": "^4.2.0",
     "logform": "^2.7.0",
     "mongoose": "^8.13.2",
-    "mongoose-lean-virtuals": "^1.1.0",
+    "mongoose-lean-virtuals": "^2.0.0",
     "winston": "^3.17.0",
     "zod": "^3.24.3"
   },
