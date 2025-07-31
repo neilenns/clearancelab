@@ -6,7 +6,7 @@ FROM node:22.17.1-alpine AS base
 ARG PNPM_HOME="/pnpm-store"
 ENV PNPM_HOME=${PNPM_HOME}
 
-RUN corepack enable && corepack prepare pnpm@10.12.4 --activate
+RUN corepack enable && corepack prepare pnpm@10.14.0 --activate
 
 FROM base AS deps
 
