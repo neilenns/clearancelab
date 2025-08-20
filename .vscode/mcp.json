@@ -1,0 +1,19 @@
+{
+  "inputs": [],
+  "servers": {
+    "mongodb": {
+      "args": [
+        "-y",
+        "mongodb-mcp-server",
+        "--connectionString",
+        "mongodb://admin:admin@192.168.1.197:28018/",
+        "--readOnly"
+      ],
+      "command": "npx"
+    },
+    "shadcn": {
+      "type": "http",
+      "url": "https://www.shadcn.io/api/mcp"
+    }
+  }
+}
