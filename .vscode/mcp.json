@@ -6,7 +6,8 @@
         "-y",
         "mongodb-mcp-server",
         "--connectionString",
-        "mongodb://admin:admin@192.168.1.197:28018/"
+        "mongodb://admin:admin@192.168.1.197:28018/",
+        "--readOnly"
       ],
       "command": "npx"
     },
