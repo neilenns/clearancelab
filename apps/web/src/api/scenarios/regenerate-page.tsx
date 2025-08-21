@@ -4,6 +4,13 @@ import { ENV } from "@/lib/environment";
 import { revalidatePath } from "next/cache";
 import { fetchScenariosSummary } from "./fetch-scenarios";
 
+type CloudflarePurgeCacheResponse = {
+  success: boolean;
+  errors?: Array<{ code?: number; message?: string; [key: string]: unknown }>;
+  messages?: Array<{ code?: number; message?: string; [key: string]: unknown }>;
+  result?: Record<string, unknown> | null;
+};
+
 export const clearAudioCache = async (id: string) => {
   if (!ENV.CLOUDFLARE_RUNTIME_API_TOKEN || !ENV.CLOUDFLARE_ZONE_ID) {
     console.warn(
@@ -27,12 +34,13 @@ export const clearAudioCache = async (id: string) => {
       }),
     });
 
-    const result = await response.json();
+    const result = (await response.json()) as CloudflarePurgeCacheResponse;
 
     if (!response.ok || !result.success) {
-      throw new Error(
-        `Failed to purge cache: ${JSON.stringify(result.errors)}`,
-      );
+      const errors = result.errors
+        ? JSON.stringify(result.errors)
+        : "<no errors>";
+      throw new Error(`Failed to purge cache: ${errors}`);
     }
 
     console.log(`Purged cache for audio file ${files[0].toString()}`);
