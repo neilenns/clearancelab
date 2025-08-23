@@ -28,10 +28,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Layout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function Layout({ children }: LayoutProps<"/admin/statistics">) {
   return <main aria-label="Statistics content">{children}</main>;
 }

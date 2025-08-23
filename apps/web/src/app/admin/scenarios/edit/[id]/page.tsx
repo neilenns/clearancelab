@@ -6,9 +6,9 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import NotFound from "./not-found";
 
-type Parameters = Promise<{ id: string }>;
-
-export default async function Page({ params }: { params: Parameters }) {
+export default async function Page({
+  params,
+}: PageProps<"/admin/scenarios/edit/[id]">) {
   const { id } = await params;
   const scenarios = await fetchScenariosByIds([id]);
 
