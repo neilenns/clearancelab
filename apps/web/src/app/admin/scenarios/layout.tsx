@@ -28,10 +28,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Layout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function Layout({ children }: LayoutProps<"/admin/scenarios">) {
   return <main aria-label="Scenario editor content">{children}</main>;
 }

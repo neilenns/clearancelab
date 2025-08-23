@@ -49,6 +49,6 @@ export async function generateMetadata({
   };
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: LayoutProps<"/lab/[id]">) {
   return <>{children}</>;
 }

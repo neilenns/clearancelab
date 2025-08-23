@@ -33,11 +33,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Layout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function Layout({ children }: LayoutProps<"/lab">) {
   const result = await fetchScenariosSummary({ includeDrafts: false });
   const scenarios = result.success ? result.data : [];
 

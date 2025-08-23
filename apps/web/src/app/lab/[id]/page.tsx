@@ -5,8 +5,6 @@ import { fetchScenariosByIds } from "@/api/scenarios/fetch-scenarios-by-ids";
 import ClientSection from "./client-section";
 import NotFound from "./not-found";
 
-type Parameters = Promise<{ id: string }>;
-
 // This is the name that next.js uses for the function, it cannot be renamed.
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export async function generateStaticParams() {
@@ -16,7 +14,7 @@ export async function generateStaticParams() {
   return scenarios.map((scenario) => ({ id: scenario._id }));
 }
 
-export default async function Page({ params }: { params: Parameters }) {
+export default async function Page({ params }: PageProps<"/lab/[id]">) {
   const { id } = await params;
   const scenarios = await fetchScenariosByIds([id]);
 
