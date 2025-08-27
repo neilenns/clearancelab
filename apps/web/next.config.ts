@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   // From https://dopoto.github.io/blog/20250217-nextjs-serializing-big-strings
   webpack: (config: { cache: { type: string } }) => {
