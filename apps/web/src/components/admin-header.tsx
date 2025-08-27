@@ -42,12 +42,13 @@ export function AdminHeader() {
     const elements: React.ReactNode[] = [];
 
     for (const [index, segment] of slicedSegments.entries()) {
-      const href = "/" + slicedSegments.slice(0, index + 1).join("/");
+      const hrefPath = "/" + slicedSegments.slice(0, index + 1).join("/");
+      const href = { pathname: hrefPath };
       const isLast = index === slicedSegments.length - 1;
       const label = friendlyNames[segment] ?? segment.replaceAll("-", " ");
 
       elements.push(
-        <BreadcrumbItem key={href}>
+        <BreadcrumbItem key={hrefPath}>
           {isLast ? (
             <BreadcrumbLink aria-current="page">{label}</BreadcrumbLink>
           ) : (
@@ -59,7 +60,7 @@ export function AdminHeader() {
       );
 
       if (!isLast) {
-        elements.push(<BreadcrumbSeparator key={`${href}-sep`} />);
+        elements.push(<BreadcrumbSeparator key={`${hrefPath}-sep`} />);
       }
     }
 
