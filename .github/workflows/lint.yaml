@@ -1,4 +1,4 @@
-name: CI
+name: Lint
 
 on:
   pull_request:
@@ -15,7 +15,7 @@ env:
 
 jobs:
   monorepo:
-    name: Build monorepo
+    name: Lint monorepo
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -51,47 +51,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpx turbo run ci --affected
-
       - name: Lint
         run: pnpm lint:md && pnpx turbo lint --affected
-
-  docker:
-    name: Build Docker image
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      actions: write
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - name: Check for changed Dockerfile
-        id: changed-files
-        uses: tj-actions/changed-files@v46
-        with:
-          since_last_remote_commit: true
-          files_yaml: |
-            dockerfile:
-              - apps/api/Dockerfile
-              - apps/api/.dockerignore
-              - .github/workflows/ci.yaml
-
-      - name: Skip if Dockerfiles unchanged
-        if: steps.changed-files.outputs.dockerfile_any_changed != 'true'
-        run: echo "No Dockerfile changes, skipping build."
-
-      - name: Docker build (CI only, no push)
-        if: steps.changed-files.outputs.dockerfile_any_changed == 'true'
-        uses: ./.github/actions/docker-build
-        with:
-          version: dev
-          push: false
-          tag_latest: false
-          turbo_token: ${{ secrets.TURBO_TOKEN }}
-          turbo_team: ${{ vars.TURBO_TEAM }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
