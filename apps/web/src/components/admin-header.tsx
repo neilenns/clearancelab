@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { CirclePlusIcon, LogOut } from "lucide-react";
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
@@ -43,7 +44,6 @@ export function AdminHeader() {
 
     for (const [index, segment] of slicedSegments.entries()) {
       const hrefPath = "/" + slicedSegments.slice(0, index + 1).join("/");
-      const href = { pathname: hrefPath };
       const isLast = index === slicedSegments.length - 1;
       const label = friendlyNames[segment] ?? segment.replaceAll("-", " ");
 
@@ -53,7 +53,7 @@ export function AdminHeader() {
             <BreadcrumbLink aria-current="page">{label}</BreadcrumbLink>
           ) : (
             <BreadcrumbLink asChild>
-              <Link href={href}>{label}</Link>
+              <Link href={pathname as Route}>{label}</Link>
             </BreadcrumbLink>
           )}
         </BreadcrumbItem>,

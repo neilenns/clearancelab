@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -14,7 +15,7 @@ const Markdown = ({ children }: MarkdownProperties) => {
         a: ({ href, children }) => (
           <Link
             className="text-[var(--color-primary)] underline"
-            href={href ?? "#"}
+            href={(href ?? "#") as Route}
             target="_blank"
             rel="noreferrer noopener"
           >

@@ -8,6 +8,7 @@ import {
   Tooltip,
   type InteractionItem,
 } from "chart.js";
+import type { Route } from "next";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, type MouseEvent } from "react";
 import { Chart, getElementAtEvent } from "react-chartjs-2";
@@ -77,7 +78,7 @@ export default function PieChart({
 
     const filterValue = isBoolean ? item === "Yes" : `%22${item}%22`;
 
-    router.push(`${baseUrl}${filterValue}`);
+    router.push(`${baseUrl}${filterValue}` as Route);
   };
 
   const onClick = (event: MouseEvent<HTMLCanvasElement>) => {
