@@ -65,7 +65,7 @@ export function AdminHeader() {
     }
 
     return elements;
-  }, [pathname, slicedSegments]);
+  }, [slicedSegments]);
 
   return (
     <header
