@@ -53,7 +53,7 @@ export function AdminHeader() {
             <BreadcrumbLink aria-current="page">{label}</BreadcrumbLink>
           ) : (
             <BreadcrumbLink asChild>
-              <Link href={pathname as Route}>{label}</Link>
+              <Link href={hrefPath as Route}>{label}</Link>
             </BreadcrumbLink>
           )}
         </BreadcrumbItem>,
@@ -65,12 +65,11 @@ export function AdminHeader() {
     }
 
     return elements;
-  }, [pathname, slicedSegments]);
+  }, [slicedSegments]);
 
   return (
     <header
       className="flex h-12 shrink-0 items-center justify-between border-b px-4"
-      role="banner"
       aria-label={`${pageName} page header`}
     >
       <Breadcrumb>

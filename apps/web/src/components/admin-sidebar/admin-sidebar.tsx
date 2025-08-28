@@ -12,17 +12,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ChartPie, Edit, Home } from "lucide-react";
+import { ChartPie, Edit, Home, LucideIcon } from "lucide-react";
 import type { Route } from "next";
 import Link from "next/link";
 
 type NavItem<T extends string = string> = {
   href: T;
   title: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
 };
 
-const items: NavItem<Route>[] = [
+const items: ReadonlyArray<NavItem<Route>> = [
   {
     title: "Home",
     href: "/admin",
@@ -38,7 +38,7 @@ const items: NavItem<Route>[] = [
     href: "/admin/statistics",
     icon: ChartPie,
   },
-];
+] as const satisfies ReadonlyArray<NavItem<Route>>;
 
 export function AdminSidebar({ ...properties }) {
   return (
@@ -52,7 +52,7 @@ export function AdminSidebar({ ...properties }) {
             <SidebarGroupContent>
               <SidebarMenu>
                 {items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
+                  <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton asChild>
                       <Link href={item.href}>
                         <item.icon aria-hidden="true" />
