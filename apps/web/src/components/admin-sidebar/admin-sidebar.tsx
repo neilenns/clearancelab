@@ -13,28 +13,29 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { ChartPie, Edit, Home } from "lucide-react";
+import type { Route } from "next";
 import Link from "next/link";
 
 type NavItem<T extends string = string> = {
-  url: T;
+  href: T;
   title: string;
   icon: React.ElementType;
 };
 
-const items: NavItem[] = [
+const items: NavItem<Route>[] = [
   {
     title: "Home",
-    url: "/admin",
+    href: "/admin",
     icon: Home,
   },
   {
     title: "Manage scenarios",
-    url: "/admin/scenarios",
+    href: "/admin/scenarios",
     icon: Edit,
   },
   {
     title: "View statistics",
-    url: "/admin/statistics",
+    href: "/admin/statistics",
     icon: ChartPie,
   },
 ];
@@ -53,7 +54,7 @@ export function AdminSidebar({ ...properties }) {
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <Link href={item.url}>
+                      <Link href={item.href}>
                         <item.icon aria-hidden="true" />
                         <span>{item.title}</span>
                       </Link>
