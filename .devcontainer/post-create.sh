@@ -22,11 +22,10 @@ grep -qxF 'export PNPM_HOME="$HOME/.local/share/pnpm"' ~/.zshrc || \
 grep -qxF 'export PATH="$PNPM_HOME:$PATH"' ~/.zshrc || \
   echo 'export PATH="$PNPM_HOME:$PATH"' >> ~/.zshrc
 
-echo "⬇️  Installing pnpm packages..."
+echo "⬇️  Installing safe-chain and pnpm packages..."
 
-pnpm --silent add -g turbo@2.5.0
-pnpm --silent add -g @devcontainers/cli
-pnpm --silent add -g wrangler
+pnpm --silent add -g @aikidosec/safe-chain && safe-chain setup > /dev/null
+pnpm --silent add -g turbo@2.5.0 wrangler
 pnpm --silent install --frozen-lockfile
 
 ### Database setup
