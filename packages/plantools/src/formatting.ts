@@ -3,10 +3,10 @@ import { spellFrequency } from "./faa-speech";
 
 const AirlineCodeRegexPattern = /\b([A-Za-z]{3})([A-Za-z\d]+)\b/;
 
-export function generateIssueTitle(scenario: Scenario): string {
-  const title = `Issue with scenario ${scenario.plan.dep ?? ""} - ${scenario.plan.dest ?? ""} (${scenario.plan.aid})`;
+export function generateIssueTitle({ plan }: Scenario): string {
+  const issueTitle = `Issue with scenario ${plan.dep ?? ""} - ${plan.dest ?? ""} (${plan.aid})`;
 
-  return encodeURIComponent(title);
+  return encodeURIComponent(issueTitle);
 }
 
 export function generateIssueBody(scenario: Scenario): string {
