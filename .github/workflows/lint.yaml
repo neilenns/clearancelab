@@ -51,5 +51,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build
+        run: pnpx turbo build
+
       - name: Lint
         run: pnpm lint:md && pnpx turbo lint
