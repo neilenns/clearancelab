@@ -52,7 +52,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpx turbo build
+        run: pnpx turbo ci
 
       - name: Lint
         run: pnpm lint:md && pnpx turbo lint
