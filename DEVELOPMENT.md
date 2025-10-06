@@ -71,34 +71,58 @@ Default values for local development are set in the [`devcontainer.env`](.devcon
 | ---------------------------- | ------------------------------------------------------- | ------------------------ |
 | `MONGO_DB_CONNECTION_STRING` | URI to the local MongoDB instance.                      | `mongodb://db:27017/`    |
 | `MONGO_DB_NAME`              | Name of the database with the development data.         | `clearancelab`           |
-| `API_BASE_URL`               | Address of the api server, accessed by the web project. | `http://localhost:4503/` |
+| `API_BASE_URL`               | Address of the API server, accessed by the web project. | `http://localhost:4503/` |
+| `AUDIO_BASE_URL`             | Address for serving audio files.                        | `http://localhost:4503/` |
+| `PNPM_STORE`                 | Location of the pnpm package cache.                     | `/pnpm-store`            |
+| `DISABLE_AUTH`               | Disables Auth0 authentication.                          | `true`                   |
+| `NEXT_PUBLIC_DISABLE_AUTH`   | Disables Auth0 authentication in the web app.           | `true`                   |
+
+#### Authentication
 
 Auth0 is disabled by default. To enable it, create a file called `devcontainer.env.overrides` in the `./devcontainer/` folder and set the `DISABLE_AUTH` variable to `false`. When adding a `devcontainer.env.overrides` file, you must reopen the devcontainer for the changes to take effect.
 
 For Auth0 to work on the API server, the following variables must be set, either via a `.env.local` file in the `apps/api` folder or in the `devcontainer.env.overrides` file:
 
-| Variable         | Description                                                                                            |
-| ---------------- | ------------------------------------------------------------------------------------------------------ |
-| `AUTH0_DOMAIN`   | Domain of the Auth0 Clearance Lab application. Copy the value exactly as shown in the AUTH0 dashboard. |
-| `AUTH0_AUDIENCE` | URL for the API created in the Auth0 dashboard.                                                        |
-
-There are additional security-related variables to configure CORS and rate-limiting:
-
-| Variable                       | Description                                                                     |
-| ------------------------------ | ------------------------------------------------------------------------------- |
-| `API_RATE_LIMIT_MAX`           | Maximum number of requests per window. Default 100.                             |
-| `API_RATE_LIMIT_MINUTE_WINDOW` | Time window for rate limiting in minutes. Default 5.                            |
-| `WHITELISTED_DOMAINS`          | List of domains that are allowed via CORS. Separate multiple domains with `\|`. |
+| Variable         | Description                                                                                            | Required when auth enabled |
+| ---------------- | ------------------------------------------------------------------------------------------------------ | -------------------------- |
+| `AUTH0_DOMAIN`   | Domain of the Auth0 Clearance Lab application. Copy the value exactly as shown in the AUTH0 dashboard. | ✅                         |
+| `AUTH0_AUDIENCE` | URL for the API created in the Auth0 dashboard.                                                        | ✅                         |
 
 The web app also needs several Auth0 variables set to validate secured endpoints. These are only required if you want to test authentication locally (when `DISABLE_AUTH` is set to `false` and `NEXT_PUBLIC_DISABLE_AUTH` is set to `false`). These can be set in the `devcontainer.env.overrides` file or in a `.env.local` file in the `apps/web` folder.
 
-| Variable              | Description                                                                                               |
-| --------------------- | --------------------------------------------------------------------------------------------------------- |
-| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                           |
-| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                      |
-| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                             |
-| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. Copy the value exactly as shown in the AUTH0 dashboard. |
-| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                        |
+| Variable              | Description                                                                                               | Required when auth enabled |
+| --------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `AUTH0_AUDIENCE`      | URL for the API created in the Auth0 dashboard.                                                           | ✅                         |
+| `AUTH0_CLIENT_ID`     | Client ID of the Clearance Lab application in Auth0.                                                      | ✅                         |
+| `AUTH0_CLIENT_SECRET` | Client-side secret for Auth0.                                                                             | ✅                         |
+| `AUTH0_DOMAIN`        | Domain of the Clearance Lab application in Auth0. Copy the value exactly as shown in the AUTH0 dashboard. | ✅                         |
+| `AUTH0_SECRET`        | Secret for the Clearance Lab application in Auth0.                                                        | ✅                         |
+
+#### Optional configuration
+
+There are additional optional variables for configuring the API server and web app:
+
+**API Server:**
+
+| Variable              | Description                                                                            | Default Value        |
+| --------------------- | -------------------------------------------------------------------------------------- | -------------------- |
+| `PORT`                | Port for the API server.                                                               | `4503`               |
+| `HEALTH_PORT`         | Port for the health check endpoint.                                                    | `4504`               |
+| `LOG_LEVEL`           | Logging level: `error`, `warn`, `info`, or `debug`.                                    | `info`               |
+| `WHITELISTED_DOMAINS` | List of domains that are allowed via CORS. Separate multiple domains with `\|`.        | `http://localhost:*` |
+| `TRUST_PROXY`         | Configures Express.js `trust proxy` setting. Set to `1` if behind a reverse proxy.    | `0`                  |
+| `VERSION`             | Version identifier for the API server.                                                 | `dev`                |
+| `SSL_PRIVATE_KEY_PATH` | Path to SSL private key file (for HTTPS).                                              | (empty)              |
+| `SSL_FULL_CHAIN_PATH` | Path to SSL full chain certificate file (for HTTPS).                                   | (empty)              |
+
+**Web App:**
+
+| Variable            | Description                                                           | Default Value          |
+| ------------------- | --------------------------------------------------------------------- | ---------------------- |
+| `SAMPLE_SCENARIO_ID` | MongoDB ID of the sample scenario to display in documentation.        | `6802cef1cd28e1a43a89e8d9` |
+| `APP_BASE_URL`      | Base URL of the web application (used for canonical URLs, etc.).      | (optional)             |
+
+#### Turborepo remote caching
 
 To speed builds, the following environment variables can be set to enable TurboRepo remote caching:
 
@@ -112,34 +136,54 @@ To speed builds, the following environment variables can be set to enable TurboR
 
 ### Production
 
-The API server supports the following variables:
+#### API Server
+
+The API server is deployed as a Docker container. The following environment variables are supported:
 
 | Variable                     | Description                                                                                                                                                                   | Required |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | `MONGO_DB_CONNECTION_STRING` | URI to the MongoDB instance.                                                                                                                                                  | ✅       |
-| `MONGO_DB_NAME`              | Name of the database with the development data.                                                                                                                               | ✅       |
-| `TRUST_PROXY`                | Configures the [Express.js `trust proxy` setting](https://expressjs.com/en/guide/behind-proxies.html). If the server is deployed behind a Cloudflare, tunnel set this to `1`. |          |
+| `MONGO_DB_NAME`              | Name of the database.                                                                                                                                                        | ✅       |
+| `AUTH0_DOMAIN`               | Domain of the Auth0 Clearance Lab application. Copy the value exactly as shown in the AUTH0 dashboard.                                                                       | ✅       |
+| `AUTH0_AUDIENCE`             | URL for the API created in the Auth0 dashboard.                                                                                                                              | ✅       |
+| `PORT`                       | Port for the API server.                                                                                                                                                     |          |
+| `HEALTH_PORT`                | Port for the health check endpoint.                                                                                                                                          |          |
+| `LOG_LEVEL`                  | Logging level: `error`, `warn`, `info`, or `debug`.                                                                                                                          |          |
+| `TRUST_PROXY`                | Configures the [Express.js `trust proxy` setting](https://expressjs.com/en/guide/behind-proxies.html). If the server is deployed behind a Cloudflare tunnel, set this to `1`. |          |
+| `VERSION`                    | Version identifier for the API server (automatically set during deployment).                                                                                                  |          |
+| `WHITELISTED_DOMAINS`        | List of domains that are allowed via CORS. Separate multiple domains with `\|`.                                                                                              |          |
+| `SSL_PRIVATE_KEY_PATH`       | Path to SSL private key file (for HTTPS).                                                                                                                                   |          |
+| `SSL_FULL_CHAIN_PATH`        | Path to SSL full chain certificate file (for HTTPS).                                                                                                                         |          |
 
-The web UI deploys as a Cloudflare worker via the [GitHub release workflow](#deployment). The following variables and secrets are supported:
+> [!NOTE]
+> `DISABLE_AUTH` is available but cannot be set to `true` in production. Authentication is always required in production environments.
 
-| Variable                       | Description                                                                                                                  | Required |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `API_BASE_URL`                 | URI to the API server.                                                                                                       | ✅       |
-| `API_KEY`                      | API key for access to the API server.                                                                                        | ✅       |
-| `APP_BASE_URL`                 | URI to the web app.                                                                                                          | ✅       |
-| `AUDIO_BASE_URL`               | URI for the R2 bucket that hosts the audio files.                                                                            | ✅       |
-| `AUTH0_AUDIENCE`               | URL for the API created in the Auth0 dashboard.                                                                              | ✅       |
-| `AUTH0_CLIENT_ID`              | Client ID of the Clearance Lab application in Auth0.                                                                         | ✅       |
-| `AUTH0_CLIENT_SECRET`          | Client-side secret for Auth0.                                                                                                | ✅       |
-| `AUTH0_DOMAIN`                 | Domain of the Clearance Lab application in Auth0. This is not a URL. Copy the value exactly as shown in the AUTH0 dashboard. | ✅       |
-| `AUTH0_SECRET`                 | Secret for the Clearance Lab application in Auth0.                                                                           | ✅       |
-| `CLOUDFLARE_RUNTIME_API_TOKEN` | API token with `Zone: Cache purge` authorization. Used to clear cached audio files programmatically.                         |          |
-| `CLOUDFLARE_ZONE_ID`           | The Zone ID the worker is deployed under. Used to clear cached audio files programmatically.                                 |          |
-| `DEPLOY_ENV`                   | Deployment environment, either `prod` or `dev`.                                                                              | ✅       |
+#### Web App
 
-The environment variables are set in the [`wrangler.toml`](apps/web/wrangler.toml) file and in GitHub environment variables. They must be set in both places, so the CI builds will pass environment variable verification.
+The web app deploys as a Cloudflare Pages worker via the [GitHub deployment workflows](#deployment). The following variables are required:
 
-The `API_KEY`, `CLOUDFLARE_RUNTIME_API_TOKEN`, and Auth0 secrets are stored as GitHub secrets and are pushed to Cloudflare during the release workflow.
+| Variable                            | Description                                                                                                                  | Required | Type     |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------- | -------- |
+| `API_BASE_URL`                      | URI to the API server.                                                                                                       | ✅       | Variable |
+| `API_KEY`                           | API key for access to the API server.                                                                                        | ✅       | Secret   |
+| `APP_BASE_URL`                      | URI to the web app.                                                                                                          | ✅       | Variable |
+| `AUDIO_BASE_URL`                    | URI for the R2 bucket that hosts the audio files.                                                                            | ✅       | Variable |
+| `AUTH0_AUDIENCE`                    | URL for the API created in the Auth0 dashboard.                                                                              | ✅       | Variable |
+| `AUTH0_CLIENT_ID`                   | Client ID of the Clearance Lab application in Auth0.                                                                         | ✅       | Variable |
+| `AUTH0_CLIENT_SECRET`               | Client-side secret for Auth0.                                                                                                | ✅       | Secret   |
+| `AUTH0_DOMAIN`                      | Domain of the Clearance Lab application in Auth0. This is not a URL. Copy the value exactly as shown in the AUTH0 dashboard. | ✅       | Variable |
+| `AUTH0_SECRET`                      | Secret for the Clearance Lab application in Auth0.                                                                           | ✅       | Secret   |
+| `BACKEND_CF_ACCESS_CLIENT_ID`       | Cloudflare Access client ID for accessing the backend API through Cloudflare Zero Trust.                                     | ✅       | Secret   |
+| `BACKEND_CF_ACCESS_CLIENT_SECRET`   | Cloudflare Access client secret for accessing the backend API through Cloudflare Zero Trust.                                 | ✅       | Secret   |
+| `CLOUDFLARE_ACCOUNT_ID`             | Cloudflare account ID where the worker is deployed.                                                                          | ✅       | Variable |
+| `CLOUDFLARE_API_TOKEN`              | Cloudflare API token for deploying the worker.                                                                               | ✅       | Secret   |
+| `CLOUDFLARE_RUNTIME_API_TOKEN`      | API token with `Zone: Cache purge` permission. Used to clear cached audio files programmatically.                            |          | Secret   |
+| `CLOUDFLARE_ZONE_ID`                | The Zone ID the worker is deployed under. Used to clear cached audio files programmatically.                                 |          | Variable |
+| `DEPLOY_ENV`                        | Deployment environment, either `prod` or `dev`.                                                                              | ✅       | Variable |
+| `SAMPLE_SCENARIO_ID`                | MongoDB ID of the sample scenario to display in documentation.                                                               |          | Variable |
+
+> [!NOTE]
+> Variables are set in GitHub environment variables for each deployment environment (`dev` and `prod`). Secrets are stored in GitHub secrets.
 
 ## Build process and deployment
 
@@ -160,32 +204,74 @@ In most situations, local builds should be done with the [VS Code launch command
 
 CI is handled by GitHub workflows. All pull requests automatically have the following jobs run:
 
-- **CI - Monorepo**: Builds the monorepo and runs lint.
-- **CI - Docker**: Builds the API docker image.
-- **CI - Require label**: Requires a label on every pull request, for automatic release notes generation.
-- **Devcontainer - Build**: Builds the devcontainer image
+- **Lint**: Builds the monorepo, runs markdown linting with markdownlint, and runs project-specific linting via turbo.
+- **PR Label Required**: Requires a label on every pull request for automatic release notes generation.
 
-All jobs leverage a TurboRepo remote cache and prune to only run when dependent files changed.
+When manually triggered or when changes are merged to `main` in the `dev` branch workflow:
+
+- **Deploy - dev**: Builds Docker image for the API server, deploys it via Watchtower webhook, and deploys the web app to Cloudflare.
+
+When a release is published:
+
+- **Deploy - prod**: Builds Docker image for the API server with version tag, deploys it via Watchtower webhook, and deploys the web app to Cloudflare production.
+
+All jobs leverage TurboRepo remote caching to speed up builds.
 
 ### Deployment
 
-Deployments to the `dev` environment are triggered manually by running the [`Deploy - dev`](.github/workflows/deploy-dev.yaml) workflow in GitHub. Deployments to the `prod` environment are triggered by the [`Deploy - prod`](.github/workflows/deploy-prod.yaml) workflow.
+The project uses a two-step deployment process that deploys both the API server (as a Docker container) and the web app (as a Cloudflare Pages worker).
 
-After the Docker image builds, a Watchtower webhook is called to deploy the image into either dev or prod. For this to work the following environment variables must be set in GitHub:
+#### Deployment Workflows
 
-| Variable                 | Description                                                                                                            |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `WATCHTOWER_WEBHOOK_URL` | URL to the Watchtower webhook.                                                                                         |
-| `CF_ACCESS_CLIENT_ID`    | Cloudflare Access client ID used in the webhook headers to authenticate through Cloudflare to the Watchtower instance. |
+Deployments to the `dev` environment are triggered:
 
-And the following secrets must be set in GitHub:
+- Manually by running the [`Deploy - dev`](.github/workflows/deploy-dev.yaml) workflow in GitHub Actions
+- Automatically on pull requests to the `main` branch
 
-| `WATCHTOWER_API_KEY` | API key for the Watchtower webhook. |
-| `CF_ACCESS_CLIENT_SECRET` | Cloudflare Access client secret used in the webhook headers to authenticate through Cloudflare to the Watchtower instance. |
+Deployments to the `prod` environment are triggered:
 
-The backend API server is protected via Cloudflare Zero Trust. The following secrets must be set in GitHub for the deployed web app to get through to the backend server:
+- Automatically when a release is published via the [`Deploy - prod`](.github/workflows/deploy-prod.yaml) workflow
 
-| Secret                            | Description                           |
-| --------------------------------- | ------------------------------------- |
-| `BACKEND_CF_ACCESS_CLIENT_ID`     | Client ID for the service worker.     |
-| `BACKEND_CF_ACCESS_CLIENT_SECRET` | Client secret for the service worker. |
+#### Deployment Process
+
+Each deployment workflow performs the following steps:
+
+1. **Docker Image Build and Deployment:**
+   - Builds a Docker image for the API server
+   - Pushes the image to GitHub Container Registry (ghcr.io)
+   - Triggers a Watchtower webhook to deploy the container to the production/dev server
+   - For dev builds: tags the image as `dev-{short-sha}` and `latest-dev`
+   - For prod builds: tags the image with the release tag (e.g., `v1.2.3`) and `latest`
+
+2. **Cloudflare Pages Deployment:**
+   - Deploys the web app to Cloudflare Pages
+   - Injects all required environment variables and secrets
+   - Deploys to the appropriate environment (`dev` or `prod`)
+
+#### Required GitHub Configuration
+
+**For Docker deployment (Watchtower webhook):**
+
+Variables:
+
+- `WATCHTOWER_WEBHOOK_URL`: URL to the Watchtower webhook
+- `CF_ACCESS_CLIENT_ID`: Cloudflare Access client ID for authenticating to Watchtower through Cloudflare Zero Trust
+
+Secrets:
+
+- `WATCHTOWER_API_KEY`: API key for the Watchtower webhook
+- `CF_ACCESS_CLIENT_SECRET`: Cloudflare Access client secret for authenticating to Watchtower through Cloudflare Zero Trust
+
+**For Cloudflare deployment:**
+
+See the [Web App production environment variables](#web-app) section above for the complete list of required variables and secrets.
+
+**For build optimization:**
+
+Variables:
+
+- `TURBO_TEAM`: Team name for TurboRepo remote caching
+
+Secrets:
+
+- `TURBO_TOKEN`: Token to access TurboRepo remote cache
