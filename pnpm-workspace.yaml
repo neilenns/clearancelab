@@ -6,9 +6,12 @@ ignoredBuiltDependencies:
   - core-js-pure
 
 onlyBuiltDependencies:
-  - '@swc/core'
-  - '@tailwindcss/oxide'
+  - "@swc/core"
+  - "@tailwindcss/oxide"
   - esbuild
   - msw
   - sharp
   - workerd
+
+overrides:
+  "eslint@^9": "9.38.0"
