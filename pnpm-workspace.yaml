@@ -12,6 +12,3 @@ onlyBuiltDependencies:
   - msw
   - sharp
   - workerd
-
-overrides:
-  "eslint@^9": "9.38.0"
