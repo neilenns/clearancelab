@@ -2,14 +2,14 @@
   "name": "clearancelab",
   "scripts": {
     "build:devcontainer": "devcontainer build --workspace-folder . --config ./.devcontainer/apps/devcontainer.json",
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules"
+    "lint:md": "markdownlint '**/*.md'"
   },
   "devDependencies": {
     "@turbo/gen": "^2.5.6",
     "cross-env": "^10.0.0",
     "eslint": "^9.34.0",
     "markdownlint": "^0.39.0",
-    "markdownlint-cli": "^0.45.0",
+    "markdownlint-cli": "^0.46.0",
     "prettier": "^3.6.2",
     "prettier-plugin-multiline-arrays": "^4.0.3",
     "prettier-plugin-organize-imports": "^4.2.0",
