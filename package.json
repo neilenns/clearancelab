@@ -2,7 +2,7 @@
   "name": "clearancelab",
   "scripts": {
     "build:devcontainer": "devcontainer build --workspace-folder . --config ./.devcontainer/apps/devcontainer.json",
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules"
+    "lint:md": "markdownlint '**/*.md'"
   },
   "devDependencies": {
     "@turbo/gen": "^2.5.6",

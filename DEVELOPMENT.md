@@ -1,3 +1,6 @@
+<!-- This rule is complaining about table formatting in this document for some reason, even though prettier is doing the formatting -->
+<!-- markdownlint-disable MD060 -->
+
 # Development guide <!-- omit from toc -->
 
 Welcome to the Clearance Lab development environment! The entire project is designed for quick setup using VSCode dev containers.
@@ -9,18 +12,25 @@ This guide will walk you through getting started, understanding available launch
 - [Database setup](#database-setup)
 - [Environment variables](#environment-variables)
   - [Local development](#local-development)
+    - [Authentication](#authentication)
+    - [Optional configuration](#optional-configuration)
+    - [Turborepo remote caching](#turborepo-remote-caching)
   - [Production](#production)
+    - [API Server](#api-server)
+    - [Web App](#web-app)
 - [Build process and deployment](#build-process-and-deployment)
   - [Local builds](#local-builds)
   - [CI builds](#ci-builds)
   - [Deployment](#deployment)
+    - [Deployment Workflows](#deployment-workflows)
+    - [Deployment Process](#deployment-process)
+    - [Required GitHub Configuration](#required-github-configuration)
 
 ## Getting started with VS Code dev containers
 
 To spin up the project in a fully configured development environment:
 
 1. **Install Requirements:**
-
    - [Docker](https://www.docker.com/)
    - [VS Code](https://code.visualstudio.com/)
    - [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
@@ -104,23 +114,23 @@ There are additional optional variables for configuring the API server and web a
 
 **API Server:**
 
-| Variable              | Description                                                                            | Default Value        |
-| --------------------- | -------------------------------------------------------------------------------------- | -------------------- |
-| `PORT`                | Port for the API server.                                                               | `4503`               |
-| `HEALTH_PORT`         | Port for the health check endpoint.                                                    | `4504`               |
-| `LOG_LEVEL`           | Logging level: `error`, `warn`, `info`, or `debug`.                                    | `info`               |
-| `WHITELISTED_DOMAINS` | List of domains that are allowed via CORS. Separate multiple domains with `\|`.        | `http://localhost:*` |
-| `TRUST_PROXY`         | Configures Express.js `trust proxy` setting. Set to `1` if behind a reverse proxy.    | `0`                  |
-| `VERSION`             | Version identifier for the API server.                                                 | `dev`                |
-| `SSL_PRIVATE_KEY_PATH` | Path to SSL private key file (for HTTPS).                                              | (empty)              |
-| `SSL_FULL_CHAIN_PATH` | Path to SSL full chain certificate file (for HTTPS).                                   | (empty)              |
+| Variable               | Description                                                                        | Default Value        |
+| ---------------------- | ---------------------------------------------------------------------------------- | -------------------- |
+| `PORT`                 | Port for the API server.                                                           | `4503`               |
+| `HEALTH_PORT`          | Port for the health check endpoint.                                                | `4504`               |
+| `LOG_LEVEL`            | Logging level: `error`, `warn`, `info`, or `debug`.                                | `info`               |
+| `WHITELISTED_DOMAINS`  | List of domains that are allowed via CORS. Separate multiple domains with `\|`.    | `http://localhost:*` |
+| `TRUST_PROXY`          | Configures Express.js `trust proxy` setting. Set to `1` if behind a reverse proxy. | `0`                  |
+| `VERSION`              | Version identifier for the API server.                                             | `dev`                |
+| `SSL_PRIVATE_KEY_PATH` | Path to SSL private key file (for HTTPS).                                          | (empty)              |
+| `SSL_FULL_CHAIN_PATH`  | Path to SSL full chain certificate file (for HTTPS).                               | (empty)              |
 
 **Web App:**
 
-| Variable            | Description                                                           | Default Value          |
-| ------------------- | --------------------------------------------------------------------- | ---------------------- |
-| `SAMPLE_SCENARIO_ID` | MongoDB ID of the sample scenario to display in documentation.        | `6802cef1cd28e1a43a89e8d9` |
-| `APP_BASE_URL`      | Base URL of the web application (used for canonical URLs, etc.).      | (optional)             |
+| Variable             | Description                                                      | Default Value              |
+| -------------------- | ---------------------------------------------------------------- | -------------------------- |
+| `SAMPLE_SCENARIO_ID` | MongoDB ID of the sample scenario to display in documentation.   | `6802cef1cd28e1a43a89e8d9` |
+| `APP_BASE_URL`       | Base URL of the web application (used for canonical URLs, etc.). | (optional)                 |
 
 #### Turborepo remote caching
 
@@ -143,17 +153,17 @@ The API server is deployed as a Docker container. The following environment vari
 | Variable                     | Description                                                                                                                                                                   | Required |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | `MONGO_DB_CONNECTION_STRING` | URI to the MongoDB instance.                                                                                                                                                  | ✅       |
-| `MONGO_DB_NAME`              | Name of the database.                                                                                                                                                        | ✅       |
-| `AUTH0_DOMAIN`               | Domain of the Auth0 Clearance Lab application. Copy the value exactly as shown in the AUTH0 dashboard.                                                                       | ✅       |
-| `AUTH0_AUDIENCE`             | URL for the API created in the Auth0 dashboard.                                                                                                                              | ✅       |
-| `PORT`                       | Port for the API server.                                                                                                                                                     |          |
-| `HEALTH_PORT`                | Port for the health check endpoint.                                                                                                                                          |          |
-| `LOG_LEVEL`                  | Logging level: `error`, `warn`, `info`, or `debug`.                                                                                                                          |          |
+| `MONGO_DB_NAME`              | Name of the database.                                                                                                                                                         | ✅       |
+| `AUTH0_DOMAIN`               | Domain of the Auth0 Clearance Lab application. Copy the value exactly as shown in the AUTH0 dashboard.                                                                        | ✅       |
+| `AUTH0_AUDIENCE`             | URL for the API created in the Auth0 dashboard.                                                                                                                               | ✅       |
+| `PORT`                       | Port for the API server.                                                                                                                                                      |          |
+| `HEALTH_PORT`                | Port for the health check endpoint.                                                                                                                                           |          |
+| `LOG_LEVEL`                  | Logging level: `error`, `warn`, `info`, or `debug`.                                                                                                                           |          |
 | `TRUST_PROXY`                | Configures the [Express.js `trust proxy` setting](https://expressjs.com/en/guide/behind-proxies.html). If the server is deployed behind a Cloudflare tunnel, set this to `1`. |          |
 | `VERSION`                    | Version identifier for the API server (automatically set during deployment).                                                                                                  |          |
-| `WHITELISTED_DOMAINS`        | List of domains that are allowed via CORS. Separate multiple domains with `\|`.                                                                                              |          |
-| `SSL_PRIVATE_KEY_PATH`       | Path to SSL private key file (for HTTPS).                                                                                                                                   |          |
-| `SSL_FULL_CHAIN_PATH`        | Path to SSL full chain certificate file (for HTTPS).                                                                                                                         |          |
+| `WHITELISTED_DOMAINS`        | List of domains that are allowed via CORS. Separate multiple domains with `\|`.                                                                                               |          |
+| `SSL_PRIVATE_KEY_PATH`       | Path to SSL private key file (for HTTPS).                                                                                                                                     |          |
+| `SSL_FULL_CHAIN_PATH`        | Path to SSL full chain certificate file (for HTTPS).                                                                                                                          |          |
 
 > [!NOTE]
 > `DISABLE_AUTH` is available but cannot be set to `true` in production. Authentication is always required in production environments.
@@ -162,25 +172,25 @@ The API server is deployed as a Docker container. The following environment vari
 
 The web app deploys as a Cloudflare Pages worker via the [GitHub deployment workflows](#deployment). The following variables are required:
 
-| Variable                            | Description                                                                                                                  | Required | Type     |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------- | -------- |
-| `API_BASE_URL`                      | URI to the API server.                                                                                                       | ✅       | Variable |
-| `API_KEY`                           | API key for access to the API server.                                                                                        | ✅       | Secret   |
-| `APP_BASE_URL`                      | URI to the web app.                                                                                                          | ✅       | Variable |
-| `AUDIO_BASE_URL`                    | URI for the R2 bucket that hosts the audio files.                                                                            | ✅       | Variable |
-| `AUTH0_AUDIENCE`                    | URL for the API created in the Auth0 dashboard.                                                                              | ✅       | Variable |
-| `AUTH0_CLIENT_ID`                   | Client ID of the Clearance Lab application in Auth0.                                                                         | ✅       | Variable |
-| `AUTH0_CLIENT_SECRET`               | Client-side secret for Auth0.                                                                                                | ✅       | Secret   |
-| `AUTH0_DOMAIN`                      | Domain of the Clearance Lab application in Auth0. This is not a URL. Copy the value exactly as shown in the AUTH0 dashboard. | ✅       | Variable |
-| `AUTH0_SECRET`                      | Secret for the Clearance Lab application in Auth0.                                                                           | ✅       | Secret   |
-| `BACKEND_CF_ACCESS_CLIENT_ID`       | Cloudflare Access client ID for accessing the backend API through Cloudflare Zero Trust.                                     | ✅       | Secret   |
-| `BACKEND_CF_ACCESS_CLIENT_SECRET`   | Cloudflare Access client secret for accessing the backend API through Cloudflare Zero Trust.                                 | ✅       | Secret   |
-| `CLOUDFLARE_ACCOUNT_ID`             | Cloudflare account ID where the worker is deployed.                                                                          | ✅       | Variable |
-| `CLOUDFLARE_API_TOKEN`              | Cloudflare API token for deploying the worker.                                                                               | ✅       | Secret   |
-| `CLOUDFLARE_RUNTIME_API_TOKEN`      | API token with `Zone: Cache purge` permission. Used to clear cached audio files programmatically.                            |          | Secret   |
-| `CLOUDFLARE_ZONE_ID`                | The Zone ID the worker is deployed under. Used to clear cached audio files programmatically.                                 |          | Variable |
-| `DEPLOY_ENV`                        | Deployment environment, either `prod` or `dev`.                                                                              | ✅       | Variable |
-| `SAMPLE_SCENARIO_ID`                | MongoDB ID of the sample scenario to display in documentation.                                                               |          | Variable |
+| Variable                          | Description                                                                                                                  | Required | Type     |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | -------- | -------- |
+| `API_BASE_URL`                    | URI to the API server.                                                                                                       | ✅       | Variable |
+| `API_KEY`                         | API key for access to the API server.                                                                                        | ✅       | Secret   |
+| `APP_BASE_URL`                    | URI to the web app.                                                                                                          | ✅       | Variable |
+| `AUDIO_BASE_URL`                  | URI for the R2 bucket that hosts the audio files.                                                                            | ✅       | Variable |
+| `AUTH0_AUDIENCE`                  | URL for the API created in the Auth0 dashboard.                                                                              | ✅       | Variable |
+| `AUTH0_CLIENT_ID`                 | Client ID of the Clearance Lab application in Auth0.                                                                         | ✅       | Variable |
+| `AUTH0_CLIENT_SECRET`             | Client-side secret for Auth0.                                                                                                | ✅       | Secret   |
+| `AUTH0_DOMAIN`                    | Domain of the Clearance Lab application in Auth0. This is not a URL. Copy the value exactly as shown in the AUTH0 dashboard. | ✅       | Variable |
+| `AUTH0_SECRET`                    | Secret for the Clearance Lab application in Auth0.                                                                           | ✅       | Secret   |
+| `BACKEND_CF_ACCESS_CLIENT_ID`     | Cloudflare Access client ID for accessing the backend API through Cloudflare Zero Trust.                                     | ✅       | Secret   |
+| `BACKEND_CF_ACCESS_CLIENT_SECRET` | Cloudflare Access client secret for accessing the backend API through Cloudflare Zero Trust.                                 | ✅       | Secret   |
+| `CLOUDFLARE_ACCOUNT_ID`           | Cloudflare account ID where the worker is deployed.                                                                          | ✅       | Variable |
+| `CLOUDFLARE_API_TOKEN`            | Cloudflare API token for deploying the worker.                                                                               | ✅       | Secret   |
+| `CLOUDFLARE_RUNTIME_API_TOKEN`    | API token with `Zone: Cache purge` permission. Used to clear cached audio files programmatically.                            |          | Secret   |
+| `CLOUDFLARE_ZONE_ID`              | The Zone ID the worker is deployed under. Used to clear cached audio files programmatically.                                 |          | Variable |
+| `DEPLOY_ENV`                      | Deployment environment, either `prod` or `dev`.                                                                              | ✅       | Variable |
+| `SAMPLE_SCENARIO_ID`              | MongoDB ID of the sample scenario to display in documentation.                                                               |          | Variable |
 
 > [!NOTE]
 > Variables are set in GitHub environment variables for each deployment environment (`dev` and `prod`). Secrets are stored in GitHub secrets.
