@@ -29,10 +29,10 @@
     },
     {
       "automerge": true,
-      "excludePackageNames": ["pnpm"],
       "groupName": "all minor and patch dependencies",
       "groupSlug": "all-minor-patch",
-      "matchUpdateTypes": ["minor", "patch"]
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["!pnpm"]
     }
   ]
 }
