@@ -39,7 +39,7 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
 
   const sortedUniqueValues = useMemo(
     // Use the keys from the facetedValuesMap
-    () => [...facetedValuesMap.keys()].sort().slice(0, 5000),
+    () => [...facetedValuesMap.keys()].toSorted().slice(0, 5000),
     // Depend on the facetedValuesMap instance
     [facetedValuesMap],
   );
@@ -67,7 +67,7 @@ export const ComboBoxFilter = ({ column }: FilterProperties) => {
           </button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-[150px] p-2 space-y-1"
+          className="w-37.5 p-2 space-y-1"
           role="dialog"
           aria-labelledby={`filter-button-${column.id}`}
         >

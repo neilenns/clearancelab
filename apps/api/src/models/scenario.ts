@@ -144,6 +144,7 @@ ScenarioSchema.statics.findScenarios = async function (
         : {};
 
     return await this.find(query)
+      // eslint-disable-next-line unicorn/no-array-sort
       .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
       // I have no idea why this is including all the matched scenarios in a matchedScenarios
       // field. Force exclude them so I can move on to other things.
@@ -176,6 +177,7 @@ ScenarioSchema.statics.findSummary = async function (
 
     const results = await this.find(query)
       .select("isValid isDraft hasAudio plan.dep plan.dest plan.aid plan.rte")
+      // eslint-disable-next-line unicorn/no-array-sort
       .sort({ "plan.dep": 1, "plan.dest": 1, "plan.aid": 1 })
       .lean()
       .exec();
