@@ -82,7 +82,7 @@
     "markdownlint": "^0.40.0",
     "markdownlint-cli": "^0.47.0",
     "rimraf": "^6.0.1",
-    "shadcn": "^2.10.0",
+    "shadcn": "^3.0.0",
     "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.1.12",
     "turbo": "^2.5.6",
