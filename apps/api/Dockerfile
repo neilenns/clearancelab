@@ -1,6 +1,6 @@
 # This method comes from https://depot.dev/docs/container-builds/how-to-guides/optimal-dockerfiles/node-pnpm-dockerfile
 # Dependencies image
-FROM node:22.21.1-alpine AS base
+FROM node:22.22.0-alpine AS base
 
 # Install pnpm
 ARG PNPM_HOME="/pnpm-store"
