@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "@tsconfig/node22": "^22.0.1"
+    "@tsconfig/node24": "^24.0.0"
   },
   "publishConfig": {
     "access": "public"
