@@ -8,18 +8,11 @@ const log = logger.child({ service: "scenarios" });
 
 const router = Router();
 
-type QueryParameters = Request<
-  unknown,
-  unknown,
-  unknown,
-  { id?: string | string[] }
->;
-
 router.get(
   "/",
   verifyApiKey,
-  async (request: QueryParameters, response: Response) => {
-    const ids = request.query.id;
+  async (request: Request, response: Response) => {
+    const ids = request.query.id as string | string[] | undefined;
     const idList = Array.isArray(ids) ? ids : ids ? [ids] : [];
 
     try {
