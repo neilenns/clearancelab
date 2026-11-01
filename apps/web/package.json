@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "cf-build": "opennextjs-cloudflare build",
-    "cf-deploy": "pnpm run cf-build && opennextjs-cloudflare deploy -- --dangerouslyUseUnsupportedNextVersion --env=$DEPLOY_ENV",
+    "cf-build": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion",
+    "cf-deploy": "pnpm run cf-build && opennextjs-cloudflare deploy -- --env=$DEPLOY_ENV",
     "cf-populate": "opennextjs-cloudflare populateCache remote -- --env=$DEPLOY_ENV",
     "cf-preview": "pnpm run cf-build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
