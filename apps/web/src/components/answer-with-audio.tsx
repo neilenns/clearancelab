@@ -4,7 +4,7 @@ import { CraftTable } from "@/components/craft-table";
 import { Explanations } from "@/components/explanations/explanations";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 import { generateIssueBody, generateIssueTitle } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import { AnimatePresence, motion } from "framer-motion";

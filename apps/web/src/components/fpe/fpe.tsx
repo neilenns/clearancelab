@@ -4,7 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 import { getFlightAwareUrl, getSkyVectorUrl } from "@workspace/plantools";
 import { Scenario } from "@workspace/validators";
 import * as changeCase from "change-case";

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 import React from "react";
 
 export interface ChatMessage {

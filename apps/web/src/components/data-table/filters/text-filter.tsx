@@ -4,7 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 import { FunnelIcon } from "lucide-react";
 import { useState } from "react";
 import { FilterProperties } from "./filter";
