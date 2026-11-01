@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 import { ExplanationLevel } from "@workspace/validators";
 import { cva, VariantProps } from "class-variance-authority";
 import {

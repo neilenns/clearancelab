@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 import { FunnelIcon } from "lucide-react";
 import { FilterProperties } from "./filter";
 

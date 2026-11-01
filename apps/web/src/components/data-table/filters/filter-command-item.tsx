@@ -1,5 +1,5 @@
 import { CommandItem } from "@/components/ui/command";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utilities";
 
 interface FilterCommandItemProperties {
   value: string | undefined;
